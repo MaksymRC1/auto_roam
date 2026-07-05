@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AutoRoam: PWA Планувальник Автомобільних Подорожей
 
-## Getting Started
+AutoRoam — це розумний веб-додаток (Progressive Web App) для водіїв, який перетворює планування далекої автомобільної подорожі з хаосу вкладок на єдиний зрозумілий таймлайн. Додаток автоматизує розрахунки бюджету, пошук місць для ночівлі та надає актуальну інформацію про перетин кордонів і віньєтки.
 
-First, run the development server:
+## 💡 Ідея проекту
+Звичайна навігація (як Google Maps) добре показує шлях, але не відповідає на ключові питання мандрівника: "Скільки це коштуватиме?", "Де мені доведеться зупинитися на ніч?", "Які кордони я перетинатиму і що там з платними дорогами?".
+AutoRoam вирішує ці проблеми, створюючи єдиний контекст подорожі, де маршрут розбивається на логічні відрізки та "розумні зупинки".
+
+## 🎨 UI/UX Дизайн
+Додаток використовує концепцію "Split View" (розділений екран):
+- **Ліва панель (Візуалізація):** Містить перемикач між інтерактивною картою (з відображенням лінії маршруту) та "Trip Timeline" — вертикальною візуальною шкалою подорожі, де всі зупинки розташовані у хронологічному порядку.
+- **Права панель (Управління):** Форма для вводу старту та фінішу, під якою розташовані "Розумні панелі" у вигляді акордеону:
+  - ⛽ **Пальне:** Калькулятор витрат на основі розходу вашого авто.
+  - 🏨 **Ночівля:** Автоматична генерація зупинок (наприклад, кожні 8 годин) з прив'язкою до реальних міст на маршруті та прямим лінком на пошук готелів.
+  - 🛂 **Кордони:** Автоматичне виявлення перетину країн (через алгоритм сканування геометрії маршруту) та динамічне підтягування посилань на покупку віньєток (e-TOLL, ro-vinieta тощо).
+  - 💰 **Бюджет:** Агрегатор усіх витрат з підтримкою мультивалютності (USD, EUR, UAH) та опціональним 15% резервом на непередбачувані ситуації.
+
+## 🛠 Технологічний стек
+Проект побудовано на сучасних безкоштовних технологіях з акцентом на швидкість та незалежність від дорогих API:
+- **Core:** Next.js 15 (App Router), React 19, TypeScript
+- **State Management:** Zustand (глобальний store для маршруту)
+- **Styling & UI:** Tailwind CSS, shadcn/ui (Radix UI), Lucide Icons
+- **Mapping:** Leaflet, React-Leaflet
+- **Routing & Geocoding (Open Source):**
+  - **OSRM (Open Source Routing Machine):** для розрахунку геометрії маршруту, дистанції та часу.
+  - **Nominatim (OpenStreetMap):** для прямого геокодування (назва міста -> координати).
+  - **BigDataCloud API:** для швидкого зворотного геокодування (координати -> назва міста), що використовується для точного знаходження кордонів та міст для ночівлі.
+
+## 🚀 Запуск проекту
 
 ```bash
+# Встановлення залежностей
+npm install
+
+# Запуск локального сервера розробки
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Відкрийте [http://localhost:3000](http://localhost:3000) у вашому браузері.

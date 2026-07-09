@@ -5,10 +5,16 @@ export interface GeocodeResult {
   name: string;
 }
 
+export interface RouteLeg {
+  distanceKm: number;
+  durationMins: number;
+}
+
 export interface RouteResult {
   distanceKm: number;
   durationMins: number;
   geometry: [number, number][]; // [lat, lon] for Leaflet
+  legs: RouteLeg[];
 }
 
 // 1. Geocoding using Nominatim
@@ -40,10 +46,12 @@ export async function geocodeCity(city: string): Promise<GeocodeResult | null> {
 }
 
 // 2. Routing using OSRM
-export async function getRoute(start: GeocodeResult, end: GeocodeResult): Promise<RouteResult | null> {
+export async function getRoute(points: GeocodeResult[]): Promise<RouteResult | null> {
   try {
-    // OSRM format: lon,lat
-    const coords = `${start.lon},${start.lat};${end.lon},${end.lat}`;
+    if (points.length < 2) return null;
+    
+    // OSRM format: lon1,lat1;lon2,lat2;...
+    const coords = points.map(p => `${p.lon},${p.lat}`).join(';');
     const url = `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`;
     
     const response = await fetch(url);
@@ -56,11 +64,17 @@ export async function getRoute(start: GeocodeResult, end: GeocodeResult): Promis
     
     // Convert GeoJSON [lon, lat] to Leaflet format [lat, lon]
     const geometry: [number, number][] = route.geometry.coordinates.map((coord: [number, number]) => [coord[1], coord[0]]);
+    
+    const legs: RouteLeg[] = (route.legs || []).map((leg: any) => ({
+      distanceKm: Math.round(leg.distance / 1000),
+      durationMins: Math.round(leg.duration / 60)
+    }));
 
     return {
       distanceKm: Math.round(route.distance / 1000),
       durationMins: Math.round(route.duration / 60),
-      geometry
+      geometry,
+      legs
     };
   } catch (error) {
     console.error('Routing error:', error);

@@ -179,10 +179,8 @@ export function HotelPanel() {
                 </div>
                 
                 <div className="pt-3 flex gap-2">
-                  <Button className="w-full bg-[#003580] hover:bg-[#00224f] text-white" asChild>
-                    <a href={`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(stop.name.replace('Ночівля у м. ', ''))}`} target="_blank" rel="noopener noreferrer">
-                      Знайти готелі на Booking.com <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
+                  <Button className="w-full bg-[#003580] hover:bg-[#00224f] text-white" onClick={() => window.open(`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(stop.name.replace('Ночівля у м. ', ''))}`, '_blank')}>
+                    Знайти готелі на Booking.com <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               </div>

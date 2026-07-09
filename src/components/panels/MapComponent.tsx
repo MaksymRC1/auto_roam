@@ -26,12 +26,14 @@ function MapUpdater({ geometry }: { geometry: [number, number][] }) {
 }
 
 export default function MapComponent() {
-  const { routeGeometry, isCalculated, from, to } = useTripStore();
+  const { routeGeometry, isCalculated, waypoints } = useTripStore();
 
   const defaultCenter: [number, number] = [48.3794, 31.1656]; // Ukraine center
   const hasRoute = isCalculated && routeGeometry.length > 0;
   const startPoint = hasRoute ? routeGeometry[0] : defaultCenter;
   const endPoint = hasRoute ? routeGeometry[routeGeometry.length - 1] : null;
+  const startName = waypoints.find(w => w.type === 'start')?.name || 'Відправлення';
+  const endName = waypoints.find(w => w.type === 'finish')?.name || 'Призначення';
 
   return (
     <MapContainer 
@@ -60,14 +62,14 @@ export default function MapComponent() {
           
           <Marker position={startPoint}>
             <Popup className="font-semibold text-slate-800">
-              Старт: {from}
+              Старт: {startName}
             </Popup>
           </Marker>
           
           {endPoint && (
             <Marker position={endPoint}>
               <Popup className="font-semibold text-slate-800">
-                Фініш: {to}
+                Фініш: {endName}
               </Popup>
             </Marker>
           )}

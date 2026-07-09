@@ -90,10 +90,8 @@ export function BordersPanel() {
 
                 {border.name.includes('UA') && (
                   <div className="pt-4 flex gap-2">
-                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm" asChild>
-                      <a href="https://dpsu.gov.ua/ua/map/" target="_blank" rel="noopener noreferrer">
-                        Онлайн камери ДПСУ <ExternalLink className="w-4 h-4 ml-2" />
-                      </a>
+                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm" onClick={() => window.open("https://dpsu.gov.ua/ua/map/", "_blank")}>
+                      Онлайн камери ДПСУ <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
                 )}
@@ -124,10 +122,8 @@ export function BordersPanel() {
                   <span className="text-sm font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 self-start md:self-auto">
                     {vignette.type}
                   </span>
-                  <Button size="sm" variant="outline" className="w-full md:w-auto text-indigo-700 border-indigo-200 hover:bg-indigo-50" asChild>
-                    <a href={vignette.link} target="_blank" rel="noopener noreferrer">
-                      Купити офіційно <ExternalLink className="w-3 h-3 ml-2" />
-                    </a>
+                  <Button size="sm" variant="outline" className="w-full md:w-auto text-indigo-700 border-indigo-200 hover:bg-indigo-50" onClick={() => window.open(vignette.link, "_blank")}>
+                    Купити офіційно <ExternalLink className="w-3 h-3 ml-2" />
                   </Button>
                 </div>
               </div>

@@ -12,6 +12,7 @@ import { FuelPanel } from "./panels/fuel-panel";
 import { HotelPanel } from "./panels/hotel-panel";
 import { BordersPanel } from "./panels/borders-panel";
 import { BudgetPanel } from "./panels/budget-panel";
+import { StopsInput } from "./stops-input";
 import {
   Accordion,
   AccordionContent,
@@ -25,36 +26,35 @@ export function TripPlanner() {
   const [leftView, setLeftView] = useState<'timeline' | 'map'>('timeline');
   
   const { 
-    from, 
-    to, 
     isCalculated, 
     totalDistance, 
     totalDuration, 
     waypoints, 
     activePanel, 
-    isLoading,
-    error,
-    calculateRoute, 
     setActivePanel,
-    resetTrip 
+    fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries
   } = useTripStore();
 
-  const [localFrom, setLocalFrom] = useState(from);
-  const [localTo, setLocalTo] = useState(to);
+  const rate = exchangeRates[currency] || 1;
+  const currencySymbol = currency === "EUR" ? "€" : currency === "UAH" ? "₴" : currency === "USD" ? "$" : "zł";
+
+  let totalCostEur = 0;
+  Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
+    const amount = parseFloat(amountStr) || 0;
+    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+    totalCostEur += amount * priceEur;
+  });
+  const totalFuelCost = Math.round(totalCostEur * rate);
+
+  const needsFuel = totalDistance > 0 && totalFuelCost === 0;
+  const needsHotel = totalDuration > 480;
+  const needsBorders = crossedCountries.length > 1;
 
   useEffect(() => {
     setMounted(true);
-    setLocalFrom(from);
-    setLocalTo(to);
-  }, [from, to]);
+  }, []);
 
   if (!mounted) return null;
-
-  const handleCalculate = () => {
-    if (localFrom && localTo) {
-      calculateRoute(localFrom, localTo);
-    }
-  };
 
   const formatTime = (mins: number) => {
     const h = Math.floor(mins / 60);
@@ -67,35 +67,7 @@ export function TripPlanner() {
       
       {/* Mobile Input */}
       <Card className="p-4 mb-6 md:hidden">
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-slate-400" />
-            <Input 
-              placeholder="Звідки (напр. Київ)" 
-              value={localFrom} 
-              onChange={(e) => setLocalFrom(e.target.value)}
-              className="border-none shadow-none focus-visible:ring-0 px-0 h-8 text-base"
-            />
-          </div>
-          <div className="h-px bg-slate-100 w-full" />
-          <div className="flex items-center gap-2">
-            <Navigation2 className="w-4 h-4 text-slate-400" />
-            <Input 
-              placeholder="Куди (напр. Краків)" 
-              value={localTo} 
-              onChange={(e) => setLocalTo(e.target.value)}
-              className="border-none shadow-none focus-visible:ring-0 px-0 h-8 text-base"
-            />
-          </div>
-          {error && <div className="text-sm text-red-500 font-medium">{error}</div>}
-          {!isCalculated ? (
-            <Button onClick={handleCalculate} disabled={isLoading} className="w-full mt-2 bg-blue-600 hover:bg-blue-700">
-              {isLoading ? 'Розрахунок...' : 'Побудувати маршрут'}
-            </Button>
-          ) : (
-            <Button onClick={resetTrip} variant="outline" className="w-full mt-2 text-slate-500">Скинути маршрут</Button>
-          )}
-        </div>
+        <StopsInput />
       </Card>
 
       {/* Main Layout */}
@@ -179,6 +151,16 @@ export function TripPlanner() {
                               {isStart && (
                                 <span className="text-xs text-emerald-600 font-medium mt-1">Точка відправлення</span>
                               )}
+                              {wp.lat && wp.lon && (
+                                <div className="flex gap-2 mt-2 pt-2 border-t border-slate-50">
+                                  <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-blue-600 bg-blue-50 px-2 py-1 rounded hover:bg-blue-100 font-medium flex items-center gap-1 transition-colors">
+                                    <Navigation2 className="w-3 h-3" /> Waze
+                                  </a>
+                                  <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-emerald-600 bg-emerald-50 px-2 py-1 rounded hover:bg-emerald-100 font-medium flex items-center gap-1 transition-colors">
+                                    <MapPin className="w-3 h-3" /> Maps
+                                  </a>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -198,59 +180,38 @@ export function TripPlanner() {
           {/* Desktop Input */}
           <Card className="hidden md:block p-5 border-slate-200 shadow-sm shrink-0 bg-white">
             <h3 className="font-semibold text-slate-800 mb-4">Параметри маршруту</h3>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4 text-emerald-600" />
-                </div>
-                <Input 
-                  placeholder="Звідки (напр. Київ)" 
-                  value={localFrom} 
-                  onChange={(e) => setLocalFrom(e.target.value)}
-                  className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500" 
-                />
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                  <Navigation2 className="w-4 h-4 text-rose-600" />
-                </div>
-                <Input 
-                  placeholder="Куди (напр. Краків)" 
-                  value={localTo} 
-                  onChange={(e) => setLocalTo(e.target.value)}
-                  className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500" 
-                />
-              </div>
-              
-              <div className="pt-2">
-                {error && <div className="text-sm text-red-500 font-medium mb-3">{error}</div>}
-                {!isCalculated ? (
-                  <Button onClick={handleCalculate} disabled={isLoading} size="lg" className="w-full bg-blue-600 hover:bg-blue-700 shadow-sm text-base">
-                    {isLoading ? 'Розрахунок...' : 'Побудувати маршрут'}
-                  </Button>
-                ) : (
-                  <Button onClick={resetTrip} variant="outline" size="lg" className="w-full text-slate-600 border-slate-300">
-                    Очистити маршрут
-                  </Button>
-                )}
-              </div>
-            </div>
+            <StopsInput />
           </Card>
 
           {/* Smart Panels Accordion List */}
           {isCalculated && (
             <div className="flex-1 bg-white rounded-xl border border-slate-200 shadow-sm">
               <Accordion 
-                value={activePanel} 
-                onValueChange={(v) => v && setActivePanel(v as PanelType)}
+                value={activePanel ? [activePanel] : []} 
+                onValueChange={(v: any) => { 
+                  if (Array.isArray(v)) {
+                    setActivePanel(v.length > 0 ? (v[0] as PanelType) : null);
+                  } else {
+                    setActivePanel(v ? (v as PanelType) : null);
+                  }
+                }}
                 className="w-full"
               >
                 
                 <AccordionItem value="fuel" className="border-b px-2">
                   <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-600">
-                    <div className="flex items-center gap-3 text-base">
-                      <span className="text-xl">⛽</span> Розрахунок палива
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full pr-4 gap-1 text-left">
+                      <div className="flex items-center gap-3 text-base">
+                        <span className="text-xl">⛽</span> <span className="font-semibold">Розрахунок палива</span>
+                        {needsFuel && (
+                          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" title="Потребує уваги"></span>
+                        )}
+                      </div>
+                      {totalDistance > 0 && (
+                        <span className="text-sm font-normal text-slate-500 bg-slate-50 border px-2 py-0.5 rounded-full ml-8 sm:ml-0 w-fit">
+                          {totalDistance} км • {totalFuelCost > 0 ? `${currencySymbol} ${totalFuelCost}` : 'Не розподілено'}
+                        </span>
+                      )}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4">
@@ -261,7 +222,10 @@ export function TripPlanner() {
                 <AccordionItem value="hotel" className="border-b px-2">
                   <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-600">
                     <div className="flex items-center gap-3 text-base">
-                      <span className="text-xl">🏨</span> Ночівля та зупинки
+                      <span className="text-xl">🏨</span> <span className="font-semibold">Ночівля та зупинки</span>
+                      {needsHotel && (
+                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" title="Потребує уваги"></span>
+                      )}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4">
@@ -272,7 +236,10 @@ export function TripPlanner() {
                 <AccordionItem value="borders" className="border-b px-2">
                   <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-600">
                     <div className="flex items-center gap-3 text-base">
-                      <span className="text-xl">🛂</span> Кордони та віньєтки
+                      <span className="text-xl">🛂</span> <span className="font-semibold">Кордони та віньєтки</span>
+                      {needsBorders && (
+                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" title="Потребує уваги"></span>
+                      )}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4">
@@ -283,7 +250,7 @@ export function TripPlanner() {
                 <AccordionItem value="budget" className="px-2 border-none">
                   <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-600">
                     <div className="flex items-center gap-3 text-base">
-                      <span className="text-xl">💰</span> Загальний кошторис
+                      <span className="text-xl">💰</span> <span className="font-semibold">Загальний кошторис</span>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-4 pb-4">

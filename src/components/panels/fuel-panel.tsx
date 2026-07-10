@@ -6,14 +6,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info } from "lucide-react";
+import { Info, Fuel, AlertTriangle, TrendingDown, ExternalLink } from "lucide-react";
+import 'izitoast/dist/css/iziToast.min.css';
+
+// Placeholder for referral programs by country code
+const fuelReferrals: Record<string, { text: string; link: string; promo?: string }> = {
+  'UA': { text: 'Знижка -2 грн/л у WOG PRIDE', link: 'https://wog.ua', promo: 'AUTOROAM' },
+  'PL': { text: 'Оплата автобанів та АЗС через Autopay', link: 'https://autopay.pl' },
+  'DE': { text: 'Оплата на колонці з кешбеком (Ryd)', link: 'https://ryd.one' },
+  'AT': { text: 'Знижки на пальне (Ryd)', link: 'https://ryd.one' },
+};
 import { useTripStore, FuelType } from "@/store/useTripStore";
 
 export function FuelPanel() {
   const { 
     totalDistance, fuelPrices, fetchFuelPrices, selectedFuelType, setFuelType, crossedCountries,
-    consumption, setConsumption, fuelAmounts, setFuelAmounts, currency, setCurrency, exchangeRates, setExchangeRates
+    consumption, setConsumption, isDefaultConsumption, fuelAmounts, setFuelAmounts, currency, setCurrency, exchangeRates, setExchangeRates
   } = useTripStore();
+  
+  const [isFocused, setIsFocused] = useState(false);
+  const [isAnyAmountFocused, setIsAnyAmountFocused] = useState(false);
 
   // Fetch real exchange rates on mount
   useEffect(() => {
@@ -36,6 +48,67 @@ export function FuelPanel() {
 
   const regionNames = useMemo(() => new Intl.DisplayNames(['uk'], { type: 'region' }), []);
 
+  const balanceFuel = (nextAmounts: Record<string, string>, activeCode: string) => {
+    const selectedCountries = Object.keys(nextAmounts);
+    if (selectedCountries.length === 0) return nextAmounts;
+
+    let cheapestSelected = selectedCountries[0];
+    let minPrice = Infinity;
+    selectedCountries.forEach(c => {
+      const price = fuelPrices[c]?.[selectedFuelType];
+      if (price !== undefined && price > 0 && price < minPrice) {
+        minPrice = price;
+        cheapestSelected = c;
+      }
+    });
+
+    if (activeCode !== cheapestSelected && nextAmounts[cheapestSelected] !== undefined) {
+      let sumOthers = 0;
+      Object.entries(nextAmounts).forEach(([k, v]) => {
+        if (k !== cheapestSelected) {
+          sumOthers += parseFloat(v) || 0;
+        }
+      });
+      
+      const numericC = parseFloat(consumption) || 0;
+      const cFuel = Math.round(((totalDistance / 100) * numericC) * 1.1);
+      
+      const newCheapestAmount = Math.max(0, cFuel - sumOthers);
+      nextAmounts[cheapestSelected] = (Math.round(newCheapestAmount * 10) / 10).toString();
+    }
+
+    // Final validation to prevent exceeding total calculated fuel
+    let finalSum = 0;
+    Object.values(nextAmounts).forEach(v => finalSum += parseFloat(v) || 0);
+    
+    const numericC = parseFloat(consumption) || 0;
+    const cFuel = Math.round(((totalDistance / 100) * numericC) * 1.1);
+    
+    if (finalSum > cFuel + 0.1) {
+      // Revert the excess from the activeCode that caused it
+      let sumWithoutActive = 0;
+      Object.entries(nextAmounts).forEach(([k, v]) => {
+        if (k !== activeCode) sumWithoutActive += parseFloat(v) || 0;
+      });
+      
+      const maxAllowed = Math.max(0, cFuel - sumWithoutActive);
+      nextAmounts[activeCode] = (Math.round(maxAllowed * 10) / 10).toString();
+      
+      // Dynamic import to avoid SSR issues
+      import('izitoast').then((module) => {
+        const iziToast = module.default;
+        iziToast.warning({
+          title: 'Увага',
+          message: 'Неможливо додати палива більше, ніж потрібно для маршруту',
+          position: 'topRight',
+          timeout: 3000
+        });
+      });
+    }
+
+    return nextAmounts;
+  };
+
   const toggleCountry = (code: string) => {
     setFuelAmounts((prev) => {
       const next = { ...prev };
@@ -44,12 +117,15 @@ export function FuelPanel() {
       } else {
         next[code] = "";
       }
-      return next;
+      return balanceFuel(next, code);
     });
   };
 
   const updateAmount = (code: string, amount: string) => {
-    setFuelAmounts((prev) => ({ ...prev, [code]: amount }));
+    setFuelAmounts((prev) => {
+      const next = { ...prev, [code]: amount };
+      return balanceFuel(next, code);
+    });
   };
 
   // Calculations
@@ -85,7 +161,7 @@ export function FuelPanel() {
             </CardDescription>
           </div>
           <Select value={currency} onValueChange={(v) => { if (v) setCurrency(v); }}>
-            <SelectTrigger className="w-24 h-8 text-xs bg-white">
+            <SelectTrigger className="w-24 h-8 text-xs bg-blue-50/80 border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors shadow-sm ring-1 ring-blue-500/20">
               <SelectValue placeholder="Валюта" />
             </SelectTrigger>
             <SelectContent>
@@ -105,8 +181,10 @@ export function FuelPanel() {
             <Select value={selectedFuelType} onValueChange={(v) => { 
               if (v) {
                 setFuelType(v as FuelType); 
-                setConsumption("");
+                const defaultC = v === 'gasoline' ? '8' : v === 'diesel' ? '6' : '10';
+                setConsumption(defaultC, true);
                 setFuelAmounts({});
+                setTimeout(() => useTripStore.getState().autoAssignFuel(), 0);
               }
             }}>
               <SelectTrigger>
@@ -123,15 +201,34 @@ export function FuelPanel() {
           </div>
           <div className="space-y-2">
             <Label>Витрата (л/100 км)</Label>
-            <Input 
-              type="text"
-              inputMode="decimal"
-              value={consumption} 
-              onChange={(e) => setConsumption(e.target.value.replace(',', '.').replace(/[^0-9.]/g, ''))} 
-              className={`[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${
-                !consumption ? 'border-amber-500 ring-1 ring-amber-500 bg-amber-50' : ''
-              }`}
-            />
+            <div className="relative w-36">
+              <Input 
+                type="text"
+                inputMode="decimal"
+                placeholder={selectedFuelType === 'gasoline' ? '8.0' : selectedFuelType === 'diesel' ? '6.0' : '10.0'}
+                value={consumption}
+                onFocus={() => {
+                  setIsFocused(true);
+                  if (isDefaultConsumption) {
+                    setConsumption("", false);
+                    setFuelAmounts({});
+                  }
+                }}
+                onBlur={() => {
+                  setIsFocused(false);
+                  if (!consumption) {
+                    const defaultC = selectedFuelType === 'gasoline' ? '8' : selectedFuelType === 'diesel' ? '6' : '10';
+                    setConsumption(defaultC, true);
+                  }
+                }}
+                onChange={(e) => {
+                  const val = e.target.value.replace(',', '.').replace(/[^0-9.]/g, '');
+                  setConsumption(val, false);
+                }}
+                className={`pr-20 text-right font-medium ${isDefaultConsumption && !isFocused ? 'text-slate-400 bg-slate-50 opacity-70' : ''}`}
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400 pointer-events-none">л/100 км</span>
+            </div>
           </div>
         </div>
 
@@ -140,7 +237,12 @@ export function FuelPanel() {
              <Label>Країни для заправки (натисніть, щоб додати об'єм)</Label>
              <div className="flex flex-wrap gap-2">
                 {crossedCountries.map(code => {
-                  const countryName = regionNames.of(code) || code;
+                  let countryName = code;
+                  try {
+                    countryName = regionNames.of(code) || code;
+                  } catch (e) {
+                    // Ignore error for invalid codes like "UNKNOWN"
+                  }
                   const priceEur = fuelPrices[code]?.[selectedFuelType];
                   const isSelected = fuelAmounts[code] !== undefined;
                   const priceLocal = priceEur ? (priceEur * rate).toFixed(2) : null;
@@ -170,25 +272,45 @@ export function FuelPanel() {
                     const countryCostLocal = Math.round((parseFloat(amount) || 0) * priceLocal);
 
                     return (
-                      <div key={code} className="flex items-center gap-3">
-                        <div className="flex-1">
-                          <Label className="text-xs text-slate-500 mb-1 block">
-                            {countryName} ({currencySymbol}{priceLocal.toFixed(2)}/л)
-                          </Label>
-                          <div className="relative">
-                            <Input 
-                              type="text"
-                              inputMode="decimal"
-                              value={amount}
-                              onChange={(e) => updateAmount(code, e.target.value.replace(',', '.').replace(/[^0-9.]/g, ''))}
-                              className="pr-8 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                            />
-                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">л</span>
+                      <div key={code}>
+                        <div className="flex items-center gap-3">
+                          <div className="flex-1">
+                            <Label className="text-xs text-slate-500 mb-1 block">
+                              {countryName} ({currencySymbol}{priceLocal.toFixed(2)}/л)
+                            </Label>
+                            <div className="relative">
+                              <Input 
+                                type="text"
+                                inputMode="decimal"
+                                value={amount}
+                                onFocus={() => setIsAnyAmountFocused(true)}
+                                onBlur={() => setIsAnyAmountFocused(false)}
+                                onChange={(e) => updateAmount(code, e.target.value.replace(',', '.').replace(/[^0-9.]/g, ''))}
+                                className={`pr-8 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${isDefaultConsumption && !isFocused && !isAnyAmountFocused ? 'opacity-40 text-slate-500 bg-slate-50 transition-opacity' : 'opacity-100 transition-opacity'}`}
+                              />
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">л</span>
+                            </div>
+                          </div>
+                          <div className="w-24 text-right pt-5 text-sm font-medium text-slate-700">
+                            {currencySymbol} {countryCostLocal}
                           </div>
                         </div>
-                        <div className="w-24 text-right pt-5 text-sm font-medium text-slate-700">
-                          {currencySymbol} {countryCostLocal}
-                        </div>
+                        {fuelReferrals[code] && (
+                          <a 
+                            href={fuelReferrals[code].link} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 mt-1.5 text-[11px] text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            {fuelReferrals[code].text}
+                            {fuelReferrals[code].promo && (
+                              <span className="font-mono bg-muted px-1 py-0.5 rounded ml-1 text-[10px]">
+                                {fuelReferrals[code].promo}
+                              </span>
+                            )}
+                          </a>
+                        )}
                       </div>
                     );
                  })}

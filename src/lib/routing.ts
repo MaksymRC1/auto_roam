@@ -5,6 +5,9 @@ export interface GeocodeResult {
   name: string;
 }
 
+import polyline from '@mapbox/polyline';
+import { isSchengenBorder } from './borders';
+
 export interface RouteLeg {
   distanceKm: number;
   durationMins: number;
@@ -17,32 +20,155 @@ export interface RouteResult {
   legs: RouteLeg[];
 }
 
-// 1. Geocoding using Nominatim
+// 1. Geocoding using Open-Meteo with Photon fallback
 export async function geocodeCity(city: string): Promise<GeocodeResult | null> {
+  let query = city.trim();
+  let isPoi = false;
+
+  // Smart URL parsing
   try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&addressdetails=1`;
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'AutoRoam/1.0 (MVP Prototype)' // Nominatim requires a valid user agent
+    if (query.startsWith('http')) {
+      const parsedUrl = new URL(query);
+      
+      // 1. Booking.com
+      if (parsedUrl.hostname.includes('booking.com')) {
+        const match = parsedUrl.pathname.match(/\/hotel\/[a-z]+\/([^.]+)/);
+        if (match && match[1]) {
+          query = match[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          isPoi = true; // Skip city geocoder for hotels
+        }
       }
-    });
+      
+      // 2. Google Maps
+      if (parsedUrl.hostname.includes('google.com') || parsedUrl.hostname.includes('maps.app.goo.gl') || parsedUrl.hostname.includes('goo.gl')) {
+        let finalUrl = query;
+        if (parsedUrl.hostname.includes('maps.app.goo.gl') || parsedUrl.hostname.includes('goo.gl')) {
+           const res = await fetch(`/api/resolve-url?url=${encodeURIComponent(query)}`);
+           if (res.ok) {
+              const data = await res.json();
+              if (data.success && data.url) finalUrl = data.url;
+           }
+        }
+        const match = finalUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (match) {
+          const lat = parseFloat(match[1]);
+          const lon = parseFloat(match[2]);
+          const rev = await reverseGeocode(lat, lon);
+          return {
+             lat, lon,
+             name: rev?.city || "Місце з карти",
+             countryCode: rev?.countryCode || 'UNKNOWN'
+          };
+        }
+      }
+      
+      // 3. Waze
+      if (parsedUrl.hostname.includes('waze.com')) {
+        const ll = parsedUrl.searchParams.get('ll');
+        if (ll) {
+          const [latStr, lonStr] = ll.split(',');
+          if (latStr && lonStr) {
+            const lat = parseFloat(latStr);
+            const lon = parseFloat(lonStr);
+            const rev = await reverseGeocode(lat, lon);
+            return {
+               lat, lon,
+               name: rev?.city || "Місце з Waze",
+               countryCode: rev?.countryCode || 'UNKNOWN'
+            };
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error("URL parsing failed", e);
+  }
 
-    if (!response.ok) return null;
+  // 4. Exact coordinates from MapPickerModal (Format: "Name | lat,lon")
+  if (query.includes('|')) {
+    const parts = query.split('|');
+    const coordsStr = parts[parts.length - 1].trim();
+    const coordMatch = coordsStr.match(/^(-?\d+\.\d+),\s*(-?\d+\.\d+)$/);
+    if (coordMatch) {
+      const lat = parseFloat(coordMatch[1]);
+      const lon = parseFloat(coordMatch[2]);
+      const name = parts[0].trim();
+      const rev = await reverseGeocode(lat, lon);
+      return {
+         lat, lon,
+         name: name !== "Точка на карті" ? name : (rev?.city || name),
+         countryCode: rev?.countryCode || 'UNKNOWN'
+      };
+    }
+  }
 
-    const data = await response.json();
-    if (!data || data.length === 0) return null;
+  try {
+    // Primary: Open-Meteo (excellent for major cities)
+    if (!isPoi) {
+      const omUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=uk&format=json`;
+      const omRes = await fetch(omUrl);
+      if (omRes.ok) {
+        const omData = await omRes.json();
+        if (omData.results && omData.results.length > 0) {
+          const result = omData.results[0];
+          return {
+            lat: result.latitude,
+            lon: result.longitude,
+            countryCode: result.country_code?.toUpperCase() || 'UNKNOWN',
+            name: result.name || query
+          };
+        }
+      }
+    }
 
-    const result = data[0];
-    return {
-      lat: parseFloat(result.lat),
-      lon: parseFloat(result.lon),
-      countryCode: result.address?.country_code?.toUpperCase() || 'UNKNOWN',
-      name: result.name || city
-    };
+    // Fallback: Photon (better for small towns, POIs, hotels)
+    const photonUrl = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=1`;
+    const photonRes = await fetch(photonUrl);
+    if (photonRes.ok) {
+      const photonData = await photonRes.json();
+      if (photonData.features && photonData.features.length > 0) {
+        const result = photonData.features[0];
+        const props = result.properties;
+        const coords = result.geometry.coordinates; // [lon, lat]
+        return {
+          lat: coords[1],
+          lon: coords[0],
+          countryCode: props.countrycode?.toUpperCase() || 'UNKNOWN',
+          name: props.name || props.city || query
+        };
+      }
+    }
+
+    return null;
   } catch (error) {
     console.error('Geocoding error:', error);
     return null;
   }
+}
+
+// 1.5 POI Geocoding using Photon with Location Bias
+export async function geocodePOI(query: string, lat: number, lon: number): Promise<GeocodeResult | null> {
+  try {
+    const photonUrl = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&lat=${lat}&lon=${lon}&limit=1`;
+    const photonRes = await fetch(photonUrl);
+    if (photonRes.ok) {
+      const photonData = await photonRes.json();
+      if (photonData.features && photonData.features.length > 0) {
+        const result = photonData.features[0];
+        const props = result.properties;
+        const coords = result.geometry.coordinates; // [lon, lat]
+        return {
+          lat: coords[1],
+          lon: coords[0],
+          countryCode: props.countrycode?.toUpperCase() || 'UNKNOWN',
+          name: props.name || query
+        };
+      }
+    }
+  } catch (e) {
+    console.error("POI geocoding failed", e);
+  }
+  return null;
 }
 
 // 2. Routing using OSRM
@@ -87,20 +213,38 @@ export interface ReverseGeocodeResult {
   countryCode: string;
 }
 
-// 3. Fast Reverse Geocoding using BigDataCloud
+// 3. Fast Reverse Geocoding using BigDataCloud with Nominatim fallback
 export async function reverseGeocode(lat: number, lon: number): Promise<ReverseGeocodeResult | null> {
   try {
     const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=uk`;
     const response = await fetch(url);
-    if (!response.ok) return null;
+    if (!response.ok) throw new Error('BDC failed');
     
     const data = await response.json();
+    if (!data.countryCode) throw new Error('BDC missing data');
+    
     return {
-      city: data.city || data.locality || data.principalSubdivision || "Невідома локація",
+      city: data.city || data.locality || data.principalSubdivision || data.countryName || "Траса",
       countryCode: data.countryCode?.toUpperCase() || "UNKNOWN"
     };
   } catch (error) {
-    console.error('Reverse Geocoding error:', error);
+    console.warn('BigDataCloud failed, falling back to Photon:', error);
+    try {
+       const photonUrl = `https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}`;
+       const photonRes = await fetch(photonUrl);
+       if (photonRes.ok) {
+          const photonData = await photonRes.json();
+          if (photonData.features && photonData.features.length > 0) {
+             const props = photonData.features[0].properties;
+             return {
+                city: props.city || props.name || props.town || props.village || props.state || "Траса",
+                countryCode: props.countrycode?.toUpperCase() || "UNKNOWN"
+             };
+          }
+       }
+    } catch (photonError) {
+       console.error('Photon fallback also failed:', photonError);
+    }
     return null;
   }
 }
@@ -114,42 +258,52 @@ export interface BorderCrossing {
   geometryIndex: number;
 }
 
-// 4. Find Borders Algorithm (Binary Search on Route Geometry)
+// 4. Find Borders Algorithm (Optimized for safe batch execution to avoid rate limits)
 export async function findBorders(geometry: [number, number][]): Promise<BorderCrossing[]> {
   if (geometry.length < 10) return [];
 
   const borders: BorderCrossing[] = [];
   const sampleCount = 10;
   
-  // 1. Take 10 equidistant samples in parallel to find rough country transitions
-  const promises = [];
+  // 1. Take equidistant samples
+  const sampleIndices = [];
   for (let i = 0; i <= sampleCount; i++) {
-    const index = Math.floor((i / sampleCount) * (geometry.length - 1));
-    const point = geometry[index];
-    promises.push(
-      reverseGeocode(point[0], point[1]).then(geo => ({ 
-        index, 
-        country: geo?.countryCode || 'UNKNOWN' 
-      }))
-    );
+    sampleIndices.push(Math.floor((i / sampleCount) * (geometry.length - 1)));
   }
-  
-  const samples = await Promise.all(promises);
 
-  // 2. Find transitions and binary search exact border
-  for (let i = 0; i < samples.length - 1; i++) {
-    const current = samples[i];
-    const next = samples[i+1];
+  // Execute sequentially to avoid BigDataCloud / Photon rate limits
+  const sampleResults = [];
+  for (let i = 0; i < sampleIndices.length; i++) {
+    const index = sampleIndices[i];
+    const point = geometry[index];
+    const geo = await reverseGeocode(point[0], point[1]);
+    sampleResults.push({ index, country: geo?.countryCode || 'UNKNOWN' });
     
+    // Add a delay to protect API
+    if (i < sampleIndices.length - 1) {
+      await new Promise(r => setTimeout(r, 400));
+    }
+  }
+
+  // 2. Find transitions and perform binary search
+  for (let i = 0; i < sampleResults.length - 1; i++) {
+    const current = sampleResults[i];
+    const next = sampleResults[i+1];
+    
+    // Ignore UNKNOWN borders
     if (current.country !== next.country && current.country !== 'UNKNOWN' && next.country !== 'UNKNOWN') {
+      
       let left = current.index;
       let right = next.index;
       let iters = 0;
       
-      // Binary search between left and right index
-      while (right - left > 1 && iters < 6) {
+      // Binary search between left and right index, max 4 iterations
+      while (right - left > 1 && iters < 4) {
         const mid = Math.floor((left + right) / 2);
         const point = geometry[mid];
+        
+        // Delay to protect API during binary search
+        await new Promise(r => setTimeout(r, 400));
         const geo = await reverseGeocode(point[0], point[1]);
         
         if (!geo || geo.countryCode === 'UNKNOWN') break;

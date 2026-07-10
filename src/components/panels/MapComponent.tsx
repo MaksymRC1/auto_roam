@@ -60,19 +60,30 @@ export default function MapComponent() {
             lineJoin="round"
           />
           
-          <Marker position={startPoint}>
-            <Popup className="font-semibold text-slate-800">
-              Старт: {startName}
-            </Popup>
-          </Marker>
-          
-          {endPoint && (
-            <Marker position={endPoint}>
-              <Popup className="font-semibold text-slate-800">
-                Фініш: {endName}
-              </Popup>
-            </Marker>
-          )}
+          {waypoints.map((wp, i) => {
+            if (!wp.lat || !wp.lon) return null;
+            
+            // Choose color/emoji based on type
+            let iconLabel = "📍";
+            if (wp.type === 'start') iconLabel = "🟢";
+            if (wp.type === 'finish') iconLabel = "🏁";
+            if (wp.type === 'stop' && wp.id.startsWith('hotel-')) iconLabel = "🏨";
+            if (wp.type === 'border') iconLabel = "🛂";
+
+            // Use DivIcon to render emojis directly on map
+            const customIcon = L.divIcon({
+              className: 'custom-map-icon',
+              html: `<div style="font-size: 24px; text-shadow: 0px 2px 4px rgba(0,0,0,0.3); transform: translate(-12px, -12px);">${iconLabel}</div>`,
+            });
+
+            return (
+              <Marker key={wp.id} position={[wp.lat, wp.lon]} icon={customIcon}>
+                <Popup className="font-semibold text-slate-800">
+                  {wp.name}
+                </Popup>
+              </Marker>
+            );
+          })}
         </>
       )}
     </MapContainer>

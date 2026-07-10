@@ -6,57 +6,69 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTripStore } from "@/store/useTripStore";
-import { BedDouble, ExternalLink, MapPin, Settings2 } from "lucide-react";
+import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
 type StopMode = 'auto' | 'time' | 'distance' | 'ignore';
 
-export function HotelPanel() {
-  const { waypoints, totalDuration, totalDistance } = useTripStore();
-  
-  // Local state for customization
-  const [mode, setMode] = useState<StopMode>('auto');
-  const [customTime, setCustomTime] = useState<number>(6); // hours
-  const [customDistance, setCustomDistance] = useState<number>(500); // km
+function Stay22Map({ lat, lon, address }: { lat?: number; lon?: number; address: string }) {
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Generate stops based on user preference
-  let stops: Array<{id: string, name: string, timeFromStart: number, distanceFromStart: number}> = [];
-  
-  if (mode === 'auto') {
-    // Default logic: suggest if > 8 hours
-    if (totalDuration > 480) {
-      stops = waypoints.filter(wp => wp.type === 'stop');
-    }
-  } else if (mode === 'time') {
-    if (customTime > 0) {
-      const stopsCount = Math.floor(totalDuration / (customTime * 60));
-      for (let i = 1; i <= stopsCount; i++) {
-        // Prevent adding a stop exactly at the finish
-        if (i * customTime * 60 >= totalDuration - 30) continue; 
-        
-        stops.push({
-          id: `dyn-time-${i}`,
-          name: `Рекомендована зупинка ${i}`,
-          timeFromStart: i * customTime * 60,
-          distanceFromStart: Math.round((totalDistance / totalDuration) * (i * customTime * 60))
-        });
-      }
-    }
-  } else if (mode === 'distance') {
-    if (customDistance > 0) {
-      const stopsCount = Math.floor(totalDistance / customDistance);
-      for (let i = 1; i <= stopsCount; i++) {
-        // Prevent adding a stop exactly at the finish
-        if (i * customDistance >= totalDistance - 20) continue;
-
-        stops.push({
-          id: `dyn-dist-${i}`,
-          name: `Рекомендована зупинка ${i}`,
-          distanceFromStart: i * customDistance,
-          timeFromStart: Math.round((totalDuration / totalDistance) * (i * customDistance))
-        });
-      }
-    }
+  if (!isOpen) {
+    return (
+      <Button 
+        onClick={() => setIsOpen(true)}
+        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium shadow-sm transition-all"
+      >
+        <MapIcon className="w-4 h-4 mr-2" /> Знайти готелі та Airbnb на мапі (Stay22)
+      </Button>
+    );
   }
+
+  // Use a generic placeholder 'autoroam' for Affiliate ID. The user can change this later.
+  const src = `https://www.stay22.com/embed/gm?aid=autoroam&${lat && lon ? `lat=${lat}&lng=${lon}` : `address=${encodeURIComponent(address)}`}&maincolor=f59e0b`;
+
+  return (
+    <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-200">
+      <div className="flex items-center justify-between bg-blue-50 text-blue-800 text-xs p-3 rounded-lg border border-blue-100">
+        <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Оскільки це зовнішній сервіс, натисніть <b>«Змінити»</b> у Таймлайні ліворуч, щоб вручну вписати його назву та ціну для точного кошторису.</p>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => setIsOpen(false)}
+          className="h-7 text-xs shrink-0 ml-3 bg-white hover:bg-slate-100"
+        >
+          Сховати мапу
+        </Button>
+      </div>
+      <div className="w-full h-[450px] rounded-lg overflow-hidden border border-amber-200 shadow-inner relative">
+        <iframe
+          src={src}
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          title="Stay22 Interactive Map"
+        ></iframe>
+      </div>
+    </div>
+  );
+}
+
+export function HotelPanel() {
+  const { 
+    waypoints, 
+    hotelMode: mode, 
+    hotelCustomTime: customTime, 
+    hotelCustomDistance: customDistance, 
+    setHotelSettings,
+    currency,
+    exchangeRates,
+    hotelOverrides
+  } = useTripStore();
+  
+  // Read hotel stops directly from global waypoints
+  const stops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
 
   return (
     <Card className="flex-1 flex flex-col m-0 border-amber-100 shadow-sm">
@@ -84,7 +96,7 @@ export function HotelPanel() {
             <Button 
               variant={mode === 'auto' ? 'default' : 'outline'} 
               size="sm" 
-              onClick={() => setMode('auto')}
+              onClick={() => setHotelSettings('auto')}
               className={mode === 'auto' ? 'bg-amber-500 hover:bg-amber-600' : ''}
             >
               Авто (&gt; 8 год)
@@ -92,7 +104,7 @@ export function HotelPanel() {
             <Button 
               variant={mode === 'time' ? 'default' : 'outline'} 
               size="sm" 
-              onClick={() => setMode('time')}
+              onClick={() => setHotelSettings('time')}
               className={mode === 'time' ? 'bg-amber-500 hover:bg-amber-600' : ''}
             >
               По часу
@@ -100,7 +112,7 @@ export function HotelPanel() {
             <Button 
               variant={mode === 'distance' ? 'default' : 'outline'} 
               size="sm" 
-              onClick={() => setMode('distance')}
+              onClick={() => setHotelSettings('distance')}
               className={mode === 'distance' ? 'bg-amber-500 hover:bg-amber-600' : ''}
             >
               По відстані
@@ -108,7 +120,7 @@ export function HotelPanel() {
             <Button 
               variant={mode === 'ignore' ? 'default' : 'outline'} 
               size="sm" 
-              onClick={() => setMode('ignore')}
+              onClick={() => setHotelSettings('ignore')}
               className={mode === 'ignore' ? 'bg-slate-600 hover:bg-slate-700' : ''}
             >
               Ігнорувати
@@ -123,8 +135,8 @@ export function HotelPanel() {
                 type="number" 
                 min={1} 
                 max={24} 
-                value={customTime} 
-                onChange={(e) => setCustomTime(Number(e.target.value))}
+                value={customTime / 60} 
+                onChange={(e) => setHotelSettings('time', Number(e.target.value) * 60, customDistance)}
                 className="w-24 bg-white"
               />
             </div>
@@ -137,7 +149,7 @@ export function HotelPanel() {
                 min={50} 
                 max={2000} 
                 value={customDistance} 
-                onChange={(e) => setCustomDistance(Number(e.target.value))}
+                onChange={(e) => setHotelSettings('distance', customTime, Number(e.target.value))}
                 className="w-24 bg-white"
               />
             </div>
@@ -157,13 +169,25 @@ export function HotelPanel() {
               <p>За поточними налаштуваннями додаткова ночівля не потрібна.</p>
             </div>
           ) : (
-            stops.map(stop => (
+            stops.map(stop => {
+              const { getHotelPrice } = require('@/store/useTripStore');
+              const override = hotelOverrides[stop.id];
+              const priceEur = override?.priceEur !== undefined ? override.priceEur : getHotelPrice(stop.countryCode || 'UNKNOWN');
+              const priceLocal = Math.round(priceEur * exchangeRates[currency]);
+              
+              return (
               <div key={stop.id} className="rounded-xl border p-5 space-y-3 bg-slate-50 hover:border-amber-300 transition-colors shadow-sm">
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-1.5 font-bold text-slate-800 text-lg">
                       <MapPin className="w-4 h-4 text-amber-500" />
-                      {stop.name}
+                      {override?.url ? (
+                        <a href={override.url} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                          {stop.name} <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        stop.name
+                      )}
                     </div>
                     <p className="text-sm text-slate-500 mt-1">
                       Орієнтовне прибуття через {Math.floor(stop.timeFromStart / 60)} год {stop.timeFromStart % 60} хв
@@ -174,17 +198,15 @@ export function HotelPanel() {
                   </div>
                   <div className="text-right bg-white px-3 py-1.5 rounded-lg border">
                     <span className="text-xs text-slate-500 block">Середня ціна</span>
-                    <span className="text-sm font-bold text-emerald-600">від $45 / ніч</span>
+                    <span className="text-sm font-bold text-amber-600">від {priceLocal} {currency} / ніч</span>
                   </div>
                 </div>
                 
-                <div className="pt-3 flex gap-2">
-                  <Button className="w-full bg-[#003580] hover:bg-[#00224f] text-white" onClick={() => window.open(`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(stop.name.replace('Ночівля у м. ', ''))}`, '_blank')}>
-                    Знайти готелі на Booking.com <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
+                <div className="pt-2">
+                  <Stay22Map lat={stop.lat} lon={stop.lon} address={stop.name.replace('Ночівля у м. ', '')} />
                 </div>
               </div>
-            ))
+            )})
           )}
         </div>
         

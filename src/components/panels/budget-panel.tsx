@@ -1,51 +1,63 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { useTripStore } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { ShieldAlert } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-type Currency = 'EUR' | 'USD' | 'UAH';
-
-// Mocked conversion rates (in a real app, this should come from an API)
-const RATES = {
-  EUR: 1,
-  USD: 1.08,
-  UAH: 42.5
-};
-
-const SYMBOLS = {
+const SYMBOLS: Record<string, string> = {
   EUR: '€',
   USD: '$',
-  UAH: '₴'
+  UAH: '₴',
+  PLN: 'zł'
 };
 
 export function BudgetPanel() {
-  const { waypoints, totalDistance } = useTripStore();
-  const [currency, setCurrency] = useState<Currency>('EUR');
+  const { 
+    waypoints, 
+    totalDistance, 
+    currency, 
+    setCurrency, 
+    exchangeRates,
+    fuelAmounts,
+    fuelPrices,
+    selectedFuelType
+  } = useTripStore();
 
-  // Calculations (mock logic)
-  const fuelConsumption = 8; // l/100km
-  const fuelPriceEur = 1.6; // EUR/l
-  const fuelLiters = (totalDistance / 100) * fuelConsumption;
-  const fuelCostEur = fuelLiters * fuelPriceEur;
+  // 1. Fuel Cost (Dynamic)
+  let totalFuelCostEur = 0;
+  let totalFuelLiters = 0;
+  Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
+    const amount = parseFloat(amountStr) || 0;
+    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+    totalFuelCostEur += amount * priceEur;
+    totalFuelLiters += amount;
+  });
 
-  // Assuming stops are for hotels
-  const stops = waypoints.filter(wp => wp.type === 'stop').length;
-  const hotelCostEur = stops > 0 ? stops * 45 : 0; // 45 EUR per stop
+  // 2. Hotel Cost (Dynamic)
+  const hotelStops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
+  const { hotelOverrides } = useTripStore();
+  const hotelCostEur = hotelStops.reduce((sum, wp) => {
+    const override = hotelOverrides[wp.id];
+    if (override && override.priceEur !== undefined) {
+      return sum + override.priceEur;
+    }
+    return sum + getHotelPrice(wp.countryCode || 'UNKNOWN');
+  }, 0);
+  const stopsCount = hotelStops.length;
 
-  // Assuming borders mean tolls/vignettes
+  // 3. Borders (Mocked for now)
   const borders = waypoints.filter(wp => wp.type === 'border').length;
-  const vignetteCostEur = borders > 0 ? 15 : 0; // Assume 15 EUR for vignettes if crossing border
+  const vignetteCostEur = borders > 0 ? 15 : 0;
 
-  const subtotalEur = fuelCostEur + hotelCostEur + vignetteCostEur;
+  // 4. Totals
+  const subtotalEur = totalFuelCostEur + hotelCostEur + vignetteCostEur;
   const reserveEur = subtotalEur * 0.15; // 15% emergency reserve
   const totalEur = subtotalEur + reserveEur;
 
   // Conversion
-  const rate = RATES[currency];
-  const symbol = SYMBOLS[currency];
+  const rate = exchangeRates[currency] || 1;
+  const symbol = SYMBOLS[currency] || currency;
 
   const formatCost = (eur: number) => {
     return `${(eur * rate).toFixed(0)} ${symbol}`;
@@ -64,11 +76,12 @@ export function BudgetPanel() {
             </CardDescription>
           </div>
           
-          <Tabs value={currency} onValueChange={(v) => setCurrency(v as Currency)} className="w-full md:w-[240px]">
-            <TabsList className="grid w-full grid-cols-3">
+          <Tabs value={currency} onValueChange={(v) => setCurrency(v)} className="w-full md:w-[240px]">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="EUR">EUR</TabsTrigger>
               <TabsTrigger value="USD">USD</TabsTrigger>
               <TabsTrigger value="UAH">UAH</TabsTrigger>
+              <TabsTrigger value="PLN">PLN</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
@@ -84,10 +97,10 @@ export function BudgetPanel() {
               </div>
               <div>
                 <p className="font-semibold text-slate-800">Паливо</p>
-                <p className="text-xs text-slate-500">~{fuelLiters.toFixed(0)} л ({fuelConsumption} л/100км)</p>
+                <p className="text-xs text-slate-500">~{totalFuelLiters.toFixed(0)} л за поточним розподілом</p>
               </div>
             </div>
-            <span className="font-bold text-slate-700">{formatCost(fuelCostEur)}</span>
+            <span className="font-bold text-slate-700">{formatCost(totalFuelCostEur)}</span>
           </div>
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors">
@@ -97,7 +110,7 @@ export function BudgetPanel() {
               </div>
               <div>
                 <p className="font-semibold text-slate-800">Ночівля</p>
-                <p className="text-xs text-slate-500">{stops} зупинка(и)</p>
+                <p className="text-xs text-slate-500">{stopsCount} зупинка(и)</p>
               </div>
             </div>
             <span className="font-bold text-slate-700">{formatCost(hotelCostEur)}</span>

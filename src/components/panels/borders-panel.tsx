@@ -8,20 +8,15 @@ import { VIGNETTE_DB } from "@/lib/borders";
 
 
 export function BordersPanel() {
-  const { waypoints, crossedCountries } = useTripStore();
+  const { waypoints } = useTripStore();
   const borderCrossings = waypoints.filter(wp => wp.type === 'border');
   
-  // Find which countries from our trip need vignettes
-  const activeVignettes = crossedCountries
-    .map(code => VIGNETTE_DB[code])
-    .filter(Boolean);
-
-  if (borderCrossings.length === 0 && activeVignettes.length === 0) {
+  if (borderCrossings.length === 0) {
     return (
       <Card className="flex-1 flex flex-col m-0 border-indigo-100 shadow-sm">
         <CardContent className="p-8 text-center text-slate-500">
           <Info className="w-8 h-8 mx-auto mb-2 text-slate-300" />
-          <p>Ваш маршрут не перетинає державних кордонів з платними дорогами.</p>
+          <p>Ваш маршрут не перетинає державних кордонів з контролем.</p>
         </CardContent>
       </Card>
     );
@@ -31,10 +26,10 @@ export function BordersPanel() {
     <Card className="flex-1 flex flex-col m-0 border-indigo-100 shadow-sm">
       <CardHeader className="bg-indigo-50/50 pb-4 border-b">
         <CardTitle className="text-xl flex items-center gap-2">
-          <span>🛂</span> Кордони та віньєтки
+          <span>🛂</span> Кордони
         </CardTitle>
         <CardDescription>
-          Інформація про пункти пропуску та платні дороги на вашому маршруті.
+          Інформація про обрані пункти пропуску та основні вимоги до перетину.
         </CardDescription>
       </CardHeader>
       
@@ -44,7 +39,7 @@ export function BordersPanel() {
         {borderCrossings.length > 0 && (
           <div className="space-y-4">
             <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-              Пункти пропуску
+              Обрані пункти пропуску
             </h3>
             {borderCrossings.map(border => (
               <div key={border.id} className="rounded-xl border p-5 bg-white shadow-sm hover:border-indigo-200 transition-colors">
@@ -68,12 +63,16 @@ export function BordersPanel() {
                 <div className="mt-4 p-3 bg-slate-50 rounded-lg border text-sm text-slate-600 space-y-2">
                   <p className="flex gap-2">
                     <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                    Обов'язкова наявність "Зеленої карти" на авто.
+                    Перевірте наявність біометричних закордонних паспортів та дійсних віз (якщо потрібно).
+                  </p>
+                  <p className="flex gap-2">
+                    <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
+                    Техпаспорт на авто та посвідчення водія міжнародного зразка є обов'язковими.
                   </p>
                   {border.name.includes('UA') && (
                     <p className="flex gap-2">
                       <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                      Заборонено ввозити м'ясні та молочні продукти до ЄС.
+                      Заборонено ввозити м'ясні та молочні продукти до країн ЄС.
                     </p>
                   )}
                 </div>
@@ -81,7 +80,7 @@ export function BordersPanel() {
                 {border.name.includes('UA') && (
                   <div className="pt-4 flex gap-2">
                     <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm" onClick={() => window.open("https://dpsu.gov.ua/ua/map/", "_blank")}>
-                      Онлайн камери ДПСУ <ExternalLink className="w-4 h-4 ml-2" />
+                      Перевірити черги на сайті ДПСУ <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
                 )}
@@ -89,39 +88,6 @@ export function BordersPanel() {
             ))}
           </div>
         )}
-
-        {/* Tolls & Vignettes Section */}
-        {activeVignettes.length > 0 && (
-          <div className={`space-y-4 ${borderCrossings.length > 0 ? 'pt-4 border-t' : ''}`}>
-            <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-              Дорожні збори та віньєтки
-            </h3>
-            
-            {activeVignettes.map((vignette, idx) => (
-              <div key={idx} className="rounded-xl border p-4 bg-slate-50 shadow-sm border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-start gap-3">
-                  <div className="text-3xl leading-none">{vignette.emoji}</div>
-                  <div>
-                    <p className="font-bold text-slate-800">{vignette.country}</p>
-                    <p className="text-sm text-slate-500 flex items-center gap-1 mt-0.5">
-                      <Route className="w-3 h-3" /> {vignette.notes || 'Національні дороги'}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col md:items-end gap-2 w-full md:w-auto">
-                  <span className="text-sm font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 self-start md:self-auto">
-                    {vignette.type}
-                  </span>
-                  <Button size="sm" variant="outline" className="w-full md:w-auto text-indigo-700 border-indigo-200 hover:bg-indigo-50" onClick={() => window.open(vignette.link, "_blank")}>
-                    Купити офіційно <ExternalLink className="w-3 h-3 ml-2" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-            
-          </div>
-        )}
-
       </CardContent>
     </Card>
   );

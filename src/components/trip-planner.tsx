@@ -11,6 +11,7 @@ import { BackgroundSlideshow } from "./background-slideshow";
 import { FuelPanel } from "./panels/fuel-panel";
 import { HotelPanel } from "./panels/hotel-panel";
 import { BordersPanel } from "./panels/borders-panel";
+import { InsurancePanel } from "./panels/insurance-panel";
 import { BudgetPanel } from "./panels/budget-panel";
 import { StopsInput } from "./stops-input";
 import { getBorderCrossings, isSchengenPair } from "@/lib/borders";
@@ -213,7 +214,7 @@ export function TripPlanner() {
                                 </span>
                               )}
 
-                              {isBorder && wp.fromCountry && wp.toCountry && (
+                              {isBorder && wp.fromCountry && wp.toCountry && !isSchengenPair(wp.fromCountry, wp.toCountry) && (
                                 <div className="mt-2">
                                   <select 
                                     className="w-full text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-blue-300 focus:border-blue-500 outline-none cursor-pointer"
@@ -307,10 +308,21 @@ export function TripPlanner() {
                   </AccordionContent>
                 </AccordionItem>
 
+                <AccordionItem value="insurance" className="border-b px-2">
+                  <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-600">
+                    <div className="flex items-center gap-3 text-base">
+                      <span className="text-xl">🛡️</span> <span className="font-semibold">Страхування та віньєтки</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4">
+                    <InsurancePanel />
+                  </AccordionContent>
+                </AccordionItem>
+
                 <AccordionItem value="borders" className="border-b px-2">
                   <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-600">
                     <div className="flex items-center gap-3 text-base">
-                      <span className="text-xl">🛂</span> <span className="font-semibold">Кордони та віньєтки</span>
+                      <span className="text-xl">🛂</span> <span className="font-semibold">Кордони</span>
                       {needsBorders && (
                         <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" title="Потребує уваги"></span>
                       )}
@@ -343,8 +355,13 @@ export function TripPlanner() {
       
       {/* Footer */}
       <footer className="w-full bg-white pt-8 pb-6 text-center border-t border-slate-200 relative z-10 mt-auto">
-        <p className="text-slate-500 font-medium text-sm">AutoRoam Planner &copy; {new Date().getFullYear()}</p>
-        <p className="text-slate-400 text-xs mt-1">Дані про маршрути надані OSRM. Створено для найкращих автоподорожей.</p>
+        <p className="text-sm text-slate-500 font-medium tracking-wide">© 2026 AutoRoam. Всі права захищено.</p>
+        <p className="mt-2 text-xs text-slate-400">Створено з турботою про ваші подорожі 🌍</p>
+        <div className="mt-4 flex justify-center">
+          <a href="/donate" className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-amber-700 bg-amber-50 rounded-full hover:bg-amber-100 transition-colors">
+            ☕ Підтримати розвиток проекту
+          </a>
+        </div>
       </footer>
     </>
   );
@@ -363,6 +380,7 @@ function HotelOverrideInputs({
 }) {
   const [url, setUrl] = useState(initialUrl);
   const [price, setPrice] = useState(initialPrice);
+  const isChanged = url !== initialUrl || price !== initialPrice;
 
   // Sync with external state changes (e.g. resetTrip)
   useEffect(() => {
@@ -371,33 +389,46 @@ function HotelOverrideInputs({
   }, [initialUrl, initialPrice]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2">
-      <input 
-        type="text" 
-        placeholder="🔗 Вставте посилання на готель (Booking, Maps)..." 
-        className="flex-1 text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        onBlur={() => {
-          if (url !== initialUrl) {
-             setOverride(wpId, { url });
-          }
-        }}
-      />
+    <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center w-full">
+      <div className="flex-1 relative w-full">
+        <input 
+          type="text" 
+          placeholder="🔗 Вставте посилання на готель (Booking, Maps)..." 
+          className="w-full text-xs p-2 pr-8 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        {url && url.startsWith('http') && (
+          <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-500 hover:text-blue-700" title="Відкрити посилання">
+            ↗
+          </a>
+        )}
+      </div>
       <div className="flex items-center gap-2">
         <span className="text-xs text-slate-500 whitespace-nowrap">Ціна:</span>
-        <input 
-          type="number" 
-          placeholder="EUR" 
-          className="w-20 sm:w-24 text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          onBlur={() => {
-            if (price !== initialPrice && price !== '') {
-               setOverride(wpId, { priceEur: Number(price) });
-            }
-          }}
-        />
+        <div className="relative">
+          <input 
+            type="number" 
+            placeholder="0" 
+            className="w-20 sm:w-24 text-xs p-2 pr-6 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">€</span>
+        </div>
+        {isChanged && (
+          <button 
+            className="px-2 py-1.5 text-xs font-medium bg-amber-100 text-amber-700 hover:bg-amber-200 rounded transition-colors"
+            onClick={() => {
+              setOverride(wpId, { 
+                url, 
+                priceEur: price === '' ? undefined : Number(price) 
+              });
+            }}
+          >
+            Зберегти
+          </button>
+        )}
       </div>
     </div>
   );

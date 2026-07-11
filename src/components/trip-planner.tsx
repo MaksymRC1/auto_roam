@@ -197,33 +197,12 @@ export function TripPlanner() {
 
                               {isHotel && (
                                 <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col gap-2">
-                                  <div className="flex flex-col sm:flex-row gap-2">
-                                    <input 
-                                      type="text" 
-                                      placeholder="🔗 Вставте посилання на готель (Booking, Maps)..." 
-                                      className="flex-1 text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
-                                      defaultValue={hotelOverrides[wp.id]?.url || ''}
-                                      onBlur={(e) => {
-                                        if(e.target.value) {
-                                           setHotelOverride(wp.id, { url: e.target.value });
-                                        }
-                                      }}
-                                    />
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-xs text-slate-500 whitespace-nowrap">Ціна:</span>
-                                      <input 
-                                        type="number" 
-                                        placeholder="EUR" 
-                                        className="w-20 sm:w-24 text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
-                                        defaultValue={hotelOverrides[wp.id]?.priceEur || ''}
-                                        onBlur={(e) => {
-                                          if(e.target.value) {
-                                             setHotelOverride(wp.id, { priceEur: Number(e.target.value) });
-                                          }
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
+                                  <HotelOverrideInputs 
+                                    wpId={wp.id} 
+                                    initialUrl={hotelOverrides[wp.id]?.url || ''} 
+                                    initialPrice={hotelOverrides[wp.id]?.priceEur || ''} 
+                                    setOverride={setHotelOverride} 
+                                  />
                                 </div>
                               )}
 
@@ -245,7 +224,7 @@ export function TripPlanner() {
                                         insertBorderStop(selected, wp.distanceFromStart);
                                       }
                                     }}
-                                    defaultValue=""
+                                    value=""
                                     aria-label={`Змінити пункт пропуску ${wp.fromCountry} → ${wp.toCountry}`}
                                   >
                                     <option value="" disabled>Змінити пункт пропуску</option>
@@ -370,3 +349,57 @@ export function TripPlanner() {
     </>
   );
 }
+
+function HotelOverrideInputs({ 
+  wpId, 
+  initialUrl, 
+  initialPrice, 
+  setOverride 
+}: { 
+  wpId: string, 
+  initialUrl: string, 
+  initialPrice: number | string, 
+  setOverride: (id: string, data: any) => void 
+}) {
+  const [url, setUrl] = useState(initialUrl);
+  const [price, setPrice] = useState(initialPrice);
+
+  // Sync with external state changes (e.g. resetTrip)
+  useEffect(() => {
+    setUrl(initialUrl);
+    setPrice(initialPrice);
+  }, [initialUrl, initialPrice]);
+
+  return (
+    <div className="flex flex-col sm:flex-row gap-2">
+      <input 
+        type="text" 
+        placeholder="🔗 Вставте посилання на готель (Booking, Maps)..." 
+        className="flex-1 text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        onBlur={() => {
+          if (url !== initialUrl) {
+             setOverride(wpId, { url });
+          }
+        }}
+      />
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-slate-500 whitespace-nowrap">Ціна:</span>
+        <input 
+          type="number" 
+          placeholder="EUR" 
+          className="w-20 sm:w-24 text-xs p-2 border rounded border-slate-200 text-slate-700 bg-slate-50 hover:border-amber-300 focus:border-amber-500 focus:bg-white outline-none transition-colors"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          onBlur={() => {
+            if (price !== initialPrice && price !== '') {
+               setOverride(wpId, { priceEur: Number(price) });
+            }
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+

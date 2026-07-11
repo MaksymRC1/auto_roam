@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { geocodeCity, getRoute, findBorders, reverseGeocode, GeocodeResult } from '@/lib/routing';
+import { geocodeCity, getRoute, findBorders, reverseGeocode, GeocodeResult, buildCumulativeDistances, geometryIndexToRatio, ratioToGeometryIndex } from '@/lib/routing';
 import type { BorderPoint } from '@/lib/borders';
 import { FUEL_BUFFER_RATIO, LONG_TRIP_THRESHOLD_MINS, API_DELAY_MS } from '@/lib/constants';
 
@@ -277,6 +277,9 @@ export const useTripStore = create<TripState>((set, get) => ({
 
       if (thisRequestId !== calculateRequestId) return;
 
+      // Build cumulative distance array for accurate geometry→distance mapping
+      const cumDist = buildCumulativeDistances(route.geometry);
+
       const overriddenPairs = new Set(validStops.filter(s => s.isBorderOverride).map(s => `${s.borderFrom}-${s.borderTo}`));
 
       for (const border of borders) {
@@ -288,7 +291,8 @@ export const useTripStore = create<TripState>((set, get) => ({
            continue;
         }
         
-        const ratio = border.geometryIndex / route.geometry.length;
+        // Use real Haversine-based distance ratio instead of linear index ratio
+        const ratio = geometryIndexToRatio(cumDist, border.geometryIndex);
         waypoints.push({
           id: `border-${border.geometryIndex}`,
           name: `Кордон ${border.fromCountry} → ${border.toCountry} (поруч з ${border.name})`,
@@ -389,9 +393,13 @@ export const useTripStore = create<TripState>((set, get) => ({
         }
       }
       
+      // Build cumulative distance array for accurate distance→geometry lookup
+      const hotelCumDist = buildCumulativeDistances(state.routeGeometry);
+
       for (let i = 1; i <= stopsCount; i++) {
         const ratio = ratioStep * i;
-        const geomIndex = Math.floor(state.routeGeometry.length * ratio);
+        // Use binary search on cumulative distances instead of linear index ratio
+        const geomIndex = ratioToGeometryIndex(hotelCumDist, ratio);
         const point = state.routeGeometry[geomIndex];
         if (!point) continue;
         

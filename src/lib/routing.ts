@@ -5,7 +5,61 @@ export interface GeocodeResult {
   name: string;
 }
 
+/**
+ * Haversine distance between two [lat, lon] points in kilometers.
+ */
+export function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371; // Earth radius in km
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 
+/**
+ * Build a cumulative distance array along a geometry.
+ * cumDist[0] = 0, cumDist[i] = total km from geometry[0] to geometry[i].
+ */
+export function buildCumulativeDistances(geometry: [number, number][]): number[] {
+  const cumDist = new Array<number>(geometry.length);
+  cumDist[0] = 0;
+  for (let i = 1; i < geometry.length; i++) {
+    cumDist[i] = cumDist[i - 1] + haversineKm(
+      geometry[i - 1][0], geometry[i - 1][1],
+      geometry[i][0], geometry[i][1]
+    );
+  }
+  return cumDist;
+}
+
+/**
+ * Given a cumulative distances array and a geometry index, return the
+ * proportion of the route completed (0..1), properly distance-weighted.
+ */
+export function geometryIndexToRatio(cumDist: number[], index: number): number {
+  const total = cumDist[cumDist.length - 1];
+  if (total === 0) return 0;
+  return cumDist[Math.min(index, cumDist.length - 1)] / total;
+}
+
+/**
+ * Given a cumulative distances array and a target ratio (0..1), find the
+ * geometry index closest to that distance proportion.
+ */
+export function ratioToGeometryIndex(cumDist: number[], ratio: number): number {
+  const targetDist = ratio * cumDist[cumDist.length - 1];
+  // Binary search for the closest index
+  let lo = 0;
+  let hi = cumDist.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (cumDist[mid] < targetDist) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
 
 export interface RouteLeg {
   distanceKm: number;

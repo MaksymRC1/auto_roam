@@ -5,8 +5,7 @@ export interface GeocodeResult {
   name: string;
 }
 
-import polyline from '@mapbox/polyline';
-import { isSchengenBorder } from './borders';
+
 
 export interface RouteLeg {
   distanceKm: number;
@@ -146,30 +145,7 @@ export async function geocodeCity(city: string): Promise<GeocodeResult | null> {
   }
 }
 
-// 1.5 POI Geocoding using Photon with Location Bias
-export async function geocodePOI(query: string, lat: number, lon: number): Promise<GeocodeResult | null> {
-  try {
-    const photonUrl = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&lat=${lat}&lon=${lon}&limit=1`;
-    const photonRes = await fetch(photonUrl);
-    if (photonRes.ok) {
-      const photonData = await photonRes.json();
-      if (photonData.features && photonData.features.length > 0) {
-        const result = photonData.features[0];
-        const props = result.properties;
-        const coords = result.geometry.coordinates; // [lon, lat]
-        return {
-          lat: coords[1],
-          lon: coords[0],
-          countryCode: props.countrycode?.toUpperCase() || 'UNKNOWN',
-          name: props.name || query
-        };
-      }
-    }
-  } catch (e) {
-    console.error("POI geocoding failed", e);
-  }
-  return null;
-}
+
 
 // 2. Routing using OSRM
 export async function getRoute(points: GeocodeResult[]): Promise<RouteResult | null> {

@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { geocodeCity, getRoute, findBorders, reverseGeocode, GeocodeResult } from '@/lib/routing';
+import type { BorderPoint } from '@/lib/borders';
+import { FUEL_BUFFER_RATIO, LONG_TRIP_THRESHOLD_MINS, API_DELAY_MS } from '@/lib/constants';
 
 export type WaypointType = 'start' | 'finish' | 'stop' | 'border' | 'fuel';
 
@@ -82,7 +84,7 @@ interface TripState {
   addStop: () => void;
   removeStop: (id: string) => void;
   updateStop: (id: string, value: string) => void;
-  insertBorderStop: (borderPoint: any, previousStopDistance: number) => void;
+  insertBorderStop: (borderPoint: BorderPoint, previousStopDistance: number) => void;
   calculateRoute: () => Promise<void>;
   setActivePanel: (panel: PanelType | null) => void;
   setFuelType: (type: FuelType) => void;
@@ -99,12 +101,12 @@ interface TripState {
   setHotelSettings: (mode: 'auto'|'time'|'distance'|'ignore', time?: number, dist?: number) => void;
   recalculateHotels: () => Promise<void>;
   
-  hotelOverrides: Record<string, HotelOverride>;
-  setHotelOverride: (id: string, override: Partial<HotelOverride>) => void;
-  
   autoAssignFuel: () => void;
   resetTrip: () => void;
 }
+
+// Race condition guard: incremented on each calculateRoute call
+let calculateRequestId = 0;
 
 export const useTripStore = create<TripState>((set, get) => ({
   stops: [
@@ -135,7 +137,7 @@ export const useTripStore = create<TripState>((set, get) => ({
   currency: "EUR",
   exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08, PLN: 4.3 },
   hotelMode: 'auto',
-  hotelCustomTime: 480,
+  hotelCustomTime: LONG_TRIP_THRESHOLD_MINS,
   hotelCustomDistance: 800,
   hotelOverrides: {},
 
@@ -143,7 +145,7 @@ export const useTripStore = create<TripState>((set, get) => ({
   
   addStop: () => {
     const stops = get().stops;
-    const newStop = { id: Date.now().toString(), value: '' };
+    const newStop = { id: crypto.randomUUID(), value: '' };
     // insert before the last one (finish)
     const newStops = [...stops];
     newStops.splice(newStops.length - 1, 0, newStop);
@@ -193,13 +195,6 @@ export const useTripStore = create<TripState>((set, get) => ({
     get().calculateRoute();
   },
 
-  setHotelOverride: (id, override) => set((state) => ({
-    hotelOverrides: {
-      ...state.hotelOverrides,
-      [id]: { ...(state.hotelOverrides[id] || {}), ...override }
-    }
-  })),
-
   calculateRoute: async () => {
     const { stops } = get();
     const validStops = stops.filter(s => s.value.trim().length > 0);
@@ -209,22 +204,33 @@ export const useTripStore = create<TripState>((set, get) => ({
        return;
     }
 
+    // Race condition guard
+    const thisRequestId = ++calculateRequestId;
+
     set({ isLoading: true, error: null, isCalculated: false, ignoredWaypoints: [] });
 
     try {
-      // 1. Geocode cities sequentially
+      // 1. Geocode cities in parallel
+      const geocodeResults = await Promise.all(
+        validStops.map(stop => geocodeCity(stop.value))
+      );
+
+      // Bail out if a newer request was initiated
+      if (thisRequestId !== calculateRequestId) return;
+
       const geocodedPoints: GeocodeResult[] = [];
-      for (const stop of validStops) {
-        const geo = await geocodeCity(stop.value);
-        if (geo) geocodedPoints.push(geo);
+      for (let i = 0; i < geocodeResults.length; i++) {
+        if (geocodeResults[i]) geocodedPoints.push(geocodeResults[i]!);
         else {
-          set({ isLoading: false, error: `Не вдалося знайти: ${stop.value}` });
+          set({ isLoading: false, error: `Не вдалося знайти: ${validStops[i].value}` });
           return;
         }
       }
 
       // 2. Get Route
       const route = await getRoute(geocodedPoints);
+
+      if (thisRequestId !== calculateRequestId) return;
 
       if (!route) {
         set({ isLoading: false, error: 'Не вдалося прокласти маршрут.' });
@@ -268,6 +274,9 @@ export const useTripStore = create<TripState>((set, get) => ({
 
       // Check for borders
       const borders = await findBorders(route.geometry);
+
+      if (thisRequestId !== calculateRequestId) return;
+
       const overriddenPairs = new Set(validStops.filter(s => s.isBorderOverride).map(s => `${s.borderFrom}-${s.borderTo}`));
 
       for (const border of borders) {
@@ -335,10 +344,13 @@ export const useTripStore = create<TripState>((set, get) => ({
   setCurrency: (c) => set({ currency: c }),
   setExchangeRates: (rates) => set((state) => ({ exchangeRates: { ...state.exchangeRates, ...rates } })),
 
+  // Task 2.4: Batch set() calls into one
   setHotelSettings: (mode, time, dist) => {
-    set({ hotelMode: mode });
-    if (time !== undefined) set({ hotelCustomTime: time });
-    if (dist !== undefined) set({ hotelCustomDistance: dist });
+    set({
+      hotelMode: mode,
+      ...(time !== undefined && { hotelCustomTime: time }),
+      ...(dist !== undefined && { hotelCustomDistance: dist }),
+    });
     get().recalculateHotels();
   },
 
@@ -365,7 +377,7 @@ export const useTripStore = create<TripState>((set, get) => ({
       let ratioStep = 0;
       
       if (state.hotelMode === 'auto' || state.hotelMode === 'time') {
-        const timeLimit = state.hotelMode === 'auto' ? 480 : state.hotelCustomTime;
+        const timeLimit = state.hotelMode === 'auto' ? LONG_TRIP_THRESHOLD_MINS : state.hotelCustomTime;
         if (state.totalDuration > timeLimit && timeLimit > 0) {
           stopsCount = Math.floor(state.totalDuration / timeLimit);
           ratioStep = timeLimit / state.totalDuration;
@@ -443,7 +455,7 @@ export const useTripStore = create<TripState>((set, get) => ({
       return;
     }
     const totalFuel = (state.totalDistance / 100) * numericConsumption;
-    const conservativeFuel = Math.round(totalFuel * 1.1);
+    const conservativeFuel = Math.round(totalFuel * FUEL_BUFFER_RATIO);
     
     let nextAmounts = { ...state.fuelAmounts };
     let selectedKeys = Object.keys(nextAmounts);
@@ -490,18 +502,31 @@ export const useTripStore = create<TripState>((set, get) => ({
     }
   },
   
+  // Task 1.7: Full reset of ALL fields
   resetTrip: () => set({ 
     stops: [
-      { id: Date.now().toString(), value: '' }, 
-      { id: (Date.now()+1).toString(), value: '' }
+      { id: crypto.randomUUID(), value: '' }, 
+      { id: crypto.randomUUID(), value: '' }
     ],
     isCalculated: false, 
+    isLoading: false,
     error: null,
     totalDistance: 0, 
     totalDuration: 0, 
     waypoints: [],
     routeGeometry: [],
     crossedCountries: [],
-    activePanel: 'fuel' 
+    activePanel: 'fuel',
+    fuelPrices: {},
+    fuelAmounts: {},
+    consumption: '8',
+    isDefaultConsumption: true,
+    selectedFuelType: 'gasoline' as FuelType,
+    hotelOverrides: {},
+    hotelMode: 'auto' as const,
+    hotelCustomTime: LONG_TRIP_THRESHOLD_MINS,
+    hotelCustomDistance: 800,
+    ignoredWaypoints: [],
+    currency: 'EUR',
   }),
 }));

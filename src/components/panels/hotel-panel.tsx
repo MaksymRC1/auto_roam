@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTripStore } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
 type StopMode = 'auto' | 'time' | 'distance' | 'ignore';
@@ -170,10 +170,9 @@ export function HotelPanel() {
             </div>
           ) : (
             stops.map(stop => {
-              const { getHotelPrice } = require('@/store/useTripStore');
               const override = hotelOverrides[stop.id];
               const priceEur = override?.priceEur !== undefined ? override.priceEur : getHotelPrice(stop.countryCode || 'UNKNOWN');
-              const priceLocal = Math.round(priceEur * exchangeRates[currency]);
+              const priceLocal = Math.round(priceEur * (exchangeRates[currency] || 1));
               
               return (
               <div key={stop.id} className="rounded-xl border p-5 space-y-3 bg-slate-50 hover:border-amber-300 transition-colors shadow-sm">

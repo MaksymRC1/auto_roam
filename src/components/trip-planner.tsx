@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MapPin, Navigation2, CheckCircle2, AlertCircle, Map as MapIcon, List, Trash2 } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2 } from "lucide-react";
 import { useTripStore, PanelType } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -15,7 +13,8 @@ import { HotelPanel } from "./panels/hotel-panel";
 import { BordersPanel } from "./panels/borders-panel";
 import { BudgetPanel } from "./panels/budget-panel";
 import { StopsInput } from "./stops-input";
-import { getBorderCrossings } from "@/lib/borders";
+import { getBorderCrossings, isSchengenPair } from "@/lib/borders";
+import { getCurrencySymbol } from "@/lib/constants";
 import {
   Accordion,
   AccordionContent,
@@ -41,15 +40,18 @@ export function TripPlanner() {
   } = useTripStore();
 
   const rate = exchangeRates[currency] || 1;
-  const currencySymbol = currency === "EUR" ? "€" : currency === "UAH" ? "₴" : currency === "USD" ? "$" : "zł";
+  const currencySymbol = getCurrencySymbol(currency);
 
-  let totalCostEur = 0;
-  Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
-    const amount = parseFloat(amountStr) || 0;
-    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
-    totalCostEur += amount * priceEur;
-  });
-  const totalFuelCost = Math.round(totalCostEur * rate);
+  // Task 2.3: useMemo for fuel cost calculation
+  const totalFuelCost = useMemo(() => {
+    let totalCostEur = 0;
+    Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
+      const amount = parseFloat(amountStr) || 0;
+      const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+      totalCostEur += amount * priceEur;
+    });
+    return Math.round(totalCostEur * rate);
+  }, [fuelAmounts, fuelPrices, selectedFuelType, rate]);
 
   const needsFuel = totalDistance > 0 && totalFuelCost === 0;
   const needsHotel = totalDuration > 480;
@@ -70,13 +72,13 @@ export function TripPlanner() {
   return (
     <>
       {!isCalculated && (
-        <div className="fixed inset-0 top-14 z-0 pointer-events-none">
+        <div className="fixed inset-0 top-14 z-0 pointer-events-none" aria-hidden="true">
           <BackgroundSlideshow />
         </div>
       )}
       <div className={`max-w-7xl mx-auto w-full flex-1 flex flex-col relative p-4 md:p-6 lg:p-8 z-10 ${!isCalculated ? 'justify-center items-center' : ''}`}>
         {isLoading && (
-          <div className="fixed inset-0 bg-white/60 backdrop-blur-sm z-[9999] flex items-center justify-center">
+          <div className="fixed inset-0 bg-white/60 backdrop-blur-sm z-[9999] flex items-center justify-center" role="status" aria-label="Завантаження">
             <div className="loader"></div>
           </div>
         )}
@@ -124,7 +126,7 @@ export function TripPlanner() {
                 )}
                 
                 <div className="flex-1 p-5 bg-slate-50/50 overflow-y-auto">
-                  <div className="relative space-y-8 before:absolute before:inset-0 before:left-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-200">
+                  <div className="relative space-y-8 before:absolute before:inset-0 before:left-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-200" role="list" aria-label="Хронологія маршруту">
                     
                     {waypoints.filter(wp => !ignoredWaypoints.includes(wp.id)).map((wp) => {
                       const isStart = wp.type === 'start';
@@ -134,7 +136,7 @@ export function TripPlanner() {
                       const isHotel = wp.id.startsWith('hotel-');
                       
                       return (
-                        <div key={wp.id} className="relative flex items-start group">
+                        <div key={wp.id} className="relative flex items-start group" role="listitem">
                           <div className={`flex items-center justify-center w-6 h-6 mt-1.5 rounded-full border-2 border-white shadow-sm shrink-0 z-10 ${
                             isStart ? 'bg-emerald-500' : 
                             isFinish ? 'bg-rose-500' : 
@@ -158,9 +160,6 @@ export function TripPlanner() {
                                 onClick={() => {
                                   if (isBorder || isHotel) {
                                     ignoreWaypoint(wp.id);
-                                    if (isBorder) {
-                                      window.alert("Увага! Пункт пропуску приховано з таймлайну. Щоб маршрут фізично оминув цю країну, додайте іншу проміжну зупинку (наприклад пункт пропуску іншої країни) в панелі параметрів маршруту. Без неї навігатор продовжить вести найкоротшим шляхом.");
-                                    }
                                   } else {
                                     removeStop(wp.id);
                                     calculateRoute();
@@ -168,6 +167,7 @@ export function TripPlanner() {
                                 }}
                                 className="absolute top-2 right-2 p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded transition-colors opacity-0 group-hover:opacity-100 z-10"
                                 title="Видалити з таймлайну"
+                                aria-label="Видалити з таймлайну"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -227,6 +227,13 @@ export function TripPlanner() {
                                 </div>
                               )}
 
+                              {/* Task 2.5: Schengen label */}
+                              {isBorder && wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry) && (
+                                <span className="inline-flex items-center gap-1 text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full mt-1">
+                                  🇪🇺 Шенгенська зона — без контролю
+                                </span>
+                              )}
+
                               {isBorder && wp.fromCountry && wp.toCountry && (
                                 <div className="mt-2">
                                   <select 
@@ -239,6 +246,7 @@ export function TripPlanner() {
                                       }
                                     }}
                                     defaultValue=""
+                                    aria-label={`Змінити пункт пропуску ${wp.fromCountry} → ${wp.toCountry}`}
                                   >
                                     <option value="" disabled>Змінити пункт пропуску</option>
                                     {getBorderCrossings(wp.fromCountry, wp.toCountry).map(c => (
@@ -275,7 +283,7 @@ export function TripPlanner() {
             <div className="flex-1 bg-white rounded-xl border border-slate-200 shadow-sm">
               <Accordion 
                 value={activePanel ? [activePanel] : []} 
-                onValueChange={(v: any) => { 
+                onValueChange={(v: string | string[]) => { 
                   if (Array.isArray(v)) {
                     setActivePanel(v.length > 0 ? (v[0] as PanelType) : null);
                   } else {

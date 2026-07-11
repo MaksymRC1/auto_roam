@@ -4,18 +4,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { useTripStore } from "@/store/useTripStore";
 import { ExternalLink, AlertTriangle, Info, Clock, Route } from "lucide-react";
+import { VIGNETTE_DB } from "@/lib/borders";
 
-const VIGNETTE_DB: Record<string, { country: string, emoji: string, type: string, link: string, notes?: string }> = {
-  'PL': { country: 'Польща', emoji: '🇵🇱', type: 'Оплата на воротах / e-TOLL', link: 'https://etoll.gov.pl/ua/', notes: 'Автомагістралі A2, A4' },
-  'RO': { country: 'Румунія', emoji: '🇷🇴', type: 'Електронна ровіньєтка', link: 'https://www.roviniete.ro/ru/', notes: 'Обов\'язкова на всіх національних дорогах' },
-  'BG': { country: 'Болгарія', emoji: '🇧🇬', type: 'Електронна віньєтка (BG TOLL)', link: 'https://web.bgtoll.bg/', notes: 'Обов\'язкова на всіх національних дорогах' },
-  'SK': { country: 'Словаччина', emoji: '🇸🇰', type: 'Електронна віньєтка', link: 'https://eznamka.sk/uk', notes: 'Обов\'язкова для автомагістралей' },
-  'CZ': { country: 'Чехія', emoji: '🇨🇿', type: 'Електронна віньєтка', link: 'https://edalnice.cz/uk/', notes: 'Обов\'язкова для автомагістралей' },
-  'HU': { country: 'Угорщина', emoji: '🇭🇺', type: 'Електронна віньєтка (e-matrica)', link: 'https://ematrica.nemzetiutdij.hu/', notes: 'Обов\'язкова для автомагістралей' },
-  'AT': { country: 'Австрія', emoji: '🇦🇹', type: 'Віньєтка (ASFINAG)', link: 'https://shop.asfinag.at/uk/', notes: 'Обов\'язкова для автомагістралей. Є цифрова версія.' },
-  'CH': { country: 'Швейцарія', emoji: '🇨🇭', type: 'Електронна віньєтка (e-vignette)', link: 'https://via.admin.ch/shop/dashboard', notes: 'Обов\'язкова для автомагістралей (лише річна)' },
-  'MD': { country: 'Молдова', emoji: '🇲🇩', type: 'Електронна віньєтка (e-Vinieta)', link: 'https://evinieta.gov.md/', notes: 'Обов\'язкова для іноземних авто' },
-};
 
 export function BordersPanel() {
   const { waypoints, crossedCountries } = useTripStore();

@@ -37,6 +37,7 @@ function SortableItem({ id, value, index, isLast, updateStop, removeStop, openMa
             setSuggestions([]);
           }
         })
+        .catch(() => setSuggestions([]))
         .finally(() => setIsSearching(false));
     } else {
       setSuggestions([]);

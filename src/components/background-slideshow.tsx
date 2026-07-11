@@ -22,17 +22,23 @@ export function BackgroundSlideshow() {
   }, []);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
-      {IMAGES.map((src, index) => (
-        <div
-          key={src}
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-[2500ms] ease-in-out"
-          style={{
-            backgroundImage: `url(${src})`,
-            opacity: index === currentIndex ? 1 : 0,
-          }}
-        />
-      ))}
+    <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      {/* Task 2.2: Only render current + next image for performance */}
+      {IMAGES.map((src, index) => {
+        const isVisible = index === currentIndex;
+        const isNext = index === (currentIndex + 1) % IMAGES.length;
+        if (!isVisible && !isNext) return null;
+        return (
+          <div
+            key={src}
+            className="absolute inset-0 bg-cover bg-center transition-opacity duration-[2500ms] ease-in-out"
+            style={{
+              backgroundImage: `url(${src})`,
+              opacity: isVisible ? 1 : 0,
+            }}
+          />
+        );
+      })}
       {/* Dark overlay to make text/inputs readable */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
     </div>

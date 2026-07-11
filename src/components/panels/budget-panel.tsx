@@ -4,13 +4,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { ShieldAlert } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-const SYMBOLS: Record<string, string> = {
-  EUR: '€',
-  USD: '$',
-  UAH: '₴',
-  PLN: 'zł'
-};
+import { VIGNETTE_DB } from "@/lib/borders";
+import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 
 export function BudgetPanel() {
   const { 
@@ -21,7 +16,9 @@ export function BudgetPanel() {
     exchangeRates,
     fuelAmounts,
     fuelPrices,
-    selectedFuelType
+    selectedFuelType,
+    hotelOverrides,
+    crossedCountries
   } = useTripStore();
 
   // 1. Fuel Cost (Dynamic)
@@ -36,7 +33,6 @@ export function BudgetPanel() {
 
   // 2. Hotel Cost (Dynamic)
   const hotelStops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
-  const { hotelOverrides } = useTripStore();
   const hotelCostEur = hotelStops.reduce((sum, wp) => {
     const override = hotelOverrides[wp.id];
     if (override && override.priceEur !== undefined) {
@@ -46,18 +42,20 @@ export function BudgetPanel() {
   }, 0);
   const stopsCount = hotelStops.length;
 
-  // 3. Borders (Mocked for now)
-  const borders = waypoints.filter(wp => wp.type === 'border').length;
-  const vignetteCostEur = borders > 0 ? 15 : 0;
+  // 3. Vignette costs (real data from VIGNETTE_DB)
+  const vignetteCostEur = crossedCountries.reduce((sum, code) => {
+    const vignette = VIGNETTE_DB[code];
+    return sum + (vignette ? vignette.priceEur : 0);
+  }, 0);
 
   // 4. Totals
   const subtotalEur = totalFuelCostEur + hotelCostEur + vignetteCostEur;
-  const reserveEur = subtotalEur * 0.15; // 15% emergency reserve
+  const reserveEur = subtotalEur * EMERGENCY_RESERVE_RATIO;
   const totalEur = subtotalEur + reserveEur;
 
   // Conversion
   const rate = exchangeRates[currency] || 1;
-  const symbol = SYMBOLS[currency] || currency;
+  const symbol = getCurrencySymbol(currency);
 
   const formatCost = (eur: number) => {
     return `${(eur * rate).toFixed(0)} ${symbol}`;
@@ -138,7 +136,7 @@ export function BudgetPanel() {
               </div>
               <div>
                 <p className="font-semibold text-orange-800">Резерв на непередбачувані витрати</p>
-                <p className="text-xs text-orange-600/80">+15% від загальної суми</p>
+                <p className="text-xs text-orange-600/80">+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
               </div>
             </div>
             <span className="font-bold text-orange-700">{formatCost(reserveEur)}</span>

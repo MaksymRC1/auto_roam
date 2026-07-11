@@ -7,6 +7,28 @@ export function isSchengenBorder(fromCode: string, toCode: string): boolean {
   return SCHENGEN_COUNTRIES.has(fromCode) && SCHENGEN_COUNTRIES.has(toCode);
 }
 
+export interface VignetteInfo {
+  country: string;
+  emoji: string;
+  type: string;
+  link: string;
+  priceEur: number; // average short-term vignette price in EUR
+  notes?: string;
+}
+
+export const VIGNETTE_DB: Record<string, VignetteInfo> = {
+  'PL': { country: 'Польща', emoji: '🇵🇱', type: 'Оплата на воротах / e-TOLL', link: 'https://etoll.gov.pl/ua/', priceEur: 10, notes: 'Автомагістралі A2, A4' },
+  'RO': { country: 'Румунія', emoji: '🇷🇴', type: 'Електронна ровіньєтка', link: 'https://www.roviniete.ro/ru/', priceEur: 7, notes: "Обов'язкова на всіх національних дорогах" },
+  'BG': { country: 'Болгарія', emoji: '🇧🇬', type: 'Електронна віньєтка (BG TOLL)', link: 'https://web.bgtoll.bg/', priceEur: 8, notes: "Обов'язкова на всіх національних дорогах" },
+  'SK': { country: 'Словаччина', emoji: '🇸🇰', type: 'Електронна віньєтка', link: 'https://eznamka.sk/uk', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
+  'CZ': { country: 'Чехія', emoji: '🇨🇿', type: 'Електронна віньєтка', link: 'https://edalnice.cz/uk/', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
+  'HU': { country: 'Угорщина', emoji: '🇭🇺', type: 'Електронна віньєтка (e-matrica)', link: 'https://ematrica.nemzetiutdij.hu/', priceEur: 15, notes: "Обов'язкова для автомагістралей" },
+  'AT': { country: 'Австрія', emoji: '🇦🇹', type: 'Віньєтка (ASFINAG)', link: 'https://shop.asfinag.at/uk/', priceEur: 10, notes: "Обов'язкова для автомагістралей. Є цифрова версія." },
+  'CH': { country: 'Швейцарія', emoji: '🇨🇭', type: 'Електронна віньєтка (e-vignette)', link: 'https://via.admin.ch/shop/dashboard', priceEur: 42, notes: "Обов'язкова для автомагістралей (лише річна)" },
+  'MD': { country: 'Молдова', emoji: '🇲🇩', type: 'Електронна віньєтка (e-Vinieta)', link: 'https://evinieta.gov.md/', priceEur: 4, notes: "Обов'язкова для іноземних авто" },
+};
+
+
 export interface BorderPoint {
   id: string;
   name: string;
@@ -56,9 +78,18 @@ export function getBorderCrossings(fromCode: string, toCode: string): BorderPoin
   if (direct.length > 0) return direct;
   
   const reverse = BORDER_CROSSINGS.filter(b => b.fromCountry === toCode && b.toCountry === fromCode);
-  return reverse.map(b => ({
-    ...b,
-    fromCountry: fromCode,
-    toCountry: toCode
-  }));
+  return reverse.map(b => {
+    const nameParts = b.name.split(' - ');
+    const reversedName = nameParts.length === 2 ? `${nameParts[1].trim()} - ${nameParts[0].trim()}` : b.name;
+    return {
+      ...b,
+      name: reversedName,
+      fromCountry: fromCode,
+      toCountry: toCode
+    };
+  });
+}
+
+export function isSchengenPair(fromCode: string, toCode: string): boolean {
+  return SCHENGEN_COUNTRIES.has(fromCode) && SCHENGEN_COUNTRIES.has(toCode);
 }

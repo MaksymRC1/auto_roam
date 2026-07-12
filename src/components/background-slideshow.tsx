@@ -12,35 +12,47 @@ const IMAGES = [
 
 export function BackgroundSlideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(IMAGES.length - 1);
 
   useEffect(() => {
     const timer = setInterval(() => {
+      setPrevIndex(currentIndex);
       setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
-    }, 8000); // Change image every 8 seconds
+    }, 15000); // 15 seconds delay
 
     return () => clearInterval(timer);
-  }, []);
+  }, [currentIndex]);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-      {/* Task 2.2: Only render current + next image for performance */}
+    <div className="fixed inset-0 z-[-1] overflow-hidden bg-slate-900" aria-hidden="true">
       {IMAGES.map((src, index) => {
-        const isVisible = index === currentIndex;
-        const isNext = index === (currentIndex + 1) % IMAGES.length;
-        if (!isVisible && !isNext) return null;
+        const isActive = index === currentIndex;
+        const isPrev = index === prevIndex;
+        
+        let opacity = 0;
+        let zIndex = 0;
+        
+        if (isActive) {
+          opacity = 1;
+          zIndex = 2;
+        } else if (isPrev) {
+          opacity = 1;
+          zIndex = 1;
+        }
+
         return (
           <div
             key={src}
-            className="absolute inset-0 bg-cover bg-center transition-opacity duration-[2500ms] ease-in-out"
+            className="absolute inset-0 bg-cover bg-center blur-[6px] scale-110 transition-opacity duration-[4000ms] ease-in-out"
             style={{
               backgroundImage: `url(${src})`,
-              opacity: isVisible ? 1 : 0,
+              opacity,
+              zIndex,
             }}
           />
         );
       })}
-      {/* Dark overlay to make text/inputs readable */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-black/30 z-10" />
     </div>
   );
 }

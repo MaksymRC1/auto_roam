@@ -3,14 +3,13 @@ import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSo
 import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { CSS } from '@dnd-kit/utilities';
 import { useState, useEffect, useRef } from 'react';
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MapPin, Navigation2, GripVertical, X, Plus, Map as MapIcon, Loader2 } from "lucide-react";
+import { MapPin, Navigation2, GripVertical, X, Plus, Map as MapIcon, Loader2, LocateFixed, ArrowUpDown, PlusCircle, ArrowRight } from "lucide-react";
 import { useTripStore } from "@/store/useTripStore";
 import { MapPickerModal } from "./MapPickerModal";
 import { useDebounce } from "@/hooks/use-debounce";
 
-function SortableItem({ id, value, index, isLast, updateStop, removeStop, openMapPicker }: any) {
+function SortableItem({ id, value, index, isLast, totalStops, updateStop, removeStop, openMapPicker, onSwap }: any) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const style = { transform: CSS.Transform.toString(transform), transition };
   const [suggestions, setSuggestions] = useState<any[]>([]);
@@ -28,7 +27,6 @@ function SortableItem({ id, value, index, isLast, updateStop, removeStop, openMa
           if (data.results) {
             const filtered = data.results.filter((r: any) => {
               if (r.country_code === 'RU' || r.country_code === 'BY') return false;
-              // Consider European if timezone is Europe/* or it's one of the transcontinental/edge countries
               const isEurope = r.timezone?.startsWith('Europe/') || ['TR', 'CY', 'GE', 'AM', 'AZ'].includes(r.country_code);
               return isEurope;
             });
@@ -44,7 +42,6 @@ function SortableItem({ id, value, index, isLast, updateStop, removeStop, openMa
     }
   }, [debouncedValue, showSuggestions]);
 
-  // Click outside to close
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -56,56 +53,69 @@ function SortableItem({ id, value, index, isLast, updateStop, removeStop, openMa
   }, []);
 
   return (
-    <div ref={setNodeRef} style={style} className={`flex items-center gap-2 mb-2 bg-white relative ${showSuggestions ? 'z-50' : 'z-10'}`}>
-      <div {...attributes} {...listeners} className="cursor-grab text-slate-400 hover:text-slate-600 touch-none">
-        <GripVertical className="w-5 h-5" />
-      </div>
-      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-        {index === 0 ? <MapPin className="w-4 h-4 text-emerald-600" /> : isLast ? <Navigation2 className="w-4 h-4 text-rose-600" /> : <div className="w-3 h-3 rounded-full bg-blue-500" />}
-      </div>
-      <div className="flex-1 flex items-center gap-1 w-full relative" ref={dropdownRef}>
-        <Input 
-          placeholder={index === 0 ? "Звідки (місто або посилання Maps/Waze)" : isLast ? "Куди (місто або посилання Maps/Waze)" : "Проміжна зупинка (місто або посилання)"}
-          value={value}
-          autoComplete="off"
-          onChange={(e) => {
-            updateStop(id, e.target.value);
-            setShowSuggestions(true);
-          }}
-          onFocus={() => setShowSuggestions(true)}
-          className="bg-slate-50 border-slate-200 focus-visible:ring-blue-500 w-full"
-        />
-        {showSuggestions && (suggestions.length > 0 || isSearching) && (
-          <div className="absolute top-full left-0 right-10 mt-1 bg-white border border-slate-200 rounded-md shadow-lg z-[100] max-h-[250px] overflow-y-auto">
-            {isSearching ? (
-              <div className="p-3 text-sm text-slate-500 flex items-center gap-2 justify-center">
-                <Loader2 className="w-4 h-4 animate-spin" /> Пошук...
-              </div>
-            ) : (
-              suggestions.map((s) => (
-                <div 
-                  key={s.id} 
-                  className="p-2 px-3 hover:bg-slate-100 cursor-pointer text-sm border-b last:border-0"
-                  onClick={() => {
-                    updateStop(id, `${s.name}, ${s.country} | ${s.latitude}, ${s.longitude}`);
-                    setShowSuggestions(false);
-                  }}
-                >
-                  <div className="font-medium text-slate-800">{s.name}</div>
-                  <div className="text-xs text-slate-500">{s.admin1 ? `${s.admin1}, ` : ''}{s.country}</div>
+    <div ref={setNodeRef} style={style} className={`relative ${showSuggestions ? 'z-50' : 'z-10'} mb-8`}>
+      <div className="flex items-center gap-3 bg-white/5 border border-white/20 rounded-2xl p-3 pl-4 focus-within:border-white/40 focus-within:bg-white/10 transition-colors w-full group relative z-10 backdrop-blur-md">
+        <div {...attributes} {...listeners} className="cursor-grab text-white/50 hover:text-white shrink-0 touch-none flex items-center justify-center">
+          {index === 0 ? <LocateFixed className="w-5 h-5" /> : isLast ? <MapPin className="w-5 h-5" /> : <div className="w-2.5 h-2.5 rounded-full bg-white/70 ml-1.5" />}
+        </div>
+        <div className="flex-1 relative" ref={dropdownRef}>
+          <input 
+            placeholder={index === 0 ? "Звідки (місто або посилання Maps/Waze)" : isLast ? "Куди (місто або посилання Maps/Waze)" : "Проміжна зупинка (місто або посилання)"}
+            value={value}
+            autoComplete="off"
+            onChange={(e) => {
+              updateStop(id, e.target.value);
+              setShowSuggestions(true);
+            }}
+            onFocus={() => setShowSuggestions(true)}
+            className="bg-transparent text-white placeholder:text-white/40 text-sm font-medium w-full outline-none"
+          />
+          {showSuggestions && (suggestions.length > 0 || isSearching) && (
+            <div className="absolute top-full left-0 right-0 mt-3 bg-slate-800 border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto custom-scrollbar">
+              {isSearching ? (
+                <div className="p-3 text-sm text-white/50 flex items-center gap-2 justify-center">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Пошук...
                 </div>
-              ))
-            )}
-          </div>
+              ) : (
+                suggestions.map((s) => (
+                  <div 
+                    key={s.id} 
+                    className="p-3 hover:bg-white/10 cursor-pointer text-sm border-b border-white/10 last:border-0 transition-colors"
+                    onClick={() => {
+                      updateStop(id, `${s.name}, ${s.country} | ${s.latitude}, ${s.longitude}`);
+                      setShowSuggestions(false);
+                    }}
+                  >
+                    <div className="font-medium text-white">{s.name}</div>
+                    <div className="text-xs text-white/50 mt-0.5">{s.admin1 ? `${s.admin1}, ` : ''}{s.country}</div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+        {index !== 0 && !isLast && (
+          <button onClick={() => removeStop(id)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title="Видалити зупинку">
+            <X className="w-4 h-4" />
+          </button>
         )}
-        <Button variant="ghost" size="icon" className="shrink-0 text-slate-400 hover:text-blue-600" onClick={() => openMapPicker(id)} title="Обрати на карті">
-          <MapIcon className="w-4 h-4" />
-        </Button>
       </div>
-      {index !== 0 && !isLast && (
-        <Button variant="ghost" size="icon" onClick={() => removeStop(id)} className="shrink-0 text-slate-400 hover:text-red-500">
-          <X className="w-4 h-4" />
-        </Button>
+
+      {/* Gap Line */}
+      {!isLast && (
+        <div className="absolute top-full w-[1px] bg-white/20 z-0" style={{ left: '26px', height: '32px' }}></div>
+      )}
+      
+      {/* Swap Button */}
+      {index === 0 && totalStops === 2 && (
+        <button 
+          onClick={onSwap} 
+          className="absolute top-full -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#202020] border border-white/20 flex items-center justify-center z-20 hover:bg-[#303030] transition-colors cursor-pointer shadow-md"
+          style={{ left: '26px', marginTop: '16px' }}
+          title="Поміняти місцями"
+        >
+          <ArrowUpDown className="w-4 h-4 text-white/70" />
+        </button>
       )}
     </div>
   );
@@ -143,8 +153,18 @@ export function StopsInput() {
 
   const visibleStops = stops.filter(s => !s.isBorderOverride);
 
+  const handleSwap = () => {
+    if (visibleStops.length === 2) {
+      const newStops = [...visibleStops];
+      const temp = newStops[0].value;
+      newStops[0].value = newStops[1].value;
+      newStops[1].value = temp;
+      setStops(newStops);
+    }
+  };
+
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col">
       <DndContext 
         sensors={sensors} 
         collisionDetection={closestCenter} 
@@ -152,7 +172,7 @@ export function StopsInput() {
         modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
       >
         <SortableContext items={visibleStops.map(s => s.id)} strategy={verticalListSortingStrategy}>
-          <div className="space-y-1">
+          <div className="relative">
             {visibleStops.map((stop, index) => (
               <SortableItem 
                 key={stop.id} 
@@ -160,9 +180,11 @@ export function StopsInput() {
                 value={stop.value} 
                 index={index} 
                 isLast={index === visibleStops.length - 1}
+                totalStops={visibleStops.length}
                 updateStop={updateStop}
                 removeStop={removeStop}
                 openMapPicker={(id: string) => setActivePickerStopId(id)}
+                onSwap={handleSwap}
               />
             ))}
           </div>
@@ -180,24 +202,31 @@ export function StopsInput() {
         }} 
       />
       
-      <Button variant="ghost" onClick={addStop} className="w-full text-blue-600 hover:text-blue-700 hover:bg-blue-50 justify-start gap-2">
-        <Plus className="w-4 h-4" /> Додати зупинку
-      </Button>
+      <button onClick={addStop} className="flex items-center gap-3 text-white font-medium hover:text-white/80 transition-colors text-sm py-2 outline-none pl-4 -mt-2 relative z-10 w-fit">
+        <div className="w-5 h-5 flex items-center justify-center shrink-0">
+          <PlusCircle className="w-5 h-5 text-white/50" />
+        </div>
+        Додати зупинку
+      </button>
 
-      <div className="pt-2">
-        {error && <div className="text-sm text-red-500 font-medium mb-3">{error}</div>}
+      <div className="pt-6">
+        {error && <div className="text-sm text-red-400 font-medium mb-3 bg-red-900/30 p-3 rounded-lg border border-red-500/30">{error}</div>}
         {!isCalculated ? (
-          <Button onClick={calculateRoute} disabled={isLoading} size="lg" className="w-full bg-blue-600 hover:bg-blue-700 shadow-sm text-base">
-            {isLoading ? <div className="loader-white"></div> : 'Побудувати маршрут'}
-          </Button>
+          <button onClick={calculateRoute} disabled={isLoading} className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none">
+            {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+              <>Побудувати маршрут <ArrowRight className="w-5 h-5" /></>
+            )}
+          </button>
         ) : (
-          <div className="flex gap-2">
-            <Button onClick={calculateRoute} disabled={isLoading} size="lg" className="flex-1 bg-blue-600 hover:bg-blue-700 shadow-sm text-base">
-              {isLoading ? <div className="loader-white"></div> : 'Оновити'}
-            </Button>
-            <Button onClick={resetTrip} variant="outline" size="lg" className="flex-1 text-slate-600 border-slate-300">
+          <div className="flex gap-4">
+            <button onClick={calculateRoute} disabled={isLoading} className="flex-1 bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none">
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+                <>Оновити <ArrowRight className="w-5 h-5" /></>
+              )}
+            </button>
+            <button onClick={resetTrip} className="px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors outline-none">
               Скинути
-            </Button>
+            </button>
           </div>
         )}
       </div>

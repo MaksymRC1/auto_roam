@@ -1,38 +1,62 @@
-import { MapIcon, CheckCircle2 } from "lucide-react";
-
 export function LeftPlaceholder() {
   return (
-    <div className="flex flex-col items-center justify-center p-2 text-center h-full">
-      <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-        <MapIcon className="w-8 h-8" />
+    <div className="rounded-[20px] p-6 md:p-10 shadow-2xl text-white h-full flex flex-col justify-center" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10">
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">
+            <span className="material-symbols-outlined leading-none">map</span>
+          </div>
+          <div>
+            <h3 className="font-sans text-sm font-bold text-white mb-1">Точний маршрут</h3>
+            <p className="font-sans text-slate-300 text-sm">Точне планування для будь-якого типу транспорту.</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">
+            <span className="material-symbols-outlined leading-none">verified_user</span>
+          </div>
+          <div>
+            <h3 className="font-sans text-sm font-bold text-white mb-1">Менеджер кордонів</h3>
+            <p className="font-sans text-slate-300 text-sm">Час очікування та правила перетину в реальному часі.</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">
+            <span className="material-symbols-outlined leading-none">account_balance_wallet</span>
+          </div>
+          <div>
+            <h3 className="font-sans text-sm font-bold text-white mb-1">Калькулятор витрат</h3>
+            <p className="font-sans text-slate-300 text-sm">Оцінка палива, мита та проживання.</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">
+            <span className="material-symbols-outlined leading-none">add_location</span>
+          </div>
+          <div>
+            <h3 className="font-sans text-sm font-bold text-white mb-1">Проміжні зупинки</h3>
+            <p className="font-sans text-slate-300 text-sm">Легко додавайте точки до вашої подорожі.</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">
+            <span className="material-symbols-outlined leading-none">explore</span>
+          </div>
+          <div>
+            <h3 className="font-sans text-sm font-bold text-white mb-1">Інтеграція з Google Maps</h3>
+            <p className="font-sans text-slate-300 text-sm">Відкривайте готові маршрути безпосередньо у додатку.</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/10">
+            <span className="material-symbols-outlined leading-none">navigation</span>
+          </div>
+          <div>
+            <h3 className="font-sans text-sm font-bold text-white mb-1">Інтеграція з Waze</h3>
+            <p className="font-sans text-slate-300 text-sm">Експортуйте напряму у ваш навігаційний додаток.</p>
+          </div>
+        </div>
       </div>
-      <h3 className="text-2xl font-bold text-slate-800 mb-6 drop-shadow-sm">Можливості платформи</h3>
-      <ul className="text-left space-y-5 mb-8">
-        <li className="flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-          <span className="text-slate-700 font-medium"><strong>Точний маршрут:</strong> Будуйте детальні автомаршрути між будь-якими містами Європи.</span>
-        </li>
-        <li className="flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-          <span className="text-slate-700 font-medium"><strong>Менеджер кордонів:</strong> Автоматичне визначення пунктів пропуску з можливістю їх зміни.</span>
-        </li>
-        <li className="flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-          <span className="text-slate-700 font-medium"><strong>Розрахунок витрат:</strong> Детальний кошторис на пальне та ночівлі з урахуванням актуальних цін.</span>
-        </li>
-        <li className="flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-          <span className="text-slate-700 font-medium"><strong>Проміжні зупинки:</strong> Зручне додавання готелів, заправок та цікавих місць по дорозі.</span>
-        </li>
-        <li className="flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-          <span className="text-slate-700 font-medium"><strong>Інтерактивна мапа:</strong> Повний візуальний контроль маршруту з підтримкою драг-н-дроп.</span>
-        </li>
-        <li className="flex items-start gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-          <span className="text-slate-700 font-medium"><strong>Інтеграція з Waze:</strong> Готові посилання для навігації на кожному етапі вашої подорожі.</span>
-        </li>
-      </ul>
     </div>
   );
 }

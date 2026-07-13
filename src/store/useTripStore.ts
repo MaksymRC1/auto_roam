@@ -50,6 +50,8 @@ export interface HotelOverride {
   lat?: number;
   lon?: number;
   priceEur?: number;
+  inputPrice?: number;
+  inputCurrency?: string;
 }
 
 interface TripState {

@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTripStore } from "@/store/useTripStore";
 import { ExternalLink, AlertTriangle, Info, Clock, Route } from "lucide-react";
@@ -13,54 +12,43 @@ export function BordersPanel() {
   
   if (borderCrossings.length === 0) {
     return (
-      <Card className="flex-1 flex flex-col m-0 border-indigo-100 shadow-sm">
-        <CardContent className="p-8 text-center text-slate-500">
-          <Info className="w-8 h-8 mx-auto mb-2 text-slate-300" />
-          <p>Ваш маршрут не перетинає державних кордонів з контролем.</p>
-        </CardContent>
-      </Card>
+      <div className="flex-1 flex flex-col p-8 text-center text-white/50 border border-white/10 rounded-xl bg-white/5">
+        <Info className="w-8 h-8 mx-auto mb-2 text-white/30" />
+        <p>Ваш маршрут не перетинає державних кордонів з контролем.</p>
+      </div>
     );
   }
 
   return (
-    <Card className="flex-1 flex flex-col m-0 border-indigo-100 shadow-sm">
-      <CardHeader className="bg-indigo-50/50 pb-4 border-b">
-        <CardTitle className="text-xl flex items-center gap-2">
-          <span>🛂</span> Кордони
-        </CardTitle>
-        <CardDescription>
-          Інформація про обрані пункти пропуску та основні вимоги до перетину.
-        </CardDescription>
-      </CardHeader>
-      
-      <CardContent className="p-6 space-y-6 bg-white">
+    <div className="flex-1 flex flex-col space-y-4">
+      <div className="pt-2 space-y-6">
         
         {/* Border Crossings Section */}
         {borderCrossings.length > 0 && (
           <div className="space-y-4">
-            <h3 className="font-semibold text-slate-800 flex items-center gap-2">
+            <h3 className="font-semibold text-white/90 flex items-center gap-2">
               Обрані пункти пропуску
             </h3>
             {borderCrossings.map(border => (
-              <div key={border.id} className="rounded-xl border p-5 bg-white shadow-sm hover:border-indigo-200 transition-colors">
+              <div key={border.id} className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm hover:border-indigo-400/50 transition-colors">
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   <div>
-                    <div className="flex flex-wrap items-center gap-2 font-bold text-slate-800 text-lg">
+                    <div className="flex flex-wrap items-center gap-2 font-bold text-white/90 text-lg">
                       {border.name}
                     </div>
-                    <p className="text-sm text-slate-500 mt-1">
+                    <p className="text-sm text-white/50 mt-1">
                       Приблизне прибуття через {Math.floor(border.timeFromStart / 60)} год {border.timeFromStart % 60} хв
                     </p>
                   </div>
-                  <div className="text-center bg-orange-50 px-3 py-1.5 rounded-lg border border-orange-100 shrink-0">
-                    <span className="text-xs text-orange-600 font-medium flex items-center gap-1 justify-center mb-0.5">
+                  <div className="text-center bg-orange-500/10 px-3 py-1.5 rounded-lg border border-orange-500/20 shrink-0">
+                    <span className="text-xs text-orange-400 font-medium flex items-center gap-1 justify-center mb-0.5">
                       <Clock className="w-3 h-3" /> Очікування
                     </span>
-                    <span className="text-sm font-bold text-orange-700">Невідомо</span>
+                    <span className="text-sm font-bold text-orange-300">Невідомо</span>
                   </div>
                 </div>
 
-                <div className="mt-4 p-3 bg-slate-50 rounded-lg border text-sm text-slate-600 space-y-2">
+                <div className="mt-4 p-3 bg-white/5 rounded-lg border border-white/10 text-sm text-white/70 space-y-2">
                   <p className="flex gap-2">
                     <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
                     Перевірте наявність біометричних закордонних паспортів та дійсних віз (якщо потрібно).
@@ -79,7 +67,7 @@ export function BordersPanel() {
 
                 {border.name.includes('UA') && (
                   <div className="pt-4 flex gap-2">
-                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm" onClick={() => window.open("https://dpsu.gov.ua/ua/map/", "_blank")}>
+                    <Button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white shadow-sm" onClick={() => window.open("https://dpsu.gov.ua/ua/map/", "_blank")}>
                       Перевірити черги на сайті ДПСУ <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
@@ -88,7 +76,7 @@ export function BordersPanel() {
             ))}
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

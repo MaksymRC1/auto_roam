@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -149,31 +148,21 @@ export function FuelPanel() {
   const totalCostLocal = Math.round(totalCostEur * rate);
 
   return (
-    <Card className="flex-1 flex flex-col m-0 border-blue-100 shadow-sm">
-      <CardHeader className="bg-blue-50/50 pb-4 border-b">
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-xl flex items-center gap-2">
-              <span>⛽</span> Розрахунок палива
-            </CardTitle>
-            <CardDescription>
-              Маршрут: {totalDistance} км. Актуальні європейські ціни.
-            </CardDescription>
-          </div>
-          <Select value={currency} onValueChange={(v) => { if (v) setCurrency(v); }}>
-            <SelectTrigger className="w-24 h-8 text-xs bg-blue-50/80 border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors shadow-sm ring-1 ring-blue-500/20">
-              <SelectValue placeholder="Валюта" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="EUR">EUR (€)</SelectItem>
-              <SelectItem value="UAH">UAH (₴)</SelectItem>
-              <SelectItem value="USD">USD ($)</SelectItem>
-              <SelectItem value="PLN">PLN (zł)</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 space-y-6">
+    <div className="flex-1 flex flex-col space-y-4">
+      <div className="pb-4 border-b border-white/10 flex justify-end">
+        <Select value={currency} onValueChange={(v) => { if (v) setCurrency(v); }}>
+          <SelectTrigger className="w-24 h-10 text-xs">
+            <SelectValue placeholder="Валюта" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="EUR">EUR (€)</SelectItem>
+            <SelectItem value="UAH">UAH (₴)</SelectItem>
+            <SelectItem value="USD">USD ($)</SelectItem>
+            <SelectItem value="PLN">PLN (zł)</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="pt-2 space-y-6">
         
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -225,9 +214,9 @@ export function FuelPanel() {
                   const val = e.target.value.replace(',', '.').replace(/[^0-9.]/g, '');
                   setConsumption(val, false);
                 }}
-                className={`pr-20 text-right font-medium ${isDefaultConsumption && !isFocused ? 'text-slate-400 bg-slate-50 opacity-70' : ''}`}
+                className={`pr-20 text-right font-medium ${isDefaultConsumption && !isFocused ? 'text-white/50 bg-white/5' : ''}`}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400 pointer-events-none">л/100 км</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40 pointer-events-none">л/100 км</span>
             </div>
           </div>
         </div>
@@ -251,10 +240,10 @@ export function FuelPanel() {
                     <button
                       key={code}
                       onClick={() => toggleCountry(code)}
-                      className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+                      className={`px-3 py-1.5 text-sm rounded-xl border transition-colors ${
                         isSelected 
-                          ? 'bg-blue-600 text-white border-blue-600' 
-                          : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50'
+                          ? 'bg-blue-600/80 text-white border-blue-500' 
+                          : 'bg-white/5 text-white/80 border-white/10 hover:bg-white/10'
                       }`}
                     >
                       {countryName} {priceLocal ? `(${currencySymbol}${priceLocal})` : ''}
@@ -275,7 +264,7 @@ export function FuelPanel() {
                       <div key={code}>
                         <div className="flex items-center gap-3">
                           <div className="flex-1">
-                            <Label className="text-xs text-slate-500 mb-1 block">
+                            <Label className="text-xs text-white/50 mb-1 block">
                               {countryName} ({currencySymbol}{priceLocal.toFixed(2)}/л)
                             </Label>
                             <div className="relative">
@@ -286,12 +275,12 @@ export function FuelPanel() {
                                 onFocus={() => setIsAnyAmountFocused(true)}
                                 onBlur={() => setIsAnyAmountFocused(false)}
                                 onChange={(e) => updateAmount(code, e.target.value.replace(',', '.').replace(/[^0-9.]/g, ''))}
-                                className={`pr-8 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${isDefaultConsumption && !isFocused && !isAnyAmountFocused ? 'opacity-40 text-slate-500 bg-slate-50 transition-opacity' : 'opacity-100 transition-opacity'}`}
+                                className={`pr-8 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${isDefaultConsumption && !isFocused && !isAnyAmountFocused ? 'opacity-40 text-white/50 bg-white/5 transition-opacity' : 'opacity-100 transition-opacity'}`}
                               />
-                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">л</span>
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40">л</span>
                             </div>
                           </div>
-                          <div className="w-24 text-right pt-5 text-sm font-medium text-slate-700">
+                          <div className="w-24 text-right pt-5 text-sm font-medium text-white/90">
                             {currencySymbol} {countryCostLocal}
                           </div>
                         </div>
@@ -319,14 +308,14 @@ export function FuelPanel() {
           </div>
         )}
 
-        <div className="rounded-lg bg-slate-50 p-4 space-y-3 border">
+        <div className="rounded-xl bg-white/5 p-4 space-y-3 border border-white/10">
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500 flex items-center gap-1">
+            <span className="text-white/60 flex items-center gap-1">
               Кількість палива:
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Info className="w-4 h-4 text-slate-400 cursor-help" />
+                    <Info className="w-4 h-4 text-white/40 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Включає 10% запасу для більш надійного розрахунку</p>
@@ -334,28 +323,28 @@ export function FuelPanel() {
                 </Tooltip>
               </TooltipProvider>
             </span>
-            <span className="font-semibold">{Math.round(conservativeFuel)} л</span>
+            <span className="font-semibold text-white/90">{Math.round(conservativeFuel)} л</span>
           </div>
 
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Всього розподілено:</span>
-            <span className="font-semibold text-slate-700">{Math.round(distributedFuel)} л</span>
+            <span className="text-white/60">Всього розподілено:</span>
+            <span className="font-semibold text-white/90">{Math.round(distributedFuel)} л</span>
           </div>
 
           {isWarning && (
-            <div className="flex justify-between text-sm text-red-600 bg-red-50 p-2 rounded border border-red-100">
+            <div className="flex justify-between text-sm text-red-400 bg-red-400/10 p-2 rounded-lg border border-red-400/20">
               <span>Залишилось розподілити:</span>
               <span className="font-semibold">{Math.round(remainingFuel)} л</span>
             </div>
           )}
 
-          <div className="flex justify-between text-lg font-bold pt-2 border-t mt-2">
-            <span className="text-slate-700">Орієнтовна вартість:</span>
-            <span className="text-blue-600">{currencySymbol} {totalCostLocal}</span>
+          <div className="flex justify-between text-lg font-bold pt-3 border-t border-white/10 mt-2">
+            <span className="text-white/80">Орієнтовна вартість:</span>
+            <span className="text-blue-400">{currencySymbol} {totalCostLocal}</span>
           </div>
         </div>
 
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

@@ -58,9 +58,30 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
         <div {...attributes} {...listeners} className="cursor-grab text-white/50 hover:text-white shrink-0 touch-none flex items-center justify-center">
           {index === 0 ? <LocateFixed className="w-5 h-5" /> : isLast ? <MapPin className="w-5 h-5" /> : <div className="w-2.5 h-2.5 rounded-full bg-white/70 ml-1.5" />}
         </div>
-        <div className="flex-1 relative" ref={dropdownRef}>
+        <div className="flex-1 relative min-w-0 flex items-center overflow-hidden group" ref={dropdownRef}>
+          {!value && (
+            <div className="absolute inset-0 flex items-center pointer-events-none text-white/40 text-sm font-medium z-0">
+              <div className="w-full truncate group-focus-within:hidden">
+                {index === 0 ? (
+                  <>Звідки (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
+                ) : isLast ? (
+                  <>Куди (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
+                ) : (
+                  "Проміжна зупинка (місто або посилання)"
+                )}
+              </div>
+              <div className="w-full hidden group-focus-within:block truncate">
+                {index === 0 ? (
+                  <>Звідки (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
+                ) : isLast ? (
+                  <>Куди (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
+                ) : (
+                  "Проміжна зупинка (місто або посилання)"
+                )}
+              </div>
+            </div>
+          )}
           <input 
-            placeholder={index === 0 ? "Звідки (місто або посилання Maps/Waze)" : isLast ? "Куди (місто або посилання Maps/Waze)" : "Проміжна зупинка (місто або посилання)"}
             value={value}
             autoComplete="off"
             onChange={(e) => {
@@ -68,10 +89,10 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            className="bg-transparent text-white placeholder:text-white/40 text-sm font-medium w-full outline-none"
+            className="peer bg-transparent text-white text-sm font-medium w-full outline-none text-ellipsis relative z-10"
           />
           {showSuggestions && (suggestions.length > 0 || isSearching) && (
-            <div className="absolute top-full left-0 right-0 mt-3 bg-slate-800 border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto custom-scrollbar">
+            <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto custom-scrollbar">
               {isSearching ? (
                 <div className="p-3 text-sm text-white/50 flex items-center gap-2 justify-center">
                   <Loader2 className="w-4 h-4 animate-spin" /> Пошук...
@@ -101,20 +122,17 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
         )}
       </div>
 
-      {/* Gap Line */}
-      {!isLast && (
-        <div className="absolute top-full w-[1px] bg-white/20 z-0" style={{ left: '26px', height: '32px' }}></div>
-      )}
+
       
       {/* Swap Button */}
       {index === 0 && totalStops === 2 && (
         <button 
           onClick={onSwap} 
-          className="absolute top-full -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#202020] border border-white/20 flex items-center justify-center z-20 hover:bg-[#303030] transition-colors cursor-pointer shadow-md"
+          className="absolute top-full -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-transparent flex items-center justify-center z-20 hover:bg-white/10 text-white/50 hover:text-white transition-colors cursor-pointer"
           style={{ left: '26px', marginTop: '16px' }}
           title="Поміняти місцями"
         >
-          <ArrowUpDown className="w-4 h-4 text-white/70" />
+          <ArrowUpDown className="w-4 h-4" />
         </button>
       )}
     </div>

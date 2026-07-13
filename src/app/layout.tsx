@@ -32,7 +32,7 @@ export default function RootLayout({
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-slate-900 text-slate-300">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-slate-900 text-slate-300 overflow-x-hidden w-full">{children}</body>
     </html>
   );
 }

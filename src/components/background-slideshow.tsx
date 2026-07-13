@@ -13,6 +13,7 @@ const IMAGES = [
 export function BackgroundSlideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(IMAGES.length - 1);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,6 +23,15 @@ export function BackgroundSlideshow() {
 
     return () => clearInterval(timer);
   }, [currentIndex]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden bg-slate-900" aria-hidden="true">
@@ -43,11 +53,12 @@ export function BackgroundSlideshow() {
         return (
           <div
             key={src}
-            className="absolute inset-0 bg-cover bg-center blur-[6px] scale-110 transition-opacity duration-[4000ms] ease-in-out"
+            className="absolute -inset-[10%] bg-cover bg-center blur-[6px] transition-opacity duration-[4000ms] ease-in-out"
             style={{
               backgroundImage: `url(${src})`,
               opacity,
               zIndex,
+              transform: `translateY(${scrollY * 0.15}px) scale(1.1)`,
             }}
           />
         );

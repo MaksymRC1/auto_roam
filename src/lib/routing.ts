@@ -85,10 +85,10 @@ export async function geocodeCity(city: string): Promise<GeocodeResult | null> {
       
       // 1. Booking.com
       if (parsedUrl.hostname.includes('booking.com')) {
-        const match = parsedUrl.pathname.match(/\/hotel\/[a-z]+\/([^.]+)/);
+        const match = parsedUrl.pathname.match(/\/(?:hotel|city|region)\/[a-z]+\/([^.]+)/);
         if (match && match[1]) {
           query = match[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-          isPoi = true; // Skip city geocoder for hotels
+          isPoi = parsedUrl.pathname.includes('/hotel/'); // Skip city geocoder for hotels
         }
       }
       
@@ -243,22 +243,28 @@ export interface ReverseGeocodeResult {
   countryCode: string;
 }
 
-// 3. Fast Reverse Geocoding using BigDataCloud with Nominatim fallback
+// 3. Fast Reverse Geocoding using BigDataCloud with Photon fallback
 export async function reverseGeocode(lat: number, lon: number): Promise<ReverseGeocodeResult | null> {
+  let bdcSuccess = false;
   try {
     const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=uk`;
     const response = await fetch(url);
-    if (!response.ok) throw new Error('BDC failed');
-    
-    const data = await response.json();
-    if (!data.countryCode) throw new Error('BDC missing data');
-    
-    return {
-      city: data.city || data.locality || data.principalSubdivision || data.countryName || "Траса",
-      countryCode: data.countryCode?.toUpperCase() || "UNKNOWN"
-    };
+    if (response.ok) {
+      const data = await response.json();
+      if (data.countryCode) {
+        bdcSuccess = true;
+        return {
+          city: data.city || data.locality || data.principalSubdivision || data.countryName || "Траса",
+          countryCode: data.countryCode?.toUpperCase() || "UNKNOWN"
+        };
+      }
+    }
   } catch (error) {
-    console.warn('BigDataCloud failed, falling back to Photon:', error);
+    // Ignore BDC fetch errors
+  }
+
+  // Fallback to Photon silently if BDC fails or is missing data (e.g. rate limit)
+  if (!bdcSuccess) {
     try {
        const photonUrl = `https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}`;
        const photonRes = await fetch(photonUrl);
@@ -275,8 +281,9 @@ export async function reverseGeocode(lat: number, lon: number): Promise<ReverseG
     } catch (photonError) {
        console.error('Photon fallback also failed:', photonError);
     }
-    return null;
   }
+  
+  return null;
 }
 
 export interface BorderCrossing {

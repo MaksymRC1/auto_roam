@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { ShieldAlert } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -62,18 +61,8 @@ export function BudgetPanel() {
   };
 
   return (
-    <Card className="flex-1 flex flex-col m-0 border-emerald-100 shadow-sm">
-      <CardHeader className="bg-emerald-50/50 pb-4 border-b">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-          <div>
-            <CardTitle className="text-xl flex items-center gap-2">
-              <span>💰</span> Загальний кошторис
-            </CardTitle>
-            <CardDescription className="mt-1">
-              Орієнтовні витрати на вашу подорож.
-            </CardDescription>
-          </div>
-          
+    <div className="flex-1 flex flex-col space-y-4">
+      <div className="pb-4 border-b border-white/10 flex justify-end">
           <Tabs value={currency} onValueChange={(v) => setCurrency(v)} className="w-full md:w-[240px]">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="EUR">EUR</TabsTrigger>
@@ -82,64 +71,63 @@ export function BudgetPanel() {
               <TabsTrigger value="PLN">PLN</TabsTrigger>
             </TabsList>
           </Tabs>
-        </div>
-      </CardHeader>
+      </div>
       
-      <CardContent className="p-6 space-y-6 bg-white">
+      <div className="pt-2 space-y-6">
         
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors">
+          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
                 <span className="text-lg">⛽</span>
               </div>
               <div>
-                <p className="font-semibold text-slate-800">Паливо</p>
-                <p className="text-xs text-slate-500">~{totalFuelLiters.toFixed(0)} л за поточним розподілом</p>
+                <p className="font-semibold text-white/90">Паливо</p>
+                <p className="text-xs text-white/50">~{totalFuelLiters.toFixed(0)} л за поточним розподілом</p>
               </div>
             </div>
-            <span className="font-bold text-slate-700">{formatCost(totalFuelCostEur)}</span>
+            <span className="font-bold text-white/90">{formatCost(totalFuelCostEur)}</span>
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors">
+          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center">
                 <span className="text-lg">🏨</span>
               </div>
               <div>
-                <p className="font-semibold text-slate-800">Ночівля</p>
-                <p className="text-xs text-slate-500">{stopsCount} зупинка(и)</p>
+                <p className="font-semibold text-white/90">Ночівля</p>
+                <p className="text-xs text-white/50">{stopsCount} зупинка(и)</p>
               </div>
             </div>
-            <span className="font-bold text-slate-700">{formatCost(hotelCostEur)}</span>
+            <span className="font-bold text-white/90">{formatCost(hotelCostEur)}</span>
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors">
+          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
                 <span className="text-lg">🛂</span>
               </div>
               <div>
-                <p className="font-semibold text-slate-800">Віньєтки та збори</p>
-                <p className="text-xs text-slate-500">Оплата платних доріг</p>
+                <p className="font-semibold text-white/90">Віньєтки та збори</p>
+                <p className="text-xs text-white/50">Оплата платних доріг</p>
               </div>
             </div>
-            <span className="font-bold text-slate-700">{formatCost(vignetteCostEur)}</span>
+            <span className="font-bold text-white/90">{formatCost(vignetteCostEur)}</span>
           </div>
 
-          <div className="h-px bg-slate-200 my-2" />
+          <div className="h-px bg-white/10 my-2" />
 
-          <div className="flex items-center justify-between p-3 rounded-lg bg-orange-50/50 border border-orange-100">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+              <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400">
                 <ShieldAlert className="w-4 h-4" />
               </div>
               <div>
-                <p className="font-semibold text-orange-800">Резерв на непередбачувані витрати</p>
-                <p className="text-xs text-orange-600/80">+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
+                <p className="font-semibold text-orange-400">Резерв на непередбачувані витрати</p>
+                <p className="text-xs text-orange-300">+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
               </div>
             </div>
-            <span className="font-bold text-orange-700">{formatCost(reserveEur)}</span>
+            <span className="font-bold text-orange-400">{formatCost(reserveEur)}</span>
           </div>
         </div>
 
@@ -155,8 +143,7 @@ export function BudgetPanel() {
             </p>
           </div>
         </div>
-
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

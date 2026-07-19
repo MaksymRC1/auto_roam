@@ -2,79 +2,10 @@ import { Navbar } from "@/components/navbar";
 import { BackgroundSlideshow } from "@/components/background-slideshow";
 import { ArticleRating } from "@/components/article-rating";
 
-// Mock data fetching function
-const ARTICLES_DB: Record<string, any> = {
-  "norway-fjords": {
-    id: "norway-fjords",
-    category: "Маршрути",
-    title: "Топ-5 маршрутів Європою на авто",
-    heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuCwwNpqQgfv1O2BH5wwDWJQDZQmOo8O81wXQsx66GOTcHmsiuX-mPMWd1QqRP-j1a7SzdV4pWEzsMt_zJGa9LqTmOBm3eqDYQ9DSv0gzi0X0rxT6IgWKAZV93gAMiB1WPD8mEhTgQPJ6xfJNjqcCdA_B--iX83_2hVL-1kaR9gIX83-X0smnHhsJMr7i8hoe2IvTUtC4rqUriMZ-brWETaE6TKDogafmfpVu4xOIQh3ABnN5yWk3FJT0Q",
-    intro: "Норвегія — це країна, створена для епічних дорожніх подорожей. Її звивисті дороги, що прорізають величні гори та огинають глибокі фіорди, пропонують краєвиди, які неможливо забути. Ми зібрали для вас найкращі маршрути, які розкриють справжню красу цієї північної перлини.",
-    section1Title: "Чому Європа — ідеальна для автоподорожі",
-    section1Text: "Свобода пересування — головна перевага подорожі на авто. Ви можете зупинитися біля будь-якого водоспаду, змінити плани заради раптово відкритого краєвиду або просто насолоджуватися тишею на відокремленому оглядовому майданчику.",
-    tip: "Завжди майте при собі теплий одяг, навіть влітку. Погода в горах може змінитися за лічені хвилини.",
-    routes: [
-      {
-        name: "Атлантична дорога (Atlanterhavsveien)",
-        desc: "8 км інженерного дива, що стрибає з острова на острів."
-      },
-      {
-        name: "Стежка Тролів (Trollstigen)",
-        desc: "Звивистий гірський серпантин з 11 крутими поворотами та вражаючим водоспадом Стігфоссен."
-      },
-      {
-        name: "Лофотенські острови (Lofoten)",
-        desc: "Маршрут E10 через архіпелаг з рибальськими селами та гострими піками, що виростають прямо з океану."
-      }
-    ],
-    contentImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDEiMsizFe6_H3WsjFrslsMXZ2mJ3QLOQbUTPPLGPeunI2zD7e_PCKtQkNF_37_2smSdzPH00m2E-1CILuUOy_gEmO_KPoxvHduUTKNolZbI4zEQ8RawQQgGjfAW8LT2cncMcDC-qGcZ5DV9k218tKO07VImsSaCAqQn1NxIWIW6ZY0fFRBJ0f9d4Hoa6YlsjFf0x3BCOKyGjcff8dh9kURxHg-cKvMs5BML83AGbElWYyNHfyX6M0EyA"
-  },
-  "fast-border-crossing": {
-    id: "fast-border-crossing",
-    category: "Кордон",
-    title: "Як швидко пройти кордон у 2024 році",
-    heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL4xG-4Womy_IRu1RXTKgBYvPqCtMKOnC1uT0huaLc3jsKrhISd6Ky4vtrMuJuny564UYWa6diNKpEpjYLIudzugEOPqfOMQB1d6GWV_d0QKVadAjgXAJoeVwj65zw4dJNj6n4YWmoXjlo75lC3xLN1qB2u_kJChHS-OHknbyqOXwn7UktUyaJVvwvUfknclMzhtzEL_KGoRsao8dQL59VoB3tiiXHkzjbxdYH2Jl75OWKxVUMpXwU1w",
-    intro: "Перетин кордону часто є найстресовішою частиною міжнародної подорожі на авто. Проте, з правильною підготовкою та знанням кількох секретів, цей процес можна значно пришвидшити та зробити комфортнішим.",
-    section1Title: "Підготовка документів",
-    section1Text: "Найважливіше правило — тримайте всі документи під рукою. Закордонний паспорт, техпаспорт на авто, зелена картка та водійське посвідчення мають бути готові до пред'явлення. Рекомендуємо також мати роздруковані броні готелів.",
-    tip: "Перевіряйте стан черг на кордоні онлайн перед виїздом та обирайте менш завантажені пункти пропуску.",
-    routes: [
-      {
-        name: "e-Черга",
-        desc: "Зареєструйтеся в системі електронної черги, якщо вона доступна для вашого типу транспорту."
-      },
-      {
-        name: "Митні правила",
-        desc: "Ознайомтеся з нормами ввезення/вивезення товарів, щоб уникнути затримок на митниці."
-      }
-    ],
-    contentImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL4xG-4Womy_IRu1RXTKgBYvPqCtMKOnC1uT0huaLc3jsKrhISd6Ky4vtrMuJuny564UYWa6diNKpEpjYLIudzugEOPqfOMQB1d6GWV_d0QKVadAjgXAJoeVwj65zw4dJNj6n4YWmoXjlo75lC3xLN1qB2u_kJChHS-OHknbyqOXwn7UktUyaJVvwvUfknclMzhtzEL_KGoRsao8dQL59VoB3tiiXHkzjbxdYH2Jl75OWKxVUMpXwU1w"
-  },
-  "packing-list": {
-    id: "packing-list",
-    category: "Підготовка",
-    title: "Підготовка авто до довгої подорожі",
-    heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtsqP4f4r89f_CH-Wceta2vY3iqeZnLnbsPK5tRlA8oay8VEVlFSTLdnGIKrq_MoMAzaVaUL5mNoDKMlxusRCKhwEw7woEoW8UvS3QSu-I8icwCPXsz6RjwC591NF1ZRI_zqWAKhHhob8Wi8K05q6xGANED5ITh_eDUF6UnB-X11p6yJUEN9ksMxjWk7q0_roH247QAAfBIS3wQy3cqP5jee50K5NX4qQQpOlLzlUs5jokcsZzDNBOBQ",
-    intro: "Надійність вашого автомобіля — це запорука успішної подорожі. Перед тим як вирушати в далеку дорогу, необхідно провести ретельну перевірку технічного стану транспортного засобу та зібрати всі необхідні речі.",
-    section1Title: "Технічний огляд",
-    section1Text: "Перевірте рівень моторної оливи, гальмівної та охолоджуючої рідин. Особливу увагу зверніть на стан шин: переконайтеся, що глибина протектора відповідає нормам країн, які ви плануєте відвідати, та перевірте тиск.",
-    tip: "Не забудьте перевірити наявність та справність запасного колеса, домкрата та балонного ключа.",
-    routes: [
-      {
-        name: "Аптечка",
-        desc: "Перевірте термін придатності медикаментів та доукомплектуйте аптечку за необхідності."
-      },
-      {
-        name: "Аварійний набір",
-        desc: "Знак аварійної зупинки, світловідбиваючі жилети (бажано для всіх пасажирів) та вогнегасник — обов'язкові атрибути."
-      }
-    ],
-    contentImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtsqP4f4r89f_CH-Wceta2vY3iqeZnLnbsPK5tRlA8oay8VEVlFSTLdnGIKrq_MoMAzaVaUL5mNoDKMlxusRCKhwEw7woEoW8UvS3QSu-I8icwCPXsz6RjwC591NF1ZRI_zqWAKhHhob8Wi8K05q6xGANED5ITh_eDUF6UnB-X11p6yJUEN9ksMxjWk7q0_roH247QAAfBIS3wQy3cqP5jee50K5NX4qQQpOlLzlUs5jokcsZzDNBOBQ"
-  }
-};
+import articlesData from "@/data/articles.json";
 
 async function getArticle(slug: string) {
-  return ARTICLES_DB[slug] || ARTICLES_DB["norway-fjords"];
+  return articlesData.find(a => a.id === slug) || articlesData[0];
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {

@@ -6,29 +6,15 @@ import { BackgroundSlideshow } from "@/components/background-slideshow"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 
-const BASE_ARTICLES = [
-  {
-    href: "/articles/fast-border-crossing",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL4xG-4Womy_IRu1RXTKgBYvPqCtMKOnC1uT0huaLc3jsKrhISd6Ky4vtrMuJuny564UYWa6diNKpEpjYLIudzugEOPqfOMQB1d6GWV_d0QKVadAjgXAJoeVwj65zw4dJNj6n4YWmoXjlo75lC3xLN1qB2u_kJChHS-OHknbyqOXwn7UktUyaJVvwvUfknclMzhtzEL_KGoRsao8dQL59VoB3tiiXHkzjbxdYH2Jl75OWKxVUMpXwU1w",
-    category: "Кордон",
-    title: "Як швидко пройти кордон у 2024 році",
-    date: "12 Липня, 2024"
-  },
-  {
-    href: "/articles/norway-fjords",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCwwNpqQgfv1O2BH5wwDWJQDZQmOo8O81wXQsx66GOTcHmsiuX-mPMWd1QqRP-j1a7SzdV4pWEzsMt_zJGa9LqTmOBm3eqDYQ9DSv0gzi0X0rxT6IgWKAZV93gAMiB1WPD8mEhTgQPJ6xfJNjqcCdA_B--iX83_2hVL-1kaR9gIX83-X0smnHhsJMr7i8hoe2IvTUtC4rqUriMZ-brWETaE6TKDogafmfpVu4xOIQh3ABnN5yWk3FJT0Q",
-    category: "Маршрути",
-    title: "Топ-5 маршрутів Європою на авто",
-    date: "10 Липня, 2024"
-  },
-  {
-    href: "/articles/packing-list",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDtsqP4f4r89f_CH-Wceta2vY3iqeZnLnbsPK5tRlA8oay8VEVlFSTLdnGIKrq_MoMAzaVaUL5mNoDKMlxusRCKhwEw7woEoW8UvS3QSu-I8icwCPXsz6RjwC591NF1ZRI_zqWAKhHhob8Wi8K05q6xGANED5ITh_eDUF6UnB-X11p6yJUEN9ksMxjWk7q0_roH247QAAfBIS3wQy3cqP5jee50K5NX4qQQpOlLzlUs5jokcsZzDNBOBQ",
-    category: "Підготовка",
-    title: "Підготовка авто до довгої подорожі",
-    date: "08 Липня, 2024"
-  }
-];
+import articlesData from "@/data/articles.json";
+
+const BASE_ARTICLES = articlesData.map((article) => ({
+  href: `/articles/${article.id}`,
+  image: article.heroImage,
+  category: article.category,
+  title: article.title,
+  date: article.date,
+}));
 
 // Duplicate to give enough items for a carousel
 const ARTICLES = [...BASE_ARTICLES, ...BASE_ARTICLES];

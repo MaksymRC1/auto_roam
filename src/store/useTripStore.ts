@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { geocodeCity, getRoute, findBorders, reverseGeocode, GeocodeResult, buildCumulativeDistances, geometryIndexToRatio, ratioToGeometryIndex } from '@/lib/routing';
 import type { BorderPoint } from '@/lib/borders';
+import { getCountryName } from '@/lib/country-names';
+
 import { FUEL_BUFFER_RATIO, LONG_TRIP_THRESHOLD_MINS, DEFAULT_FUEL_CONSUMPTION } from '@/lib/constants';
 
 export type WaypointType = 'start' | 'finish' | 'stop' | 'border' | 'fuel';
@@ -206,14 +208,14 @@ export const useTripStore = create<TripState>()(
     const validStops = stops.filter(s => s.value.trim().length > 0);
     
     if (validStops.length < 2) {
-       set({ error: 'Потрібно щонайменше 2 зупинки.' });
+       set({ isCalculated: false, error: 'Потрібно щонайменше 2 зупинки.' });
        return;
     }
 
     // Race condition guard
     const thisRequestId = ++calculateRequestId;
 
-    set({ isLoading: true, error: null, isCalculated: false, ignoredWaypoints: [] });
+    set({ isLoading: true, error: null, ignoredWaypoints: [] });
 
     try {
       // 1. Geocode cities in parallel
@@ -239,7 +241,7 @@ export const useTripStore = create<TripState>()(
       if (thisRequestId !== calculateRequestId) return;
 
       if (!route) {
-        set({ isLoading: false, error: 'Не вдалося прокласти маршрут.' });
+        set({ isLoading: false, isCalculated: false, error: 'Не вдалося прокласти маршрут.' });
         return;
       }
 
@@ -267,7 +269,7 @@ export const useTripStore = create<TripState>()(
          
          waypoints.push({
            id: validStops[i].id,
-           name: validStops[i].isBorderOverride ? `Пункт пропуску ${validStops[i].borderFrom} → ${validStops[i].borderTo} (${pt.name.split('|')[0].trim()})` : pt.name,
+           name: validStops[i].isBorderOverride ? `Пункт пропуску ${getCountryName(validStops[i].borderFrom!)} → ${getCountryName(validStops[i].borderTo!)} (${pt.name.split('|')[0].trim()})` : pt.name,
            type: validStops[i].isBorderOverride ? 'border' : (i === 0 ? 'start' : i === geocodedPoints.length - 1 ? 'finish' : 'stop'),
            distanceFromStart: accumulatedDistance,
            timeFromStart: accumulatedTime,
@@ -303,7 +305,7 @@ export const useTripStore = create<TripState>()(
         const ratio = geometryIndexToRatio(cumDist, border.geometryIndex);
         waypoints.push({
           id: `border-${border.geometryIndex}`,
-          name: `Пункт пропуску ${border.fromCountry} → ${border.toCountry} (${border.name})`,
+          name: `Пункт пропуску ${getCountryName(border.fromCountry)} → ${getCountryName(border.toCountry)} (${border.name})`,
           type: 'border',
           distanceFromStart: Math.round(route.distanceKm * ratio),
           timeFromStart: Math.round(route.durationMins * ratio),

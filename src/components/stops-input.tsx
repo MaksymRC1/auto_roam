@@ -12,6 +12,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 
 interface SortableItemProps {
   id: string;
+  realId: string;
   value: string;
   index: number;
   isLast: boolean;
@@ -21,7 +22,7 @@ interface SortableItemProps {
   onSwap: () => void;
 }
 
-function SortableItem({ id, value, index, isLast, totalStops, updateStop, removeStop, onSwap }: SortableItemProps) {
+function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop, removeStop, onSwap }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -97,7 +98,7 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
             value={value.split(' | ')[0]}
             autoComplete="off"
             onChange={(e) => {
-              updateStop(id, e.target.value);
+              updateStop(realId, e.target.value);
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
@@ -115,14 +116,14 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
                     key={s.id} 
                     className="p-3 hover:bg-white/10 cursor-pointer text-sm border-b border-white/10 last:border-0 transition-colors"
                     onClick={async () => {
-                      updateStop(id, s.description); // temporarily show name
+                      updateStop(realId, s.description); // temporarily show name
                       setShowSuggestions(false);
                       try {
                         const res = await fetch(`/api/google/geocode?address=${encodeURIComponent(s.description)}`);
                         const data = await res.json();
                         if (data.status === 'OK' && data.results && data.results.length > 0) {
                           const location = data.results[0].geometry.location;
-                          updateStop(id, `${s.name}, ${s.country} | ${location.lat}, ${location.lng}`);
+                          updateStop(realId, `${s.name}, ${s.country} | ${location.lat}, ${location.lng}`);
                         }
                       } catch (e) {
                         console.error('Failed to geocode selected place', e);
@@ -138,7 +139,7 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
           )}
         </div>
         {index !== 0 && !isLast && (
-          <button onClick={() => removeStop(id)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title="Видалити зупинку">
+          <button onClick={() => removeStop(realId)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title="Видалити зупинку">
             <X className="w-4 h-4" />
           </button>
         )}
@@ -161,7 +162,7 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
   );
 }
 
-export function StopsInput() {
+export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
   const { stops, setStops, addStop, updateStop, removeStop, calculateRoute, isLoading, error, isCalculated, resetTrip } = useTripStore();
   const [activePickerStopId, setActivePickerStopId] = useState<string | null>(null);
   
@@ -177,10 +178,12 @@ export function StopsInput() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
+      const realActiveId = String(active.id).replace(`${idPrefix}-`, '');
+      const realOverId = String(over.id).replace(`${idPrefix}-`, '');
       const visibleStops = stops.filter(s => !s.isBorderOverride);
       const borderStops = stops.filter(s => s.isBorderOverride);
-      const oldIndex = visibleStops.findIndex((s) => s.id === active.id);
-      const newIndex = visibleStops.findIndex((s) => s.id === over.id);
+      const oldIndex = visibleStops.findIndex((s) => s.id === realActiveId);
+      const newIndex = visibleStops.findIndex((s) => s.id === realOverId);
       
       if (oldIndex !== -1 && newIndex !== -1) {
         const newVisibleStops = arrayMove(visibleStops, oldIndex, newIndex);
@@ -212,12 +215,13 @@ export function StopsInput() {
         onDragEnd={handleDragEnd}
         modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
       >
-        <SortableContext items={visibleStops.map(s => s.id)} strategy={verticalListSortingStrategy}>
+        <SortableContext items={visibleStops.map(s => `${idPrefix}-${s.id}`)} strategy={verticalListSortingStrategy}>
           <div className="relative">
             {visibleStops.map((stop, index) => (
               <SortableItem 
-                key={stop.id} 
-                id={stop.id} 
+                key={`${idPrefix}-${stop.id}`} 
+                id={`${idPrefix}-${stop.id}`}
+                realId={stop.id}
                 value={stop.value} 
                 index={index} 
                 isLast={index === visibleStops.length - 1}

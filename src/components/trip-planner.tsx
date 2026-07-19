@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2 } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2, Plus, Clock, Settings } from "lucide-react";
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const formatTime = (mins: number) => {
   const h = Math.floor(mins / 60);
@@ -83,7 +85,7 @@ export function TripPlanner() {
       {isLoading && (
         <>
           <div className="fixed top-0 left-0 right-0 h-1 z-[10000] bg-white/10 overflow-hidden">
-            <div className="h-full bg-blue-500 animate-[loading-bar_1.5s_ease-in-out_infinite]" style={{ transformOrigin: '0% 50%' }}></div>
+            <div className="absolute top-0 bottom-0 w-full bg-blue-500 animate-[loading-bar_1.5s_ease-in-out_infinite]"></div>
           </div>
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center" role="status" aria-label="Завантаження">
             <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -139,38 +141,111 @@ export function TripPlanner() {
           </div>
         </div>
       ) : (
-        <div className="max-w-[1280px] mx-auto w-full flex-1 flex flex-col relative pt-24 pb-32 px-4 md:px-8 z-10">
-          <div className="flex flex-col md:flex-row gap-6 lg:gap-8 w-full flex-1 pb-8">
+        <div className="max-w-[1280px] mx-auto w-full flex-1 flex flex-col relative pt-24 pb-32 md:pb-32 px-4 md:px-8 z-10">
+          <div className="flex flex-col md:flex-row gap-6 lg:gap-8 w-full flex-1 pb-16 md:pb-8">
             
-            {/* LEFT PANEL: Trip Timeline & Map Toggle */}
-            <div className="w-full md:w-1/2 flex flex-col gap-4">
+            {/* Mobile Bottom Navigation Bar */}
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0F111A] border-t border-white/5 pb-4 pt-3 px-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
               
-              {/* Toggle Tabs */}
-              <Tabs value={leftView} onValueChange={(v) => setLeftView(v as 'timeline' | 'map')} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 bg-black/40 border border-white/10 text-white">
-                  <TabsTrigger value="timeline" className="flex items-center gap-2 data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+              {/* Map Toggle */}
+              <button onClick={() => setLeftView('map')} className="relative flex items-center justify-center w-10 h-10 outline-none">
+                <div className={`absolute inset-0 bg-blue-600 rounded-full transition-transform duration-300 ${leftView === 'map' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
+                <MapIcon className={`w-5 h-5 relative z-10 transition-colors duration-300 ${leftView === 'map' ? 'text-white' : 'text-white/50 hover:text-white/80'}`} />
+              </button>
+
+              {/* Timeline Toggle */}
+              <button onClick={() => setLeftView('timeline')} className="relative flex items-center justify-center w-10 h-10 outline-none">
+                <div className={`absolute inset-0 bg-blue-600 rounded-full transition-transform duration-300 ${leftView === 'timeline' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
+                <Clock className={`w-5 h-5 relative z-10 transition-colors duration-300 ${leftView === 'timeline' ? 'text-white' : 'text-white/50 hover:text-white/80'}`} />
+              </button>
+
+              {/* Route (Stops) Sheet */}
+              <Sheet>
+                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" />}>
+                  <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
+                  <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                </SheetTrigger>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
+                    <SheetTitle className="text-white">Параметри маршруту</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                    <div className="p-5 text-white pb-24">
+                      <StopsInput idPrefix="mobile-stops" />
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+
+              {/* Settings (Details) Sheet */}
+              <Sheet>
+                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" />}>
+                  <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
+                  <Settings className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                </SheetTrigger>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
+                    <SheetTitle className="text-white">Деталі поїздки</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                    <div className="p-4 text-white pb-24">
+                      <AccordionPanels />
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* LEFT PANEL: Trip Timeline & Map Toggle */}
+            <div className="w-full md:w-1/2 flex flex-col gap-4 min-h-[50vh] md:h-[calc(100vh-140px)] shrink-0">
+              
+              {/* Toggle Tabs (Desktop Only now since mobile has bottom nav) */}
+              <Tabs value={leftView} onValueChange={(v) => setLeftView(v as 'timeline' | 'map')} className="hidden md:block w-full shrink-0">
+                <TabsList className="grid w-full grid-cols-2 bg-black/40 border border-white/10 text-white rounded-xl">
+                  <TabsTrigger value="timeline" className="flex items-center gap-2 data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 rounded-lg">
                     <List className="w-4 h-4" /> Таймлайн
                   </TabsTrigger>
-                  <TabsTrigger value="map" className="flex items-center gap-2 data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+                  <TabsTrigger value="map" className="flex items-center gap-2 data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 rounded-lg">
                     <MapIcon className="w-4 h-4" /> Карта
                   </TabsTrigger>
                 </TabsList>
               </Tabs>
 
               <Card className="flex-1 overflow-hidden flex flex-col relative bg-black/40 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl text-white">
-                {leftView === 'map' ? (
-                  <MapPanel />
-                ) : (
-                  <>
-                    <div className="p-5 border-b border-white/10 bg-black/20">
-                      <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
-                      <p className="text-sm font-medium text-blue-300 mt-1">
-                        {totalDistance} км • ~{formatTime(totalDuration)}
-                      </p>
-                    </div>
-                    
-                    <div className="flex-1 p-5 overflow-y-auto custom-scrollbar">
-                      <div className="relative space-y-8 before:absolute before:inset-0 before:left-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-white/20" role="list" aria-label="Хронологія маршруту">
+                {/* Map Sliding Panel on Mobile / Absolute overlay on Desktop */}
+                <div className={`
+                  transition-all duration-300
+                  fixed bottom-0 left-0 right-0 h-[85vh] bg-slate-950 z-[45] rounded-t-3xl overflow-hidden border-t border-white/10 flex flex-col
+                  md:absolute md:inset-0 md:z-0 md:h-auto md:bg-transparent md:rounded-none md:border-none
+                  ${leftView === 'map' 
+                    ? 'translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] md:opacity-100' 
+                    : 'translate-y-full pointer-events-none md:translate-y-0 md:opacity-0'}
+                `}>
+                  <div className="md:hidden flex items-center justify-between p-5 border-b border-white/10 shrink-0 bg-slate-950/95 backdrop-blur-xl z-10">
+                    <h3 className="text-white font-semibold">Карта маршруту</h3>
+                    <button onClick={() => setLeftView('timeline')} className="text-white/50 hover:text-white transition-colors">
+                       <span className="sr-only">Закрити</span>
+                       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  </div>
+                  <div className="flex-1 relative pb-20 md:pb-0">
+                    <MapPanel />
+                  </div>
+                </div>
+                
+                {/* Timeline is always rendered. On Desktop it visually hides when map is active. On mobile it's always the background. */}
+                <div className={`relative z-10 flex flex-col h-full bg-black/60 md:bg-transparent transition-opacity duration-300 ${
+                  leftView === 'map' ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'
+                }`}>
+                  <div className="p-5 border-b border-white/10 bg-black/20 shrink-0">
+                    <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
+                    <p className="text-sm font-medium text-blue-300 mt-1">
+                      {totalDistance} км • ~{formatTime(totalDuration)}
+                    </p>
+                  </div>
+                  
+                  <div className="flex-1 p-5 md:overflow-y-auto custom-scrollbar pb-32">
+                    <div className="relative space-y-8 before:absolute before:inset-0 before:left-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-white/20" role="list" aria-label="Хронологія маршруту">
                         
                         {waypoints.filter(wp => !ignoredWaypoints.includes(wp.id)).map((wp) => {
                           const isStart = wp.type === 'start';
@@ -272,10 +347,14 @@ export function TripPlanner() {
                                         }}
                                       >
                                         <SelectTrigger className="w-full text-xs">
-                                          <SelectValue placeholder="Змінити пункт пропуску" />
+                                          <span className="line-clamp-1 flex-1 text-left">
+                                            {wp.borderId 
+                                              ? getBorderCrossings(wp.fromCountry!, wp.toCountry!).find(c => c.id === wp.borderId)?.name || "Пункт пропуску"
+                                              : "Змінити пункт пропуску"}
+                                          </span>
                                         </SelectTrigger>
                                         <SelectContent>
-                                          {getBorderCrossings(wp.fromCountry, wp.toCountry).map(c => (
+                                          {getBorderCrossings(wp.fromCountry!, wp.toCountry!).map(c => (
                                             <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
                                           ))}
                                         </SelectContent>
@@ -289,34 +368,71 @@ export function TripPlanner() {
                         })}
                       </div>
                     </div>
-                  </>
-                )}
+                  </div>
               </Card>
             </div>
 
-            {/* RIGHT PANEL: Input & Accordion Submenus */}
-            <div className="relative w-full md:w-1/2 flex flex-col gap-4 overflow-y-auto pr-2 pb-10 md:pb-0">
+            {/* RIGHT PANEL: Input & Accordion Submenus (Desktop Only) */}
+            <div className="hidden md:flex relative w-full md:w-1/2 flex-col gap-4 overflow-y-auto pr-2 pb-10 md:pb-0">
               
               {/* Desktop Input */}
               <Card className="relative z-10 flex flex-col p-5 shrink-0 bg-black/40 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl text-white">
                 <h3 className="font-semibold text-white mb-4">Параметри маршруту</h3>
-                <StopsInput />
+                <StopsInput idPrefix="desktop-stops" />
               </Card>
 
               {/* Smart Panels Accordion List */}
               <div className="flex-1 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl overflow-hidden text-white">
-                <Accordion 
-                  value={activePanel ? [activePanel] : []} 
-                  onValueChange={(v: string | string[]) => { 
-                    if (Array.isArray(v)) {
-                      setActivePanel(v.length > 0 ? (v[0] as PanelType) : null);
-                    } else {
-                      setActivePanel(v ? (v as PanelType) : null);
-                    }
-                  }}
-                  className="w-full"
-                >
-                  
+                <AccordionPanels />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// Extracted Accordion to avoid code duplication between mobile and desktop panels
+function AccordionPanels() {
+  const { 
+    activePanel, 
+    setActivePanel,
+    totalDistance, 
+    totalDuration,
+    fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries
+  } = useTripStore();
+
+  const rate = exchangeRates[currency] || 1;
+  const currencySymbol = getCurrencySymbol(currency);
+
+  const totalFuelCost = useMemo(() => {
+    let totalCostEur = 0;
+    Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
+      const amount = parseFloat(amountStr) || 0;
+      const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+      totalCostEur += amount * priceEur;
+    });
+    return Math.round(totalCostEur * rate);
+  }, [fuelAmounts, fuelPrices, selectedFuelType, rate]);
+
+  const needsFuel = totalDistance > 0 && totalFuelCost === 0;
+  const needsHotel = totalDuration > 480;
+  const needsBorders = crossedCountries.length > 1;
+
+  return (
+    <Accordion 
+      type="multiple"
+      value={activePanel ? [activePanel] : []} 
+      onValueChange={(v: string | string[]) => { 
+        if (Array.isArray(v)) {
+          setActivePanel(v.length > 0 ? (v[0] as PanelType) : null);
+        } else {
+          setActivePanel(v ? (v as PanelType) : null);
+        }
+      }}
+      className="w-full"
+    >
                   <AccordionItem value="fuel" className="border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full pr-4 gap-1 text-left">
@@ -409,14 +525,7 @@ export function TripPlanner() {
                     </AccordionContent>
                   </AccordionItem>
 
-                </Accordion>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )}
-    </>
+    </Accordion>
   );
 }
 

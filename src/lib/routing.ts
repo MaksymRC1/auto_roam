@@ -1,5 +1,7 @@
 import { decode } from '@googlemaps/polyline-codec';
 import { BORDER_SAMPLE_COUNT } from './constants';
+import { getCountryName } from './country-names';
+
 
 export interface GeocodeResult {
   lat: number;
@@ -262,7 +264,7 @@ export async function findBorders(geometry: [number, number][]): Promise<BorderC
       borders.push({
         lat: borderPoint[0],
         lon: borderPoint[1],
-        name: geo?.city || `Кордон ${current.country} → ${next.country}`,
+        name: geo?.city || `Кордон ${getCountryName(current.country)} → ${getCountryName(next.country)}`,
         fromCountry: current.country,
         toCountry: next.country,
         geometryIndex: right

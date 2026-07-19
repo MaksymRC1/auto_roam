@@ -21,8 +21,8 @@ function Stay22Map({ lat, lon, address }: { lat?: number; lon?: number; address:
     );
   }
 
-  // Use a generic placeholder 'autoroam' for Affiliate ID. The user can change this later.
-  const src = `https://www.stay22.com/embed/gm?aid=autoroam&${lat && lon ? `lat=${lat}&lng=${lon}` : `address=${encodeURIComponent(address)}`}&maincolor=f59e0b`;
+  // Use the user's specific Stay22 Affiliate ID
+  const src = `https://www.stay22.com/embed/gm?aid=6a5ce5360d30f9c7d2a22934&${lat && lon ? `lat=${lat}&lng=${lon}` : `address=${encodeURIComponent(address)}`}&maincolor=f59e0b`;
 
   return (
     <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-200">

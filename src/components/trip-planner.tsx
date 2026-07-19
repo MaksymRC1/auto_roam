@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useDebounce } from "@/hooks/use-debounce";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle } from "lucide-react";
-import { useTripStore, PanelType } from "@/store/useTripStore";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2 } from "lucide-react";
+import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
 import { FuelPanel } from "./panels/fuel-panel";
@@ -23,6 +23,12 @@ import {
 } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const formatTime = (mins: number) => {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return `${h} год ${m > 0 ? m + ' хв' : ''}`;
+};
 
 export function TripPlanner() {
   const [mounted, setMounted] = useState(false);
@@ -72,18 +78,17 @@ export function TripPlanner() {
 
   if (!mounted) return null;
 
-  const formatTime = (mins: number) => {
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    return `${h} год ${m > 0 ? m + ' хв' : ''}`;
-  };
-
   return (
     <>
       {isLoading && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center" role="status" aria-label="Завантаження">
-          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        <>
+          <div className="fixed top-0 left-0 right-0 h-1 z-[10000] bg-white/10 overflow-hidden">
+            <div className="h-full bg-blue-500 animate-[loading-bar_1.5s_ease-in-out_infinite]" style={{ transformOrigin: '0% 50%' }}></div>
+          </div>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center" role="status" aria-label="Завантаження">
+            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        </>
       )}
 
       {!isCalculated ? (
@@ -120,8 +125,10 @@ export function TripPlanner() {
             
             {/* Right Column (Form) */}
             <div className="w-full md:w-1/2 max-w-[500px] order-2 md:order-2">
-              <div className="rounded-[20px] p-6 md:p-8 shadow-2xl relative overflow-hidden h-full flex flex-col justify-center" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="rounded-[20px] p-6 md:p-8 shadow-2xl relative h-full flex flex-col justify-center" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+                <div className="absolute inset-0 rounded-[20px] overflow-hidden pointer-events-none">
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                </div>
                 <h2 className="hidden md:block font-display text-2xl md:text-3xl font-extrabold text-white mb-8 relative z-10">Побудувати маршрут</h2>
                 <div className="relative z-10">
                   <StopsInput />
@@ -255,7 +262,7 @@ export function TripPlanner() {
                                   {isBorder && wp.fromCountry && wp.toCountry && !isSchengenPair(wp.fromCountry, wp.toCountry) && (
                                     <div className="mt-2">
                                       <Select 
-                                        value=""
+                                        value={wp.borderId || ""}
                                         onValueChange={(val) => {
                                           const crossings = getBorderCrossings(wp.fromCountry!, wp.toCountry!);
                                           const selected = crossings.find(c => c.id === val);
@@ -320,7 +327,7 @@ export function TripPlanner() {
                           <span className="font-semibold">Розрахунок палива</span>
                           {needsFuel && (
                             <span className="flex items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
-                              <AlertCircle className="w-3 h-3" /> Увага
+                              <AlertCircle className="w-3 h-3" />
                             </span>
                           )}
                         </div>
@@ -345,7 +352,7 @@ export function TripPlanner() {
                         <span className="font-semibold">Ночівля та зупинки</span>
                         {needsHotel && (
                           <span className="flex items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
-                            <AlertCircle className="w-3 h-3" /> Увага
+                            <AlertCircle className="w-3 h-3" />
                           </span>
                         )}
                       </div>
@@ -378,7 +385,7 @@ export function TripPlanner() {
                         <span className="font-semibold">Кордони</span>
                         {needsBorders && (
                           <span className="flex items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
-                            <AlertCircle className="w-3 h-3" /> Увага
+                            <AlertCircle className="w-3 h-3" />
                           </span>
                         )}
                       </div>
@@ -426,7 +433,7 @@ function HotelOverrideInputs({
   initialPrice: number | string, 
   initialCurrency?: string,
   initialLat?: number,
-  setOverride: (id: string, data: any) => void 
+  setOverride: (id: string, data: Partial<HotelOverride>) => void 
 }) {
   const { exchangeRates, currency: globalCurrency } = useTripStore();
   const [url, setUrl] = useState(initialUrl);
@@ -435,8 +442,36 @@ function HotelOverrideInputs({
   const [isSaving, setIsSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  const [suggestions, setSuggestions] = useState<Array<{ id: string, name: string, description: string }>>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const debouncedUrl = useDebounce(url, 400);
+
+  useEffect(() => {
+    if (debouncedUrl && debouncedUrl.length > 2 && showSuggestions && !debouncedUrl.startsWith('http')) {
+      setIsSearching(true);
+      fetch(`/api/google/places?input=${encodeURIComponent(debouncedUrl)}&type=establishment`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'OK' && data.predictions) {
+            setSuggestions(data.predictions.slice(0, 5).map((p: any) => ({
+              id: p.place_id,
+              name: p.structured_formatting.main_text,
+              description: p.description
+            })));
+          } else {
+            setSuggestions([]);
+          }
+        })
+        .catch(() => setSuggestions([]))
+        .finally(() => setIsSearching(false));
+    } else {
+      setSuggestions([]);
+    }
+  }, [debouncedUrl, showSuggestions]);
+
   // If we don't have a lat but we DO have a url, we should allow saving to attempt geocoding
-  const isChanged = url !== initialUrl || price !== initialPrice || currency !== (initialCurrency || globalCurrency) || (url && !initialLat);
+  const isChanged = url !== initialUrl || String(price) !== String(initialPrice) || currency !== (initialCurrency || globalCurrency) || (url && !initialLat);
 
   // Sync with external state changes (e.g. resetTrip)
   useEffect(() => {
@@ -464,10 +499,14 @@ function HotelOverrideInputs({
          } else {
             console.warn("Geocode returned null for URL:", url);
             setErrorMsg("Не вдалося знайти координати. Спробуйте посилання з Google Maps.");
+            setIsSaving(false);
+            return;
          }
        } catch (err) {
          console.error("Geocoding failed during save:", err);
          setErrorMsg("Помилка під час пошуку координат.");
+         setIsSaving(false);
+         return;
        }
     }
 
@@ -491,14 +530,42 @@ function HotelOverrideInputs({
         <div className="flex-1 relative w-full">
           <input 
             type="text" 
-            placeholder="🔗 Вставте посилання на готель (Booking, Maps)..." 
-            className="w-full text-xs p-2.5 pr-8 border rounded-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30"
+            placeholder="🏨 Назва готелю або Booking..." 
+            className="w-full text-xs p-2.5 pr-8 border rounded-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 relative z-10"
             value={url}
-            onChange={(e) => { setUrl(e.target.value); setErrorMsg(''); }}
+            autoComplete="off"
+            onChange={(e) => { setUrl(e.target.value); setErrorMsg(''); setShowSuggestions(true); }}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             disabled={isSaving}
           />
+          {showSuggestions && (suggestions.length > 0 || isSearching) && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto">
+              {isSearching ? (
+                <div className="p-3 text-xs text-white/50 flex items-center gap-2 justify-center">
+                  <Loader2 className="w-3 h-3 animate-spin" /> Пошук...
+                </div>
+              ) : (
+                suggestions.map((s) => (
+                  <div 
+                    key={s.id} 
+                    className="p-3 hover:bg-white/10 cursor-pointer text-xs border-b border-white/10 last:border-0 transition-colors"
+                    onMouseDown={(e) => {
+                      e.preventDefault(); // Prevent onBlur from firing before click
+                      setUrl(s.description);
+                      setShowSuggestions(false);
+                      setErrorMsg('');
+                    }}
+                  >
+                    <div className="font-medium text-white">{s.name}</div>
+                    <div className="text-[10px] text-white/50 mt-0.5">{s.description}</div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
           {url && url.startsWith('http') && (
-            <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors" title="Відкрити посилання">
+            <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors z-20" title="Відкрити посилання">
               ↗
             </a>
           )}

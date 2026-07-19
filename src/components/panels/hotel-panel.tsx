@@ -7,8 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
-type StopMode = 'auto' | 'time' | 'distance' | 'ignore';
-
 function Stay22Map({ lat, lon, address }: { lat?: number; lon?: number; address: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -80,64 +78,38 @@ export function HotelPanel() {
             <span className="font-medium text-sm text-white/80">Налаштування зупинок</span>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            <Button 
-              size="sm" 
-              onClick={() => setHotelSettings('auto')}
-              className={mode === 'auto' ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}
-            >
-              Авто (&gt; 8 год)
-            </Button>
-            <Button 
-              size="sm" 
-              onClick={() => setHotelSettings('time')}
-              className={mode === 'time' ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}
-            >
-              По часу
-            </Button>
-            <Button 
-              size="sm" 
-              onClick={() => setHotelSettings('distance')}
-              className={mode === 'distance' ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}
-            >
-              По відстані
-            </Button>
-            <Button 
-              size="sm" 
-              onClick={() => setHotelSettings('ignore')}
-              className={mode === 'ignore' ? 'bg-white/20 border border-white/20 hover:bg-white/30 text-white' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}
-            >
-              Ігнорувати
-            </Button>
-          </div>
-
-          {/* Custom Value Inputs */}
-          {mode === 'time' && (
-            <div className="flex items-center gap-3 pt-2">
-              <Label className="text-white/70">Зупинятися кожні (годин):</Label>
+          <div className="flex flex-col gap-3 pt-2">
+            <div className="flex items-center gap-3">
+              <Label className="text-white/70 flex-1">Зупинятися кожні (годин):</Label>
               <Input 
                 type="number" 
-                min={1} 
+                min={0} 
                 max={24} 
-                value={customTime / 60} 
-                onChange={(e) => setHotelSettings('time', Number(e.target.value) * 60, customDistance)}
-                className="w-24"
+                value={customTime ? customTime / 60 : ""} 
+                placeholder="Без зупинок"
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  setHotelSettings('time', val * 60, customDistance);
+                }}
+                className="w-32"
               />
             </div>
-          )}
-          {mode === 'distance' && (
-            <div className="flex items-center gap-3 pt-2">
-              <Label className="text-white/70">Зупинятися кожні (км):</Label>
+            <div className="flex items-center gap-3">
+              <Label className="text-white/70 flex-1">Або кожні (км):</Label>
               <Input 
                 type="number" 
-                min={50} 
+                min={0} 
                 max={2000} 
-                value={customDistance} 
-                onChange={(e) => setHotelSettings('distance', customTime, Number(e.target.value))}
-                className="w-24"
+                value={customDistance || ""} 
+                placeholder="Без зупинок"
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  setHotelSettings('distance', customTime, val);
+                }}
+                className="w-32"
               />
             </div>
-          )}
+          </div>
         </div>
 
         {/* Results / Stops Render */}
@@ -186,7 +158,7 @@ export function HotelPanel() {
                 </div>
                 
                 <div className="pt-2">
-                  <Stay22Map lat={stop.lat} lon={stop.lon} address={stop.name.replace('Ночівля у м. ', '')} />
+                  <Stay22Map lat={stop.lat} lon={stop.lon} address={stop.name.replace(/^Ночівля[:\s]+(?:у м\.\s*)?/, '')} />
                 </div>
               </div>
             )})

@@ -1,7 +1,8 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { geocodeCity, getRoute, findBorders, reverseGeocode, GeocodeResult, buildCumulativeDistances, geometryIndexToRatio, ratioToGeometryIndex } from '@/lib/routing';
 import type { BorderPoint } from '@/lib/borders';
-import { FUEL_BUFFER_RATIO, LONG_TRIP_THRESHOLD_MINS, API_DELAY_MS } from '@/lib/constants';
+import { FUEL_BUFFER_RATIO, LONG_TRIP_THRESHOLD_MINS, DEFAULT_FUEL_CONSUMPTION } from '@/lib/constants';
 
 export type WaypointType = 'start' | 'finish' | 'stop' | 'border' | 'fuel';
 
@@ -22,9 +23,9 @@ export interface Waypoint {
   lat?: number;
   lon?: number;
   countryCode?: string;
-  hotelPrice?: number;
   fromCountry?: string;
   toCountry?: string;
+  borderId?: string;
 }
 
 export const averageHotelPriceEur: Record<string, number> = {
@@ -34,7 +35,7 @@ export function getHotelPrice(countryCode: string) {
   return averageHotelPriceEur[countryCode] || 60;
 }
 
-export type PanelType = 'map' | 'fuel' | 'hotel' | 'borders' | 'budget';
+export type PanelType = 'map' | 'fuel' | 'hotel' | 'borders' | 'budget' | 'insurance';
 
 export interface StopInput {
   id: string;
@@ -42,6 +43,7 @@ export interface StopInput {
   isBorderOverride?: boolean;
   borderFrom?: string;
   borderTo?: string;
+  borderId?: string;
 }
 
 export interface HotelOverride {
@@ -61,8 +63,6 @@ interface TripState {
   error: string | null;
   totalDistance: number; // km
   totalDuration: number; // min
-  setTotalDistance: (dist: number) => void;
-  setTotalDuration: (dur: number) => void;
   hotelOverrides: Record<string, HotelOverride>;
   setHotelOverride: (id: string, override: Partial<HotelOverride>) => void;
   updateWaypoint: (id: string, updates: Partial<Waypoint>) => void;
@@ -110,8 +110,10 @@ interface TripState {
 // Race condition guard: incremented on each calculateRoute call
 let calculateRequestId = 0;
 
-export const useTripStore = create<TripState>((set, get) => ({
-  stops: [
+export const useTripStore = create<TripState>()(
+  persist(
+    (set, get) => ({
+      stops: [
     { id: 'start-1', value: '' }, // from
     { id: 'end-2', value: '' }  // to
   ],
@@ -120,25 +122,26 @@ export const useTripStore = create<TripState>((set, get) => ({
   error: null,
   totalDistance: 0,
   totalDuration: 0,
-  setTotalDistance: (totalDistance) => set({ totalDistance }),
-  setTotalDuration: (totalDuration) => set({ totalDuration }),
   updateWaypoint: (id, updates) => set(state => ({
     waypoints: state.waypoints.map(wp => wp.id === id ? { ...wp, ...updates } : wp)
   })),
   waypoints: [],
   ignoredWaypoints: [],
-  ignoreWaypoint: (id) => set(state => ({ ignoredWaypoints: [...state.ignoredWaypoints, id] })),
+  ignoreWaypoint: (id) => set(state => {
+    if (state.ignoredWaypoints.includes(id)) return state;
+    return { ignoredWaypoints: [...state.ignoredWaypoints, id] };
+  }),
   routeGeometry: [],
   crossedCountries: [],
   activePanel: 'fuel',
   fuelPrices: {},
   selectedFuelType: 'gasoline',
-  consumption: "8",
+  consumption: String(DEFAULT_FUEL_CONSUMPTION),
   isDefaultConsumption: true,
   fuelAmounts: {},
   currency: "EUR",
   exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08, PLN: 4.3 },
-  hotelMode: 'auto',
+  hotelMode: 'time',
   hotelCustomTime: LONG_TRIP_THRESHOLD_MINS,
   hotelCustomDistance: 800,
   hotelOverrides: {},
@@ -161,7 +164,7 @@ export const useTripStore = create<TripState>((set, get) => ({
 
   updateStop: (id, value) => {
     const stops = get().stops;
-    const newStops = stops.filter(s => !s.isBorderOverride).map(s => s.id === id ? { ...s, value } : s);
+    const newStops = stops.map(s => s.id === id ? { ...s, value } : s);
     set({ stops: newStops });
   },
 
@@ -186,11 +189,12 @@ export const useTripStore = create<TripState>((set, get) => ({
       }
       
       stops.splice(insertIndex + 1, 0, {
-        id: `override-${fromCode}-${toCode}`,
+        id: crypto.randomUUID(),
         value: `${borderPoint.name} | ${borderPoint.lat},${borderPoint.lon}`,
         isBorderOverride: true,
         borderFrom: fromCode,
-        borderTo: toCode
+        borderTo: toCode,
+        borderId: borderPoint.id
       });
       return { stops };
     });
@@ -263,14 +267,16 @@ export const useTripStore = create<TripState>((set, get) => ({
          
          waypoints.push({
            id: validStops[i].id,
-           name: validStops[i].isBorderOverride ? `Кордон ${validStops[i].borderFrom} → ${validStops[i].borderTo} (${pt.name.split('|')[0].trim()})` : pt.name,
+           name: validStops[i].isBorderOverride ? `Пункт пропуску ${validStops[i].borderFrom} → ${validStops[i].borderTo} (${pt.name.split('|')[0].trim()})` : pt.name,
            type: validStops[i].isBorderOverride ? 'border' : (i === 0 ? 'start' : i === geocodedPoints.length - 1 ? 'finish' : 'stop'),
            distanceFromStart: accumulatedDistance,
            timeFromStart: accumulatedTime,
            lat: pt.lat,
            lon: pt.lon,
+           countryCode: pt.countryCode,
            fromCountry: validStops[i].borderFrom,
-           toCountry: validStops[i].borderTo
+           toCountry: validStops[i].borderTo,
+           borderId: validStops[i].borderId
          });
       }
 
@@ -297,7 +303,7 @@ export const useTripStore = create<TripState>((set, get) => ({
         const ratio = geometryIndexToRatio(cumDist, border.geometryIndex);
         waypoints.push({
           id: `border-${border.geometryIndex}`,
-          name: `Кордон ${border.fromCountry} → ${border.toCountry} (поруч з ${border.name})`,
+          name: `Пункт пропуску ${border.fromCountry} → ${border.toCountry} (${border.name})`,
           type: 'border',
           distanceFromStart: Math.round(route.distanceKm * ratio),
           timeFromStart: Math.round(route.durationMins * ratio),
@@ -310,9 +316,6 @@ export const useTripStore = create<TripState>((set, get) => ({
 
       // Sort waypoints strictly by distance to ensure correct timeline flow
       waypoints.sort((a, b) => a.distanceFromStart - b.distanceFromStart);
-      
-      // No auto-open by default
-      const nextActivePanel: PanelType | null = null;
 
       set({
         isCalculated: true,
@@ -323,7 +326,7 @@ export const useTripStore = create<TripState>((set, get) => ({
         routeGeometry: route.geometry,
         crossedCountries: Array.from(countries).filter(c => c !== 'UNKNOWN'),
         waypoints,
-        activePanel: nextActivePanel
+        activePanel: null
       });
       
       await get().recalculateHotels();
@@ -461,7 +464,7 @@ export const useTripStore = create<TripState>((set, get) => ({
   autoAssignFuel: () => {
     const state = get();
     const numericConsumption = parseFloat(state.consumption.replace(',', '.'));
-    if (isNaN(numericConsumption) || numericConsumption <= 0 || state.totalDistance === 0 || state.crossedCountries.length === 0) {
+    if (isNaN(numericConsumption) || numericConsumption <= 0 || state.totalDistance === 0 || state.crossedCountries.length === 0 || Object.keys(state.fuelPrices).length === 0) {
       return;
     }
     const totalFuel = (state.totalDistance / 100) * numericConsumption;
@@ -529,14 +532,42 @@ export const useTripStore = create<TripState>((set, get) => ({
     activePanel: 'fuel',
     fuelPrices: {},
     fuelAmounts: {},
-    consumption: '8',
+    consumption: String(DEFAULT_FUEL_CONSUMPTION),
     isDefaultConsumption: true,
     selectedFuelType: 'gasoline' as FuelType,
     hotelOverrides: {},
-    hotelMode: 'auto' as const,
+    hotelMode: 'time' as const,
     hotelCustomTime: LONG_TRIP_THRESHOLD_MINS,
     hotelCustomDistance: 800,
     ignoredWaypoints: [],
     currency: 'EUR',
+    exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08, PLN: 4.3 },
   }),
-}));
+    }),
+    {
+      name: 'autoroam-trip-storage',
+      partialize: (state) => ({
+        stops: state.stops,
+        isCalculated: state.isCalculated,
+        totalDistance: state.totalDistance,
+        totalDuration: state.totalDuration,
+        hotelOverrides: state.hotelOverrides,
+        waypoints: state.waypoints,
+        ignoredWaypoints: state.ignoredWaypoints,
+        routeGeometry: state.routeGeometry,
+        crossedCountries: state.crossedCountries,
+        activePanel: state.activePanel,
+        fuelPrices: state.fuelPrices,
+        selectedFuelType: state.selectedFuelType,
+        consumption: state.consumption,
+        isDefaultConsumption: state.isDefaultConsumption,
+        fuelAmounts: state.fuelAmounts,
+        currency: state.currency,
+        exchangeRates: state.exchangeRates,
+        hotelMode: state.hotelMode,
+        hotelCustomTime: state.hotelCustomTime,
+        hotelCustomDistance: state.hotelCustomDistance,
+      }),
+    }
+  )
+);

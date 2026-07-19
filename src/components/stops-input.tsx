@@ -1,36 +1,48 @@
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+"use client";
+
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { CSS } from '@dnd-kit/utilities';
 import { useState, useEffect, useRef } from 'react';
-import { Button } from "@/components/ui/button";
-import { MapPin, Navigation2, GripVertical, X, Plus, Map as MapIcon, Loader2, LocateFixed, ArrowUpDown, PlusCircle, ArrowRight } from "lucide-react";
+import { MapPin, X, Loader2, LocateFixed, ArrowUpDown, PlusCircle, ArrowRight } from "lucide-react";
 import { useTripStore } from "@/store/useTripStore";
 import { MapPickerModal } from "./MapPickerModal";
 import { useDebounce } from "@/hooks/use-debounce";
 
-function SortableItem({ id, value, index, isLast, totalStops, updateStop, removeStop, openMapPicker, onSwap }: any) {
+interface SortableItemProps {
+  id: string;
+  value: string;
+  index: number;
+  isLast: boolean;
+  totalStops: number;
+  updateStop: (id: string, value: string) => void;
+  removeStop: (id: string) => void;
+  onSwap: () => void;
+}
+
+function SortableItem({ id, value, index, isLast, totalStops, updateStop, removeStop, onSwap }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-  const style = { transform: CSS.Transform.toString(transform), transition };
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const style = { transform: CSS.Transform.toString(transform), transition, zIndex: showSuggestions ? 9999 : (100 - index) };
   const dropdownRef = useRef<HTMLDivElement>(null);
   const debouncedValue = useDebounce(value, 400);
 
   useEffect(() => {
     if (debouncedValue && debouncedValue.length > 2 && showSuggestions && !debouncedValue.includes('|') && !debouncedValue.includes('waze.com') && !debouncedValue.includes('maps.google')) {
       setIsSearching(true);
-      fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(debouncedValue)}&count=20&language=uk`)
+      fetch(`/api/google/places?input=${encodeURIComponent(debouncedValue)}`)
         .then(res => res.json())
         .then(data => {
-          if (data.results) {
-            const filtered = data.results.filter((r: any) => {
-              if (r.country_code === 'RU' || r.country_code === 'BY') return false;
-              const isEurope = r.timezone?.startsWith('Europe/') || ['TR', 'CY', 'GE', 'AM', 'AZ'].includes(r.country_code);
-              return isEurope;
-            });
-            setSuggestions(filtered.slice(0, 5));
+          if (data.status === 'OK' && data.predictions) {
+            setSuggestions(data.predictions.slice(0, 5).map((p: any) => ({
+              id: p.place_id,
+              name: p.structured_formatting.main_text,
+              country: p.structured_formatting.secondary_text,
+              description: p.description
+            })));
           } else {
             setSuggestions([]);
           }
@@ -58,7 +70,7 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
         <div {...attributes} {...listeners} className="cursor-grab text-white/50 hover:text-white shrink-0 touch-none flex items-center justify-center">
           {index === 0 ? <LocateFixed className="w-5 h-5" /> : isLast ? <MapPin className="w-5 h-5" /> : <div className="w-2.5 h-2.5 rounded-full bg-white/70 ml-1.5" />}
         </div>
-        <div className="flex-1 relative min-w-0 flex items-center overflow-hidden group" ref={dropdownRef}>
+        <div className="flex-1 relative min-w-0 flex items-center group" ref={dropdownRef}>
           {!value && (
             <div className="absolute inset-0 flex items-center pointer-events-none text-white/40 text-sm font-medium z-0">
               <div className="w-full truncate group-focus-within:hidden">
@@ -82,7 +94,7 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
             </div>
           )}
           <input 
-            value={value}
+            value={value.split(' | ')[0]}
             autoComplete="off"
             onChange={(e) => {
               updateStop(id, e.target.value);
@@ -102,13 +114,23 @@ function SortableItem({ id, value, index, isLast, totalStops, updateStop, remove
                   <div 
                     key={s.id} 
                     className="p-3 hover:bg-white/10 cursor-pointer text-sm border-b border-white/10 last:border-0 transition-colors"
-                    onClick={() => {
-                      updateStop(id, `${s.name}, ${s.country} | ${s.latitude}, ${s.longitude}`);
+                    onClick={async () => {
+                      updateStop(id, s.description); // temporarily show name
                       setShowSuggestions(false);
+                      try {
+                        const res = await fetch(`/api/google/geocode?address=${encodeURIComponent(s.description)}`);
+                        const data = await res.json();
+                        if (data.status === 'OK' && data.results && data.results.length > 0) {
+                          const location = data.results[0].geometry.location;
+                          updateStop(id, `${s.name}, ${s.country} | ${location.lat}, ${location.lng}`);
+                        }
+                      } catch (e) {
+                        console.error('Failed to geocode selected place', e);
+                      }
                     }}
                   >
                     <div className="font-medium text-white">{s.name}</div>
-                    <div className="text-xs text-white/50 mt-0.5">{s.admin1 ? `${s.admin1}, ` : ''}{s.country}</div>
+                    <div className="text-xs text-white/50 mt-0.5">{s.country}</div>
                   </div>
                 ))
               )}
@@ -152,16 +174,17 @@ export function StopsInput() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
       const visibleStops = stops.filter(s => !s.isBorderOverride);
+      const borderStops = stops.filter(s => s.isBorderOverride);
       const oldIndex = visibleStops.findIndex((s) => s.id === active.id);
       const newIndex = visibleStops.findIndex((s) => s.id === over.id);
       
       if (oldIndex !== -1 && newIndex !== -1) {
         const newVisibleStops = arrayMove(visibleStops, oldIndex, newIndex);
-        setStops(newVisibleStops); // This inherently clears border overrides because they aren't in visibleStops
+        setStops([...newVisibleStops, ...borderStops]);
         if (isCalculated) {
            calculateRoute();
         }
@@ -173,10 +196,10 @@ export function StopsInput() {
 
   const handleSwap = () => {
     if (visibleStops.length === 2) {
-      const newStops = [...visibleStops];
-      const temp = newStops[0].value;
-      newStops[0].value = newStops[1].value;
-      newStops[1].value = temp;
+      const newStops = [
+        { ...visibleStops[0], value: visibleStops[1].value },
+        { ...visibleStops[1], value: visibleStops[0].value },
+      ];
       setStops(newStops);
     }
   };
@@ -201,7 +224,6 @@ export function StopsInput() {
                 totalStops={visibleStops.length}
                 updateStop={updateStop}
                 removeStop={removeStop}
-                openMapPicker={(id: string) => setActivePickerStopId(id)}
                 onSwap={handleSwap}
               />
             ))}
@@ -239,7 +261,7 @@ export function StopsInput() {
           <div className="flex gap-4">
             <button onClick={calculateRoute} disabled={isLoading} className="flex-1 bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none">
               {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
-                <>Оновити <ArrowRight className="w-5 h-5" /></>
+                <>Оновити</>
               )}
             </button>
             <button onClick={resetTrip} className="px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors outline-none">

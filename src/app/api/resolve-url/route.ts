@@ -9,6 +9,16 @@ export async function GET(request: Request) {
   }
 
   try {
+    const urlObj = new URL(url);
+    const validDomains = ['google.com', 'maps.google.com', 'goo.gl', 'maps.app.goo.gl'];
+    if (!validDomains.some(domain => urlObj.hostname === domain || urlObj.hostname.endsWith('.' + domain))) {
+      return NextResponse.json({ error: 'Invalid URL domain' }, { status: 400 });
+    }
+  } catch (e) {
+    return NextResponse.json({ error: 'Invalid URL format' }, { status: 400 });
+  }
+
+  try {
     // Follow redirect to get the full maps URL which contains coordinates
     const res = await fetch(url, { redirect: 'manual' });
     let finalUrl = url;
@@ -27,7 +37,8 @@ export async function GET(request: Request) {
     }
     
     return NextResponse.json({ success: true, url: finalUrl });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 });
   }
 }

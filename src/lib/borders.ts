@@ -3,11 +3,8 @@ export const SCHENGEN_COUNTRIES = new Set([
   'LV', 'LI', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH'
 ]);
 
-export function isSchengenBorder(fromCode: string, toCode: string): boolean {
-  return SCHENGEN_COUNTRIES.has(fromCode) && SCHENGEN_COUNTRIES.has(toCode);
-}
 
-export interface VignetteInfo {
+interface VignetteInfo {
   country: string;
   emoji: string;
   type: string;

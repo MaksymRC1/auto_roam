@@ -9,7 +9,6 @@ import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 export function BudgetPanel() {
   const { 
     waypoints, 
-    totalDistance, 
     currency, 
     setCurrency, 
     exchangeRates,
@@ -96,7 +95,10 @@ export function BudgetPanel() {
               </div>
               <div>
                 <p className="font-semibold text-white/90">Ночівля</p>
-                <p className="text-xs text-white/50">{stopsCount} зупинка(и)</p>
+                <p className="text-xs text-white/50">{stopsCount} {
+                  stopsCount % 10 === 1 && stopsCount % 100 !== 11 ? 'зупинка' :
+                  stopsCount % 10 >= 2 && stopsCount % 10 <= 4 && (stopsCount % 100 < 10 || stopsCount % 100 >= 20) ? 'зупинки' : 'зупинок'
+                }</p>
               </div>
             </div>
             <span className="font-bold text-white/90">{formatCost(hotelCostEur)}</span>

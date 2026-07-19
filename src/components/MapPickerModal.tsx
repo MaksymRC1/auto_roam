@@ -8,7 +8,7 @@ import { reverseGeocode } from "@/lib/routing";
 
 const DynamicMapPicker = dynamic(() => import("./MapPickerContent"), {
   ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center bg-slate-100 animate-pulse text-slate-400">Завантаження карти...</div>
+  loading: () => <div className="w-full h-full flex items-center justify-center bg-black/20 backdrop-blur-sm animate-pulse text-white/50">Завантаження карти...</div>
 });
 
 export function MapPickerModal({ 
@@ -42,21 +42,28 @@ export function MapPickerModal({
     }
   };
 
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      setSelectedPos(null);
+    }
+    onOpenChange(isOpen);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-2xl h-[80vh] flex flex-col p-4 w-[95vw] max-w-none sm:w-full">
         <DialogHeader>
           <DialogTitle>Оберіть точку на карті</DialogTitle>
         </DialogHeader>
         <div className="flex-1 min-h-0 border rounded-md relative z-0">
-          <DynamicMapPicker selectedPos={selectedPos} onSelect={setSelectedPos} />
+          {open && <DynamicMapPicker selectedPos={selectedPos} onSelect={setSelectedPos} />}
         </div>
         <DialogFooter className="mt-4 flex sm:justify-between items-center gap-4">
           <p className="text-sm text-slate-500 hidden sm:block">
             {selectedPos ? `Обрано: ${selectedPos[0].toFixed(4)}, ${selectedPos[1].toFixed(4)}` : "Клікніть на карту, щоб обрати точку"}
           </p>
           <div className="flex gap-2 w-full sm:w-auto">
-            <Button variant="outline" className="flex-1 sm:flex-none" onClick={() => onOpenChange(false)}>Скасувати</Button>
+            <Button variant="outline" className="flex-1 sm:flex-none" onClick={() => handleOpenChange(false)}>Скасувати</Button>
             <Button className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white" onClick={handleConfirm} disabled={!selectedPos || isLoading}>
               {isLoading ? "Завантаження..." : "Підтвердити"}
             </Button>

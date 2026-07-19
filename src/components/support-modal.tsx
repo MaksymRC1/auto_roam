@@ -34,10 +34,27 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
     }
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: implement backend API call
-    setIsSubmitted(true);
+    setIsSending(true);
+    
+    try {
+      const res = await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+      
+      if (res.ok) {
+        setIsSubmitted(true);
+      }
+    } catch (error) {
+      console.error('Failed to submit support request:', error);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -149,9 +166,17 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-white/90 transition-all duration-300 mt-1"
+              disabled={isSending}
+              className="w-full py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-white/90 transition-all duration-300 mt-1 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Надіслати
+              {isSending ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></span>
+                  Надсилання...
+                </>
+              ) : (
+                "Надіслати"
+              )}
             </button>
           </form>
         ) : (

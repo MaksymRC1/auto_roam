@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react'
 import { ContactModal } from './contact-modal'
 import { RatingModal } from './rating-modal'
@@ -56,23 +56,33 @@ export function Navbar() {
             >
               <span className="material-symbols-outlined text-[18px] text-white/90 animate-heartbeat transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1] group-focus:[font-variation-settings:'FILL'_1]">favorite</span>
             </button>
-            <button className="md:hidden text-white p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button 
+              className="md:hidden text-white p-2" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? "Закрити меню" : "Відкрити меню"}
+            >
               <span className="material-symbols-outlined">{isMenuOpen ? "close" : "menu"}</span>
             </button>
             <div className="hidden md:flex items-center gap-2 text-white/80 text-sm ml-2">
-              <a className="hover:text-white font-bold border-b-2 border-white pb-1" href="#">UA</a>
+              <span className="text-white font-bold border-b-2 border-white pb-1 cursor-default">UA</span>
               <span className="text-white/40">|</span>
-              <a className="hover:text-white transition-colors pb-1" href="#">EN</a>
+              <button 
+                className="hover:text-white transition-colors pb-1 cursor-pointer focus:outline-none" 
+                onClick={() => alert('Інші мови будуть доступні незабаром!')}
+              >
+                EN
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
         <div 
           className={`md:hidden absolute top-14 left-0 w-full flex flex-col items-center py-8 gap-6 shadow-2xl transition-all duration-300 origin-top z-50 ${
             isMenuOpen ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-95 pointer-events-none"
           }`} 
           style={{ background: "rgba(0, 0, 0, 0.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
+          aria-hidden={!isMenuOpen}
         >
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/articles" onClick={() => setIsMenuOpen(false)}>Статті</a>
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</a>
@@ -88,9 +98,17 @@ export function Navbar() {
           </button>
           <a className="text-white/90 hover:text-white font-medium text-lg" href="#" onClick={openContact}>Зв&#39;язатися з нами</a>
           <div className="flex items-center gap-4 text-white mt-4 border-t border-white/10 pt-6 w-1/2 justify-center">
-            <a className="font-bold border-b-2 border-white pb-1 text-lg" href="#" onClick={() => setIsMenuOpen(false)}>UA</a>
+            <span className="font-bold border-b-2 border-white pb-1 text-lg cursor-default">UA</span>
             <span className="text-white/40">|</span>
-            <a className="text-white/60 hover:text-white transition-colors pb-1 text-lg" href="#" onClick={() => setIsMenuOpen(false)}>EN</a>
+            <button 
+              className="text-white/60 hover:text-white transition-colors pb-1 text-lg cursor-pointer focus:outline-none" 
+              onClick={() => {
+                setIsMenuOpen(false);
+                setTimeout(() => alert('Інші мови будуть доступні незабаром!'), 50);
+              }}
+            >
+              EN
+            </button>
           </div>
         </div>
       </nav>

@@ -55,7 +55,7 @@ export function FaqAccordion({ items }: { items: FAQItem[] }) {
             </button>
             <div 
               className={`transition-all duration-300 ease-in-out overflow-hidden`}
-              style={{ maxHeight: isOpen ? "500px" : "0px", opacity: isOpen ? 1 : 0 }}
+              style={{ maxHeight: isOpen ? "2000px" : "0px", opacity: isOpen ? 1 : 0 }}
             >
               <div className="p-5 pt-0 text-white/80 leading-relaxed">
                 {item.answer}

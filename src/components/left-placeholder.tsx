@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const FEATURES = [
-  { icon: "route", title: "Оптимізація маршрутів", desc: "Розумні алгоритми створюють найефективніші та наймальовничіші шляхи для вашої подорожі.", faqId: "build-route" },
-  { icon: "directions_car", title: "Преміальний автопарк", desc: "Доступ до транспортних засобів вищого класу, що ідеально підходять для довгих поїздок та складних рельєфів.", faqId: "limitations" },
-  { icon: "explore", title: "Локальні враження", desc: "Відкривайте приховані перлини та ексклюзивні активності, підібрані відповідно до ваших інтересів.", faqId: "hotels" },
+  { icon: "route", title: "Оптимізація маршрутів", desc: "Розумні алгоритми створюють найефективніші шляхи для вашої подорожі.", faqId: "build-route" },
+  { icon: "hotel", title: "Розумні ночівлі", desc: "Автоматичний пошук оптимальних місць для відпочинку під час довгих поїздок.", faqId: "hotels" },
   { icon: "verified_user", title: "Менеджер кордонів", desc: "Час очікування та правила перетину в реальному часі.", faqId: "borders" },
   { icon: "account_balance_wallet", title: "Калькулятор витрат", desc: "Точна оцінка витрат на пальне, мита та проживання.", faqId: "fuel" },
   { icon: "add_location_alt", title: "Проміжні зупинки", desc: "Легко додавайте та сортуйте точки маршруту до вашої подорожі.", faqId: "build-route" },
+  { icon: "import_export", title: "Експорт до навігаторів", desc: "Інтеграція маршруту з Google Maps та Waze в один клік.", faqId: "export" },
 ];
 
 export function LeftPlaceholder() {

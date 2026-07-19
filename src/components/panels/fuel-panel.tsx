@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info, Fuel, AlertTriangle, TrendingDown, ExternalLink } from "lucide-react";
+import { Info, ExternalLink } from "lucide-react";
 import 'izitoast/dist/css/iziToast.min.css';
 
 // Placeholder for referral programs by country code
@@ -16,6 +16,7 @@ const fuelReferrals: Record<string, { text: string; link: string; promo?: string
   'AT': { text: 'Знижки на пальне (Ryd)', link: 'https://ryd.one' },
 };
 import { useTripStore, FuelType } from "@/store/useTripStore";
+import { FUEL_BUFFER_RATIO, getCurrencySymbol } from "@/lib/constants";
 
 export function FuelPanel() {
   const { 
@@ -25,21 +26,26 @@ export function FuelPanel() {
   
   const [isFocused, setIsFocused] = useState(false);
   const [isAnyAmountFocused, setIsAnyAmountFocused] = useState(false);
+  const lastToastTime = useRef(0);
 
   // Fetch real exchange rates on mount
   useEffect(() => {
-    fetch("https://api.exchangerate-api.com/v4/latest/EUR")
+    const controller = new AbortController();
+    fetch("https://api.exchangerate-api.com/v4/latest/EUR", { signal: controller.signal })
       .then(res => res.json())
       .then(data => {
         if (data && data.rates) {
           setExchangeRates(data.rates);
         }
       })
-      .catch(err => console.error("Failed to fetch exchange rates:", err));
-  }, []);
+      .catch(err => {
+        if (err.name !== 'AbortError') console.error("Failed to fetch exchange rates:", err);
+      });
+    return () => controller.abort();
+  }, [setExchangeRates]);
 
   const rate = exchangeRates[currency] || 1;
-  const currencySymbol = currency === "EUR" ? "€" : currency === "UAH" ? "₴" : currency === "USD" ? "$" : "zł";
+  const currencySymbol = getCurrencySymbol(currency);
 
   useEffect(() => {
     fetchFuelPrices();
@@ -61,7 +67,9 @@ export function FuelPanel() {
       }
     });
 
-    if (activeCode !== cheapestSelected && nextAmounts[cheapestSelected] !== undefined) {
+    const isNewToggle = nextAmounts[activeCode] === "";
+
+    if ((activeCode !== cheapestSelected || isNewToggle) && nextAmounts[cheapestSelected] !== undefined) {
       let sumOthers = 0;
       Object.entries(nextAmounts).forEach(([k, v]) => {
         if (k !== cheapestSelected) {
@@ -70,7 +78,7 @@ export function FuelPanel() {
       });
       
       const numericC = parseFloat(consumption) || 0;
-      const cFuel = Math.round(((totalDistance / 100) * numericC) * 1.1);
+      const cFuel = Math.round(((totalDistance / 100) * numericC) * FUEL_BUFFER_RATIO);
       
       const newCheapestAmount = Math.max(0, cFuel - sumOthers);
       nextAmounts[cheapestSelected] = (Math.round(newCheapestAmount * 10) / 10).toString();
@@ -81,7 +89,7 @@ export function FuelPanel() {
     Object.values(nextAmounts).forEach(v => finalSum += parseFloat(v) || 0);
     
     const numericC = parseFloat(consumption) || 0;
-    const cFuel = Math.round(((totalDistance / 100) * numericC) * 1.1);
+    const cFuel = Math.round(((totalDistance / 100) * numericC) * FUEL_BUFFER_RATIO);
     
     if (finalSum > cFuel + 0.1) {
       // Revert the excess from the activeCode that caused it
@@ -93,16 +101,21 @@ export function FuelPanel() {
       const maxAllowed = Math.max(0, cFuel - sumWithoutActive);
       nextAmounts[activeCode] = (Math.round(maxAllowed * 10) / 10).toString();
       
-      // Dynamic import to avoid SSR issues
-      import('izitoast').then((module) => {
-        const iziToast = module.default;
-        iziToast.warning({
-          title: 'Увага',
-          message: 'Неможливо додати палива більше, ніж потрібно для маршруту',
-          position: 'topRight',
-          timeout: 3000
+      // Throttle toast to once every 3 seconds
+      const now = Date.now();
+      if (now - lastToastTime.current > 3000) {
+        lastToastTime.current = now;
+        // Dynamic import to avoid SSR issues
+        import('izitoast').then((module) => {
+          const iziToast = module.default;
+          iziToast.warning({
+            title: 'Увага',
+            message: 'Неможливо додати палива більше, ніж потрібно для маршруту',
+            position: 'topRight',
+            timeout: 3000
+          });
         });
-      });
+      }
     }
 
     return nextAmounts;
@@ -130,7 +143,7 @@ export function FuelPanel() {
   // Calculations
   const numericConsumption = parseFloat(consumption) || 0;
   const totalFuel = (totalDistance / 100) * numericConsumption;
-  const conservativeFuel = Math.round(totalFuel * 1.1); // 10% buffer, rounded
+  const conservativeFuel = Math.round(totalFuel * FUEL_BUFFER_RATIO); // buffer, rounded
 
   let distributedFuel = 0;
   let totalCostEur = 0;

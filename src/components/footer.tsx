@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ContactModal } from "./contact-modal";
 
 interface FooterProps {
   /** Optional: callback to open the rating modal from the parent page */
@@ -14,13 +13,12 @@ export function Footer({ onOpenRating }: FooterProps) {
   return (
     <>
       <footer className="hidden md:flex w-full h-10 items-center justify-between px-8 text-xs text-white/50 bg-black/30 backdrop-blur-md border-t border-white/10 z-[100] relative mt-auto">
-        <span>© 2024 AutoRoam. Всі права захищені.</span>
+        <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
         <div className="flex items-center gap-4 relative">
           <button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log("Footer contact button clicked, setting to:", !isContactOpen);
               setIsContactOpen(!isContactOpen);
             }}
             className="hover:text-white transition-colors cursor-pointer focus:outline-none pointer-events-auto"
@@ -113,12 +111,6 @@ export function Footer({ onOpenRating }: FooterProps) {
           )}
         </div>
       </footer>
-
-      {/* Mobile Contact Modal — triggered from burger menu in Navbar */}
-      <ContactModal
-        isOpen={false}
-        onClose={() => {}}
-      />
     </>
   );
 }

@@ -26,15 +26,22 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
   // Reset state when modal opens
   useEffect(() => {
     if (isOpen) {
-      setRating(0);
-      setHoveredStar(0);
-      setIsSubmitted(false);
+      const saved = localStorage.getItem('autoroam_app_rating');
+      if (saved) {
+        setRating(Number(saved));
+        setIsSubmitted(true);
+      } else {
+        setRating(0);
+        setHoveredStar(0);
+        setIsSubmitted(false);
+      }
     }
   }, [isOpen]);
 
   const handleRate = (star: number) => {
     setRating(star);
     setIsSubmitted(true);
+    localStorage.setItem('autoroam_app_rating', String(star));
   };
 
   if (!isOpen) return null;
@@ -142,9 +149,8 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
           </p>
           <div className="flex flex-col gap-2">
             <a
-              href="https://buymeacoffee.com/autoroam"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => { e.preventDefault(); alert("Рахунок ще не підключено. Дякуємо за бажання підтримати!"); }}
               className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
@@ -164,9 +170,8 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
             </a>
 
             <a
-              href="https://paypal.me/autoroam"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => { e.preventDefault(); alert("Рахунок ще не підключено. Дякуємо за бажання підтримати!"); }}
               className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
@@ -184,9 +189,8 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
             </a>
 
             <a
-              href="https://send.monobank.ua/jar/autoroam"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => { e.preventDefault(); alert("Рахунок ще не підключено. Дякуємо за бажання підтримати!"); }}
               className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >

@@ -5,8 +5,10 @@ import { useTripStore } from "@/store/useTripStore";
 import { ExternalLink, ShieldCheck, Route, AlertTriangle } from "lucide-react";
 import { VIGNETTE_DB } from "@/lib/borders";
 
+import { CURRENCY_SYMBOLS } from "@/lib/constants";
+
 export function InsurancePanel() {
-  const { crossedCountries } = useTripStore();
+  const { crossedCountries, currency, exchangeRates } = useTripStore();
   
   // Find which countries from our trip need vignettes
   const activeVignettes = crossedCountries
@@ -41,6 +43,14 @@ export function InsurancePanel() {
                     <span>Рекомендується мати видруковану копію поліса, хоча електронний формат також допускається.</span>
                   </p>
                 </div>
+                <div className="pt-2">
+                  <Button 
+                    className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-medium shadow-sm"
+                    onClick={() => window.open("https://hitline.finance/zelena-karta", "_blank")}
+                  >
+                    Оформити вигідно онлайн <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -66,7 +76,7 @@ export function InsurancePanel() {
                 </div>
                 <div className="flex flex-col md:items-end gap-2 w-full md:w-auto">
                   <span className="text-sm font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 self-start md:self-auto">
-                    {vignette.type}
+                    {vignette.type} {vignette.priceEur > 0 && `(~${Math.round(vignette.priceEur * (exchangeRates[currency] || 1))} ${CURRENCY_SYMBOLS[currency] || currency})`}
                   </span>
                   <Button size="sm" variant="outline" className="w-full md:w-auto bg-white/5 border border-white/10 hover:bg-white/10 text-white" onClick={() => window.open(vignette.link, "_blank")}>
                     Купити офіційно <ExternalLink className="w-3 h-3 ml-2" />

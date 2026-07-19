@@ -37,6 +37,7 @@ export default function ArticlesPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   const checkScroll = () => {
     if (scrollRef.current) {
@@ -84,19 +85,24 @@ export default function ArticlesPage() {
         {/* Mobile View: Vertical Grid with Load More */}
         <div className="md:hidden flex flex-col px-4">
           <div className="grid grid-cols-1 gap-6">
-            {BASE_ARTICLES.map((article, idx) => (
-              <div key={idx} className="animate-fade-in-up [animation-fill-mode:both]" style={{ animationDelay: `${idx * 0.15}s` }}>
+            {ARTICLES.slice(0, visibleCount).map((article, idx) => (
+              <div key={idx} className="animate-fade-in-up [animation-fill-mode:both]" style={{ animationDelay: `${(idx % 3) * 0.15}s` }}>
                 <ArticleCardMobile {...article} />
               </div>
             ))}
           </div>
           
-          <div className="mt-10 flex justify-center">
-            <button className="bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/10 text-white font-medium text-sm py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2">
-              Завантажити ще
-              <span className="material-symbols-outlined text-[18px]">refresh</span>
-            </button>
-          </div>
+          {visibleCount < ARTICLES.length && (
+            <div className="mt-10 flex justify-center">
+              <button 
+                onClick={() => setVisibleCount(prev => prev + 3)}
+                className="bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/10 text-white font-medium text-sm py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2"
+              >
+                Завантажити ще
+                <span className="material-symbols-outlined text-[18px]">refresh</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Desktop View: Swipeable Carousel */}

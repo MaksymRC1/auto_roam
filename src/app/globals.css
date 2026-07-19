@@ -8,7 +8,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geologica);
-  --font-mono: var(--font-geist-mono);
   --font-display: var(--font-montserrat);
   --font-headline: var(--font-montserrat);
   --animate-heartbeat: heartbeat 2s ease-in-out infinite;
@@ -208,4 +207,18 @@
 
 @keyframes l38 {
   100% {background-position: 100% 0,100% 100%,0 100%,0 0}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes loading-bar { 
+  0% { left: -100%; } 
+  100% { left: 100%; } 
 }

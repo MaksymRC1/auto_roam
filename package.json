@@ -2,6 +2,7 @@
   "name": "autoroam",
   "version": "0.1.0",
   "private": true,
+  "author": "Maksym Otroshko <maksymotroshko@ukr.net>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -31,13 +32,14 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^26.1.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^7.0.2"
   }
 }

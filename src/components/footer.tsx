@@ -71,7 +71,7 @@ export function Footer({ onOpenRating }: FooterProps) {
 
                 <div className="flex flex-col gap-1.5">
                   <a
-                    href="https://t.me/AutoRoam"
+                    href="https://t.me/autoroamBot"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"

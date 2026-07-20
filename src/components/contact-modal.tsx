@@ -60,7 +60,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         {/* Contact Links */}
         <div className="flex flex-col gap-2.5">
-          <a href="https://t.me/AutoRoam" target="_blank" rel="noopener noreferrer" 
+          <a href="https://t.me/autoroamBot" target="_blank" rel="noopener noreferrer" 
              className="flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
              style={{ background: "rgba(255, 255, 255, 0.05)" }}>
             <div className="w-9 h-9 rounded-full bg-[#229ED9]/20 flex items-center justify-center text-[#229ED9] group-hover:bg-[#229ED9] group-hover:text-white transition-colors shadow-sm">
@@ -68,7 +68,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-white font-medium text-sm">Telegram</span>
-              <span className="text-white/50 text-xs">@AutoRoam</span>
+              <span className="text-white/50 text-xs">@autoroamBot</span>
             </div>
           </a>
 

@@ -209,7 +209,7 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
           <div className="flex items-center gap-2 justify-center pt-1">
             <span className="text-white/30 text-[11px]">або напишіть в</span>
             <a
-              href="https://t.me/AutoRoam"
+              href="https://t.me/autoroamBot"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#229ED9] text-[11px] font-medium hover:underline"

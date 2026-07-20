@@ -256,22 +256,17 @@ export function TripPlanner() {
                           
                           return (
                             <div key={wp.id} className="relative flex items-start group" role="listitem">
-                              <div className={`flex items-center justify-center w-6 h-6 mt-1.5 rounded-full border-2 border-slate-900 shadow-sm shrink-0 z-10 ${
-                                isStart ? 'bg-emerald-500' : 
-                                isFinish ? 'bg-rose-500' : 
-                                isFuel ? 'bg-blue-500' :
-                                isBorder ? 'bg-amber-500' : 'bg-slate-500'
-                              }`}>
+                              <div className="flex items-center justify-center w-6 h-6 mt-1.5 rounded-full bg-slate-900 border border-white/20 shadow-sm shrink-0 z-10">
                                 {isStart || isFinish ? (
-                                  <MapPin className="w-3 h-3 text-white" />
+                                  <MapPin className="w-3 h-3 text-white/80" />
                                 ) : isFuel ? (
-                                  <Fuel className="w-3 h-3 text-white" />
+                                  <Fuel className="w-3 h-3 text-white/80" />
                                 ) : isBorder ? (
-                                  <Flag className="w-3 h-3 text-white" />
+                                  <Flag className="w-3 h-3 text-white/80" />
                                 ) : isHotel ? (
-                                  <Bed className="w-3 h-3 text-white" />
+                                  <Bed className="w-3 h-3 text-white/80" />
                                 ) : (
-                                  <CheckCircle2 className="w-3 h-3 text-white" />
+                                  <CheckCircle2 className="w-3 h-3 text-white/80" />
                                 )}
                               </div>
                               

@@ -18,8 +18,26 @@ const geologica = Geologica({
 });
 
 export const metadata: Metadata = {
-  title: "AutoRoam —  Планувальник автоподорожей",
-  description: "Плануйте автомобільні подорожі Європою: маршрути, кордони, паливо, ночівля та бюджет.",
+  title: "AutoRoam — Розумний планувальник автоподорожей",
+  description: "Плануйте автомобільні подорожі Україною та Європою: точні маршрути, актуальні кордони, розрахунок витрат на паливо, планування ночівель та загального бюджету.",
+  keywords: ["автоподорож", "маршрут", "кордон", "паливо", "калькулятор пального", "подорож Європою", "Зелена картка", "страхування авто"],
+  authors: [{ name: "AutoRoam Team" }],
+  openGraph: {
+    type: "website",
+    locale: "uk_UA",
+    title: "AutoRoam — Планувальник автоподорожей",
+    description: "Ідеальний інструмент для планування подорожей автомобілем. Враховує кордони, паливо та готелі.",
+    siteName: "AutoRoam",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AutoRoam — Розумний планувальник автоподорожей",
+    description: "Плануйте автомобільні подорожі Україною та Європою з AutoRoam.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

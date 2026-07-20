@@ -10,7 +10,7 @@
   --font-sans: var(--font-geologica);
   --font-display: var(--font-montserrat);
   --font-headline: var(--font-montserrat);
-  --animate-heartbeat: heartbeat 2s ease-in-out infinite;
+  --animate-heartbeat: heartbeat 3.5s ease-in-out infinite;
   
   @keyframes heartbeat {
     0%, 100% { transform: scale(1); }

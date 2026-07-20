@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useTripStore } from "@/store/useTripStore";
-import { ExternalLink, ShieldCheck, Route, AlertTriangle } from "lucide-react";
+import { ExternalLink, ShieldCheck, Route, Plane, Car, HeartPulse } from "lucide-react";
 import { VIGNETTE_DB } from "@/lib/borders";
 
 import { CURRENCY_SYMBOLS } from "@/lib/constants";
@@ -21,38 +21,88 @@ export function InsurancePanel() {
         
         {/* Insurance Section */}
         <div className="space-y-4">
-          <h3 className="font-semibold text-white/90 flex items-center gap-2">
-            Зелена картка (Міжнародне страхування)
-          </h3>
-          <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm">
-            <div className="flex flex-col md:flex-row gap-4 items-start">
-              <div className="p-3 bg-emerald-500/20 rounded-full shrink-0">
-                <ShieldCheck className="w-6 h-6 text-emerald-400" />
+          <div className="flex flex-col">
+            <h3 className="font-semibold text-white/90 flex items-center gap-2">
+              Рекомендоване страхування
+            </h3>
+            <p className="text-sm text-white/50 mt-1">
+              Оформлюйте поліси онлайн за кілька хвилин зі знижками від нашого партнера.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            
+            {/* Green Card */}
+            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/green-card?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=e55516d5", "_blank")}>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 bg-emerald-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white/90 text-sm leading-tight">Зелена картка</h4>
+                  <p className="text-[10px] text-white/50 mt-0.5">Обов'язкова за кордоном</p>
+                </div>
               </div>
-              <div className="space-y-2">
-                <p className="text-sm text-white/70">
-                  Для виїзду за кордон на автомобілі <strong>обов'язково</strong> потрібен міжнародний страховий сертифікат «Зелена картка». Він покриває вашу відповідальність перед третіми особами у разі ДТП за кордоном.
-                </p>
-                <div className="mt-3 p-3 bg-amber-500/10 rounded-lg border border-amber-500/20 text-sm text-amber-300 space-y-2">
-                  <p className="flex gap-2 items-start">
-                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" /> 
-                    <span>Поліс має бути дійсним на весь період перебування за кордоном (мінімум 15 днів).</span>
-                  </p>
-                  <p className="flex gap-2 items-start">
-                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" /> 
-                    <span>Рекомендується мати видруковану копію поліса, хоча електронний формат також допускається.</span>
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <Button 
-                    className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-medium shadow-sm"
-                    onClick={() => window.open("https://hitline.finance/zelena-karta", "_blank")}
-                  >
-                    Оформити вигідно онлайн <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
+              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">Міжнародний страховий сертифікат для вашого авто.</p>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Електронний поліс</span>
+                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-emerald-400 transition-colors" />
               </div>
             </div>
+
+            {/* Travel Insurance */}
+            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/insurance-travel?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0", "_blank")}>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 bg-blue-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                  <Plane className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white/90 text-sm leading-tight">Туристична страховка</h4>
+                  <p className="text-[10px] text-white/50 mt-0.5">Медичний захист</p>
+                </div>
+              </div>
+              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">Покриття медичних витрат під час подорожі.</p>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Для всієї родини</span>
+                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-blue-400 transition-colors" />
+              </div>
+            </div>
+
+            {/* OSAGO */}
+            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/osago?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=562129", "_blank")}>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 bg-amber-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                  <Car className="w-5 h-5 text-amber-400" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white/90 text-sm leading-tight">Автоцивілка</h4>
+                  <p className="text-[10px] text-white/50 mt-0.5">Для поїздок по Україні</p>
+                </div>
+              </div>
+              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">ОСЦПВ (автоцивілка) зі знижками до 40%.</p>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Миттєве оформлення</span>
+                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-amber-400 transition-colors" />
+              </div>
+            </div>
+
+            {/* Accident Insurance */}
+            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/accidents?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0", "_blank")}>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 bg-purple-500/20 rounded-xl group-hover:scale-110 transition-transform">
+                  <HeartPulse className="w-5 h-5 text-purple-400" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white/90 text-sm leading-tight">Від нещасних випадків</h4>
+                  <p className="text-[10px] text-white/50 mt-0.5">Додатковий захист</p>
+                </div>
+              </div>
+              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">Фінансова допомога при непередбачуваних ситуаціях.</p>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Діє по всьому світу</span>
+                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-purple-400 transition-colors" />
+              </div>
+            </div>
+
           </div>
         </div>
 

@@ -38,7 +38,12 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
         .then(res => res.json())
         .then(data => {
           if (data.status === 'OK' && data.predictions) {
-            setSuggestions(data.predictions.slice(0, 5).map((p: any) => ({
+            const filtered = data.predictions.filter((p: any) => {
+              const desc = p.description || "";
+              return !/\b(Russia|Россия|Belarus|Беларусь|РФ|РБ)\b/i.test(desc) && 
+                     !desc.endsWith("RU") && !desc.endsWith("BY");
+            });
+            setSuggestions(filtered.slice(0, 5).map((p: any) => ({
               id: p.place_id,
               name: p.structured_formatting.main_text,
               country: p.structured_formatting.secondary_text,
@@ -75,22 +80,10 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           {!value && (
             <div className="absolute inset-0 flex items-center pointer-events-none text-white/40 text-sm font-medium z-0">
               <div className="w-full truncate group-focus-within:hidden">
-                {index === 0 ? (
-                  <>Звідки (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
-                ) : isLast ? (
-                  <>Куди (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
-                ) : (
-                  "Проміжна зупинка (місто або посилання)"
-                )}
+                {index === 0 ? "Звідки" : isLast ? "Куди" : "Проміжна зупинка"}
               </div>
               <div className="w-full hidden group-focus-within:block truncate">
-                {index === 0 ? (
-                  <>Звідки (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
-                ) : isLast ? (
-                  <>Куди (місто або посилання<span className="hidden sm:inline"> Maps/Waze</span>)</>
-                ) : (
-                  "Проміжна зупинка (місто або посилання)"
-                )}
+                {index === 0 ? "Звідки" : isLast ? "Куди" : "Проміжна зупинка"}
               </div>
             </div>
           )}
@@ -102,8 +95,42 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            className="peer bg-transparent text-white text-sm font-medium w-full outline-none text-ellipsis relative z-10"
+            className={`peer bg-transparent text-white text-sm font-medium w-full outline-none text-ellipsis relative z-10 ${index === 0 ? 'pr-8' : ''}`}
           />
+          {index === 0 && (
+            <button 
+              type="button" 
+              onClick={async (e) => {
+                e.stopPropagation();
+                if (!navigator.geolocation) {
+                  alert("Геолокація не підтримується вашим браузером");
+                  return;
+                }
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                  const { latitude, longitude } = position.coords;
+                  try {
+                    const res = await fetch(`/api/google/geocode?latlng=${latitude},${longitude}`);
+                    const data = await res.json();
+                    if (data.status === 'OK' && data.results && data.results.length > 0) {
+                      const address = data.results[0].formatted_address;
+                      updateStop(realId, `${address} | ${latitude}, ${longitude}`);
+                    } else {
+                      updateStop(realId, `Поточне місцезнаходження | ${latitude}, ${longitude}`);
+                    }
+                  } catch (e) {
+                    updateStop(realId, `Поточне місцезнаходження | ${latitude}, ${longitude}`);
+                  }
+                }, (error) => {
+                  console.error(error);
+                  alert("Не вдалося отримати доступ до вашої геопозиції");
+                });
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white/50 hover:text-blue-400 transition-colors z-20 p-1"
+              title="Моє місцезнаходження"
+            >
+              <LocateFixed className="w-4 h-4" />
+            </button>
+          )}
           {showSuggestions && (suggestions.length > 0 || isSearching) && (
             <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto custom-scrollbar">
               {isSearching ? (
@@ -161,6 +188,32 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
     </div>
   );
 }
+
+const LoadingText = () => {
+  const [step, setStep] = useState(0);
+  const steps = ["Аналізуємо зупинки", "Будуємо маршрут", "Перевіряємо кордони", "Рахуємо пальне"];
+  
+  useEffect(() => {
+    const int = setInterval(() => {
+      setStep(s => Math.min(s + 1, steps.length - 1));
+    }, 1200);
+    return () => clearInterval(int);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center justify-center w-full relative overflow-hidden h-6">
+      {steps.map((text, i) => (
+        <div 
+          key={text} 
+          className={`absolute flex items-center gap-2 transition-all duration-500 ${i === step ? 'opacity-100 translate-y-0' : i < step ? 'opacity-0 -translate-y-full' : 'opacity-0 translate-y-full'}`}
+        >
+          <div className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+          <span>{text}...</span>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
   const { stops, setStops, addStop, updateStop, removeStop, calculateRoute, isLoading, error, isCalculated, resetTrip } = useTripStore();
@@ -256,15 +309,15 @@ export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
       <div className="pt-6">
         {error && <div className="text-sm text-red-400 font-medium mb-3 bg-red-900/30 p-3 rounded-lg border border-red-500/30">{error}</div>}
         {!isCalculated ? (
-          <button onClick={calculateRoute} disabled={isLoading} className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none">
-            {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+          <button onClick={calculateRoute} disabled={isLoading} className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none overflow-hidden">
+            {isLoading ? <LoadingText /> : (
               <>Побудувати маршрут</>
             )}
           </button>
         ) : (
           <div className="flex gap-4">
-            <button onClick={calculateRoute} disabled={isLoading} className="flex-1 bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none">
-              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+            <button onClick={calculateRoute} disabled={isLoading} className="flex-1 bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none overflow-hidden">
+              {isLoading ? <LoadingText /> : (
                 <>Оновити</>
               )}
             </button>

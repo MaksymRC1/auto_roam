@@ -422,7 +422,6 @@ function AccordionPanels() {
 
   return (
     <Accordion 
-      type="multiple"
       value={activePanel ? [activePanel] : []} 
       onValueChange={(v: string | string[]) => { 
         if (Array.isArray(v)) {

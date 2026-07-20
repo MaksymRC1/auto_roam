@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Geologica } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -16,7 +18,7 @@ const geologica = Geologica({
 });
 
 export const metadata: Metadata = {
-  title: "AutoRoam — Планувальник автоподорожей",
+  title: "AutoRoam —  Планувальник автоподорожей",
   description: "Плануйте автомобільні подорожі Європою: маршрути, кордони, паливо, ночівля та бюджет.",
 };
 
@@ -35,6 +37,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans bg-slate-900 text-slate-300 overflow-x-hidden w-full">
         {children}
+        <Analytics />
+        <SpeedInsights />
         <Script id="stay22-lma" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
           (function (s, t, a, y, twenty, two) {
             s.Stay22 = s.Stay22 || {};

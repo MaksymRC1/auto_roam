@@ -550,34 +550,6 @@ function HotelOverrideInputs({
   const [isSaving, setIsSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const [suggestions, setSuggestions] = useState<Array<{ id: string, name: string, description: string }>>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
-  const debouncedUrl = useDebounce(url, 400);
-
-  useEffect(() => {
-    if (debouncedUrl && debouncedUrl.length > 2 && showSuggestions && !debouncedUrl.startsWith('http')) {
-      setIsSearching(true);
-      fetch(`/api/google/places?input=${encodeURIComponent(debouncedUrl)}&type=establishment`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === 'OK' && data.predictions) {
-            setSuggestions(data.predictions.slice(0, 5).map((p: any) => ({
-              id: p.place_id,
-              name: p.structured_formatting.main_text,
-              description: p.description
-            })));
-          } else {
-            setSuggestions([]);
-          }
-        })
-        .catch(() => setSuggestions([]))
-        .finally(() => setIsSearching(false));
-    } else {
-      setSuggestions([]);
-    }
-  }, [debouncedUrl, showSuggestions]);
-
   // If we don't have a lat but we DO have a url, we should allow saving to attempt geocoding
   const isChanged = url !== initialUrl || String(price) !== String(initialPrice) || currency !== (initialCurrency || globalCurrency) || (url && !initialLat);
 
@@ -638,40 +610,13 @@ function HotelOverrideInputs({
         <div className="flex-1 relative w-full">
           <input 
             type="text" 
-            placeholder="🏨 Назва готелю або Booking..." 
+            placeholder="🏨 Додайте адресу..." 
             className="w-full text-xs p-2.5 pr-8 border rounded-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 relative z-10"
             value={url}
             autoComplete="off"
-            onChange={(e) => { setUrl(e.target.value); setErrorMsg(''); setShowSuggestions(true); }}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            onChange={(e) => { setUrl(e.target.value); setErrorMsg(''); }}
             disabled={isSaving}
           />
-          {showSuggestions && (suggestions.length > 0 || isSearching) && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto">
-              {isSearching ? (
-                <div className="p-3 text-xs text-white/50 flex items-center gap-2 justify-center">
-                  <Loader2 className="w-3 h-3 animate-spin" /> Пошук...
-                </div>
-              ) : (
-                suggestions.map((s) => (
-                  <div 
-                    key={s.id} 
-                    className="p-3 hover:bg-white/10 cursor-pointer text-xs border-b border-white/10 last:border-0 transition-colors"
-                    onMouseDown={(e) => {
-                      e.preventDefault(); // Prevent onBlur from firing before click
-                      setUrl(s.description);
-                      setShowSuggestions(false);
-                      setErrorMsg('');
-                    }}
-                  >
-                    <div className="font-medium text-white">{s.name}</div>
-                    <div className="text-[10px] text-white/50 mt-0.5">{s.description}</div>
-                  </div>
-                ))
-              )}
-            </div>
-          )}
           {url && url.startsWith('http') && (
             <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors z-20" title="Відкрити посилання">
               ↗

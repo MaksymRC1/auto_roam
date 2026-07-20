@@ -5,16 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info, ExternalLink } from "lucide-react";
+import { Info } from "lucide-react";
 import 'izitoast/dist/css/iziToast.min.css';
 
-// Placeholder for referral programs by country code
-const fuelReferrals: Record<string, { text: string; link: string; promo?: string }> = {
-  'UA': { text: 'Знижка -2 грн/л у WOG PRIDE', link: 'https://wog.ua', promo: 'AUTOROAM' },
-  'PL': { text: 'Оплата автобанів та АЗС через Autopay', link: 'https://autopay.pl' },
-  'DE': { text: 'Оплата на колонці з кешбеком (Ryd)', link: 'https://ryd.one' },
-  'AT': { text: 'Знижки на пальне (Ryd)', link: 'https://ryd.one' },
-};
+
 import { useTripStore, FuelType } from "@/store/useTripStore";
 import { FUEL_BUFFER_RATIO, getCurrencySymbol } from "@/lib/constants";
 
@@ -297,22 +291,7 @@ export function FuelPanel() {
                             {currencySymbol} {countryCostLocal}
                           </div>
                         </div>
-                        {fuelReferrals[code] && (
-                          <a 
-                            href={fuelReferrals[code].link} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 mt-1.5 text-[11px] text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                            {fuelReferrals[code].text}
-                            {fuelReferrals[code].promo && (
-                              <span className="font-mono bg-muted px-1 py-0.5 rounded ml-1 text-[10px]">
-                                {fuelReferrals[code].promo}
-                              </span>
-                            )}
-                          </a>
-                        )}
+
                       </div>
                     );
                  })}

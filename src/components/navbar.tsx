@@ -64,16 +64,7 @@ export function Navbar() {
             >
               <span className="material-symbols-outlined">{isMenuOpen ? "close" : "menu"}</span>
             </button>
-            <div className="hidden md:flex items-center gap-2 text-white/80 text-sm ml-2">
-              <span className="text-white font-bold border-b-2 border-white pb-1 cursor-default">UA</span>
-              <span className="text-white/40">|</span>
-              <button 
-                className="hover:text-white transition-colors pb-1 cursor-pointer focus:outline-none" 
-                onClick={() => alert('Інші мови будуть доступні незабаром!')}
-              >
-                EN
-              </button>
-            </div>
+
           </div>
         </div>
 
@@ -97,19 +88,7 @@ export function Navbar() {
             Підтримка
           </button>
           <a className="text-white/90 hover:text-white font-medium text-lg" href="#" onClick={openContact}>Зв&#39;язатися з нами</a>
-          <div className="flex items-center gap-4 text-white mt-4 border-t border-white/10 pt-6 w-1/2 justify-center">
-            <span className="font-bold border-b-2 border-white pb-1 text-lg cursor-default">UA</span>
-            <span className="text-white/40">|</span>
-            <button 
-              className="text-white/60 hover:text-white transition-colors pb-1 text-lg cursor-pointer focus:outline-none" 
-              onClick={() => {
-                setIsMenuOpen(false);
-                setTimeout(() => alert('Інші мови будуть доступні незабаром!'), 50);
-              }}
-            >
-              EN
-            </button>
-          </div>
+
         </div>
       </nav>
 

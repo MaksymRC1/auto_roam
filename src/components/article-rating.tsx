@@ -12,11 +12,20 @@ export function ArticleRating({ articleId }: { articleId: string }) {
     setIsSubmitting(true);
     setSelectedRating(ratingIndex);
 
-    // Simulate server interaction
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    
-    // In the future, send to server:
-    // await fetch(`/api/articles/${articleId}/rate`, { method: "POST", body: JSON.stringify({ rating: ratingIndex }) })
+    // Send rating to our support API endpoint
+    try {
+      await fetch("/api/support", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "rating",
+          articleId,
+          rating: reactions[ratingIndex].label
+        })
+      });
+    } catch (err) {
+      console.error("Failed to submit article rating:", err);
+    }
     
     setIsSubmitting(false);
   };

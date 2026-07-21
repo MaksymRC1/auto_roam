@@ -15,6 +15,14 @@ export function Footer({ onOpenRating }: FooterProps) {
       <footer className="hidden md:flex w-full h-10 items-center justify-between px-8 text-xs text-white/50 bg-black/30 backdrop-blur-md border-t border-white/10 z-[100] relative mt-auto">
         <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
         <div className="flex items-center gap-4 relative">
+          <a
+            href="https://send.monobank.ua/jar/U3CVzKjWp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors cursor-pointer flex items-center gap-1 focus:outline-none pointer-events-auto"
+          >
+            ☕ Підтримати проєкт
+          </a>
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -71,7 +79,7 @@ export function Footer({ onOpenRating }: FooterProps) {
 
                 <div className="flex flex-col gap-1.5">
                   <a
-                    href="https://t.me/autoroamBot"
+                    href="tg://user?id=8746006264"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"
@@ -84,7 +92,7 @@ export function Footer({ onOpenRating }: FooterProps) {
                     </span>
                   </a>
                   <a
-                    href="https://wa.me/1234567890"
+                    href="https://wa.me/qr/SGAWLLEOFIRZE1"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"
@@ -95,15 +103,6 @@ export function Footer({ onOpenRating }: FooterProps) {
                     <span className="text-white/90 text-sm">
                       WhatsApp
                     </span>
-                  </a>
-                  <a
-                    href="mailto:support@autoroam.com"
-                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"
-                  >
-                    <span className="material-symbols-outlined text-white/70 text-[16px] [font-variation-settings:'FILL'_1]">
-                      mail
-                    </span>
-                    <span className="text-white/90 text-sm">Email</span>
                   </a>
                 </div>
               </div>

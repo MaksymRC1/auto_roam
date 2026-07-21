@@ -60,7 +60,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         {/* Contact Links */}
         <div className="flex flex-col gap-2.5">
-          <a href="https://t.me/autoroamBot" target="_blank" rel="noopener noreferrer" 
+          <a href="tg://user?id=8746006264" target="_blank" rel="noopener noreferrer" 
              className="flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
              style={{ background: "rgba(255, 255, 255, 0.05)" }}>
             <div className="w-9 h-9 rounded-full bg-[#229ED9]/20 flex items-center justify-center text-[#229ED9] group-hover:bg-[#229ED9] group-hover:text-white transition-colors shadow-sm">
@@ -68,11 +68,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-white font-medium text-sm">Telegram</span>
-              <span className="text-white/50 text-xs">@autoroamBot</span>
+              <span className="text-white/50 text-xs">Особистий чат</span>
             </div>
           </a>
 
-          <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/qr/SGAWLLEOFIRZE1" target="_blank" rel="noopener noreferrer"
              className="flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
              style={{ background: "rgba(255, 255, 255, 0.05)" }}>
             <div className="w-9 h-9 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-colors shadow-sm">
@@ -80,19 +80,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-white font-medium text-sm">WhatsApp</span>
-              <span className="text-white/50 text-xs">+380 99 123 45 67</span>
-            </div>
-          </a>
-
-          <a href="mailto:support@autoroam.com"
-             className="flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
-             style={{ background: "rgba(255, 255, 255, 0.05)" }}>
-            <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-white group-hover:text-slate-900 transition-colors shadow-sm">
-              <span className="material-symbols-outlined text-[18px]">mail</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white font-medium text-sm">Електронна пошта</span>
-              <span className="text-white/50 text-xs">support@autoroam.com</span>
+              <span className="text-white/50 text-xs">Особистий чат</span>
             </div>
           </a>
         </div>

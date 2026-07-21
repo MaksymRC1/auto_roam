@@ -209,7 +209,7 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
           <div className="flex items-center gap-2 justify-center pt-1">
             <span className="text-white/30 text-[11px]">або напишіть в</span>
             <a
-              href="https://t.me/autoroamBot"
+              href="tg://user?id=8746006264"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#229ED9] text-[11px] font-medium hover:underline"
@@ -218,7 +218,7 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
             </a>
             <span className="text-white/20 text-[11px]">·</span>
             <a
-              href="https://wa.me/1234567890"
+              href="https://wa.me/qr/SGAWLLEOFIRZE1"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#25D366] text-[11px] font-medium hover:underline"

@@ -149,48 +149,9 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
           </p>
           <div className="flex flex-col gap-2">
             <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); alert("Рахунок ще не підключено. Дякуємо за бажання підтримати!"); }}
-              className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
-              style={{ background: "rgba(255, 255, 255, 0.05)" }}
-            >
-              <div className="w-7 h-7 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                <span className="material-symbols-outlined text-[14px]">
-                  coffee
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-medium text-xs">
-                  Buy Me a Coffee
-                </span>
-                <span className="text-white/40 text-[10px]">
-                  Разова підтримка
-                </span>
-              </div>
-            </a>
-
-            <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); alert("Рахунок ще не підключено. Дякуємо за бажання підтримати!"); }}
-              className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
-              style={{ background: "rgba(255, 255, 255, 0.05)" }}
-            >
-              <div className="w-7 h-7 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                <span className="material-symbols-outlined text-[14px]">
-                  payments
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-medium text-xs">PayPal</span>
-                <span className="text-white/40 text-[10px]">
-                  Міжнародний переказ
-                </span>
-              </div>
-            </a>
-
-            <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); alert("Рахунок ще не підключено. Дякуємо за бажання підтримати!"); }}
+              href="https://send.monobank.ua/jar/U3CVzKjWp"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
               style={{ background: "rgba(255, 255, 255, 0.05)" }}
             >
@@ -204,7 +165,7 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
                   Monobank Банка
                 </span>
                 <span className="text-white/40 text-[10px]">
-                  Для України
+                  Для України та світу
                 </span>
               </div>
             </a>

@@ -29,77 +29,77 @@ export function InsurancePanel() {
               Оформлюйте поліси онлайн за кілька хвилин зі знижками від нашого партнера.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-4">
             
             {/* Green Card */}
-            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/green-card?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=e55516d5", "_blank")}>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-emerald-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white/90 text-sm leading-tight">Зелена картка</h4>
-                  <p className="text-[10px] text-white/50 mt-0.5">Обов'язкова за кордоном</p>
-                </div>
+            <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
+              <div className="p-3 bg-emerald-500/20 rounded-xl shrink-0 self-start md:self-auto">
+                <ShieldCheck className="w-6 h-6 text-emerald-400" />
               </div>
-              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">Міжнародний страховий сертифікат для вашого авто.</p>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Електронний поліс</span>
-                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-emerald-400 transition-colors" />
+              <div className="flex-1">
+                <h4 className="font-bold text-white/90 text-base">Зелена картка (Міжнародне автострахування)</h4>
+                <p className="text-sm text-white/70 mt-1 leading-relaxed">
+                  Обов'язковий страховий сертифікат для виїзду за кордон на власному авто. Забезпечує відшкодування збитків третім особам у разі ДТП. Без цього документа перетин кордону на авто неможливий.
+                </p>
+              </div>
+              <div className="shrink-0 pt-2 md:pt-0">
+                <a href="https://hotline.finance/ua/green-card?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=e55516d5" target="_blank" rel="noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
+                  Дізнатися більше <ExternalLink className="w-4 h-4" />
+                </a>
               </div>
             </div>
 
             {/* Travel Insurance */}
-            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/insurance-travel?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0", "_blank")}>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-blue-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                  <Plane className="w-5 h-5 text-blue-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white/90 text-sm leading-tight">Туристична страховка</h4>
-                  <p className="text-[10px] text-white/50 mt-0.5">Медичний захист</p>
-                </div>
+            <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
+              <div className="p-3 bg-blue-500/20 rounded-xl shrink-0 self-start md:self-auto">
+                <Plane className="w-6 h-6 text-blue-400" />
               </div>
-              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">Покриття медичних витрат під час подорожі.</p>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Для всієї родини</span>
-                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-blue-400 transition-colors" />
+              <div className="flex-1">
+                <h4 className="font-bold text-white/90 text-base">Туристичне страхування (Медичне)</h4>
+                <p className="text-sm text-white/70 mt-1 leading-relaxed">
+                  Медичний захист за кордоном, який покриває витрати на лікування, невідкладну допомогу та ліки. Наполегливо рекомендується мати всім пасажирам для уникнення величезних рахунків за медичні послуги в Європі.
+                </p>
+              </div>
+              <div className="shrink-0 pt-2 md:pt-0">
+                <a href="https://hotline.finance/ua/insurance-travel?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0" target="_blank" rel="noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
+                  Дізнатися більше <ExternalLink className="w-4 h-4" />
+                </a>
               </div>
             </div>
 
             {/* OSAGO */}
-            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/osago?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=562129", "_blank")}>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-amber-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                  <Car className="w-5 h-5 text-amber-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white/90 text-sm leading-tight">Автоцивілка</h4>
-                  <p className="text-[10px] text-white/50 mt-0.5">Для поїздок по Україні</p>
-                </div>
+            <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
+              <div className="p-3 bg-amber-500/20 rounded-xl shrink-0 self-start md:self-auto">
+                <Car className="w-6 h-6 text-amber-400" />
               </div>
-              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">ОСЦПВ (автоцивілка) зі знижками до 40%.</p>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Миттєве оформлення</span>
-                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-amber-400 transition-colors" />
+              <div className="flex-1">
+                <h4 className="font-bold text-white/90 text-base">Автоцивілка (ОСЦПВ)</h4>
+                <p className="text-sm text-white/70 mt-1 leading-relaxed">
+                  Обов'язкове страхування відповідальності водіїв на території України. Якщо ви плануєте подорожувати також і по Україні, переконайтеся, що ваш поточний поліс дійсний.
+                </p>
+              </div>
+              <div className="shrink-0 pt-2 md:pt-0">
+                <a href="https://hotline.finance/ua/osago?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=562129" target="_blank" rel="noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
+                  Дізнатися більше <ExternalLink className="w-4 h-4" />
+                </a>
               </div>
             </div>
 
             {/* Accident Insurance */}
-            <div className="rounded-xl border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors shadow-sm flex flex-col group cursor-pointer" onClick={() => window.open("https://hotline.finance/ua/accidents?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0", "_blank")}>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-purple-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                  <HeartPulse className="w-5 h-5 text-purple-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white/90 text-sm leading-tight">Від нещасних випадків</h4>
-                  <p className="text-[10px] text-white/50 mt-0.5">Додатковий захист</p>
-                </div>
+            <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
+              <div className="p-3 bg-purple-500/20 rounded-xl shrink-0 self-start md:self-auto">
+                <HeartPulse className="w-6 h-6 text-purple-400" />
               </div>
-              <p className="text-xs text-white/70 flex-1 mt-1 leading-snug">Фінансова допомога при непередбачуваних ситуаціях.</p>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] font-medium px-2 py-0.5 bg-white/10 rounded text-white/60 group-hover:bg-white/20 transition-colors">Діє по всьому світу</span>
-                <ExternalLink className="w-3.5 h-3.5 text-white/30 group-hover:text-purple-400 transition-colors" />
+              <div className="flex-1">
+                <h4 className="font-bold text-white/90 text-base">Страхування від нещасних випадків</h4>
+                <p className="text-sm text-white/70 mt-1 leading-relaxed">
+                  Забезпечує фінансову підтримку та додатковий захист у разі непередбачуваних ситуацій зі здоров'ям під час поїздок та активного відпочинку.
+                </p>
+              </div>
+              <div className="shrink-0 pt-2 md:pt-0">
+                <a href="https://hotline.finance/ua/accidents?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0" target="_blank" rel="noreferrer" className="text-sm font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
+                  Дізнатися більше <ExternalLink className="w-4 h-4" />
+                </a>
               </div>
             </div>
 

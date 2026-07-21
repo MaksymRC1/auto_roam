@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2, Plus, Clock, Settings } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Twitter, Facebook, Check } from "lucide-react";
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -25,6 +25,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const formatTime = (mins: number) => {
   const h = Math.floor(mins / 60);
@@ -36,6 +37,9 @@ export function TripPlanner() {
   const [mounted, setMounted] = useState(false);
   const [leftView, setLeftView] = useState<'timeline' | 'map'>('timeline');
   const [heroIndex, setHeroIndex] = useState(0);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareLink, setShareLink] = useState('');
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,7 +57,8 @@ export function TripPlanner() {
     setActivePanel,
     fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
     insertBorderStop, hotelOverrides, setHotelOverride,
-    ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute
+    ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute,
+    completedWaypoints, toggleWaypointCompletion, getShareUrl, loadFromShareData
   } = useTripStore();
 
   const rate = exchangeRates[currency] || 1;
@@ -76,7 +81,27 @@ export function TripPlanner() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Parse URL on mount for shared trips
+    const params = new URLSearchParams(window.location.search);
+    const tripData = params.get('trip');
+    if (tripData) {
+      loadFromShareData(tripData);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, [loadFromShareData]);
+
+  const handleShare = () => {
+    const url = getShareUrl();
+    setShareLink(url);
+    setShareOpen(true);
+    setCopied(false);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   if (!mounted) return null;
 
@@ -270,7 +295,7 @@ export function TripPlanner() {
                                 )}
                               </div>
                               
-                              <div className="flex-1 ml-4 bg-white/10 backdrop-blur-md p-3 rounded-lg border border-white/10 shadow-sm group-hover:border-white/30 transition-colors relative">
+                              <div className={`flex-1 ml-4 bg-white/10 backdrop-blur-md p-3 rounded-lg border shadow-sm transition-all relative ${completedWaypoints.includes(wp.id) ? 'border-emerald-500/50 opacity-60' : 'border-white/10 group-hover:border-white/30'}`}>
                                 {!isStart && !isFinish && !isFuel && (
                                   <button 
                                     onClick={() => {
@@ -288,9 +313,22 @@ export function TripPlanner() {
                                   </button>
                                 )}
                                 <div className="flex flex-col pr-6">
-                                  <span className={`text-sm ${isStart || isFinish ? 'font-bold text-white' : 'font-semibold text-white/90'}`}>
+                                  <span className={`text-sm ${isStart || isFinish ? 'font-bold text-white' : 'font-semibold text-white/90'} ${completedWaypoints.includes(wp.id) ? 'line-through text-white/50' : ''}`}>
                                     {wp.name}
                                   </span>
+                                  
+                                  {/* Progress Checkmark */}
+                                  {!isStart && !isFinish && (
+                                    <button 
+                                      onClick={() => toggleWaypointCompletion(wp.id)}
+                                      className={`absolute top-2 right-10 p-1.5 rounded transition-colors z-10 flex items-center gap-1 ${completedWaypoints.includes(wp.id) ? 'text-emerald-400 bg-emerald-900/30' : 'text-white/40 hover:text-white/80 hover:bg-white/10'}`}
+                                      title={completedWaypoints.includes(wp.id) ? "Відмінити" : "Відмітити як пройдене"}
+                                    >
+                                      <CheckCircle2 className="w-4 h-4" />
+                                      {completedWaypoints.includes(wp.id) && <span className="text-[10px] font-bold uppercase">Пройдено</span>}
+                                    </button>
+                                  )}
+
                                   {!isStart && (
                                     <span className="text-xs text-white/60 mt-1 flex items-center gap-1">
                                       через {wp.distanceFromStart} км <span className="text-white/30">•</span> {formatTime(wp.timeFromStart)}
@@ -362,6 +400,23 @@ export function TripPlanner() {
                           );
                         })}
                       </div>
+
+                      {/* Action Buttons Below Timeline */}
+                      <div className="mt-12 flex gap-3 pb-8">
+                        <button 
+                          onClick={handleShare}
+                          className="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                        >
+                          <Bookmark className="w-4 h-4" /> Зберегти маршрут
+                        </button>
+                        <button 
+                          onClick={handleShare}
+                          className="flex-1 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-white/20"
+                        >
+                          <Share2 className="w-4 h-4" /> Поділитися
+                        </button>
+                      </div>
+
                     </div>
                   </div>
               </Card>
@@ -384,6 +439,48 @@ export function TripPlanner() {
           </div>
         </div>
       )}
+
+      {/* Share/Save Dialog */}
+      <Dialog open={shareOpen} onOpenChange={setShareOpen}>
+        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
+            <DialogDescription className="text-white/60">
+              Ваш маршрут закодовано у цьому посиланні. Збережіть його в закладки або відправте друзям, щоб вони могли переглянути вашу поїздку.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex items-center space-x-2 mt-4">
+            <div className="grid flex-1 gap-2">
+              <input
+                readOnly
+                value={shareLink}
+                className="w-full bg-black/50 border border-white/20 rounded-md px-3 py-2 text-sm text-white focus:outline-none"
+              />
+            </div>
+            <button
+              onClick={copyToClipboard}
+              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-colors flex items-center gap-2"
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+            </button>
+          </div>
+          
+          <div className="mt-6 flex justify-center gap-4">
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#0088cc] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              <Send className="w-5 h-5 text-white" />
+            </a>
+            <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#7360f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              <MessageCircle className="w-5 h-5 text-white" />
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#1877f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              <Facebook className="w-5 h-5 text-white" />
+            </a>
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#1da1f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
+              <Twitter className="w-5 h-5 text-white" />
+            </a>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

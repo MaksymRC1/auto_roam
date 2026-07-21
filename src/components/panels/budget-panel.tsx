@@ -16,7 +16,11 @@ export function BudgetPanel() {
     fuelPrices,
     selectedFuelType,
     hotelOverrides,
-    crossedCountries
+    crossedCountries,
+    insuranceCost,
+    setInsuranceCost,
+    includeReserve,
+    toggleReserve
   } = useTripStore();
 
   // 1. Fuel Cost (Dynamic)
@@ -47,9 +51,9 @@ export function BudgetPanel() {
   }, 0);
 
   // 4. Totals
-  const subtotalEur = totalFuelCostEur + hotelCostEur + vignetteCostEur;
+  const subtotalEur = totalFuelCostEur + hotelCostEur + vignetteCostEur + insuranceCost;
   const reserveEur = subtotalEur * EMERGENCY_RESERVE_RATIO;
-  const totalEur = subtotalEur + reserveEur;
+  const totalEur = subtotalEur + (includeReserve ? reserveEur : 0);
 
   // Conversion
   const rate = exchangeRates[currency] || 1;
@@ -117,19 +121,47 @@ export function BudgetPanel() {
             <span className="font-bold text-white/90">{formatCost(vignetteCostEur)}</span>
           </div>
 
+          <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <span className="text-lg">🛡️</span>
+              </div>
+              <div>
+                <p className="font-semibold text-white/90">Страхування</p>
+                <p className="text-xs text-white/50">Сума у {currency}</p>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <input 
+                type="number" 
+                value={insuranceCost ? Math.round(insuranceCost * rate) : ''} 
+                onChange={(e) => setInsuranceCost(Number(e.target.value) / rate)} 
+                className="w-24 bg-black/50 border border-white/20 rounded-md px-2 py-1 text-right text-sm font-bold text-white focus:outline-none focus:border-white/40"
+                placeholder="0"
+                min="0"
+              />
+            </div>
+          </div>
+
           <div className="h-px bg-white/10 my-2" />
 
-          <div className="flex items-center justify-between p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+          <div className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${includeReserve ? 'bg-orange-500/10 border-orange-500/20' : 'bg-white/5 border-white/10 opacity-70'}`}>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${includeReserve ? 'bg-orange-500/20 text-orange-400' : 'bg-white/10 text-white/50'}`}>
                 <ShieldAlert className="w-4 h-4" />
               </div>
               <div>
-                <p className="font-semibold text-orange-400">Резерв на непередбачувані витрати</p>
-                <p className="text-xs text-orange-300">+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
+                <p className={`font-semibold ${includeReserve ? 'text-orange-400' : 'text-white/60'}`}>Резерв на непередбачувані витрати</p>
+                <p className={`text-xs ${includeReserve ? 'text-orange-300' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
               </div>
             </div>
-            <span className="font-bold text-orange-400">{formatCost(reserveEur)}</span>
+            <div className="flex items-center gap-4">
+              <span className={`font-bold ${includeReserve ? 'text-orange-400' : 'text-white/40 line-through'}`}>{formatCost(reserveEur)}</span>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" className="sr-only peer" checked={includeReserve} onChange={() => toggleReserve()} />
+                <div className="w-9 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div>
+              </label>
+            </div>
           </div>
         </div>
 

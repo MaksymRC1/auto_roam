@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import LZString from 'lz-string';
 import { geocodeCity, getRoute, findBorders, reverseGeocode, GeocodeResult, buildCumulativeDistances, geometryIndexToRatio, ratioToGeometryIndex } from '@/lib/routing';
 import type { BorderPoint } from '@/lib/borders';
 import { getCountryName } from '@/lib/country-names';
@@ -107,6 +108,15 @@ interface TripState {
   
   autoAssignFuel: () => void;
   resetTrip: () => void;
+  
+  insuranceCost: number;
+  includeReserve: boolean;
+  completedWaypoints: string[];
+  setInsuranceCost: (cost: number) => void;
+  toggleReserve: () => void;
+  toggleWaypointCompletion: (id: string) => void;
+  getShareUrl: () => string;
+  loadFromShareData: (data: string) => void;
 }
 
 // Race condition guard: incremented on each calculateRoute call
@@ -147,6 +157,9 @@ export const useTripStore = create<TripState>()(
   hotelCustomTime: LONG_TRIP_THRESHOLD_MINS,
   hotelCustomDistance: 800,
   hotelOverrides: {},
+  insuranceCost: 0,
+  includeReserve: true,
+  completedWaypoints: [],
 
   setStops: (stops) => set({ stops }),
   
@@ -516,8 +529,48 @@ export const useTripStore = create<TripState>()(
       set({ fuelAmounts: nextAmounts });
     }
   },
-  
   // Task 1.7: Full reset of ALL fields
+  setInsuranceCost: (cost) => set({ insuranceCost: cost }),
+  toggleReserve: () => set(state => ({ includeReserve: !state.includeReserve })),
+  toggleWaypointCompletion: (id) => set(state => {
+    if (state.completedWaypoints.includes(id)) {
+      return { completedWaypoints: state.completedWaypoints.filter(w => w !== id) };
+    }
+    return { completedWaypoints: [...state.completedWaypoints, id] };
+  }),
+  getShareUrl: () => {
+    const state = get();
+    const shareData = {
+      stops: state.stops,
+      consumption: state.consumption,
+      fuelAmounts: state.fuelAmounts,
+      currency: state.currency,
+      hotelOverrides: state.hotelOverrides,
+      hotelMode: state.hotelMode,
+      insuranceCost: state.insuranceCost,
+      includeReserve: state.includeReserve,
+    };
+    const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(shareData));
+    return `${window.location.origin}/?trip=${compressed}`;
+  },
+  loadFromShareData: (data) => {
+    try {
+      const decompressed = LZString.decompressFromEncodedURIComponent(data);
+      if (decompressed) {
+        const parsed = JSON.parse(decompressed);
+        set({
+          ...parsed,
+          isCalculated: false,
+          isLoading: false,
+          completedWaypoints: []
+        });
+        setTimeout(() => get().calculateRoute(), 0);
+      }
+    } catch (err) {
+      console.error("Failed to load shared trip", err);
+    }
+  },
+
   resetTrip: () => set({ 
     stops: [
       { id: crypto.randomUUID(), value: '' }, 
@@ -544,6 +597,9 @@ export const useTripStore = create<TripState>()(
     ignoredWaypoints: [],
     currency: 'EUR',
     exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08, PLN: 4.3 },
+    insuranceCost: 0,
+    includeReserve: true,
+    completedWaypoints: [],
   }),
     }),
     {
@@ -569,6 +625,9 @@ export const useTripStore = create<TripState>()(
         hotelMode: state.hotelMode,
         hotelCustomTime: state.hotelCustomTime,
         hotelCustomDistance: state.hotelCustomDistance,
+        insuranceCost: state.insuranceCost,
+        includeReserve: state.includeReserve,
+        completedWaypoints: state.completedWaypoints,
       }),
     }
   )

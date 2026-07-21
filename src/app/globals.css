@@ -14,10 +14,7 @@
   
   @keyframes heartbeat {
     0%, 100% { transform: scale(1); }
-    14% { transform: scale(1.1); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.1); }
-    70% { transform: scale(1); }
+    50% { transform: scale(1.15); }
   }
 
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;

@@ -54,7 +54,7 @@ export function Navbar() {
               className="px-3 py-1.5 flex items-center gap-2 rounded-full bg-transparent text-white transition-all text-xs font-bold group relative focus:outline-none"
               aria-label="Оцінити продукт"
             >
-              <span className="material-symbols-outlined text-[18px] text-white/90 animate-heartbeat transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1] group-focus:[font-variation-settings:'FILL'_1]">favorite</span>
+              <span className="material-symbols-outlined text-[18px] text-white/90 inline-block animate-heartbeat transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1] group-focus:[font-variation-settings:'FILL'_1]">favorite</span>
             </button>
             <button 
               className="md:hidden text-white p-2" 

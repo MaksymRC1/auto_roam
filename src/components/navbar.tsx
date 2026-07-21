@@ -56,7 +56,7 @@ export function Navbar() {
               className="px-3 py-1.5 flex items-center gap-2 rounded-full bg-transparent text-white transition-all text-xs font-bold group relative focus:outline-none"
               aria-label="Оцінити продукт"
             >
-              <Heart className="w-5 h-5 text-white/90 animate-heartbeat transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
+              <Heart className="w-5 h-5 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
             </button>
             <button 
               className="md:hidden text-white p-2" 

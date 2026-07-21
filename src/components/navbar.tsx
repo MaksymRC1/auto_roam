@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react'
+import { Heart } from 'lucide-react'
 import { ContactModal } from './contact-modal'
 import { RatingModal } from './rating-modal'
 import { SupportModal } from './support-modal'
@@ -54,7 +55,7 @@ export function Navbar() {
               className="px-3 py-1.5 flex items-center gap-2 rounded-full bg-transparent text-white transition-all text-xs font-bold group relative focus:outline-none"
               aria-label="Оцінити продукт"
             >
-              <span className="material-symbols-outlined text-[18px] text-white/90 inline-block animate-heartbeat transform-gpu will-change-transform transition-colors duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1] group-focus:[font-variation-settings:'FILL'_1]">favorite</span>
+              <Heart className="w-5 h-5 text-white/90 animate-heartbeat transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
             </button>
             <button 
               className="md:hidden text-white p-2" 

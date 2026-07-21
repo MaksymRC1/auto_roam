@@ -105,9 +105,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
         <div className="flex items-center gap-4">
           <a href="#" className="hover:text-white transition-colors">Зв'язатися з нами</a>
-          <button className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none">
-            <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1] group-focus:[font-variation-settings:'FILL'_1]">favorite</span>
-          </button>
         </div>
       </footer>
     </main>

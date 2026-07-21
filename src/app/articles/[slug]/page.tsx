@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { BackgroundSlideshow } from "@/components/background-slideshow";
 import { ArticleRating } from "@/components/article-rating";
+import { Footer } from "@/components/footer";
 
 import articlesData from "@/data/articles.json";
 
@@ -100,13 +101,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </article>
       </div>
 
-      {/* Desktop Footer */}
-      <footer className="hidden lg:flex w-full h-10 items-center justify-between px-8 text-xs text-white/50 bg-black/30 backdrop-blur-md border-t border-white/10 z-10 relative mt-auto">
-        <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
-        <div className="flex items-center gap-4">
-          <a href="#" className="hover:text-white transition-colors">Зв'язатися з нами</a>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

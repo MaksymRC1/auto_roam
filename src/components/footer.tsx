@@ -31,8 +31,7 @@ export function Footer({ onOpenRating }: FooterProps) {
                 Версія 1.0.1
               </h4>
               <ul className="text-white/70 text-xs flex flex-col gap-1.5 list-disc pl-4">
-                <li>PWA-додаток (встановлення на смартфон)</li>
-                <li>Офлайн-режим (Мандрівка) та кешування</li>
+                <li>Офлайн-режим та кешування</li>
                 <li>Інтерактивний таймлайн маршруту</li>
                 <li>Калькулятор пального та кошторис</li>
                 <li>Анімації та сучасний UI/UX</li>

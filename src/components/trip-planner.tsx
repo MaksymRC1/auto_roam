@@ -39,6 +39,7 @@ export function TripPlanner() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [shareOpen, setShareOpen] = useState(false);
   const [shareLink, setShareLink] = useState('');
+  const [isShortening, setIsShortening] = useState(false);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -90,11 +91,31 @@ export function TripPlanner() {
     }
   }, [loadFromShareData]);
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const url = getShareUrl();
-    setShareLink(url);
     setShareOpen(true);
     setCopied(false);
+    
+    setIsShortening(true);
+    setShareLink('Генеруємо коротке посилання...');
+
+    try {
+      const res = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+      const data = await res.json();
+      if (data.shortUrl) {
+        setShareLink(data.shortUrl);
+      } else {
+        setShareLink(url);
+      }
+    } catch (e) {
+      setShareLink(url);
+    } finally {
+      setIsShortening(false);
+    }
   };
 
   const handleSaveRoute = () => {
@@ -452,13 +473,14 @@ export function TripPlanner() {
             </div>
             <button
               onClick={copyToClipboard}
-              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-colors flex items-center gap-2"
+              disabled={isShortening}
+              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-md transition-colors flex items-center gap-2"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             </button>
           </div>
           
-          <div className="mt-6 flex justify-center gap-4">
+          <div className={`mt-6 flex justify-center gap-4 ${isShortening ? 'opacity-50 pointer-events-none' : ''}`}>
             <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>

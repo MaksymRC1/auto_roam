@@ -436,9 +436,8 @@ export const useTripStore = create<TripState>()(
            const borderWps = state.waypoints.filter(wp => wp.type === 'border').sort((a,b) => a.distanceFromStart - b.distanceFromStart);
            
            for (const border of borderWps) {
-              if (dist > border.distanceFromStart) {
-                 const match = border.name.match(/→\s*([A-Z]{2})/);
-                 if (match) inferred = match[1];
+              if (dist > border.distanceFromStart && border.toCountry) {
+                 inferred = border.toCountry;
               }
            }
            countryCode = inferred;

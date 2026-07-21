@@ -8,16 +8,13 @@ import Link from "next/link"
 
 import articlesData from "@/data/articles.json";
 
-const BASE_ARTICLES = articlesData.map((article) => ({
+const ARTICLES = articlesData.map((article) => ({
   href: `/articles/${article.id}`,
   image: article.heroImage,
   category: article.category,
   title: article.title,
   date: article.date,
 }));
-
-// Duplicate to give enough items for a carousel
-const ARTICLES = [...BASE_ARTICLES, ...BASE_ARTICLES];
 
 export default function ArticlesPage() {
   const scrollRef = useRef<HTMLDivElement>(null);

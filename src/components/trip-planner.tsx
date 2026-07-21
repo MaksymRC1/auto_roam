@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check } from "lucide-react";
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -24,7 +23,6 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const formatTime = (mins: number) => {
@@ -41,12 +39,6 @@ export function TripPlanner() {
   const [shareLink, setShareLink] = useState('');
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % 5); // 5 is the length of HERO_HEADINGS
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
   const { 
     isCalculated, 
     isLoading,
@@ -61,23 +53,13 @@ export function TripPlanner() {
     completedWaypoints, toggleWaypointCompletion, getShareUrl, loadFromShareData
   } = useTripStore();
 
-  const rate = exchangeRates[currency] || 1;
-  const currencySymbol = getCurrencySymbol(currency);
-
-  // Task 2.3: useMemo for fuel cost calculation
-  const totalFuelCost = useMemo(() => {
-    let totalCostEur = 0;
-    Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
-      const amount = parseFloat(amountStr) || 0;
-      const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
-      totalCostEur += amount * priceEur;
-    });
-    return Math.round(totalCostEur * rate);
-  }, [fuelAmounts, fuelPrices, selectedFuelType, rate]);
-
-  const needsFuel = totalDistance > 0 && totalFuelCost === 0;
-  const needsHotel = totalDuration > 480;
-  const needsBorders = crossedCountries.length > 1;
+  useEffect(() => {
+    if (isCalculated) return;
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % 5);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isCalculated]);
 
   useEffect(() => {
     setMounted(true);
@@ -102,10 +84,24 @@ export function TripPlanner() {
     window.open(url, '_blank');
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(shareLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(shareLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for non-HTTPS or permission denied
+      const textArea = document.createElement('textarea');
+      textArea.value = shareLink;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   if (!mounted) return null;

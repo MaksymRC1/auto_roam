@@ -2,16 +2,21 @@ import { Navbar } from "@/components/navbar";
 import { BackgroundSlideshow } from "@/components/background-slideshow";
 import { ArticleRating } from "@/components/article-rating";
 import { Footer } from "@/components/footer";
+import { notFound } from "next/navigation";
 
 import articlesData from "@/data/articles.json";
 
 async function getArticle(slug: string) {
-  return articlesData.find(a => a.id === slug) || articlesData[0];
+  return articlesData.find(a => a.id === slug) || null;
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const article = await getArticle(resolvedParams.slug);
+
+  if (!article) {
+    notFound();
+  }
 
   return (
     <main className="min-h-screen flex flex-col font-sans overflow-x-hidden text-slate-200">

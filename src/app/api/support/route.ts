@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 
+/** Escape special characters for Telegram MarkdownV1 */
+function escapeTelegramMarkdown(text: string): string {
+  return text.replace(/[_*`\[]/g, '\\$&');
+}
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
@@ -11,9 +16,9 @@ export async function POST(request: Request) {
     if (botToken && chatId) {
       let text = '';
       if (type === 'rating') {
-        text = `⭐ *Новий відгук про статтю!*\n\n*ID статті:* \`${articleId}\`\n*Оцінка:* *${rating}*`;
+        text = `⭐ *Новий відгук про статтю!*\n\n*ID статті:* \`${escapeTelegramMarkdown(String(articleId))}\`\n*Оцінка:* *${escapeTelegramMarkdown(String(rating))}*`;
       } else {
-        text = `📩 *Нове запитання з сайту AutoRoam!*\n\n*Ім'я:* ${name}\n*Email:* ${email}\n*Повідомлення:* ${message}`;
+        text = `📩 *Нове запитання з сайту AutoRoam!*\n\n*Ім'я:* ${escapeTelegramMarkdown(String(name || ''))}\n*Email:* ${escapeTelegramMarkdown(String(email || ''))}\n*Повідомлення:* ${escapeTelegramMarkdown(String(message || ''))}`;
       }
 
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

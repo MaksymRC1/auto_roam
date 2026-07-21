@@ -151,7 +151,7 @@ export async function getRoute(points: GeocodeResult[]): Promise<RouteResult | n
     
     let totalDistanceKm = 0;
     let totalDurationMins = 0;
-    const legs: RouteLeg[] = route.legs.map((leg: any) => {
+    const legs: RouteLeg[] = route.legs.map((leg: { distance: { value: number }; duration: { value: number } }) => {
       const distanceKm = leg.distance.value / 1000;
       const durationMins = Math.round(leg.duration.value / 60);
       totalDistanceKm += distanceKm;
@@ -264,7 +264,7 @@ export async function findBorders(geometry: [number, number][]): Promise<BorderC
       borders.push({
         lat: borderPoint[0],
         lon: borderPoint[1],
-        name: geo?.city || `Кордон ${getCountryName(current.country)} → ${getCountryName(next.country)}`,
+        name: (geo?.city && geo.city !== 'Траса') ? geo.city : `Кордон ${getCountryName(current.country)} → ${getCountryName(next.country)}`,
         fromCountry: current.country,
         toCountry: next.country,
         geometryIndex: right

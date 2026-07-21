@@ -1,7 +1,21 @@
 import { NextResponse } from 'next/server';
 
+/** Escape special characters for Telegram MarkdownV1 */
+function escapeTelegramMarkdown(text: string): string {
+  return text.replace(/[_*`\[]/g, '\\$&');
+}
+
 export async function POST(request: Request) {
   try {
+    // Verify webhook secret to prevent unauthorized access
+    const webhookSecret = process.env.TELEGRAM_WEBHOOK_SECRET;
+    if (webhookSecret) {
+      const secretHeader = request.headers.get('X-Telegram-Bot-Api-Secret-Token');
+      if (secretHeader !== webhookSecret) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      }
+    }
+
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
     const ownerChatId = process.env.TELEGRAM_CHAT_ID;
 
@@ -16,9 +30,9 @@ export async function POST(request: Request) {
     if (payload.message && payload.message.text) {
       const { from, text } = payload.message;
       const userId = from.id;
-      const firstName = from.first_name || '';
-      const lastName = from.last_name || '';
-      const username = from.username ? `@${from.username}` : 'немає нікнейму';
+      const firstName = escapeTelegramMarkdown(from.first_name || '');
+      const lastName = escapeTelegramMarkdown(from.last_name || '');
+      const username = from.username ? `@${escapeTelegramMarkdown(from.username)}` : 'немає нікнейму';
 
       // Don't forward messages sent by the owner to prevent loops
       if (String(userId) === String(ownerChatId)) {
@@ -30,7 +44,7 @@ export async function POST(request: Request) {
         `*Від:* ${firstName} ${lastName} (${username})\n` +
         `*ID користувача:* \`${userId}\`\n` +
         `*Профіль:* [Посилання на чат](tg://user?id=${userId})\n\n` +
-        `*Текст:* ${text}`;
+        `*Текст:* ${escapeTelegramMarkdown(text)}`;
 
       // Send to owner
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

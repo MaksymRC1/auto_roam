@@ -80,27 +80,46 @@ export function JourneyView() {
         {/* Header */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 border-b border-white/10 pb-8">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">Деталі маршруту</h1>
-            <p className="text-white/60 text-sm md:text-base">Керуйте вашою подорожжю зручно.</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Деталі маршруту</h1>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 items-center">
-            <div className="flex flex-wrap gap-3 mt-4 sm:mt-0">
-              <div className="flex items-center gap-2 bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-500/20">
-                <Navigation2 className="w-4 h-4 text-blue-400" />
-                <span className="font-bold text-blue-100">{totalDistance} км</span>
+            <div className="flex flex-wrap gap-3 mt-2 md:mt-0">
+              <div className="flex items-center gap-3 bg-blue-500/10 px-4 py-2.5 rounded-xl border border-blue-500/20">
+                <div className="p-1.5 bg-blue-500/20 rounded-lg">
+                  <Navigation2 className="w-4 h-4 text-blue-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-bold text-blue-400/70 tracking-wider">Відстань</span>
+                  <span className="font-bold text-blue-100 leading-tight">{totalDistance} км</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20">
-                <Clock className="w-4 h-4 text-emerald-400" />
-                <span className="font-bold text-emerald-100">{formatTime(totalDuration)}</span>
+              <div className="flex items-center gap-3 bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20">
+                <div className="p-1.5 bg-emerald-500/20 rounded-lg">
+                  <Clock className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-bold text-emerald-400/70 tracking-wider">Час у дорозі</span>
+                  <span className="font-bold text-emerald-100 leading-tight">{formatTime(totalDuration)}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 bg-amber-500/10 px-4 py-2 rounded-xl border border-amber-500/20">
-                <Fuel className="w-4 h-4 text-amber-400" />
-                <span className="font-bold text-amber-100">~{totalFuelLiters.toFixed(0)} л</span>
+              <div className="flex items-center gap-3 bg-amber-500/10 px-4 py-2.5 rounded-xl border border-amber-500/20">
+                <div className="p-1.5 bg-amber-500/20 rounded-lg">
+                  <Fuel className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-bold text-amber-400/70 tracking-wider">Паливо</span>
+                  <span className="font-bold text-amber-100 leading-tight">~{totalFuelLiters.toFixed(0)} л</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 bg-indigo-500/10 px-4 py-2 rounded-xl border border-indigo-500/20">
-                <Wallet className="w-4 h-4 text-indigo-400" />
-                <span className="font-bold text-indigo-100">{formatCost(totalEur)}</span>
+              <div className="flex items-center gap-3 bg-indigo-500/10 px-4 py-2.5 rounded-xl border border-indigo-500/20">
+                <div className="p-1.5 bg-indigo-500/20 rounded-lg">
+                  <Wallet className="w-4 h-4 text-indigo-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-bold text-indigo-400/70 tracking-wider">Кошторис</span>
+                  <span className="font-bold text-indigo-100 leading-tight">{formatCost(totalEur)}</span>
+                </div>
               </div>
             </div>
           </div>

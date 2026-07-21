@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTripStore } from "@/store/useTripStore";
-import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, Printer } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel } from "lucide-react";
 
 const formatTime = (mins: number) => {
   const h = Math.floor(mins / 60);
@@ -42,10 +42,6 @@ export function JourneyView() {
     );
   }
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <div className="w-full max-w-4xl mx-auto pb-24 pt-8 px-4 font-sans">
       <div className="bg-[#1a1f2e]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
@@ -68,13 +64,6 @@ export function JourneyView() {
                 <span className="font-bold text-emerald-100">{formatTime(totalDuration)}</span>
               </div>
             </div>
-            
-            <button 
-              onClick={handlePrint}
-              className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/40 print:hidden"
-            >
-              <Printer className="w-4 h-4" /> Друк / PDF
-            </button>
           </div>
         </div>
 

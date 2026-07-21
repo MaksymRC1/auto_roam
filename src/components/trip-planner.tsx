@@ -395,7 +395,7 @@ export function TripPlanner() {
                       </div>
 
                       {/* Action Buttons Below Timeline */}
-                      <div className="mt-12 flex gap-4 pb-8">
+                      <div className="mt-8 flex gap-4 pb-2">
                         <button 
                           onClick={handleSaveRoute}
                           className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors flex justify-center items-center gap-2 outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"

@@ -97,6 +97,11 @@ export function TripPlanner() {
     setCopied(false);
   };
 
+  const handleSaveRoute = () => {
+    const url = getShareUrl();
+    window.open(url, '_blank');
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareLink);
     setCopied(true);
@@ -404,14 +409,14 @@ export function TripPlanner() {
                       {/* Action Buttons Below Timeline */}
                       <div className="mt-12 flex gap-3 pb-8">
                         <button 
-                          onClick={handleShare}
-                          className="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                          onClick={handleSaveRoute}
+                          className="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#131620]"
                         >
                           <Bookmark className="w-4 h-4" /> Зберегти маршрут
                         </button>
                         <button 
                           onClick={handleShare}
-                          className="flex-1 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-white/20"
+                          className="flex-1 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"
                         >
                           <Share2 className="w-4 h-4" /> Поділитися
                         </button>
@@ -466,17 +471,17 @@ export function TripPlanner() {
           </div>
           
           <div className="mt-6 flex justify-center gap-4">
-            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#0088cc] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
-              <Send className="w-5 h-5 text-white" />
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>
-            <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#7360f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
-              <MessageCircle className="w-5 h-5 text-white" />
+            <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <MessageCircle className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>
-            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#1877f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
-              <span className="font-bold text-white text-lg">f</span>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#1877f2] hover:border-[#1877f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#1877f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">f</span>
             </a>
-            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#000000] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity border border-white/20">
-              <span className="font-bold text-white text-lg">𝕏</span>
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">𝕏</span>
             </a>
           </div>
         </DialogContent>

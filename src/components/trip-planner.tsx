@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Twitter, Facebook, Check } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Loader2, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check } from "lucide-react";
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -473,10 +473,10 @@ export function TripPlanner() {
               <MessageCircle className="w-5 h-5 text-white" />
             </a>
             <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#1877f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
-              <Facebook className="w-5 h-5 text-white" />
+              <span className="font-bold text-white text-lg">f</span>
             </a>
-            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#1da1f2] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity">
-              <Twitter className="w-5 h-5 text-white" />
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#000000] rounded-full flex items-center justify-center hover:opacity-80 transition-opacity border border-white/20">
+              <span className="font-bold text-white text-lg">𝕏</span>
             </a>
           </div>
         </DialogContent>

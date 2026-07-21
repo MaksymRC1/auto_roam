@@ -98,7 +98,7 @@ export function TripPlanner() {
   };
 
   const handleSaveRoute = () => {
-    const url = getShareUrl();
+    const url = getShareUrl().replace('/?trip=', '/journey?trip=');
     window.open(url, '_blank');
   };
 
@@ -318,21 +318,9 @@ export function TripPlanner() {
                                   </button>
                                 )}
                                 <div className="flex flex-col pr-6">
-                                  <span className={`text-sm ${isStart || isFinish ? 'font-bold text-white' : 'font-semibold text-white/90'} ${completedWaypoints.includes(wp.id) ? 'line-through text-white/50' : ''}`}>
+                                  <span className={`text-sm ${isStart || isFinish ? 'font-bold text-white' : 'font-semibold text-white/90'}`}>
                                     {wp.name}
                                   </span>
-                                  
-                                  {/* Progress Checkmark */}
-                                  {!isStart && !isFinish && (
-                                    <button 
-                                      onClick={() => toggleWaypointCompletion(wp.id)}
-                                      className={`absolute top-2 right-10 p-1.5 rounded transition-colors z-10 flex items-center gap-1 ${completedWaypoints.includes(wp.id) ? 'text-emerald-400 bg-emerald-900/30' : 'text-white/40 hover:text-white/80 hover:bg-white/10'}`}
-                                      title={completedWaypoints.includes(wp.id) ? "Відмінити" : "Відмітити як пройдене"}
-                                    >
-                                      <CheckCircle2 className="w-4 h-4" />
-                                      {completedWaypoints.includes(wp.id) && <span className="text-[10px] font-bold uppercase">Пройдено</span>}
-                                    </button>
-                                  )}
 
                                   {!isStart && (
                                     <span className="text-xs text-white/60 mt-1 flex items-center gap-1">
@@ -407,18 +395,18 @@ export function TripPlanner() {
                       </div>
 
                       {/* Action Buttons Below Timeline */}
-                      <div className="mt-12 flex gap-3 pb-8">
+                      <div className="mt-12 flex gap-4 pb-8">
                         <button 
                           onClick={handleSaveRoute}
-                          className="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#131620]"
+                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors flex justify-center items-center gap-2 outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"
                         >
-                          <Bookmark className="w-4 h-4" /> Зберегти маршрут
+                          <Bookmark className="w-5 h-5" /> Зберегти маршрут
                         </button>
                         <button 
                           onClick={handleShare}
-                          className="flex-1 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium flex justify-center items-center gap-2 transition-colors border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"
+                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors flex justify-center items-center gap-2 outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"
                         >
-                          <Share2 className="w-4 h-4" /> Поділитися
+                          <Share2 className="w-5 h-5" /> Поділитися
                         </button>
                       </div>
 

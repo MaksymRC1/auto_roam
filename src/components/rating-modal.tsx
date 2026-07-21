@@ -159,8 +159,6 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
                 <span className="font-extrabold text-[15px] tracking-tight">mono</span>
                 <span className="px-1.5 py-0.5 rounded-[4px] bg-[#E95353] text-[10px] font-black uppercase tracking-wider text-white group-hover:bg-[#f26161] transition-colors">pay</span>
               </div>
-              <div className="w-px h-4 bg-white/25" />
-              <span className="text-white/80 text-xs font-semibold">Банка донатів</span>
             </a>
           </div>
         </div>

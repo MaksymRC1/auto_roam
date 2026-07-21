@@ -152,22 +152,15 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
               href="https://send.monobank.ua/jar/U3CVzKjWp"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
-              style={{ background: "rgba(255, 255, 255, 0.05)" }}
+              className="flex items-center justify-center gap-3 w-full h-[52px] rounded-xl bg-black hover:bg-neutral-900 border border-white/10 transition-all duration-300 text-white font-bold text-sm cursor-pointer shadow-lg hover:border-white/20 select-none group"
             >
-              <div className="w-7 h-7 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 group-hover:bg-pink-500 group-hover:text-white transition-colors">
-                <span className="material-symbols-outlined text-[14px]">
-                  account_balance
-                </span>
+              {/* Premium Monobank Monopay style SVG */}
+              <div className="flex items-center gap-1.5">
+                <span className="font-extrabold text-[15px] tracking-tight">mono</span>
+                <span className="px-1.5 py-0.5 rounded-[4px] bg-[#E95353] text-[10px] font-black uppercase tracking-wider text-white group-hover:bg-[#f26161] transition-colors">pay</span>
               </div>
-              <div className="flex flex-col">
-                <span className="text-white font-medium text-xs">
-                  Monobank Банка
-                </span>
-                <span className="text-white/40 text-[10px]">
-                  Для України та світу
-                </span>
-              </div>
+              <div className="w-px h-4 bg-white/25" />
+              <span className="text-white/80 text-xs font-semibold">Банка донатів</span>
             </a>
           </div>
         </div>

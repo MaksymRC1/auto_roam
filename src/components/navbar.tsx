@@ -42,7 +42,6 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <a className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="/articles">Статті</a>
             <a className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="/faq">FAQ</a>
-            <a className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="https://send.monobank.ua/jar/U3CVzKjWp" target="_blank" rel="noopener noreferrer">☕ Донат</a>
             <button 
               className="text-white/80 hover:text-white font-medium transition-colors text-sm focus:outline-none" 
               onClick={() => setIsSupportOpen(true)}
@@ -79,7 +78,6 @@ export function Navbar() {
         >
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/articles" onClick={() => setIsMenuOpen(false)}>Статті</a>
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</a>
-          <a className="text-white/90 hover:text-white font-medium text-lg" href="https://send.monobank.ua/jar/U3CVzKjWp" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>☕ Донат</a>
           <button 
             className="text-white/90 hover:text-white font-medium text-lg focus:outline-none" 
             onClick={(e) => {

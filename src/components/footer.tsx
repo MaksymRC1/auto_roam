@@ -15,14 +15,6 @@ export function Footer({ onOpenRating }: FooterProps) {
       <footer className="hidden md:flex w-full h-10 items-center justify-between px-8 text-xs text-white/50 bg-black/30 backdrop-blur-md border-t border-white/10 z-[100] relative mt-auto">
         <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
         <div className="flex items-center gap-4 relative">
-          <a
-            href="https://send.monobank.ua/jar/U3CVzKjWp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors cursor-pointer flex items-center gap-1 focus:outline-none pointer-events-auto"
-          >
-            ☕ Підтримати проєкт
-          </a>
           <button
             onClick={(e) => {
               e.preventDefault();

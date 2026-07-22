@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
-import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart } from "lucide-react";
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 import { VIGNETTE_DB } from "@/lib/borders";
+import { RatingModal } from "@/components/rating-modal";
+import Link from "next/link";
 
 const formatTime = (mins: number) => {
   const h = Math.floor(mins / 60);
@@ -12,14 +14,16 @@ const formatTime = (mins: number) => {
   return `${h} год ${m > 0 ? m + ' хв' : ''}`;
 };
 
-export function JourneyView() {
+export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }) {
   const [mounted, setMounted] = useState(false);
+  const [isRatingOpen, setIsRatingOpen] = useState(false);
   const { 
     isCalculated, 
     waypoints, 
     completedWaypoints, 
     toggleWaypointCompletion,
     loadFromShareData,
+    loadFromRawData,
     totalDistance,
     totalDuration,
     fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates,
@@ -28,13 +32,17 @@ export function JourneyView() {
 
   useEffect(() => {
     setMounted(true);
-    const params = new URLSearchParams(window.location.search);
-    const tripData = params.get('trip');
-    if (tripData) {
-      loadFromShareData(tripData);
-      window.history.replaceState({}, '', window.location.pathname);
+    if (initialJourneyData) {
+      loadFromRawData(initialJourneyData);
+    } else {
+      const params = new URLSearchParams(window.location.search);
+      const tripData = params.get('trip');
+      if (tripData) {
+        loadFromShareData(tripData);
+        window.history.replaceState({}, '', window.location.pathname);
+      }
     }
-  }, [loadFromShareData]);
+  }, [initialJourneyData, loadFromShareData, loadFromRawData]);
 
   if (!mounted) return null;
 
@@ -74,8 +82,28 @@ export function JourneyView() {
   const totalEur = subtotalEur + (includeReserve ? reserveEur : 0);
 
   return (
-    <div className="w-full max-w-4xl mx-auto pb-24 pt-8 px-4 font-sans">
-      <div className="bg-[#1a1f2e]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
+    <>
+      {/* Floating Action Buttons */}
+      <div className="fixed top-4 md:top-8 left-4 md:left-8 z-50 print:hidden">
+        <Link href="/" className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors shadow-lg" title="Повернутися на сайт">
+          <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
+        </Link>
+      </div>
+      
+      <div className="fixed top-4 md:top-8 right-4 md:right-8 z-50 print:hidden">
+        <button 
+          onClick={() => setIsRatingOpen(true)}
+          className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors shadow-lg group focus:outline-none" 
+          title="Підтримати проект"
+        >
+          <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
+        </button>
+      </div>
+
+      <RatingModal isOpen={isRatingOpen} onClose={() => setIsRatingOpen(false)} />
+
+      <div className="w-full max-w-4xl mx-auto pb-24 pt-16 md:pt-8 px-4 font-sans">
+        <div className="bg-[#1a1f2e]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 border-b border-white/10 pb-8">
@@ -127,9 +155,6 @@ export function JourneyView() {
 
         {/* Timeline */}
         <div className="relative pl-6 md:pl-10">
-          {/* Vertical Line */}
-          <div className="absolute left-[41px] md:left-[57px] top-6 bottom-6 w-1 bg-white/10 rounded-full print:bg-slate-300"></div>
-          
           <div className="space-y-8">
             {waypoints.map((wp, index) => {
               const isStart = index === 0;
@@ -145,6 +170,11 @@ export function JourneyView() {
 
               return (
                 <div key={wp.id} className="relative flex items-start gap-5 md:gap-8 group print:break-inside-avoid">
+                  {/* Vertical Line (connects to next item) */}
+                  {!isFinish && (
+                    <div className="absolute top-12 md:top-14 bottom-[-32px] left-[22px] md:left-[26px] w-1 bg-white/10 rounded-full print:bg-slate-300 z-0"></div>
+                  )}
+
                   {/* Icon */}
                   <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shrink-0 border border-white/20 bg-white/5 backdrop-blur-md shadow-lg print:border-slate-300 print:bg-white ${isCompleted ? 'opacity-50 saturate-50' : ''}`}>
                     {isStart || isFinish ? <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white/80 print:text-slate-800" /> :
@@ -218,5 +248,6 @@ export function JourneyView() {
 
       </div>
     </div>
+    </>
   );
 }

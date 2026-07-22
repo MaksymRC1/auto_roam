@@ -116,7 +116,9 @@ interface TripState {
   toggleReserve: () => void;
   toggleWaypointCompletion: (id: string) => void;
   getShareUrl: () => string;
+  getRawShareData: () => any;
   loadFromShareData: (data: string) => void;
+  loadFromRawData: (data: any) => void;
 }
 
 // Race condition guard: incremented on each calculateRoute call
@@ -537,9 +539,9 @@ export const useTripStore = create<TripState>()(
     }
     return { completedWaypoints: [...state.completedWaypoints, id] };
   }),
-  getShareUrl: () => {
+  getRawShareData: () => {
     const state = get();
-    const shareData = {
+    return {
       stops: state.stops,
       consumption: state.consumption,
       fuelAmounts: state.fuelAmounts,
@@ -549,6 +551,9 @@ export const useTripStore = create<TripState>()(
       insuranceCost: state.insuranceCost,
       includeReserve: state.includeReserve,
     };
+  },
+  getShareUrl: () => {
+    const shareData = get().getRawShareData();
     const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(shareData));
     return `${window.location.origin}/?trip=${compressed}`;
   },
@@ -567,6 +572,21 @@ export const useTripStore = create<TripState>()(
       }
     } catch (err) {
       console.error("Failed to load shared trip", err);
+    }
+  },
+  loadFromRawData: (parsed) => {
+    try {
+      if (parsed) {
+        set({
+          ...parsed,
+          isCalculated: false,
+          isLoading: false,
+          completedWaypoints: []
+        });
+        setTimeout(() => get().calculateRoute(), 0);
+      }
+    } catch (err) {
+      console.error("Failed to load raw shared trip", err);
     }
   },
 

@@ -38,6 +38,18 @@ export function TripPlanner() {
   const [shareOpen, setShareOpen] = useState(false);
   const [shareLink, setShareLink] = useState('');
   const [copied, setCopied] = useState(false);
+  const [isGeneratingLink, setIsGeneratingLink] = useState(false);
+
+  // Helper to generate or read a persistent anonymous user ID
+  const getOrCreateAnonymousUserId = (): string => {
+    if (typeof window === "undefined") return "";
+    let id = localStorage.getItem("autoroam_anon_user_id");
+    if (!id) {
+      id = "anon_" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      localStorage.setItem("autoroam_anon_user_id", id);
+    }
+    return id;
+  };
 
   const { 
     isCalculated, 
@@ -50,7 +62,7 @@ export function TripPlanner() {
     fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
     insertBorderStop, hotelOverrides, setHotelOverride,
     ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute,
-    completedWaypoints, toggleWaypointCompletion, getShareUrl, loadFromShareData
+    completedWaypoints, toggleWaypointCompletion, getShareUrl, getRawShareData, loadFromShareData
   } = useTripStore();
 
   useEffect(() => {
@@ -72,11 +84,44 @@ export function TripPlanner() {
     }
   }, [loadFromShareData]);
 
-  const handleShare = () => {
-    const url = getShareUrl();
-    setShareLink(url);
+  const handleShare = async () => {
     setShareOpen(true);
     setCopied(false);
+    setIsGeneratingLink(true);
+    setShareLink("Генеруємо посилання...");
+
+    try {
+      const response = await fetch("/api/journey/share", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          routeData: getRawShareData(),
+          anonymousUserId: getOrCreateAnonymousUserId(),
+          userId: null,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate short link");
+      }
+
+      const data = await response.json();
+      if (data && data.id) {
+        const shortUrl = `${window.location.origin}/journey/${data.id}`;
+        setShareLink(shortUrl);
+      } else {
+        throw new Error("Invalid short link response");
+      }
+    } catch (error) {
+      console.error("Error creating share link, falling back to long URL:", error);
+      // Fallback: use long LZString url pointing to /journey page
+      const longUrl = getShareUrl().replace("/?trip=", "/journey?trip=");
+      setShareLink(longUrl);
+    } finally {
+      setIsGeneratingLink(false);
+    }
   };
 
   const handleSaveRoute = () => {
@@ -435,7 +480,7 @@ export function TripPlanner() {
           <DialogHeader>
             <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
             <DialogDescription className="text-white/60">
-              Ваш маршрут закодовано у цьому посиланні. Збережіть його в закладки або відправте друзям, щоб вони могли переглянути вашу поїздку.
+              Ваш маршрут збережено в базі даних. Надішліть це коротке посилання друзям, щоб вони могли переглянути вашу поїздку.
             </DialogDescription>
           </DialogHeader>
           <div className="flex items-center space-x-2 mt-4">
@@ -443,18 +488,26 @@ export function TripPlanner() {
               <input
                 readOnly
                 value={shareLink}
-                className="w-full bg-black/50 border border-white/20 rounded-md px-3 py-2 text-sm text-white focus:outline-none"
+                disabled={isGeneratingLink}
+                className={`w-full bg-black/50 border border-white/20 rounded-md px-3 py-2 text-sm focus:outline-none ${
+                  isGeneratingLink ? "text-white/40 animate-pulse cursor-wait" : "text-white"
+                }`}
               />
             </div>
             <button
               onClick={copyToClipboard}
-              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-colors flex items-center gap-2"
+              disabled={isGeneratingLink}
+              className={`px-3 py-2 rounded-md transition-colors flex items-center gap-2 ${
+                isGeneratingLink
+                  ? "bg-blue-600/50 cursor-not-allowed text-white/50"
+                  : "bg-blue-600 hover:bg-blue-500 text-white"
+              }`}
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             </button>
           </div>
           
-          <div className="mt-6 flex justify-center gap-4">
+          <div className={`mt-6 flex justify-center gap-4 transition-opacity duration-300 ${isGeneratingLink ? "opacity-45 pointer-events-none" : ""}`}>
             <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>

@@ -294,7 +294,15 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   </div>
 
                   {/* Content Card */}
-                  <div className={`flex-1 w-full bg-[#1a1f2e] md:bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
+                  <div 
+                    onClick={() => {
+                      if (!isStart && !isFinish) {
+                        toggleWaypointCompletion(wp.id);
+                      }
+                    }}
+                    className={`flex-1 w-full bg-[#1a1f2e] md:bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
+                    !isStart && !isFinish ? 'cursor-pointer' : ''
+                  } ${
                     isCompleted 
                       ? 'opacity-60 bg-emerald-950 md:bg-emerald-900/10 border-emerald-900/30' 
                       : 'hover:bg-white/10 hover:border-white/20'
@@ -308,6 +316,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           href={googleMapsUrl} 
                           target="_blank" 
                           rel="noreferrer" 
+                          onClick={(e) => e.stopPropagation()}
                           className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-blue-500/20 md:bg-blue-500/10 text-blue-400 hover:bg-blue-500/30 md:hover:bg-blue-500/20 hover:text-blue-300 border border-blue-500/30 md:border-blue-500/20 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
                           <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
@@ -317,27 +326,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           href={wazeUrl} 
                           target="_blank" 
                           rel="noreferrer" 
+                          onClick={(e) => e.stopPropagation()}
                           className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-sky-500/20 md:bg-sky-500/10 text-sky-400 hover:bg-sky-500/30 md:hover:bg-sky-500/20 hover:text-sky-300 border border-sky-500/30 md:border-sky-500/20 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
                           <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Waze
                         </a>
-
-                        {/* Progress Checkmark Button */}
-                        {!isStart && !isFinish && (
-                          <button 
-                            onClick={() => toggleWaypointCompletion(wp.id)}
-                            className={`flex items-center justify-center shrink-0 md:absolute md:top-5 md:right-5 md:p-2.5 w-[46px] h-[46px] md:w-auto md:h-auto rounded-xl transition-all duration-200 z-10 print:hidden ${
-                              isCompleted 
-                                ? 'text-emerald-400 bg-emerald-900/40 hover:bg-emerald-900/60 border border-emerald-500/30 md:border-transparent' 
-                                : 'text-white/60 hover:text-white bg-white/5 md:bg-transparent hover:bg-white/10 border border-white/10 md:border-transparent md:hover:border-white/10'
-                            }`}
-                            title={isCompleted ? "Відмінити" : "Відмітити як пройдене"}
-                          >
-                            <CheckCircle2 className="w-6 h-6" />
-                            {isCompleted && <span className="text-xs font-bold uppercase hidden md:inline ml-1">Пройдено</span>}
-                          </button>
-                        )}
                       </div>
 
                       {!isStart && (

@@ -237,7 +237,7 @@ export function TripPlanner() {
               </button>
               
               {/* Route (Stops) Sheet */}
-              <Sheet>
+              <Sheet key="mobile-stops-sheet">
                 <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
@@ -261,7 +261,7 @@ export function TripPlanner() {
               </Sheet>
 
               {/* Insurance & Vignettes Sheet */}
-              <Sheet open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
+              <Sheet key="mobile-insurance-sheet" open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
                 <SheetTrigger render={<button onClick={() => setIsMobileInsuranceOpen(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
@@ -285,7 +285,7 @@ export function TripPlanner() {
               </Sheet>
 
               {/* General Cost/Budget Sheet */}
-              <Sheet>
+              <Sheet key="mobile-budget-sheet">
                 <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />

@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
-function Stay22Map({ lat, lon, address }: { lat?: number; lon?: number; address: string }) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView = false }: { lat?: number; lon?: number; address: string; defaultOpen?: boolean; isModalView?: boolean }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   if (!isOpen) {
     return (
@@ -27,15 +27,21 @@ function Stay22Map({ lat, lon, address }: { lat?: number; lon?: number; address:
   return (
     <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-200">
       <div className="flex items-center justify-between bg-blue-500/10 text-blue-300 text-xs p-3 rounded-lg border border-blue-500/20">
-        <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та додайте як нову точку зупинки в конструкторі маршруту (блок зліва), щоб включити його у свій план.</p>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={() => setIsOpen(false)}
-          className="h-7 text-xs shrink-0 ml-3 bg-white/10 border-white/20 text-white hover:bg-white/20"
-        >
-          Сховати мапу
-        </Button>
+        {isModalView ? (
+          <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та вставте в поле "Адреса готелю" для цього пункту ночівлі, щоб зберегти свій вибір.</p>
+        ) : (
+          <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та додайте як нову точку зупинки в конструкторі маршруту (блок зліва), щоб включити його у свій план.</p>
+        )}
+        {!isModalView && (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => setIsOpen(false)}
+            className="h-7 text-xs shrink-0 ml-3 bg-white/10 border-white/20 text-white hover:bg-white/20"
+          >
+            Сховати мапу
+          </Button>
+        )}
       </div>
       <div className="w-full h-[450px] rounded-lg overflow-hidden border border-amber-200 shadow-inner relative">
         <iframe

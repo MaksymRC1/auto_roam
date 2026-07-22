@@ -2,12 +2,17 @@
 
 import { Button } from "@/components/ui/button";
 import { useTripStore } from "@/store/useTripStore";
-import { ExternalLink, AlertTriangle, Info, Clock } from "lucide-react";
+import { ExternalLink, AlertTriangle, Info, Clock, ShieldCheck } from "lucide-react";
+import { isSchengenPair } from "@/lib/borders";
 
 
-export function BordersPanel() {
+export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }) {
   const { waypoints } = useTripStore();
-  const borderCrossings = waypoints.filter(wp => wp.type === 'border');
+  let borderCrossings = waypoints.filter(wp => wp.type === 'border');
+  
+  if (selectedBorderId) {
+    borderCrossings = borderCrossings.filter(wp => wp.id === selectedBorderId);
+  }
   
   if (borderCrossings.length === 0) {
     return (
@@ -24,9 +29,11 @@ export function BordersPanel() {
         
         {/* Border Crossings Section */}
         <div className="space-y-4">
-          <h3 className="font-semibold text-white/90 flex items-center gap-2">
-            Обрані пункти пропуску
-          </h3>
+          {!selectedBorderId && (
+            <h3 className="font-semibold text-white/90 flex items-center gap-2">
+              Обрані пункти пропуску
+            </h3>
+          )}
           {borderCrossings.map(border => (
             <div key={border.id} className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm hover:border-indigo-400/50 transition-colors">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -41,19 +48,28 @@ export function BordersPanel() {
               </div>
 
               <div className="mt-4 p-3 bg-white/5 rounded-lg border border-white/10 text-sm text-white/70 space-y-2">
-                <p className="flex gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                  Перевірте наявність біометричних закордонних паспортів та дійсних віз (якщо потрібно).
-                </p>
-                <p className="flex gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                  Техпаспорт на авто та посвідчення водія міжнародного зразка є обов'язковими.
-                </p>
-                {border.name.includes('UA') && (
-                  <p className="flex gap-2">
-                    <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                    Заборонено ввозити м'ясні та молочні продукти до країн ЄС.
+                {border.fromCountry && border.toCountry && isSchengenPair(border.fromCountry, border.toCountry) ? (
+                  <p className="flex gap-2 text-blue-300">
+                    <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" /> 
+                    Це внутрішній кордон Шенгенської зони. Перетин здійснюється без паспортного контролю.
                   </p>
+                ) : (
+                  <>
+                    <p className="flex gap-2">
+                      <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
+                      Перевірте наявність біометричних закордонних паспортів та дійсних віз (якщо потрібно).
+                    </p>
+                    <p className="flex gap-2">
+                      <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
+                      Техпаспорт на авто та посвідчення водія міжнародного зразка є обов'язковими.
+                    </p>
+                    {border.name.includes('UA') && (
+                      <p className="flex gap-2">
+                        <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
+                        Заборонено ввозити м'ясні та молочні продукти до країн ЄС.
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
 

@@ -52,10 +52,13 @@ export function Navbar() {
           <div className="flex items-center gap-4">
             <button 
               onClick={() => setIsRatingOpen(true)}
-              className="px-3 py-1.5 flex items-center gap-2 rounded-full bg-transparent text-white transition-all text-xs font-bold group relative focus:outline-none"
-              aria-label="Оцінити продукт"
+              className="p-1.5 flex items-center justify-center rounded-full bg-transparent text-white transition-all text-xs font-bold group relative focus:outline-none"
+              aria-label="Підтримати проект"
             >
               <Heart className="w-5 h-5 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
+              <span className="absolute right-0 top-10 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+                Підтримати проект
+              </span>
             </button>
             <button 
               className="md:hidden text-white p-2" 
@@ -78,16 +81,7 @@ export function Navbar() {
         >
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/articles" onClick={() => setIsMenuOpen(false)}>Статті</a>
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</a>
-          <button 
-            className="text-white/90 hover:text-white font-medium text-lg focus:outline-none" 
-            onClick={(e) => {
-              e.preventDefault();
-              setIsMenuOpen(false);
-              setIsSupportOpen(true);
-            }}
-          >
-            Підтримка
-          </button>
+
           <a className="text-white/90 hover:text-white font-medium text-lg" href="#" onClick={openContact}>Зв&#39;язатися з нами</a>
 
         </div>

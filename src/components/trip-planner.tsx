@@ -7,7 +7,7 @@ import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
 import { FuelPanel } from "./panels/fuel-panel";
-import { HotelPanel } from "./panels/hotel-panel";
+import { HotelPanel, Stay22Map } from "./panels/hotel-panel";
 import { BordersPanel } from "./panels/borders-panel";
 import { InsurancePanel } from "./panels/insurance-panel";
 import { BudgetPanel } from "./panels/budget-panel";
@@ -39,6 +39,9 @@ export function TripPlanner() {
   const [shareLink, setShareLink] = useState('');
   const [copied, setCopied] = useState(false);
   const [isGeneratingLink, setIsGeneratingLink] = useState(false);
+  const [isMobileFuelOpen, setIsMobileFuelOpen] = useState(false);
+  const [selectedBorderInfoId, setSelectedBorderInfoId] = useState<string | null>(null);
+  const [selectedStay22Id, setSelectedStay22Id] = useState<string | null>(null);
 
   // Helper to generate or read a persistent anonymous user ID
   const getOrCreateAnonymousUserId = (): string => {
@@ -64,6 +67,15 @@ export function TripPlanner() {
     ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute,
     completedWaypoints, toggleWaypointCompletion, getShareUrl, getRawShareData, loadFromShareData
   } = useTripStore();
+
+  const needsFuel = useMemo(() => {
+    if (totalDistance <= 0) return false;
+    let totalCostEur = 0;
+    Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
+      totalCostEur += (parseFloat(amountStr) || 0) * (fuelPrices[code]?.[selectedFuelType] || 0);
+    });
+    return totalCostEur === 0;
+  }, [totalDistance, fuelAmounts, fuelPrices, selectedFuelType]);
 
   useEffect(() => {
     if (isCalculated) return;
@@ -209,21 +221,23 @@ export function TripPlanner() {
             {/* Mobile Bottom Navigation Bar */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0F111A] border-t border-white/5 pb-4 pt-3 px-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
               
-              {/* Map Toggle */}
-              <button onClick={() => setLeftView('map')} className="relative flex items-center justify-center w-10 h-10 outline-none">
-                <div className={`absolute inset-0 bg-blue-600 rounded-full transition-transform duration-300 ${leftView === 'map' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
-                <MapIcon className={`w-5 h-5 relative z-10 transition-colors duration-300 ${leftView === 'map' ? 'text-white' : 'text-white/50 hover:text-white/80'}`} />
+              {/* Toggle Map / Timeline */}
+              <button 
+                onClick={() => setLeftView(leftView === 'timeline' ? 'map' : 'timeline')} 
+                className="relative flex items-center justify-center w-10 h-10 outline-none group"
+                title={leftView === 'timeline' ? "Показати карту" : "Показати хронологію"}
+              >
+                <div className={`absolute inset-0 bg-[#3b82f6]/10 rounded-full transition-transform duration-300 ${leftView === 'map' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
+                {leftView === 'timeline' ? (
+                  <MapIcon className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                ) : (
+                  <Clock className="w-5 h-5 relative z-10 text-blue-400 group-hover:text-blue-300 transition-colors" />
+                )}
               </button>
-
-              {/* Timeline Toggle */}
-              <button onClick={() => setLeftView('timeline')} className="relative flex items-center justify-center w-10 h-10 outline-none">
-                <div className={`absolute inset-0 bg-blue-600 rounded-full transition-transform duration-300 ${leftView === 'timeline' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
-                <Clock className={`w-5 h-5 relative z-10 transition-colors duration-300 ${leftView === 'timeline' ? 'text-white' : 'text-white/50 hover:text-white/80'}`} />
-              </button>
-
+              
               {/* Route (Stops) Sheet */}
               <Sheet>
-                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" />}>
+                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                 </SheetTrigger>
@@ -239,19 +253,37 @@ export function TripPlanner() {
                 </SheetContent>
               </Sheet>
 
-              {/* Settings (Details) Sheet */}
+              {/* Insurance & Vignettes Sheet */}
               <Sheet>
-                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" />}>
+                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
-                  <Settings className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                  <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                 </SheetTrigger>
                 <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
                   <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
-                    <SheetTitle className="text-white">Деталі поїздки</SheetTitle>
+                    <SheetTitle className="text-white">Страхування та віньєтки</SheetTitle>
                   </SheetHeader>
                   <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
-                    <div className="p-4 text-white pb-24">
-                      <AccordionPanels />
+                    <div className="p-5 text-white pb-24">
+                      <InsurancePanel />
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+
+              {/* General Cost/Budget Sheet */}
+              <Sheet>
+                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
+                  <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
+                  <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                </SheetTrigger>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
+                    <SheetTitle className="text-white">Загальний кошторис</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                    <div className="p-5 text-white pb-24">
+                      <BudgetPanel />
                     </div>
                   </div>
                 </SheetContent>
@@ -299,14 +331,26 @@ export function TripPlanner() {
                 <div className={`relative z-10 flex flex-col h-full bg-black/60 md:bg-transparent transition-opacity duration-300 ${
                   leftView === 'map' ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'
                 }`}>
-                  <div className="p-5 border-b border-white/10 bg-black/20 shrink-0">
-                    <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
-                    <p className="text-sm font-medium text-blue-300 mt-1">
-                      {totalDistance} км • ~{formatTime(totalDuration)}
-                    </p>
+                  <div className="p-5 border-b border-white/10 bg-black/20 shrink-0 flex items-start justify-between">
+                    <div>
+                      <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
+                      <p className="text-sm font-medium text-blue-300 mt-1">
+                        {totalDistance} км • ~{formatTime(totalDuration)}
+                      </p>
+                    </div>
+                    <button 
+                      className="md:hidden p-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 transition-colors flex items-center justify-center relative focus:outline-none"
+                      onClick={() => setIsMobileFuelOpen(true)}
+                      title="Розрахунок палива"
+                    >
+                      <Fuel className="w-5 h-5" />
+                      {needsFuel && (
+                        <span className="absolute top-0 right-0 w-3 h-3 bg-amber-500 rounded-full border-2 border-[#131620]"></span>
+                      )}
+                    </button>
                   </div>
                   
-                  <div className="flex-1 p-5 md:overflow-y-auto custom-scrollbar pb-32">
+                  <div className="flex-1 p-5 md:overflow-y-auto custom-scrollbar pb-12">
                     <div className="relative space-y-8" role="list" aria-label="Хронологія маршруту">
                         
                         {waypoints.filter(wp => !ignoredWaypoints.includes(wp.id)).map((wp, index, array) => {
@@ -367,13 +411,33 @@ export function TripPlanner() {
                                     <span className="text-xs text-emerald-400 font-medium mt-1">Точка відправлення</span>
                                   )}
                                   {wp.lat && wp.lon && (!isHotel || (isHotel && hotelOverrides[wp.id]?.lat)) && (
-                                    <div className="flex gap-2 mt-2 pt-2 border-t border-white/10">
+                                    <div className="flex gap-2 mt-2 pt-2 border-t border-white/10 items-center">
                                       <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-blue-300 bg-blue-900/30 px-2 py-1 rounded hover:bg-blue-900/50 font-medium flex items-center gap-1 transition-colors border border-blue-800/50">
                                         <Navigation2 className="w-3 h-3" /> Waze
                                       </a>
                                       <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-emerald-300 bg-emerald-900/30 px-2 py-1 rounded hover:bg-emerald-900/50 font-medium flex items-center gap-1 transition-colors border border-emerald-800/50">
                                         <MapPin className="w-3 h-3" /> Maps
                                       </a>
+                                      {isBorder && (
+                                        <button 
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            setSelectedBorderInfoId(wp.id);
+                                          }}
+                                          className={
+                                            wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry)
+                                              ? "text-blue-300 bg-blue-900/30 p-1.5 rounded hover:bg-blue-900/50 flex items-center justify-center transition-colors border border-blue-800/50 ml-auto"
+                                              : "text-amber-300 bg-amber-900/30 p-1.5 rounded hover:bg-amber-900/50 flex items-center justify-center transition-colors border border-amber-800/50 ml-auto"
+                                          }
+                                          title="Інформація про пункт пропуску"
+                                        >
+                                          {wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry) ? (
+                                            <ShieldCheck className="w-3.5 h-3.5" />
+                                          ) : (
+                                            <AlertCircle className="w-3.5 h-3.5" />
+                                          )}
+                                        </button>
+                                      )}
                                     </div>
                                   )}
 
@@ -387,13 +451,13 @@ export function TripPlanner() {
                                         initialLat={hotelOverrides[wp.id]?.lat}
                                         setOverride={setHotelOverride} 
                                       />
+                                      <button
+                                        onClick={() => setSelectedStay22Id(wp.id)}
+                                        className="w-full mt-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors py-1.5 rounded-lg text-[11px] font-medium flex items-center justify-center gap-1.5"
+                                      >
+                                        <MapPin className="w-3.5 h-3.5" /> Знайти готелі на мапі
+                                      </button>
                                     </div>
-                                  )}
-
-                                  {isBorder && wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry) && (
-                                    <span className="inline-flex items-center gap-1 text-xs text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full mt-1 border border-blue-800/50">
-                                      🇪🇺 Шенгенська зона — без контролю
-                                    </span>
                                   )}
 
                                   {isBorder && wp.fromCountry && wp.toCountry && !isSchengenPair(wp.fromCountry, wp.toCountry) && (
@@ -431,18 +495,20 @@ export function TripPlanner() {
                       </div>
 
                       {/* Action Buttons Below Timeline */}
-                      <div className="mt-8 flex gap-4 pb-2">
+                      <div className="mt-8 flex justify-center gap-12 pb-0">
                         <button 
                           onClick={handleSaveRoute}
-                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full py-4 font-bold text-base transition-all flex justify-center items-center gap-2 outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
+                          className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
+                          title="Зберегти маршрут"
                         >
-                          <Bookmark className="w-5 h-5" /> Зберегти маршрут
+                          <Bookmark className="w-6 h-6" />
                         </button>
                         <button 
                           onClick={handleShare}
-                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full py-4 font-bold text-base transition-all flex justify-center items-center gap-2 outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
+                          className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
+                          title="Поділитися маршрутом"
                         >
-                          <Share2 className="w-5 h-5" /> Поділитися
+                          <Share2 className="w-6 h-6" />
                         </button>
                       </div>
 
@@ -518,6 +584,50 @@ export function TripPlanner() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Mobile Fuel Modal */}
+      <Dialog open={isMobileFuelOpen} onOpenChange={setIsMobileFuelOpen}>
+        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Розрахунок палива</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <FuelPanel />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Borders Info Modal */}
+      <Dialog open={selectedBorderInfoId !== null} onOpenChange={(open) => !open && setSelectedBorderInfoId(null)}>
+        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Інформація про пункт пропуску</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <BordersPanel selectedBorderId={selectedBorderInfoId || undefined} />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Stay22 Hotel Modal */}
+      <Dialog open={selectedStay22Id !== null} onOpenChange={(open) => !open && setSelectedStay22Id(null)}>
+        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Пошук готелів поблизу</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            {selectedStay22Id && (
+              <Stay22Map 
+                lat={waypoints.find(w => w.id === selectedStay22Id)?.lat}
+                lon={waypoints.find(w => w.id === selectedStay22Id)?.lon}
+                address={waypoints.find(w => w.id === selectedStay22Id)?.name || ''}
+                defaultOpen={true}
+                isModalView={true}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
@@ -561,7 +671,7 @@ function AccordionPanels() {
       }}
       className="w-full"
     >
-                  <AccordionItem value="fuel" className="border-b border-white/10 px-2">
+                  <AccordionItem value="fuel" className="hidden md:block border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full pr-4 gap-1 text-left">
                         <div className="flex items-center gap-3 text-base">
@@ -620,7 +730,7 @@ function AccordionPanels() {
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="borders" className="border-b border-white/10 px-2">
+                  <AccordionItem value="borders" className="hidden md:block border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
                       <div className="flex items-center gap-3 text-base">
                         <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">

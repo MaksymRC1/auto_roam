@@ -133,13 +133,13 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
   return (
     <>
       {/* Floating Action Buttons */}
-      <div className="fixed top-4 md:top-8 left-4 md:left-8 z-50 print:hidden flex flex-col gap-3">
+      <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 bg-[#1a1f2e]/90 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none">
         {/* Повернутися на сайт */}
         <div className="relative group flex items-center">
-          <Link href="/" className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg" title="Повернутися на сайт">
+          <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title="Повернутися на сайт">
             <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
           </Link>
-          <span className="absolute left-14 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 md:mb-0 md:left-14 md:-translate-x-0 md:bottom-auto scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
             Повернутися на головну
           </span>
         </div>
@@ -148,12 +148,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         <div className="relative group flex items-center">
           <button 
             onClick={handleShareClick}
-            className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg cursor-pointer"
+            className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg cursor-pointer"
             title="Поділитися"
           >
             <Share2 className="w-5 h-5 text-white/90" />
           </button>
-          <span className="absolute left-14 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 md:mb-0 md:left-14 md:-translate-x-0 md:bottom-auto scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
             Поділитися
           </span>
         </div>
@@ -162,12 +162,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         <div className="relative group flex items-center">
           <button 
             onClick={() => setIsRatingOpen(true)}
-            className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg group focus:outline-none" 
+            className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg group focus:outline-none" 
             title="Підтримати проект"
           >
             <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
           </button>
-          <span className="absolute left-14 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 md:mb-0 md:left-14 md:-translate-x-0 md:bottom-auto scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
             Підтримати проект
           </span>
         </div>
@@ -211,51 +211,51 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
 
       <RatingModal isOpen={isRatingOpen} onClose={() => setIsRatingOpen(false)} />
 
-      <div className="w-full max-w-4xl mx-auto pb-24 pt-16 md:pt-8 px-4 font-sans">
+      <div className="w-full max-w-4xl mx-auto pb-32 md:pb-24 pt-8 px-4 font-sans">
         <div className="bg-[#1a1f2e]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 border-b border-white/10 pb-8">
+        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between mb-8 md:mb-12 gap-6 border-b border-white/10 pb-6 md:pb-8">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Деталі маршруту</h1>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 items-center">
-            <div className="flex flex-wrap gap-3 mt-2 md:mt-0">
-              <div className="flex items-center gap-3 bg-blue-500/10 px-4 py-2.5 rounded-xl border border-blue-500/20">
-                <div className="p-1.5 bg-blue-500/20 rounded-lg">
+          <div className="w-full xl:w-auto">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3 mt-2 xl:mt-0">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-blue-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-blue-500/20">
+                <div className="p-1.5 bg-blue-500/20 rounded-lg shrink-0">
                   <Navigation2 className="w-4 h-4 text-blue-400" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] uppercase font-bold text-blue-400/70 tracking-wider">Відстань</span>
-                  <span className="font-bold text-blue-100 leading-tight">{totalDistance} км</span>
+                  <span className="text-[10px] md:text-xs uppercase font-bold text-blue-400/70 tracking-wider">Відстань</span>
+                  <span className="font-bold text-blue-100 leading-tight text-sm md:text-base">{totalDistance} км</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20">
-                <div className="p-1.5 bg-emerald-500/20 rounded-lg">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-emerald-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-emerald-500/20">
+                <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
                   <Clock className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] uppercase font-bold text-emerald-400/70 tracking-wider">Час у дорозі</span>
-                  <span className="font-bold text-emerald-100 leading-tight">{formatTime(totalDuration)}</span>
+                  <span className="text-[10px] md:text-xs uppercase font-bold text-emerald-400/70 tracking-wider">Час у дорозі</span>
+                  <span className="font-bold text-emerald-100 leading-tight text-sm md:text-base">{formatTime(totalDuration)}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-amber-500/10 px-4 py-2.5 rounded-xl border border-amber-500/20">
-                <div className="p-1.5 bg-amber-500/20 rounded-lg">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-amber-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-amber-500/20">
+                <div className="p-1.5 bg-amber-500/20 rounded-lg shrink-0">
                   <Fuel className="w-4 h-4 text-amber-400" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] uppercase font-bold text-amber-400/70 tracking-wider">Паливо</span>
-                  <span className="font-bold text-amber-100 leading-tight">~{totalFuelLiters.toFixed(0)} л</span>
+                  <span className="text-[10px] md:text-xs uppercase font-bold text-amber-400/70 tracking-wider">Паливо</span>
+                  <span className="font-bold text-amber-100 leading-tight text-sm md:text-base">~{totalFuelLiters.toFixed(0)} л</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-indigo-500/10 px-4 py-2.5 rounded-xl border border-indigo-500/20">
-                <div className="p-1.5 bg-indigo-500/20 rounded-lg">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-indigo-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/20">
+                <div className="p-1.5 bg-indigo-500/20 rounded-lg shrink-0">
                   <Wallet className="w-4 h-4 text-indigo-400" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] uppercase font-bold text-indigo-400/70 tracking-wider">Кошторис</span>
-                  <span className="font-bold text-indigo-100 leading-tight">{formatCost(totalEur)}</span>
+                  <span className="text-[10px] md:text-xs uppercase font-bold text-indigo-400/70 tracking-wider">Кошторис</span>
+                  <span className="font-bold text-indigo-100 leading-tight text-sm md:text-base">{formatCost(totalEur)}</span>
                 </div>
               </div>
             </div>

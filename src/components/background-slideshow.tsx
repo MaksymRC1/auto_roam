@@ -26,23 +26,6 @@ export function BackgroundSlideshow() {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (containerRef.current) {
-            containerRef.current.style.transform = `translateY(${window.scrollY * 0.15}px)`;
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden bg-slate-900" aria-hidden="true">

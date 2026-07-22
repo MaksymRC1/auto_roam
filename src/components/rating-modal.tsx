@@ -26,22 +26,25 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
   // Reset state when modal opens
   useEffect(() => {
     if (isOpen) {
-      const saved = localStorage.getItem('autoroam_app_rating');
-      if (saved) {
-        setRating(Number(saved));
-        setIsSubmitted(true);
-      } else {
-        setRating(0);
-        setHoveredStar(0);
-        setIsSubmitted(false);
-      }
+      setRating(0);
+      setHoveredStar(0);
+      setIsSubmitted(false);
     }
   }, [isOpen]);
 
-  const handleRate = (star: number) => {
+  const handleRate = async (star: number) => {
     setRating(star);
     setIsSubmitted(true);
-    localStorage.setItem('autoroam_app_rating', String(star));
+    
+    try {
+      await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'app_rating', rating: star }),
+      });
+    } catch (e) {
+      console.error('Failed to send rating', e);
+    }
   };
 
   if (!isOpen) return null;

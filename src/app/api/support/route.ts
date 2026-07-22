@@ -15,7 +15,9 @@ export async function POST(request: Request) {
 
     if (botToken && chatId) {
       let text = '';
-      if (type === 'rating') {
+      if (type === 'app_rating') {
+        text = `⭐ *Нова оцінка додатку!*\n\n*Оцінка:* *${escapeTelegramMarkdown(String(rating))}* з 5`;
+      } else if (type === 'rating') {
         text = `⭐ *Новий відгук про статтю!*\n\n*ID статті:* \`${escapeTelegramMarkdown(String(articleId))}\`\n*Оцінка:* *${escapeTelegramMarkdown(String(rating))}*`;
       } else {
         text = `📩 *Нове запитання з сайту AutoRoam!*\n\n*Ім'я:* ${escapeTelegramMarkdown(String(name || ''))}\n*Email:* ${escapeTelegramMarkdown(String(email || ''))}\n*Повідомлення:* ${escapeTelegramMarkdown(String(message || ''))}`;

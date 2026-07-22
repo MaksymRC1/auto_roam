@@ -222,39 +222,39 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           
           <div className="w-full xl:w-auto">
             <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3 mt-2 xl:mt-0">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-blue-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-blue-500/20">
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-blue-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-blue-500/20">
                 <div className="p-1.5 bg-blue-500/20 rounded-lg shrink-0">
                   <Navigation2 className="w-4 h-4 text-blue-400" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] md:text-xs uppercase font-bold text-blue-400/70 tracking-wider">Відстань</span>
+                <div className="flex flex-col items-center md:items-start">
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-blue-400/70 tracking-wider">Відстань</span>
                   <span className="font-bold text-blue-100 leading-tight text-sm md:text-base">{totalDistance} км</span>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-emerald-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-emerald-500/20">
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-emerald-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-emerald-500/20">
                 <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
                   <Clock className="w-4 h-4 text-emerald-400" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] md:text-xs uppercase font-bold text-emerald-400/70 tracking-wider">Час у дорозі</span>
+                <div className="flex flex-col items-center md:items-start">
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-emerald-400/70 tracking-wider">Час у дорозі</span>
                   <span className="font-bold text-emerald-100 leading-tight text-sm md:text-base">{formatTime(totalDuration)}</span>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-amber-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-amber-500/20">
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-amber-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-amber-500/20">
                 <div className="p-1.5 bg-amber-500/20 rounded-lg shrink-0">
                   <Fuel className="w-4 h-4 text-amber-400" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] md:text-xs uppercase font-bold text-amber-400/70 tracking-wider">Паливо</span>
+                <div className="flex flex-col items-center md:items-start">
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-amber-400/70 tracking-wider">Паливо</span>
                   <span className="font-bold text-amber-100 leading-tight text-sm md:text-base">~{totalFuelLiters.toFixed(0)} л</span>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 md:gap-3 bg-indigo-500/10 p-3 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/20">
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-indigo-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/20">
                 <div className="p-1.5 bg-indigo-500/20 rounded-lg shrink-0">
                   <Wallet className="w-4 h-4 text-indigo-400" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] md:text-xs uppercase font-bold text-indigo-400/70 tracking-wider">Кошторис</span>
+                <div className="flex flex-col items-center md:items-start">
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-indigo-400/70 tracking-wider">Кошторис</span>
                   <span className="font-bold text-indigo-100 leading-tight text-sm md:text-base">{formatCost(totalEur)}</span>
                 </div>
               </div>
@@ -263,8 +263,8 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         </div>
 
         {/* Timeline */}
-        <div className="relative pl-6 md:pl-10">
-          <div className="space-y-8">
+        <div className="relative px-0 md:pl-10">
+          <div className="space-y-6 md:space-y-8">
             {waypoints.map((wp, index) => {
               const isStart = index === 0;
               const isFinish = index === waypoints.length - 1;
@@ -278,10 +278,10 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
               const wazeUrl = wp.lat && wp.lon ? `https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes` : `https://waze.com/ul?q=${encodeURIComponent(wp.name)}&navigate=yes`;
 
               return (
-                <div key={wp.id} className="relative flex items-start gap-5 md:gap-8 group print:break-inside-avoid">
+                <div key={wp.id} className="relative flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-8 group print:break-inside-avoid">
                   {/* Vertical Line (connects to next item) */}
                   {!isFinish && (
-                    <div className="absolute top-12 md:top-14 bottom-[-32px] left-[22px] md:left-[26px] w-1 bg-white/10 rounded-full print:bg-slate-300 z-0"></div>
+                    <div className="absolute top-12 md:top-14 bottom-[-24px] md:bottom-[-32px] left-1/2 md:left-[26px] -translate-x-1/2 md:translate-x-0 w-1 bg-white/10 rounded-full print:bg-slate-300 z-0"></div>
                   )}
 
                   {/* Icon */}
@@ -294,13 +294,13 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   </div>
 
                   {/* Content Card */}
-                  <div className={`flex-1 bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 transition-all duration-300 relative print:bg-transparent print:border-slate-300 print:text-black ${
+                  <div className={`flex-1 w-full bg-[#1a1f2e] md:bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
                     isCompleted 
-                      ? 'opacity-60 bg-emerald-900/10 border-emerald-900/30' 
+                      ? 'opacity-60 bg-emerald-950 md:bg-emerald-900/10 border-emerald-900/30' 
                       : 'hover:bg-white/10 hover:border-white/20'
                   }`}>
-                    <div className="flex flex-col pr-12 md:pr-16">
-                      <span className={`text-lg md:text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted ? 'line-through text-white/50 print:text-slate-500' : ''}`}>
+                    <div className="flex flex-col items-center text-center md:items-start md:text-left md:pr-16">
+                      <span className={`text-lg md:text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted ? 'line-through text-white/50 print:text-slate-500' : ''} px-6 md:px-0`}>
                         {wp.name}
                       </span>
                       
@@ -329,14 +329,14 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                       {!isStart && !isFinish && (
                         <button 
                           onClick={() => toggleWaypointCompletion(wp.id)}
-                          className={`absolute top-5 right-5 p-2.5 rounded-xl transition-all duration-200 z-10 flex items-center gap-1 print:hidden ${
+                          className={`absolute top-4 md:top-5 right-4 md:right-5 p-2 md:p-2.5 rounded-xl transition-all duration-200 z-10 flex items-center gap-1 print:hidden ${
                             isCompleted 
                               ? 'text-emerald-400 bg-emerald-900/40 hover:bg-emerald-900/60' 
                               : 'text-white/40 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10'
                           }`}
                           title={isCompleted ? "Відмінити" : "Відмітити як пройдене"}
                         >
-                          <CheckCircle2 className="w-6 h-6" />
+                          <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" />
                           {isCompleted && <span className="text-xs font-bold uppercase hidden md:inline ml-1">Пройдено</span>}
                         </button>
                       )}

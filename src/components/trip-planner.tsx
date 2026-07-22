@@ -276,8 +276,16 @@ export function TripPlanner() {
                     } />
                   </SheetHeader>
                   <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
-                    <div className="p-5 text-white pb-24">
+                    <div className="p-5 text-white pb-24 flex flex-col gap-6">
                       <InsurancePanel />
+                      <div className="h-px bg-white/10 my-2" />
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-white/90 flex items-center gap-2">
+                          <Flag className="w-4 h-4 text-blue-400" />
+                          Віньєтки та митні пункти
+                        </h4>
+                        <BordersPanel />
+                      </div>
                     </div>
                   </div>
                 </SheetContent>
@@ -741,20 +749,6 @@ function AccordionPanels() {
                           <ShieldCheck className="w-4 h-4" />
                         </div>
                         <span className="font-semibold">Страхування та віньєтки</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <InsurancePanel />
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="borders" className="hidden md:block border-b border-white/10 px-2">
-                    <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
-                      <div className="flex items-center gap-3 text-base">
-                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
-                          <Flag className="w-4 h-4" />
-                        </div>
-                        <span className="font-semibold">Кордони</span>
                         {needsBorders && (
                           <span className="flex items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
                             <AlertCircle className="w-3 h-3" />
@@ -763,7 +757,17 @@ function AccordionPanels() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
-                      <BordersPanel />
+                      <div className="flex flex-col gap-6">
+                        <InsurancePanel />
+                        <div className="h-px bg-white/10 my-2" />
+                        <div className="space-y-3">
+                          <h4 className="text-sm font-semibold text-white/90 flex items-center gap-2">
+                            <Flag className="w-4 h-4 text-blue-400" />
+                            Віньєтки та митні пункти
+                          </h4>
+                          <BordersPanel />
+                        </div>
+                      </div>
                     </AccordionContent>
                   </AccordionItem>
 

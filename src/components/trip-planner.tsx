@@ -774,7 +774,7 @@ function HotelOverrideInputs({
               disabled={isSaving}
               className="w-16 h-full text-[11px] p-2.5 border-y border-r rounded-r-xl border-white/10 text-white/70 bg-white/10 hover:bg-white/20 focus:outline-none transition-all cursor-pointer appearance-none text-center"
             >
-              {['EUR', 'UAH', 'USD', 'PLN', 'GBP', 'CZK', 'RON', 'BGN', 'HUF'].filter(c => exchangeRates[c]).map(c => (
+              {['EUR', 'UAH', 'USD'].filter(c => exchangeRates[c]).map(c => (
                 <option key={c} value={c} className="bg-slate-800">{c}</option>
               ))}
             </select>

@@ -19,26 +19,17 @@ export function Footer({ onOpenRating }: FooterProps) {
             <span className="bg-white/10 px-2 py-0.5 rounded text-white/70 hover:bg-white/20 transition-colors">v1.0.1</span>
             
             {/* Version Tooltip */}
-            <div className="absolute bottom-full left-0 mb-3 w-[280px] p-4 rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-[120]"
-              style={{
-                background: "rgba(15, 23, 42, 0.95)",
-                backdropFilter: "blur(24px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              <h4 className="text-white font-bold text-sm mb-2 flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-blue-400">new_releases</span>
+            <div className="absolute bottom-full left-0 mb-2 w-[250px] p-3 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 translate-y-1 group-hover:translate-y-0 z-[120] bg-black/50 backdrop-blur-md border border-white/10">
+              <h4 className="text-white/90 font-medium text-[13px] mb-2 flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[14px] text-blue-400">new_releases</span>
                 Версія 1.0.1
               </h4>
-              <ul className="text-white/70 text-xs flex flex-col gap-1.5 list-disc pl-4">
+              <ul className="text-white/60 text-[11px] flex flex-col gap-1 list-disc pl-4">
                 <li>Офлайн-режим та кешування</li>
                 <li>Інтерактивний таймлайн маршруту</li>
                 <li>Калькулятор пального та кошторис</li>
                 <li>Анімації та сучасний UI/UX</li>
               </ul>
-              
-              {/* Tooltip Arrow */}
-              <div className="absolute top-full left-4 -mt-[1px] border-[6px] border-transparent border-t-[rgba(15,23,42,0.95)]"></div>
             </div>
           </div>
         </div>

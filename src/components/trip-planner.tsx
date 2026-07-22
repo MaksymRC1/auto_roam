@@ -42,6 +42,7 @@ export function TripPlanner() {
   const [isMobileFuelOpen, setIsMobileFuelOpen] = useState(false);
   const [selectedBorderInfoId, setSelectedBorderInfoId] = useState<string | null>(null);
   const [selectedStay22Id, setSelectedStay22Id] = useState<string | null>(null);
+  const [isMobileInsuranceOpen, setIsMobileInsuranceOpen] = useState(false);
 
   // Helper to generate or read a persistent anonymous user ID
   const getOrCreateAnonymousUserId = (): string => {
@@ -260,8 +261,8 @@ export function TripPlanner() {
               </Sheet>
 
               {/* Insurance & Vignettes Sheet */}
-              <Sheet>
-                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
+              <Sheet open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
+                <SheetTrigger render={<button onClick={() => setIsMobileInsuranceOpen(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                 </SheetTrigger>
@@ -623,6 +624,20 @@ export function TripPlanner() {
           </DialogHeader>
           <div className="mt-4">
             <BordersPanel selectedBorderId={selectedBorderInfoId || undefined} />
+          </div>
+          {/* Link to insurance submenu */}
+          <div className="mt-6 pt-4 border-t border-white/10 flex flex-col gap-2">
+            <p className="text-xs text-white/50 text-center">Для перетину кордону на авто обов&#39;язково потрібен страховий поліс «Зелена картка».</p>
+            <button
+              onClick={() => {
+                setSelectedBorderInfoId(null);
+                setIsMobileInsuranceOpen(true);
+              }}
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-colors focus:outline-none cursor-pointer"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              Оформити страхування (Зелена картка)
+            </button>
           </div>
         </DialogContent>
       </Dialog>

@@ -216,8 +216,8 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         
         {/* Header */}
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between mb-8 md:mb-12 gap-6 border-b border-white/10 pb-6 md:pb-8">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Деталі маршруту</h1>
+          <div className="w-full xl:w-auto overflow-hidden">
+            <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 whitespace-nowrap overflow-hidden text-ellipsis">Деталі маршруту</h1>
           </div>
           
           <div className="w-full xl:w-auto">
@@ -278,68 +278,67 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
               const wazeUrl = wp.lat && wp.lon ? `https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes` : `https://waze.com/ul?q=${encodeURIComponent(wp.name)}&navigate=yes`;
 
               return (
-                <div key={wp.id} className="relative flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-8 group print:break-inside-avoid">
+                <div key={wp.id} className="relative flex items-start gap-5 md:gap-8 group print:break-inside-avoid">
                   {/* Vertical Line (connects to next item) */}
                   {!isFinish && (
-                    <div className="absolute top-12 md:top-14 bottom-[-24px] md:bottom-[-32px] left-1/2 md:left-[26px] -translate-x-1/2 md:translate-x-0 w-1 bg-white/10 rounded-full print:bg-slate-300 z-0"></div>
+                    <div className="hidden md:block absolute top-14 bottom-[-32px] left-[26px] w-1 bg-white/10 rounded-full print:bg-slate-300 z-0"></div>
                   )}
 
                   {/* Icon */}
-                  <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shrink-0 border border-white/20 bg-white/5 backdrop-blur-md shadow-lg print:border-slate-300 print:bg-white ${isCompleted ? 'opacity-50 saturate-50' : ''}`}>
-                    {isStart || isFinish ? <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white/80 print:text-slate-800" /> :
-                     isFuel ? <Fuel className="w-5 h-5 md:w-6 md:h-6 text-white/80 print:text-slate-800" /> :
-                     isHotel ? <Bed className="w-5 h-5 md:w-6 md:h-6 text-white/80 print:text-slate-800" /> :
-                     isBorder ? <AlertCircle className="w-5 h-5 md:w-6 md:h-6 text-white/80 print:text-slate-800" /> :
-                     <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white/80 print:text-slate-800" />}
+                  <div className={`hidden md:flex relative z-10 w-14 h-14 rounded-full items-center justify-center shrink-0 border border-white/20 bg-white/5 backdrop-blur-md shadow-lg print:border-slate-300 print:bg-white ${isCompleted ? 'opacity-50 saturate-50' : ''}`}>
+                    {isStart || isFinish ? <MapPin className="w-6 h-6 text-white/80 print:text-slate-800" /> :
+                     isFuel ? <Fuel className="w-6 h-6 text-white/80 print:text-slate-800" /> :
+                     isHotel ? <Bed className="w-6 h-6 text-white/80 print:text-slate-800" /> :
+                     isBorder ? <AlertCircle className="w-6 h-6 text-white/80 print:text-slate-800" /> :
+                     <MapPin className="w-6 h-6 text-white/80 print:text-slate-800" />}
                   </div>
 
                   {/* Content Card */}
-                  <div className={`flex-1 w-full bg-[#1a1f2e] md:bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
+                  <div className={`flex-1 w-full bg-[#1a1f2e] md:bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
                     isCompleted 
                       ? 'opacity-60 bg-emerald-950 md:bg-emerald-900/10 border-emerald-900/30' 
                       : 'hover:bg-white/10 hover:border-white/20'
                   }`}>
-                    <div className="flex flex-col items-center text-center md:items-start md:text-left md:pr-16">
-                      <span className={`text-lg md:text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted ? 'line-through text-white/50 print:text-slate-500' : ''} px-6 md:px-0`}>
+                    <div className="flex flex-col text-left md:pr-16">
+                      <span className={`text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted ? 'line-through text-white/50 print:text-slate-500' : ''}`}>
                         {wp.name}
                       </span>
-                      
-                      <div className="mt-3 mb-2 flex items-center gap-3">
+                      <div className="mt-4 mb-2 flex flex-row items-center gap-2 md:gap-3 w-full">
                         <a 
                           href={googleMapsUrl} 
                           target="_blank" 
                           rel="noreferrer" 
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 border border-blue-500/20 text-xs font-medium transition-colors"
+                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-blue-500/20 md:bg-blue-500/10 text-blue-400 hover:bg-blue-500/30 md:hover:bg-blue-500/20 hover:text-blue-300 border border-blue-500/30 md:border-blue-500/20 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
-                          <ExternalLink className="w-3.5 h-3.5" />
+                          <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Google Maps
                         </a>
                         <a 
                           href={wazeUrl} 
                           target="_blank" 
                           rel="noreferrer" 
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 hover:text-sky-300 border border-sky-500/20 text-xs font-medium transition-colors"
+                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-sky-500/20 md:bg-sky-500/10 text-sky-400 hover:bg-sky-500/30 md:hover:bg-sky-500/20 hover:text-sky-300 border border-sky-500/30 md:border-sky-500/20 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
-                          <ExternalLink className="w-3.5 h-3.5" />
+                          <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Waze
                         </a>
-                      </div>
 
-                      {/* Progress Checkmark Button (Hidden in Print) */}
-                      {!isStart && !isFinish && (
-                        <button 
-                          onClick={() => toggleWaypointCompletion(wp.id)}
-                          className={`absolute top-4 md:top-5 right-4 md:right-5 p-2 md:p-2.5 rounded-xl transition-all duration-200 z-10 flex items-center gap-1 print:hidden ${
-                            isCompleted 
-                              ? 'text-emerald-400 bg-emerald-900/40 hover:bg-emerald-900/60' 
-                              : 'text-white/40 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10'
-                          }`}
-                          title={isCompleted ? "Відмінити" : "Відмітити як пройдене"}
-                        >
-                          <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" />
-                          {isCompleted && <span className="text-xs font-bold uppercase hidden md:inline ml-1">Пройдено</span>}
-                        </button>
-                      )}
+                        {/* Progress Checkmark Button */}
+                        {!isStart && !isFinish && (
+                          <button 
+                            onClick={() => toggleWaypointCompletion(wp.id)}
+                            className={`flex items-center justify-center shrink-0 md:absolute md:top-5 md:right-5 md:p-2.5 w-[46px] h-[46px] md:w-auto md:h-auto rounded-xl transition-all duration-200 z-10 print:hidden ${
+                              isCompleted 
+                                ? 'text-emerald-400 bg-emerald-900/40 hover:bg-emerald-900/60 border border-emerald-500/30 md:border-transparent' 
+                                : 'text-white/60 hover:text-white bg-white/5 md:bg-transparent hover:bg-white/10 border border-white/10 md:border-transparent md:hover:border-white/10'
+                            }`}
+                            title={isCompleted ? "Відмінити" : "Відмітити як пройдене"}
+                          >
+                            <CheckCircle2 className="w-6 h-6" />
+                            {isCompleted && <span className="text-xs font-bold uppercase hidden md:inline ml-1">Пройдено</span>}
+                          </button>
+                        )}
+                      </div>
 
                       {!isStart && (
                         <span className="text-sm md:text-base text-white/60 print:text-slate-600 mt-2 flex items-center gap-1.5">

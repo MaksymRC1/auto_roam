@@ -25,7 +25,7 @@ export function Footer({ onOpenRating }: FooterProps) {
                 Версія 1.0.1
               </h4>
               <ul className="text-white/60 text-[11px] flex flex-col gap-1 list-disc pl-4">
-                <li>Офлайн-режим та кешування</li>
+                <li>Офлайн-режим</li>
                 <li>Інтерактивний таймлайн маршруту</li>
                 <li>Калькулятор пального та кошторис</li>
                 <li>Анімації та сучасний UI/UX</li>
@@ -63,8 +63,12 @@ export function Footer({ onOpenRating }: FooterProps) {
             <>
               {/* Invisible backdrop to close popover on click outside */}
               <div
-                className="fixed inset-0 z-[70] cursor-default pointer-events-auto"
-                onClick={() => setIsContactOpen(false)}
+                className="fixed inset-0 z-[70] cursor-default pointer-events-auto bg-transparent"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsContactOpen(false);
+                }}
               />
               <div
                 className="fixed bottom-14 right-8 w-[220px] rounded-2xl shadow-2xl p-4 flex flex-col gap-3 z-[110] animate-in slide-in-from-bottom-2 fade-in duration-200 pointer-events-auto"

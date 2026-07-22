@@ -153,16 +153,7 @@ export function TripPlanner() {
 
   return (
     <>
-      {isLoading && (
-        <>
-          <div className="fixed top-0 left-0 right-0 h-1 z-[10000] bg-white/10 overflow-hidden">
-            <div className="absolute top-0 bottom-0 w-full bg-blue-500 animate-[loading-bar_1.5s_ease-in-out_infinite]"></div>
-          </div>
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center" role="status" aria-label="Завантаження">
-            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        </>
-      )}
+
 
       {!isCalculated ? (
         <div className="flex-grow flex flex-col items-center justify-center md:justify-start lg:justify-center pt-24 md:pt-[100px] lg:pt-24 pb-12 px-4 md:px-8 w-full max-w-[1280px] mx-auto min-h-[calc(100vh-80px)]">
@@ -268,7 +259,7 @@ export function TripPlanner() {
             </div>
 
             {/* LEFT PANEL: Trip Timeline & Map Toggle */}
-            <div className="w-full md:w-1/2 flex flex-col gap-4 min-h-[50vh] md:h-[calc(100vh-140px)] shrink-0">
+            <div className={`w-full md:w-1/2 flex flex-col gap-4 min-h-[50vh] md:h-[calc(100vh-140px)] shrink-0 transition-opacity duration-300 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
               
               {/* Toggle Tabs (Desktop Only now since mobile has bottom nav) */}
               <Tabs value={leftView} onValueChange={(v) => setLeftView(v as 'timeline' | 'map')} className="hidden md:block w-full shrink-0">
@@ -316,9 +307,10 @@ export function TripPlanner() {
                   </div>
                   
                   <div className="flex-1 p-5 md:overflow-y-auto custom-scrollbar pb-32">
-                    <div className="relative space-y-8 before:absolute before:inset-0 before:left-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-white/20" role="list" aria-label="Хронологія маршруту">
+                    <div className="relative space-y-8" role="list" aria-label="Хронологія маршруту">
                         
-                        {waypoints.filter(wp => !ignoredWaypoints.includes(wp.id)).map((wp) => {
+                        {waypoints.filter(wp => !ignoredWaypoints.includes(wp.id)).map((wp, index, array) => {
+                          const isLast = index === array.length - 1;
                           const isStart = wp.type === 'start';
                           const isFinish = wp.type === 'finish';
                           const isFuel = wp.type === 'fuel';
@@ -327,6 +319,9 @@ export function TripPlanner() {
                           
                           return (
                             <div key={wp.id} className="relative flex items-start group" role="listitem">
+                              {!isLast && (
+                                <div className="absolute top-[30px] bottom-[-38px] left-[11px] w-0.5 bg-white/20 -translate-x-px z-0" />
+                              )}
                               <div className="flex items-center justify-center w-6 h-6 mt-1.5 rounded-full bg-slate-900 border border-white/20 shadow-sm shrink-0 z-10">
                                 {isStart || isFinish ? (
                                   <MapPin className="w-3 h-3 text-white/80" />
@@ -439,13 +434,13 @@ export function TripPlanner() {
                       <div className="mt-8 flex gap-4 pb-2">
                         <button 
                           onClick={handleSaveRoute}
-                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors flex justify-center items-center gap-2 outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"
+                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full py-4 font-bold text-base transition-all flex justify-center items-center gap-2 outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
                         >
                           <Bookmark className="w-5 h-5" /> Зберегти маршрут
                         </button>
                         <button 
                           onClick={handleShare}
-                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors flex justify-center items-center gap-2 outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-[#131620]"
+                          className="flex-1 px-6 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full py-4 font-bold text-base transition-all flex justify-center items-center gap-2 outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
                         >
                           <Share2 className="w-5 h-5" /> Поділитися
                         </button>

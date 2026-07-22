@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft } from "lucide-react";
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const formatTime = (mins: number) => {
@@ -241,11 +241,17 @@ export function TripPlanner() {
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                 </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
-                  <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
-                    <SheetTitle className="text-white">Параметри маршруту</SheetTitle>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
+                    <SheetTitle className="text-white text-base">Параметри маршруту</SheetTitle>
+                    <SheetClose render={
+                      <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
+                        <ArrowLeft className="w-3 h-3" />
+                        Назад
+                      </button>
+                    } />
                   </SheetHeader>
-                  <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                  <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
                     <div className="p-5 text-white pb-24">
                       <StopsInput idPrefix="mobile-stops" />
                     </div>
@@ -259,11 +265,17 @@ export function TripPlanner() {
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                 </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
-                  <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
-                    <SheetTitle className="text-white">Страхування та віньєтки</SheetTitle>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
+                    <SheetTitle className="text-white text-base">Страхування та віньєтки</SheetTitle>
+                    <SheetClose render={
+                      <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
+                        <ArrowLeft className="w-3 h-3" />
+                        Назад
+                      </button>
+                    } />
                   </SheetHeader>
-                  <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                  <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
                     <div className="p-5 text-white pb-24">
                       <InsurancePanel />
                     </div>
@@ -277,11 +289,17 @@ export function TripPlanner() {
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                 </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85vh] rounded-t-3xl overflow-hidden flex flex-col">
-                  <SheetHeader className="p-5 border-b border-white/10 text-left shrink-0">
-                    <SheetTitle className="text-white">Загальний кошторис</SheetTitle>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
+                    <SheetTitle className="text-white text-base">Загальний кошторис</SheetTitle>
+                    <SheetClose render={
+                      <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
+                        <ArrowLeft className="w-3 h-3" />
+                        Назад
+                      </button>
+                    } />
                   </SheetHeader>
-                  <div className="flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                  <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
                     <div className="p-5 text-white pb-24">
                       <BudgetPanel />
                     </div>

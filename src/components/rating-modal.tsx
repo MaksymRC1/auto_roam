@@ -83,7 +83,7 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
           <button
             onClick={onClose}
             aria-label="Close"
-            className="text-white/60 hover:text-white transition-colors p-1.5 rounded-full hover:bg-white/10 focus:outline-none -mt-1 -mr-1"
+            className="text-white/60 hover:text-white transition-colors w-8 h-8 flex items-center justify-center shrink-0 rounded-full hover:bg-white/10 focus:outline-none -mt-1 -mr-1"
           >
             <span
               className="material-symbols-outlined text-white text-[20px]"

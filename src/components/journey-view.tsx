@@ -85,12 +85,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
     <>
       {/* Floating Action Buttons */}
       <div className="fixed top-4 md:top-8 left-4 md:left-8 z-50 print:hidden flex flex-col gap-3">
-        <Link href="/" className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors shadow-lg" title="Повернутися на сайт">
+        <Link href="/" className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg" title="Повернутися на сайт">
           <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
         </Link>
         <button 
           onClick={() => setIsRatingOpen(true)}
-          className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors shadow-lg group focus:outline-none" 
+          className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg group" 
           title="Підтримати проект"
         >
           <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />

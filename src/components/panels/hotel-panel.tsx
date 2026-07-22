@@ -27,7 +27,7 @@ function Stay22Map({ lat, lon, address }: { lat?: number; lon?: number; address:
   return (
     <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-200">
       <div className="flex items-center justify-between bg-blue-500/10 text-blue-300 text-xs p-3 rounded-lg border border-blue-500/20">
-        <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Оскільки це зовнішній сервіс, натисніть <b>«Змінити»</b> у Таймлайні ліворуч, щоб вручну вписати його назву та ціну для точного кошторису.</p>
+        <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та додайте як нову точку зупинки в конструкторі маршруту (блок зліва), щоб включити його у свій план.</p>
         <Button 
           variant="outline" 
           size="sm" 
@@ -152,8 +152,12 @@ export function HotelPanel() {
                     </p>
                   </div>
                   <div className="text-right bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
-                    <span className="text-xs text-white/50 block">Середня ціна</span>
-                    <span className="text-sm font-bold text-amber-400">від {priceLocal} {currency} / ніч</span>
+                    <span className="text-xs text-white/50 block">
+                      {override?.priceEur !== undefined ? "Точна ціна" : "Середня ціна"}
+                    </span>
+                    <span className="text-sm font-bold text-amber-400">
+                      {override?.priceEur !== undefined ? "" : "від "}{priceLocal} {currency} / ніч
+                    </span>
                   </div>
                 </div>
                 

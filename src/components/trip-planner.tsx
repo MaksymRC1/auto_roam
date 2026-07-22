@@ -508,7 +508,7 @@ export function TripPlanner() {
           </div>
           
           <div className={`mt-6 flex justify-center gap-4 transition-opacity duration-300 ${isGeneratingLink ? "opacity-45 pointer-events-none" : ""}`}>
-            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\nПодивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>
             <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
@@ -774,7 +774,7 @@ function HotelOverrideInputs({
               disabled={isSaving}
               className="w-16 h-full text-[11px] p-2.5 border-y border-r rounded-r-xl border-white/10 text-white/70 bg-white/10 hover:bg-white/20 focus:outline-none transition-all cursor-pointer appearance-none text-center"
             >
-              {Object.keys(exchangeRates).map(c => (
+              {['EUR', 'UAH', 'USD', 'PLN', 'GBP', 'CZK', 'RON', 'BGN', 'HUF'].filter(c => exchangeRates[c]).map(c => (
                 <option key={c} value={c} className="bg-slate-800">{c}</option>
               ))}
             </select>

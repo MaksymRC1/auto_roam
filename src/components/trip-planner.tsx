@@ -276,16 +276,8 @@ export function TripPlanner() {
                     } />
                   </SheetHeader>
                   <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
-                    <div className="p-5 text-white pb-24 flex flex-col gap-6">
+                    <div className="p-5 text-white pb-24">
                       <InsurancePanel />
-                      <div className="h-px bg-white/10 my-2" />
-                      <div className="space-y-3">
-                        <h4 className="text-sm font-semibold text-white/90 flex items-center gap-2">
-                          <Flag className="w-4 h-4 text-blue-400" />
-                          Віньєтки та митні пункти
-                        </h4>
-                        <BordersPanel />
-                      </div>
                     </div>
                   </div>
                 </SheetContent>
@@ -458,7 +450,7 @@ export function TripPlanner() {
                                           title="Інформація про пункт пропуску"
                                         >
                                           {wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry) ? (
-                                            <ShieldCheck className="w-3.5 h-3.5" />
+                                            <Flag className="w-3.5 h-3.5" />
                                           ) : (
                                             <AlertCircle className="w-3.5 h-3.5" />
                                           )}

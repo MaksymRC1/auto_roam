@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
-import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart } from "lucide-react";
+import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 import { VIGNETTE_DB } from "@/lib/borders";
 import { RatingModal } from "@/components/rating-modal";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import Link from "next/link";
 
 const formatTime = (mins: number) => {
@@ -17,6 +18,36 @@ const formatTime = (mins: number) => {
 export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }) {
   const [mounted, setMounted] = useState(false);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareLink, setShareLink] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const handleShareClick = () => {
+    if (typeof window !== "undefined") {
+      setShareLink(window.location.href);
+      setShareOpen(true);
+      setCopied(false);
+    }
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(shareLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      const textArea = document.createElement("textarea");
+      textArea.value = shareLink;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
   const { 
     isCalculated, 
     waypoints, 
@@ -48,8 +79,26 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
 
   if (!isCalculated) {
     return (
-      <div className="flex-grow flex items-center justify-center min-h-[calc(100vh-80px)]">
-        <div className="w-12 h-12 border-4 border-white/20 border-t-blue-500 rounded-full animate-spin"></div>
+      <div className="flex-grow flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full border border-blue-500/30 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+          <div className="absolute inset-2 rounded-full border border-blue-400/20 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+          <div className="absolute inset-4 rounded-full border-2 border-dashed border-white/20 animate-[spin_4s_linear_infinite]"></div>
+          <div className="absolute inset-4 animate-[spin_2s_linear_infinite]">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-950 rounded-full p-1 text-blue-500">
+              <Navigation2 className="w-5 h-5 rotate-90" />
+            </div>
+          </div>
+          <div className="absolute">
+            <MapPin className="w-8 h-8 text-white/80 animate-bounce" />
+          </div>
+        </div>
+        <h2 className="mt-8 text-xl font-semibold text-white tracking-widest uppercase">
+          Auto<span className="text-blue-500">Roam</span>
+        </h2>
+        <p className="mt-2 text-white/50 text-sm animate-pulse">
+          Завантажуємо маршрут...
+        </p>
       </div>
     );
   }
@@ -85,17 +134,80 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
     <>
       {/* Floating Action Buttons */}
       <div className="fixed top-4 md:top-8 left-4 md:left-8 z-50 print:hidden flex flex-col gap-3">
-        <Link href="/" className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg" title="Повернутися на сайт">
-          <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
-        </Link>
-        <button 
-          onClick={() => setIsRatingOpen(true)}
-          className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg group" 
-          title="Підтримати проект"
-        >
-          <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
-        </button>
+        {/* Повернутися на сайт */}
+        <div className="relative group flex items-center">
+          <Link href="/" className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg" title="Повернутися на сайт">
+            <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
+          </Link>
+          <span className="absolute left-14 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+            Повернутися на головну
+          </span>
+        </div>
+
+        {/* Поділитися */}
+        <div className="relative group flex items-center">
+          <button 
+            onClick={handleShareClick}
+            className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg cursor-pointer"
+            title="Поділитися"
+          >
+            <Share2 className="w-5 h-5 text-white/90" />
+          </button>
+          <span className="absolute left-14 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+            Поділитися
+          </span>
+        </div>
+
+        {/* Підтримати проект */}
+        <div className="relative group flex items-center">
+          <button 
+            onClick={() => setIsRatingOpen(true)}
+            className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-lg group focus:outline-none" 
+            title="Підтримати проект"
+          >
+            <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
+          </button>
+          <span className="absolute left-14 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+            Підтримати проект
+          </span>
+        </div>
       </div>
+
+      {/* Share Dialog */}
+      <Dialog open={shareOpen} onOpenChange={setShareOpen}>
+        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
+            <DialogDescription className="text-white/60">
+              Поділіться цим посиланням з друзями, щоб вони могли переглянути вашу поїздку.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex items-center space-x-2 mt-4">
+            <div className="grid flex-1 gap-2">
+              <input
+                readOnly
+                value={shareLink}
+                className="w-full bg-black/50 border border-white/20 rounded-md px-3 py-2 text-sm text-white focus:outline-none"
+              />
+            </div>
+            <button
+              onClick={copyToClipboard}
+              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-colors flex items-center gap-2"
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+            </button>
+          </div>
+          
+          <div className="mt-6 flex justify-center gap-4">
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\nПодивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            </a>
+            <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <MessageCircle className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            </a>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <RatingModal isOpen={isRatingOpen} onClose={() => setIsRatingOpen(false)} />
 

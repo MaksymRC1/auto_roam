@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
@@ -87,18 +88,27 @@ export function HotelPanel() {
           <div className="flex flex-col gap-3 pt-2">
             <div className="flex items-center gap-3">
               <Label className="text-white/70 flex-1">Зупинятися кожні (годин):</Label>
-              <Input 
-                type="number" 
-                min={0} 
-                max={24} 
-                value={customTime ? customTime / 60 : ""} 
-                placeholder="Без зупинок"
-                onChange={(e) => {
-                  const val = Number(e.target.value);
-                  setHotelSettings('time', val * 60, customDistance);
+              <Select 
+                value={customTime ? String(customTime / 60) : "0"} 
+                onValueChange={(val) => {
+                  const num = Number(val);
+                  setHotelSettings('time', num > 0 ? num * 60 : 0, customDistance);
                 }}
-                className="w-32"
-              />
+              >
+                <SelectTrigger className="w-32 bg-[#131620] border-white/10 text-white">
+                  <SelectValue placeholder="Без зупинок" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Без зупинок</SelectItem>
+                  <SelectItem value="4">4 години</SelectItem>
+                  <SelectItem value="6">6 годин</SelectItem>
+                  <SelectItem value="8">8 годин</SelectItem>
+                  <SelectItem value="10">10 годин</SelectItem>
+                  <SelectItem value="12">12 годин</SelectItem>
+                  <SelectItem value="14">14 годин</SelectItem>
+                  <SelectItem value="16">16 годин</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-center gap-3">
               <Label className="text-white/70 flex-1">Або кожні (км):</Label>

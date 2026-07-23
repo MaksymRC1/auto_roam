@@ -427,7 +427,7 @@ export const useTripStore = create<TripState>()(
         
         const geo = await reverseGeocode(point[0], point[1]);
         const cityName = geo?.city || 'Траса';
-        const name = cityName === 'Траса' ? 'Ночівля на трасі' : `Ночівля: ${cityName}`;
+        const name = cityName === 'Траса' ? 'Транзитна ночівля' : `Ночівля: ${cityName}`;
         let countryCode = geo?.countryCode || 'UNKNOWN';
         
         const dist = state.totalDistance * ratio;

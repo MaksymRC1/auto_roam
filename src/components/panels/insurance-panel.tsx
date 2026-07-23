@@ -33,8 +33,8 @@ export function InsurancePanel() {
             
             {/* Green Card */}
             <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
-              <div className="p-3 bg-emerald-500/20 rounded-xl shrink-0 self-start md:self-auto">
-                <ShieldCheck className="w-6 h-6 text-emerald-400" />
+              <div className="p-3 bg-white/5 border border-white/10 rounded-xl shrink-0 self-start md:self-auto text-white/70">
+                <ShieldCheck className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <h4 className="font-bold text-white/90 text-base">Зелена картка (Міжнародне автострахування)</h4>
@@ -46,8 +46,8 @@ export function InsurancePanel() {
 
             {/* Travel Insurance */}
             <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
-              <div className="p-3 bg-blue-500/20 rounded-xl shrink-0 self-start md:self-auto">
-                <Plane className="w-6 h-6 text-blue-400" />
+              <div className="p-3 bg-white/5 border border-white/10 rounded-xl shrink-0 self-start md:self-auto text-white/70">
+                <Plane className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <h4 className="font-bold text-white/90 text-base">Туристичне страхування (Медичне)</h4>
@@ -59,8 +59,8 @@ export function InsurancePanel() {
 
             {/* OSAGO */}
             <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
-              <div className="p-3 bg-amber-500/20 rounded-xl shrink-0 self-start md:self-auto">
-                <Car className="w-6 h-6 text-amber-400" />
+              <div className="p-3 bg-white/5 border border-white/10 rounded-xl shrink-0 self-start md:self-auto text-white/70">
+                <Car className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <h4 className="font-bold text-white/90 text-base">Автоцивілка (ОСЦПВ)</h4>
@@ -72,8 +72,8 @@ export function InsurancePanel() {
 
             {/* Accident Insurance */}
             <div className="rounded-xl border border-white/10 p-5 bg-white/5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center">
-              <div className="p-3 bg-purple-500/20 rounded-xl shrink-0 self-start md:self-auto">
-                <HeartPulse className="w-6 h-6 text-purple-400" />
+              <div className="p-3 bg-white/5 border border-white/10 rounded-xl shrink-0 self-start md:self-auto text-white/70">
+                <HeartPulse className="w-6 h-6" />
               </div>
               <div className="flex-1">
                 <h4 className="font-bold text-white/90 text-base">Страхування від нещасних випадків</h4>

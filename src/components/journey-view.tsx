@@ -195,7 +195,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
             </div>
             <button
               onClick={copyToClipboard}
-              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-colors flex items-center gap-2"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-md transition-colors flex items-center gap-2"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             </button>
@@ -225,40 +225,40 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           
           <div className="w-full xl:w-auto">
             <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3 mt-2 xl:mt-0">
-              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-blue-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-blue-500/20">
-                <div className="p-1.5 bg-blue-500/20 rounded-lg shrink-0">
-                  <Navigation2 className="w-4 h-4 text-blue-400" />
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
+                <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg shrink-0 text-white/70">
+                  <Navigation2 className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-blue-400/70 tracking-wider">Відстань</span>
-                  <span className="font-bold text-blue-100 leading-tight text-sm md:text-base">{totalDistance} км</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Відстань</span>
+                  <span className="font-bold text-white leading-tight text-sm md:text-base">{totalDistance} км</span>
                 </div>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-emerald-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-emerald-500/20">
-                <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
-                  <Clock className="w-4 h-4 text-emerald-400" />
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
+                <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg shrink-0 text-white/70">
+                  <Clock className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-emerald-400/70 tracking-wider">Час у дорозі</span>
-                  <span className="font-bold text-emerald-100 leading-tight text-sm md:text-base">{formatTime(totalDuration)}</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Час у дорозі</span>
+                  <span className="font-bold text-white leading-tight text-sm md:text-base">{formatTime(totalDuration)}</span>
                 </div>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-amber-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-amber-500/20">
-                <div className="p-1.5 bg-amber-500/20 rounded-lg shrink-0">
-                  <Fuel className="w-4 h-4 text-amber-400" />
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
+                <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg shrink-0 text-white/70">
+                  <Fuel className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-amber-400/70 tracking-wider">Паливо</span>
-                  <span className="font-bold text-amber-100 leading-tight text-sm md:text-base">~{totalFuelLiters.toFixed(0)} л</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Паливо</span>
+                  <span className="font-bold text-white leading-tight text-sm md:text-base">~{totalFuelLiters.toFixed(0)} л</span>
                 </div>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-indigo-500/10 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-indigo-500/20">
-                <div className="p-1.5 bg-indigo-500/20 rounded-lg shrink-0">
-                  <Wallet className="w-4 h-4 text-indigo-400" />
+              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
+                <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg shrink-0 text-white/70">
+                  <Wallet className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-indigo-400/70 tracking-wider">Кошторис</span>
-                  <span className="font-bold text-indigo-100 leading-tight text-sm md:text-base">{formatCost(totalEur)}</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Кошторис</span>
+                  <span className="font-bold text-white leading-tight text-sm md:text-base">{formatCost(totalEur)}</span>
                 </div>
               </div>
             </div>
@@ -307,7 +307,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                     !isStart && !isFinish ? 'cursor-pointer' : ''
                   } ${
                     isCompleted 
-                      ? 'opacity-60 bg-emerald-950 md:bg-emerald-900/10 border-emerald-900/30' 
+                      ? 'opacity-60 bg-white/5 border-white/20' 
                       : 'hover:bg-white/10 hover:border-white/20'
                   }`}>
                     <div className="flex flex-col text-left md:pr-16">
@@ -320,7 +320,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           target="_blank" 
                           rel="noreferrer" 
                           onClick={(e) => e.stopPropagation()}
-                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-blue-500/20 md:bg-blue-500/10 text-blue-400 hover:bg-blue-500/30 md:hover:bg-blue-500/20 hover:text-blue-300 border border-blue-500/30 md:border-blue-500/20 text-sm md:text-xs font-semibold md:font-medium transition-colors"
+                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-white/5 md:bg-white/5 text-white/80 hover:bg-white/10 md:hover:bg-white/10 hover:text-white border border-white/10 md:border-white/10 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
                           <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Google Maps
@@ -330,7 +330,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           target="_blank" 
                           rel="noreferrer" 
                           onClick={(e) => e.stopPropagation()}
-                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-sky-500/20 md:bg-sky-500/10 text-sky-400 hover:bg-sky-500/30 md:hover:bg-sky-500/20 hover:text-sky-300 border border-sky-500/30 md:border-sky-500/20 text-sm md:text-xs font-semibold md:font-medium transition-colors"
+                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-white/5 md:bg-white/5 text-white/80 hover:bg-white/10 md:hover:bg-white/10 hover:text-white border border-white/10 md:border-white/10 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
                           <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Waze

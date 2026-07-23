@@ -1,7 +1,7 @@
 "use client";
 
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
-import { ShieldAlert } from "lucide-react";
+import { ShieldAlert, AlertTriangle, Fuel, Bed, Flag, ShieldCheck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VIGNETTE_DB } from "@/lib/borders";
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
@@ -82,12 +82,19 @@ export function BudgetPanel() {
         <div className="space-y-4">
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-                <span className="text-lg">⛽</span>
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+                <Fuel className="w-4 h-4" />
               </div>
               <div>
                 <p className="font-semibold text-white/90">Паливо</p>
-                <p className="text-xs text-white/50">~{totalFuelLiters.toFixed(0)} л за поточним розподілом</p>
+                {totalFuelLiters === 0 ? (
+                  <p className="text-xs text-amber-500 mt-0.5 flex items-center gap-1 font-medium">
+                    <AlertTriangle className="w-3 h-3" />
+                    Необхідно розподілити паливо
+                  </p>
+                ) : (
+                  <p className="text-xs text-white/50">~{totalFuelLiters.toFixed(0)} л за поточним розподілом</p>
+                )}
               </div>
             </div>
             <span className="font-bold text-white/90">{formatCost(totalFuelCostEur)}</span>
@@ -95,8 +102,8 @@ export function BudgetPanel() {
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center">
-                <span className="text-lg">🏨</span>
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+                <Bed className="w-4 h-4" />
               </div>
               <div>
                 <p className="font-semibold text-white/90">Ночівля</p>
@@ -111,8 +118,8 @@ export function BudgetPanel() {
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                <span className="text-lg">🛂</span>
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+                <Flag className="w-4 h-4" />
               </div>
               <div>
                 <p className="font-semibold text-white/90">Віньєтки та збори</p>
@@ -124,8 +131,8 @@ export function BudgetPanel() {
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <span className="text-lg">🛡️</span>
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+                <ShieldCheck className="w-4 h-4" />
               </div>
               <div>
                 <p className="font-semibold text-white/90">Страхування</p>
@@ -146,14 +153,14 @@ export function BudgetPanel() {
 
           <div className="h-px bg-white/10 my-2" />
 
-          <div className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${includeReserve ? 'bg-orange-500/10 border-orange-500/20' : 'bg-white/5 border-white/10 opacity-70'}`}>
+          <div className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${includeReserve ? 'bg-white/10 border-white/20' : 'bg-white/5 border-white/10 opacity-70'}`}>
             <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${includeReserve ? 'bg-orange-500/20 text-orange-400' : 'bg-white/10 text-white/50'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${includeReserve ? 'bg-white/10 text-white' : 'bg-white/5 border border-white/10 text-white/50'}`}>
                 <ShieldAlert className="w-4 h-4" />
               </div>
               <div>
-                <p className={`font-semibold ${includeReserve ? 'text-orange-400' : 'text-white/60'}`}>Резерв на непередбачувані витрати</p>
-                <p className={`text-xs ${includeReserve ? 'text-orange-300' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
+                <p className={`font-semibold ${includeReserve ? 'text-white/90' : 'text-white/60'}`}>Резерв на непередбачувані витрати</p>
+                <p className={`text-xs ${includeReserve ? 'text-white/70' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
               </div>
             </div>
             <div className="flex items-center gap-4">

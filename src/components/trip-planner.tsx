@@ -72,7 +72,8 @@ export function TripPlanner() {
     insertBorderStop, hotelOverrides, setHotelOverride,
     ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute,
     completedWaypoints, toggleWaypointCompletion, getShareUrl, getRawShareData, loadFromShareData,
-    insuranceCost
+    insuranceCost,
+    hotelCustomTime, hotelCustomDistance, setHotelSettings
   } = useTripStore();
 
   useEffect(() => {
@@ -268,31 +269,6 @@ export function TripPlanner() {
                   <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
                     <div className="p-5 text-white pb-24">
                       <StopsInput idPrefix="mobile-stops" />
-                    </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
-
-              {/* Hotel Sheet */}
-              <Sheet key="mobile-hotel-sheet">
-                <SheetTrigger render={<button onClick={() => setHasSeenHotel(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Ночівля та зупинки" />}>
-                  <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
-                  <Bed className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
-                  {!hasSeenHotel && needsHotel && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
-                </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
-                  <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">Ночівля та зупинки</SheetTitle>
-                    <SheetClose render={
-                      <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
-                        <ArrowLeft className="w-3 h-3" />
-                        Назад
-                      </button>
-                    } />
-                  </SheetHeader>
-                  <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
-                    <div className="p-5 text-white pb-24">
-                      <HotelPanel />
                     </div>
                   </div>
                 </SheetContent>
@@ -692,7 +668,36 @@ export function TripPlanner() {
           <DialogHeader>
             <DialogTitle className="text-xl">Пошук готелів поблизу</DialogTitle>
           </DialogHeader>
-          <div className="mt-4">
+          <div className="mt-2 flex flex-col gap-4">
+            
+            {/* Settings Explanation */}
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-sm text-blue-200">
+              <p className="mb-3">
+                <span className="font-semibold text-blue-300">💡 За замовчуванням:</span> зупинка для ночівлі планується кожні {hotelCustomTime ? Math.round(hotelCustomTime / 60) : 8} годин. Ви можете змінити цей час нижче:
+              </p>
+              <div className="flex items-center gap-3">
+                <span className="text-white/70">Зупинятися кожні:</span>
+                <select 
+                  value={hotelCustomTime ? String(hotelCustomTime / 60) : "0"} 
+                  onChange={(e) => {
+                    const num = Number(e.target.value);
+                    setHotelSettings('time', num > 0 ? num * 60 : 0, hotelCustomDistance);
+                  }}
+                  className="w-32 bg-[#131620] border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-white/30 appearance-none"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(255, 255, 255, 0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9' /%3E%3C/svg%3E")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em', paddingRight: '2.5rem' }}
+                >
+                  <option value="0" className="bg-[#131620]">Без зупинок</option>
+                  <option value="4" className="bg-[#131620]">4 години</option>
+                  <option value="6" className="bg-[#131620]">6 годин</option>
+                  <option value="8" className="bg-[#131620]">8 годин</option>
+                  <option value="10" className="bg-[#131620]">10 годин</option>
+                  <option value="12" className="bg-[#131620]">12 годин</option>
+                  <option value="14" className="bg-[#131620]">14 годин</option>
+                  <option value="16" className="bg-[#131620]">16 годин</option>
+                </select>
+              </div>
+            </div>
+
             {selectedStay22Id && (
               <Stay22Map 
                 lat={waypoints.find(w => w.id === selectedStay22Id)?.lat}

@@ -8,6 +8,7 @@ import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { OnboardingTour } from "./onboarding-tour";
 import { TabletOnboardingTour } from "./tablet-onboarding-tour";
+import { DesktopOnboardingTour } from "./desktop-onboarding-tour";
 import { LeftPlaceholder } from "./left-placeholder";
 import { FuelPanel } from "./panels/fuel-panel";
 import { HotelPanel, Stay22Map } from "./panels/hotel-panel";
@@ -186,6 +187,7 @@ export function TripPlanner() {
     <>
       <OnboardingTour />
       <TabletOnboardingTour />
+      <DesktopOnboardingTour />
 
       {!isCalculated ? (
         <div className="flex-grow flex flex-col items-center justify-center md:justify-start lg:justify-center pt-24 md:pt-[100px] lg:pt-24 pb-12 px-4 md:px-8 w-full max-w-[1280px] mx-auto min-h-[calc(100vh-80px)]">
@@ -221,7 +223,7 @@ export function TripPlanner() {
             
             {/* Right Column (Form) */}
             <div className="w-full md:w-1/2 max-w-[500px] order-2 md:order-2">
-              <div className="rounded-[20px] p-6 md:p-8 shadow-2xl relative h-full flex flex-col justify-center" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+              <div id="desktop-tour-initial-search" className="rounded-[20px] p-6 md:p-8 shadow-2xl relative h-full flex flex-col justify-center" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
                 <div className="absolute inset-0 rounded-[20px] overflow-hidden pointer-events-none">
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 </div>
@@ -515,9 +517,9 @@ export function TripPlanner() {
                         <button 
                           onClick={handleSaveRoute}
                           className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
-                          title="Режим водіння"
+                          title="Зберегти маршрут"
                         >
-                          <Navigation className="w-6 h-6" />
+                          <Bookmark className="w-6 h-6" />
                         </button>
                         <button 
                           onClick={handleShare}

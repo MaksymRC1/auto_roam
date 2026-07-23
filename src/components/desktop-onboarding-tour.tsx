@@ -10,60 +10,69 @@ interface TourStep {
   targetId: string;
 }
 
-const steps: TourStep[] = [
-  {
-    title: "Параметри маршруту",
-    description: "Налаштовуйте початкову та кінцеву точку подорожі, додавайте проміжні зупинки та змінюйте порядок для оптимального проїзду.",
-    targetId: "desktop-tour-search"
-  },
-  {
-    title: "Смарт-панелі",
-    description: "Розгортайте панелі, щоб налаштувати параметри автомобіля, перевірити вартість пального, віньєток та страхування.",
-    targetId: "desktop-tour-panels"
-  },
-  {
-    title: "Карта і таймлайн",
-    description: "Переглядайте побудований маршрут на карті та слідкуйте за розкладом поїздки. Натискайте 'Режим водіння' для навігації.",
-    targetId: "desktop-tour-map"
-  }
-];
+export function DesktopOnboardingTour() {
+  const { hasSeenDesktopOnboarding, setHasSeenDesktopOnboarding, isCalculated } = useTripStore();
+  
+  const steps: TourStep[] = isCalculated ? [
+    {
+      title: "Параметри маршруту",
+      description: "Налаштовуйте початкову та кінцеву точку подорожі, додавайте проміжні зупинки та змінюйте порядок для оптимального проїзду.",
+      targetId: "desktop-tour-search"
+    },
+    {
+      title: "Смарт-панелі",
+      description: "Розгортайте панелі, щоб налаштувати параметри автомобіля, перевірити вартість пального, віньєток та страхування.",
+      targetId: "desktop-tour-panels"
+    },
+    {
+      title: "Карта і таймлайн",
+      description: "Переглядайте побудований маршрут на карті та слідкуйте за розкладом поїздки. Натискайте 'Зберегти маршрут' щоб не втратити його.",
+      targetId: "desktop-tour-map"
+    }
+  ] : [
+    {
+      title: "Побудова маршруту",
+      description: "Введіть початкову та кінцеву точки подорожі, щоб почати. Ми автоматично розрахуємо оптимальний шлях, вартість пального та інші витрати.",
+      targetId: "desktop-tour-initial-search"
+    }
+  ];
 
-export function TabletOnboardingTour() {
-  const { isCalculated, hasSeenTabletOnboarding, setHasSeenTabletOnboarding } = useTripStore();
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
   
   useEffect(() => {
-    // Determine if it's a tablet/desktop screen (>768px)
-    const isDesktop = window.innerWidth >= 768;
-    if (isCalculated && !hasSeenTabletOnboarding && !isActive && isDesktop) {
+    // Determine if it's a desktop screen (>=1024px)
+    const isDesktop = window.innerWidth >= 1024;
+    // We want the tour to be available immediately on desktop
+    if (!hasSeenDesktopOnboarding && !isActive && isDesktop) {
       const timer = setTimeout(() => {
         setIsActive(true);
-      }, 3000);
+      }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [isCalculated, hasSeenTabletOnboarding, isActive]);
+  }, [hasSeenDesktopOnboarding, isActive]);
 
   // Lock scroll before and during the tour
   useEffect(() => {
-    const isDesktop = window.innerWidth >= 768;
-    if (isCalculated && !hasSeenTabletOnboarding && isDesktop) {
+    const isDesktop = window.innerWidth >= 1024;
+    if (!hasSeenDesktopOnboarding && isDesktop) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = "hidden";
       
-      const preventDefault = (e: TouchEvent) => {
+      const preventDefault = (e: TouchEvent | WheelEvent) => {
         e.preventDefault();
       };
-      // Passive must be false to call preventDefault
-      document.addEventListener("touchmove", preventDefault, { passive: false });
+      
+      document.addEventListener("wheel", preventDefault, { passive: false });
       
       return () => {
         document.body.style.overflow = originalStyle;
-        document.removeEventListener("touchmove", preventDefault);
+        document.removeEventListener("wheel", preventDefault);
       };
     }
-  }, [isCalculated, hasSeenTabletOnboarding]);
+  }, [hasSeenDesktopOnboarding]);
+
 
   useEffect(() => {
     if (!isActive) return;
@@ -110,7 +119,7 @@ export function TabletOnboardingTour() {
     if (currentStep < steps.length - 1) {
       setCurrentStep(s => s + 1);
     } else {
-      finishTour();
+      handleClose();
     }
   };
 
@@ -120,11 +129,11 @@ export function TabletOnboardingTour() {
     }
   };
 
-  const finishTour = () => {
+  const handleClose = () => {
+    setHasSeenDesktopOnboarding(true);
     setIsActive(false);
-    setHasSeenTabletOnboarding(true);
   };
-
+  
   const step = steps[currentStep];
   
   // Calculate window dimensions to avoid SSR errors
@@ -136,7 +145,7 @@ export function TabletOnboardingTour() {
       {/* Dimmed background */}
       <div 
         className="absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 pointer-events-auto"
-        onClick={finishTour}
+        onClick={handleClose}
       />
       
       {/* Spotlight highlight over the target button */}
@@ -184,7 +193,7 @@ export function TabletOnboardingTour() {
               {step.title}
             </h3>
             <button 
-              onClick={finishTour}
+              onClick={handleClose}
               className="text-white/50 hover:text-white transition-colors w-6 h-6 flex items-center justify-center rounded-full -mt-1 -mr-1 focus:outline-none"
             >
               <X className="w-4 h-4" />
@@ -197,7 +206,7 @@ export function TabletOnboardingTour() {
 
           <div className="flex items-center justify-between mt-3 pt-4 border-t border-white/10">
             <button 
-              onClick={finishTour}
+              onClick={handleClose}
               className="text-white/40 hover:text-white/80 text-xs font-medium transition-colors"
             >
               Пропустити

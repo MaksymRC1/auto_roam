@@ -232,13 +232,13 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         <div className="border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
         
         {/* Header */}
-        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between mb-8 md:mb-12 gap-6 border-b border-white/10 pb-6 md:pb-8">
-          <div className="w-full xl:w-auto overflow-hidden">
-            <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 whitespace-nowrap overflow-hidden text-ellipsis">Деталі маршруту</h1>
+        <div className="flex flex-wrap items-center justify-between mb-8 md:mb-12 gap-6 border-b border-white/10 pb-6 md:pb-8">
+          <div className="shrink-0">
+            <h1 className="text-2xl md:text-4xl font-bold text-white">Деталі маршруту</h1>
           </div>
           
           <div className="w-full xl:w-auto">
-            <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3 mt-2 xl:mt-0">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3">
               <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
                 <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg shrink-0 text-white/70">
                   <Navigation2 className="w-4 h-4" />

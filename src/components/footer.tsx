@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { TermsModal } from "./terms-modal";
 import { PrivacyModal } from "./privacy-modal";
+import { useTripStore } from "@/store/useTripStore";
 
 interface FooterProps {
   /** Optional: callback to open the rating modal from the parent page */
@@ -65,20 +66,24 @@ export function Footer({ onOpenRating }: FooterProps) {
             onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }}
             className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
             aria-label="Умови використання"
-            title="Умови використання"
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               description
+            </span>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
+              Умови використання
             </span>
           </button>
           <button 
             onClick={(e) => { e.preventDefault(); setIsPrivacyOpen(true); }}
             className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
             aria-label="Політика конфіденційності"
-            title="Політика конфіденційності"
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               shield
+            </span>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
+              Політика конфіденційності
             </span>
           </button>
           <button
@@ -89,10 +94,31 @@ export function Footer({ onOpenRating }: FooterProps) {
             }}
             className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
             aria-label="Зв'язатися з нами"
-            title="Зв'язатися з нами"
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               chat
+            </span>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
+              Зв'язатися з нами
+            </span>
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              useTripStore.getState().setHasSeenDesktopOnboarding(false);
+              // Small delay to ensure state is processed before attempting scroll
+              setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }, 100);
+            }}
+            className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
+            aria-label="Як користуватися"
+          >
+            <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
+              help
+            </span>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
+              Як користуватися
             </span>
           </button>
           {onOpenRating && (
@@ -105,6 +131,9 @@ export function Footer({ onOpenRating }: FooterProps) {
                 className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]"
               >
                 favorite
+              </span>
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
+                Оцінити продукт
               </span>
             </button>
           )}

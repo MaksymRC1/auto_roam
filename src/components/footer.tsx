@@ -111,7 +111,7 @@ export function Footer({ onOpenRating }: FooterProps) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }, 100);
             }}
-            className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
+            className="hidden lg:flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
             aria-label="Як користуватися"
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">

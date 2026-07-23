@@ -13,11 +13,14 @@ export function Footer({ onOpenRating }: FooterProps) {
   useEffect(() => {
     if (isContactOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
     }
     return () => {
       document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
     };
   }, [isContactOpen]);
 
@@ -99,31 +102,27 @@ export function Footer({ onOpenRating }: FooterProps) {
                   </button>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-row justify-center gap-3">
                   <a
                     href="tg://user?id=8746006264"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"
+                    className="flex-1 flex items-center justify-center p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer bg-white/5"
+                    title="Telegram"
                   >
-                    <span className="material-symbols-outlined text-[#229ED9] text-[16px] [font-variation-settings:'FILL'_1]">
+                    <span className="material-symbols-outlined text-[#229ED9] text-[24px] [font-variation-settings:'FILL'_1]">
                       send
-                    </span>
-                    <span className="text-white/90 text-sm">
-                      Telegram
                     </span>
                   </a>
                   <a
                     href="https://wa.me/qr/SGAWLLEOFIRZE1"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer"
+                    className="flex-1 flex items-center justify-center p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 cursor-pointer bg-white/5"
+                    title="WhatsApp"
                   >
-                    <span className="material-symbols-outlined text-[#25D366] text-[16px] [font-variation-settings:'FILL'_1]">
+                    <span className="material-symbols-outlined text-[#25D366] text-[24px] [font-variation-settings:'FILL'_1]">
                       chat
-                    </span>
-                    <span className="text-white/90 text-sm">
-                      WhatsApp
                     </span>
                   </a>
                 </div>

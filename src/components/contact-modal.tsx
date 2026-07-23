@@ -59,28 +59,22 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         </div>
 
         {/* Contact Links */}
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-row justify-center gap-3 mt-2">
           <a href="tg://user?id=8746006264" target="_blank" rel="noopener noreferrer" 
-             className="flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
-             style={{ background: "rgba(255, 255, 255, 0.05)" }}>
-            <div className="w-9 h-9 rounded-full bg-[#229ED9]/20 flex items-center justify-center text-[#229ED9] group-hover:bg-[#229ED9] group-hover:text-white transition-colors shadow-sm">
-              <span className="material-symbols-outlined text-[18px]">send</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white font-medium text-sm">Telegram</span>
-              <span className="text-white/50 text-xs">Особистий чат</span>
+             className="flex-1 flex items-center justify-center p-4 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
+             style={{ background: "rgba(255, 255, 255, 0.05)" }}
+             title="Telegram">
+            <div className="w-12 h-12 rounded-full bg-[#229ED9]/20 flex items-center justify-center text-[#229ED9] group-hover:bg-[#229ED9] group-hover:text-white transition-colors shadow-sm">
+              <span className="material-symbols-outlined text-[24px] [font-variation-settings:'FILL'_1]">send</span>
             </div>
           </a>
 
           <a href="https://wa.me/qr/SGAWLLEOFIRZE1" target="_blank" rel="noopener noreferrer"
-             className="flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
-             style={{ background: "rgba(255, 255, 255, 0.05)" }}>
-            <div className="w-9 h-9 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-colors shadow-sm">
-              <span className="material-symbols-outlined text-[18px]">chat</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white font-medium text-sm">WhatsApp</span>
-              <span className="text-white/50 text-xs">Особистий чат</span>
+             className="flex-1 flex items-center justify-center p-4 rounded-xl transition-all duration-300 hover:bg-white/10 border border-white/5 hover:border-white/20 group cursor-pointer"
+             style={{ background: "rgba(255, 255, 255, 0.05)" }}
+             title="WhatsApp">
+            <div className="w-12 h-12 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-colors shadow-sm">
+              <span className="material-symbols-outlined text-[24px] [font-variation-settings:'FILL'_1]">chat</span>
             </div>
           </a>
         </div>

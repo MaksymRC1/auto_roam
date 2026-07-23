@@ -7,6 +7,7 @@ import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 import { VIGNETTE_DB } from "@/lib/borders";
 import { RatingModal } from "@/components/rating-modal";
+import { JourneyOnboardingTour } from './journey-onboarding-tour';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import Link from "next/link";
 
@@ -138,6 +139,8 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
 
   return (
     <>
+      <JourneyOnboardingTour />
+      
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none" style={{ background: "rgba(0, 0, 0, 0.45)" }}>
         {/* Повернутися на сайт */}
@@ -153,6 +156,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         {/* Поділитися */}
         <div className="relative group flex items-center">
           <button 
+            id="journey-tour-share"
             onClick={handleShareClick}
             className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg cursor-pointer"
             title="Поділитися"
@@ -167,6 +171,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         {/* Підтримати проект */}
         <div className="relative group flex items-center">
           <button 
+            id="journey-tour-support"
             onClick={() => setIsRatingOpen(true)}
             className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg group focus:outline-none" 
             title="Підтримати проект"
@@ -302,6 +307,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
 
                   {/* Content Card */}
                   <div 
+                    id={index === 1 ? "journey-tour-waypoint" : undefined}
                     onClick={() => {
                       if (!isStart && !isFinish) {
                         toggleWaypointCompletion(wp.id);

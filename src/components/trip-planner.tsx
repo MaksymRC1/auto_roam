@@ -7,6 +7,7 @@ import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { OnboardingTour } from "./onboarding-tour";
+import { TabletOnboardingTour } from "./tablet-onboarding-tour";
 import { LeftPlaceholder } from "./left-placeholder";
 import { FuelPanel } from "./panels/fuel-panel";
 import { HotelPanel, Stay22Map } from "./panels/hotel-panel";
@@ -23,7 +24,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -181,7 +182,8 @@ export function TripPlanner() {
 
   return (
     <>
-
+      <OnboardingTour />
+      <TabletOnboardingTour />
 
       {!isCalculated ? (
         <div className="flex-grow flex flex-col items-center justify-center md:justify-start lg:justify-center pt-24 md:pt-[100px] lg:pt-24 pb-12 px-4 md:px-8 w-full max-w-[1280px] mx-auto min-h-[calc(100vh-80px)]">
@@ -343,7 +345,7 @@ export function TripPlanner() {
                 </TabsList>
               </Tabs>
 
-              <Card className="flex-1 overflow-hidden flex flex-col relative bg-black/40 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl text-white">
+              <Card id="desktop-tour-map" className="flex-1 overflow-hidden flex flex-col relative bg-black/40 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl text-white">
                 {/* Map Sliding Panel on Mobile / Absolute overlay on Desktop */}
                 <div className={`
                   transition-all duration-300
@@ -366,9 +368,10 @@ export function TripPlanner() {
                 </div>
                 
                 {/* Timeline is always rendered. On Desktop it visually hides when map is active. On mobile it's always the background. */}
-                <div className={`relative z-10 flex flex-col h-full bg-black/60 md:bg-transparent transition-opacity duration-300 ${
-                  leftView === 'map' ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'
-                }`}>
+                <div className="w-full flex-1 flex flex-col md:overflow-hidden relative bg-black/60 md:bg-transparent">
+                  <div className={`relative z-10 flex flex-col h-full bg-black/60 md:bg-transparent transition-opacity duration-300 ${
+                    leftView === 'map' ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'
+                  }`}>
                   <div className="p-5 border-b border-white/10 bg-black/20 shrink-0 flex items-start justify-between">
                     <div>
                       <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
@@ -499,33 +502,7 @@ export function TripPlanner() {
                                     </div>
                                   )}
 
-                                  {isBorder && wp.fromCountry && wp.toCountry && !isSchengenPair(wp.fromCountry, wp.toCountry) && (
-                                    <div className="mt-2">
-                                      <Select 
-                                        value={wp.borderId || ""}
-                                        onValueChange={(val) => {
-                                          const crossings = getBorderCrossings(wp.fromCountry!, wp.toCountry!);
-                                          const selected = crossings.find(c => c.id === val);
-                                          if (selected) {
-                                            insertBorderStop(selected, wp.distanceFromStart);
-                                          }
-                                        }}
-                                      >
-                                        <SelectTrigger className="w-full text-xs">
-                                          <span className="line-clamp-1 flex-1 text-left">
-                                            {wp.borderId 
-                                              ? getBorderCrossings(wp.fromCountry!, wp.toCountry!).find(c => c.id === wp.borderId)?.name || "Пункт пропуску"
-                                              : "Змінити пункт пропуску"}
-                                          </span>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                          {getBorderCrossings(wp.fromCountry!, wp.toCountry!).map(c => (
-                                            <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
-                                          ))}
-                                        </SelectContent>
-                                      </Select>
-                                    </div>
-                                  )}
+
                                 </div>
                               </div>
                             </div>
@@ -553,6 +530,7 @@ export function TripPlanner() {
 
                     </div>
                   </div>
+                </div>
               </Card>
             </div>
 
@@ -560,13 +538,13 @@ export function TripPlanner() {
             <div className="hidden md:flex relative w-full md:w-1/2 flex-col gap-4 overflow-y-auto pr-2 pb-10 md:pb-0">
               
               {/* Desktop Input */}
-              <Card className="relative z-10 flex flex-col p-5 shrink-0 bg-black/40 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl text-white">
+              <Card id="desktop-tour-search" className="relative z-10 flex flex-col p-5 shrink-0 bg-black/40 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl text-white">
                 <h3 className="font-semibold text-white mb-4">Параметри маршруту</h3>
                 <StopsInput idPrefix="desktop-stops" />
               </Card>
 
               {/* Smart Panels Accordion List */}
-              <div className="flex-1 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl overflow-hidden text-white">
+              <div id="desktop-tour-panels" className="flex-1 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl overflow-hidden text-white">
                 <AccordionPanels />
               </div>
             </div>
@@ -796,7 +774,7 @@ function AccordionPanels() {
     >
                   <AccordionItem value="fuel" className="hidden md:block border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full pr-4 gap-1 text-left">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full sm:pr-0 gap-2 text-left">
                         <div className="flex items-center gap-3 text-base">
                           <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
                             <Fuel className="w-4 h-4" />
@@ -809,7 +787,7 @@ function AccordionPanels() {
                           )}
                         </div>
                         {totalDistance > 0 && (
-                          <span className="text-sm font-normal text-white/80 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full ml-11 sm:ml-0 w-fit">
+                          <span className="text-sm font-normal text-white/80 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full mt-2 sm:mt-0 whitespace-nowrap w-fit">
                             {totalDistance} км {totalFuelCost > 0 ? `• ${currencySymbol} ${totalFuelCost}` : ''}
                           </span>
                         )}
@@ -820,24 +798,7 @@ function AccordionPanels() {
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="hotel" className="border-b border-white/10 px-2">
-                    <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
-                      <div className="flex items-center gap-3 text-base">
-                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
-                          <Bed className="w-4 h-4" />
-                        </div>
-                        <span className="font-semibold">Ночівля та зупинки</span>
-                        {needsHotel && (
-                          <span className="flex items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
-                            <AlertCircle className="w-3 h-3" />
-                          </span>
-                        )}
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <HotelPanel />
-                    </AccordionContent>
-                  </AccordionItem>
+                  {/* Ночівля прибрана згідно побажань */}
 
                   <AccordionItem value="insurance" className="border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
@@ -856,14 +817,6 @@ function AccordionPanels() {
                     <AccordionContent className="px-4 pb-4">
                       <div className="flex flex-col gap-6">
                         <InsurancePanel />
-                        <div className="h-px bg-white/10 my-2" />
-                        <div className="space-y-3">
-                          <h4 className="text-sm font-semibold text-white/90 flex items-center gap-2">
-                            <Flag className="w-4 h-4 text-blue-400" />
-                            Віньєтки та митні пункти
-                          </h4>
-                          <BordersPanel />
-                        </div>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -963,31 +916,31 @@ function HotelOverrideInputs({
   };
 
   return (
-    <div className="w-full flex flex-col gap-1">
-      <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center w-full">
-        <div className="flex-1 relative w-full">
-          <input 
-            type="text" 
-            placeholder="🏨 Додайте адресу..." 
-            className="w-full text-xs p-2.5 pr-8 border rounded-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 relative z-10"
-            value={url}
-            autoComplete="off"
-            onChange={(e) => { setUrl(e.target.value); setErrorMsg(''); }}
-            disabled={isSaving}
-          />
-          {url && url.startsWith('http') && (
-            <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors z-20" title="Відкрити посилання">
-              ↗
-            </a>
-          )}
-        </div>
-        <div className="flex items-center gap-2 mt-2 sm:mt-0">
+    <div className="w-full flex flex-col gap-2.5">
+      <div className="relative w-full">
+        <input 
+          type="text" 
+          placeholder="🏨 Додайте адресу..." 
+          className="w-full text-xs p-2.5 pr-8 border rounded-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 relative z-10"
+          value={url}
+          autoComplete="off"
+          onChange={(e) => { setUrl(e.target.value); setErrorMsg(''); }}
+          disabled={isSaving}
+        />
+        {url && url.startsWith('http') && (
+          <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors z-20" title="Відкрити посилання">
+            ↗
+          </a>
+        )}
+      </div>
+      <div className="flex items-center justify-between gap-2 w-full">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
           <span className="text-xs text-white/50 whitespace-nowrap">Ціна:</span>
-          <div className="relative flex items-center">
+          <div className="relative flex items-center flex-1 h-9">
             <input 
               type="number" 
               placeholder="0" 
-              className="w-20 text-xs p-2.5 pr-1 border rounded-l-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="w-full min-w-0 h-full text-xs px-3 border rounded-l-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               disabled={isSaving}

@@ -83,11 +83,11 @@ export function BudgetPanel() {
         
         <div className="space-y-4">
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 shrink-0">
                 <Fuel className="w-4 h-4" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1 pr-2">
                 <p className="font-semibold text-white/90">Паливо</p>
                 {totalFuelLiters === 0 ? (
                   <p className="text-xs text-amber-500 mt-0.5 flex items-center gap-1 font-medium">
@@ -99,15 +99,15 @@ export function BudgetPanel() {
                 )}
               </div>
             </div>
-            <span className="font-bold text-white/90">{formatCost(totalFuelCostEur)}</span>
+            <span className="font-bold text-white/90 shrink-0 whitespace-nowrap">{formatCost(totalFuelCostEur)}</span>
           </div>
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 shrink-0">
                 <Bed className="w-4 h-4" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1 pr-2">
                 <p className="font-semibold text-white/90">Ночівля</p>
                 <p className="text-xs text-white/50">{stopsCount} {
                   stopsCount % 10 === 1 && stopsCount % 100 !== 11 ? 'зупинка' :
@@ -115,28 +115,28 @@ export function BudgetPanel() {
                 }</p>
               </div>
             </div>
-            <span className="font-bold text-white/90">{formatCost(hotelCostEur)}</span>
+            <span className="font-bold text-white/90 shrink-0 whitespace-nowrap">{formatCost(hotelCostEur)}</span>
           </div>
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 shrink-0">
                 <Flag className="w-4 h-4" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1 pr-2">
                 <p className="font-semibold text-white/90">Віньєтки та збори</p>
                 <p className="text-xs text-white/50">Оплата платних доріг</p>
               </div>
             </div>
-            <span className="font-bold text-white/90">{formatCost(vignetteCostEur)}</span>
+            <span className="font-bold text-white/90 shrink-0 whitespace-nowrap">{formatCost(vignetteCostEur)}</span>
           </div>
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 shrink-0">
                 <ShieldCheck className="w-4 h-4" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1 pr-2">
                 <p className="font-semibold text-white/90">Страхування</p>
                 <p className="text-xs text-white/50">Сума у {currency}</p>
               </div>

@@ -63,19 +63,15 @@ export function Footer({ onOpenRating }: FooterProps) {
             <>
               {/* Invisible backdrop to close popover on click outside */}
               <div
-                className="fixed inset-0 z-[70] cursor-default pointer-events-auto bg-transparent"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setIsContactOpen(false);
-                }}
+                className="fixed inset-0 w-screen h-screen z-[70] bg-black/0 cursor-default pointer-events-auto"
+                onClick={() => setIsContactOpen(false)}
               />
               <div
                 className="fixed bottom-14 right-8 w-[220px] rounded-2xl shadow-2xl p-4 flex flex-col gap-3 z-[110] animate-in slide-in-from-bottom-2 fade-in duration-200 pointer-events-auto"
                 style={{
-                  background: "rgba(15, 23, 42, 0.95)",
-                  backdropFilter: "blur(24px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  background: "rgba(0, 0, 0, 0.45)",
+                  backdropFilter: "blur(16px)",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
                 }}
               >
                 <div className="flex justify-between items-center mb-1">

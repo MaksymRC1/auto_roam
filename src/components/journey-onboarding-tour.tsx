@@ -12,52 +12,41 @@ interface TourStep {
 
 const steps: TourStep[] = [
   {
-    title: "Карта та Хронологія",
-    description: "Перемикайтеся між картою та детальним списком вашого маршруту.",
-    targetId: "tour-step-view"
+    title: "Відмітки маршруту",
+    description: "Натискайте на картки зупинок, щоб відмітити їх як пройдені, або переходьте до навігаторів.",
+    targetId: "journey-tour-waypoint"
   },
   {
-    title: "Параметри маршруту",
-    description: "Додавайте або редагуйте зупинки, заправки та місця для відпочинку.",
-    targetId: "tour-step-stops"
+    title: "Поділитися поїздкою",
+    description: "Збережіть поточний стан маршруту та відправте посилання своїм друзям або в інший браузер.",
+    targetId: "journey-tour-share"
   },
   {
-    title: "Страхування та віньєтки",
-    description: "Додайте вартість зеленої карти та дорожніх зборів для точного кошторису.",
-    targetId: "tour-step-insurance"
-  },
-  {
-    title: "Розрахунок палива",
-    description: "Вкажіть витрату палива та налаштуйте його тип для подорожі.",
-    targetId: "tour-step-fuel"
-  },
-  {
-    title: "Загальний кошторис",
-    description: "Контролюйте всі витрати: паливо, готелі та додаткові збори в одному місці.",
-    targetId: "tour-step-budget"
+    title: "Підтримати розробників",
+    description: "Сподобався додаток? Ви можете залишити відгук та підтримати нашу роботу.",
+    targetId: "journey-tour-support"
   }
 ];
 
-export function OnboardingTour() {
-  const { isCalculated, hasSeenOnboarding, setHasSeenOnboarding } = useTripStore();
+export function JourneyOnboardingTour() {
+  const { isCalculated, hasSeenJourneyOnboarding, setHasSeenJourneyOnboarding } = useTripStore();
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
   
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (isCalculated && !hasSeenOnboarding && !isActive && isMobile) {
+    // Only trigger if we have some data and haven't seen it yet
+    if (isCalculated && !hasSeenJourneyOnboarding && !isActive) {
       const timer = setTimeout(() => {
         setIsActive(true);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [isCalculated, hasSeenOnboarding, isActive]);
+  }, [isCalculated, hasSeenJourneyOnboarding, isActive]);
 
   // Lock scroll before and during the tour
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (isCalculated && !hasSeenOnboarding && isMobile) {
+    if (isCalculated && !hasSeenJourneyOnboarding) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = "hidden";
       
@@ -72,16 +61,39 @@ export function OnboardingTour() {
         document.removeEventListener("touchmove", preventDefault);
       };
     }
-  }, [isCalculated, hasSeenOnboarding]);
+  }, [isCalculated, hasSeenJourneyOnboarding]);
 
   useEffect(() => {
     if (!isActive) return;
     
     const updatePosition = () => {
-      const targetId = steps[currentStep].targetId;
-      const element = document.getElementById(targetId);
+      // Find the first valid step that exists in the DOM. 
+      // Useful if e.g. there is no waypoint index 1.
+      let targetId = steps[currentStep].targetId;
+      let element = document.getElementById(targetId);
+      
+      // Fallback: If waypoint is missing, skip to next step
+      if (!element && currentStep === 0) {
+          handleNext();
+          return;
+      }
+
       if (element) {
-        setTargetRect(element.getBoundingClientRect());
+        // We use getBoundingClientRect, but we should make sure we're getting the visible part
+        // Since scrolling is locked, getBoundingClientRect is safe.
+        const rect = element.getBoundingClientRect();
+        setTargetRect(rect);
+        
+        // Ensure the element is visible on screen if it's offscreen
+        // Only doing this smoothly so the user can see what is being highlighted
+        if (rect.top < 0 || rect.bottom > window.innerHeight) {
+             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+             // We'll update the rect again after scrolling
+             setTimeout(() => {
+                 const newRect = element?.getBoundingClientRect();
+                 if (newRect) setTargetRect(newRect);
+             }, 500);
+        }
       }
     };
     
@@ -116,7 +128,7 @@ export function OnboardingTour() {
 
   const finishTour = () => {
     setIsActive(false);
-    setHasSeenOnboarding(true);
+    setHasSeenJourneyOnboarding(true);
   };
 
   const step = steps[currentStep];
@@ -126,7 +138,7 @@ export function OnboardingTour() {
   const winInnerWidth = typeof window !== 'undefined' ? window.innerWidth : 375;
 
   return (
-    <div className="fixed inset-0 z-[60] pointer-events-none md:hidden">
+    <div className="fixed inset-0 z-[60] pointer-events-none">
       {/* Dimmed background. pointer-events-auto makes it block interactions while touring. */}
       <div 
         className="absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 pointer-events-auto"
@@ -136,12 +148,13 @@ export function OnboardingTour() {
       {/* Spotlight highlight over the target button */}
       {targetRect && (
         <div 
-          className="absolute rounded-full border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-300 ease-out pointer-events-none z-[61] bg-white/10"
+          className="absolute rounded-3xl border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-300 ease-out pointer-events-none z-[61] bg-white/10"
           style={{
-            top: targetRect.top - 4,
-            left: targetRect.left - 4,
-            width: targetRect.width + 8,
-            height: targetRect.height + 8,
+            top: targetRect.top - 8,
+            left: targetRect.left - 8,
+            width: targetRect.width + 16,
+            height: targetRect.height + 16,
+            borderRadius: currentStep === 0 ? '24px' : '9999px', // pills/cards vs circles
           }}
         />
       )}
@@ -157,13 +170,14 @@ export function OnboardingTour() {
             fontFamily: "var(--font-geologica), sans-serif",
             // Position above or below depending on target position
             ...(targetRect.top > winInnerHeight / 2 
-              ? { bottom: winInnerHeight - targetRect.top + 16 } 
-              : { top: targetRect.bottom + 16 }
+              ? { bottom: winInnerHeight - targetRect.top + 20 } 
+              : { top: targetRect.bottom + 20 }
             ),
+            // Center horizontally based on the target, but keep within screen bounds
             left: Math.min(Math.max(16, targetRect.left + targetRect.width / 2 - 140), winInnerWidth - 296)
           }}
         >
-          {/* Arrow pointing to the button */}
+          {/* Arrow pointing to the target */}
           <div 
             className={`absolute w-4 h-4 rotate-45 border-white/15 shadow-sm ${targetRect.top > winInnerHeight / 2 ? '-bottom-2 border-r border-b' : '-top-2 border-l border-t'}`}
             style={{
@@ -209,7 +223,7 @@ export function OnboardingTour() {
               </button>
               <button 
                 onClick={handleNext}
-                className="px-4 h-8 rounded-full bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs shadow-lg transition-transform active:scale-[0.98] focus:outline-none flex items-center justify-center"
+                className="px-4 h-8 rounded-full bg-white text-black font-semibold text-xs hover:bg-white/90 transition-colors focus:outline-none"
               >
                 {currentStep === steps.length - 1 ? "Готово" : "Далі"}
               </button>

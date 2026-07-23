@@ -6,6 +6,7 @@ import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Tr
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
+import { OnboardingTour } from "./onboarding-tour";
 import { LeftPlaceholder } from "./left-placeholder";
 import { FuelPanel } from "./panels/fuel-panel";
 import { HotelPanel, Stay22Map } from "./panels/hotel-panel";
@@ -238,6 +239,7 @@ export function TripPlanner() {
               
               {/* Toggle Map / Timeline */}
               <button 
+                id="tour-step-view"
                 onClick={() => setLeftView(leftView === 'timeline' ? 'map' : 'timeline')} 
                 className="relative flex items-center justify-center w-10 h-10 outline-none group"
                 title={leftView === 'timeline' ? "Показати карту" : "Показати хронологію"}
@@ -252,7 +254,7 @@ export function TripPlanner() {
               
               {/* Route (Stops) Sheet */}
               <Sheet key="mobile-stops-sheet">
-                <SheetTrigger render={<button onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
+                <SheetTrigger render={<button id="tour-step-stops" onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenStops && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
@@ -277,7 +279,7 @@ export function TripPlanner() {
 
               {/* Insurance & Vignettes Sheet */}
               <Sheet key="mobile-insurance-sheet" open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
-                <SheetTrigger render={<button onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
+                <SheetTrigger render={<button id="tour-step-insurance" onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenInsurance && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
@@ -302,7 +304,7 @@ export function TripPlanner() {
 
               {/* General Cost/Budget Sheet */}
               <Sheet key="mobile-budget-sheet">
-                <SheetTrigger render={<button onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
+                <SheetTrigger render={<button id="tour-step-budget" onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenBudget && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
@@ -744,6 +746,10 @@ export function TripPlanner() {
           </div>
         </DialogContent>
       </Dialog>
+      {/* Mobile Onboarding Tour */}
+      <div className="md:hidden">
+        <OnboardingTour />
+      </div>
     </>
   );
 }

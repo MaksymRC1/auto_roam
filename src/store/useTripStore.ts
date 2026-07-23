@@ -128,6 +128,9 @@ interface TripState {
   getRawShareData: () => any;
   loadFromShareData: (data: string) => void;
   loadFromRawData: (data: any) => void;
+
+  hasSeenOnboarding: boolean;
+  setHasSeenOnboarding: (val: boolean) => void;
 }
 
 // Race condition guard: incremented on each calculateRoute call
@@ -145,6 +148,8 @@ export const useTripStore = create<TripState>()(
   error: null,
   totalDistance: 0,
   totalDuration: 0,
+  hasSeenOnboarding: false,
+  setHasSeenOnboarding: (val: boolean) => set({ hasSeenOnboarding: val }),
   updateWaypoint: (id, updates) => set(state => ({
     waypoints: state.waypoints.map(wp => wp.id === id ? { ...wp, ...updates } : wp)
   })),
@@ -239,7 +244,7 @@ export const useTripStore = create<TripState>()(
     // Race condition guard
     const thisRequestId = ++calculateRequestId;
 
-    set({ isLoading: true, error: null, ignoredWaypoints: [] });
+    set({ isLoading: true, error: null, ignoredWaypoints: [], hotelOverrides: {} });
 
     try {
       // 1. Geocode cities in parallel

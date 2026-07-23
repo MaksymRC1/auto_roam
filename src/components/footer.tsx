@@ -79,6 +79,8 @@ export function Footer({ onOpenRating }: FooterProps) {
               <div
                 className="fixed inset-0 w-screen h-screen z-[70] bg-black/0 cursor-default pointer-events-auto"
                 onClick={() => setIsContactOpen(false)}
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
               />
               <div
                 className="fixed bottom-14 right-8 w-[220px] rounded-2xl shadow-2xl p-4 flex flex-col gap-3 z-[110] animate-in slide-in-from-bottom-2 fade-in duration-200 pointer-events-auto"

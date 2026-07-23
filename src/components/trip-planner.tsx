@@ -458,14 +458,23 @@ export function TripPlanner() {
                                   )}
                                   {wp.lat && wp.lon && (!isHotel || (isHotel && hotelOverrides[wp.id]?.lat)) && (
                                     <div className="flex gap-2 mt-2 pt-2 border-t border-white/10 items-center w-full">
-                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="flex-1 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-2 active:scale-[0.98]" title="Waze">
-                                        <WazeIcon className="w-4 h-4" />
-                                        Waze
-                                      </a>
-                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="flex-1 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-2 active:scale-[0.98]" title="Google Maps">
-                                        <GoogleMapsIcon className="w-4 h-4" />
-                                        Maps
-                                      </a>
+                                      {(() => {
+                                        const destName = isHotel && hotelOverrides[wp.id]?.address 
+                                          ? hotelOverrides[wp.id].address 
+                                          : wp.name;
+                                        return (
+                                          <>
+                                            <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="flex-1 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-2 active:scale-[0.98]" title="Waze">
+                                              <WazeIcon className="w-4 h-4" />
+                                              Waze
+                                            </a>
+                                            <a href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destName || '')}&travelmode=driving`} target="_blank" rel="noreferrer" className="flex-1 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-2 rounded-lg text-xs font-medium flex items-center justify-center gap-2 active:scale-[0.98]" title="Google Maps">
+                                              <GoogleMapsIcon className="w-4 h-4" />
+                                              Maps
+                                            </a>
+                                          </>
+                                        );
+                                      })()}
                                       {isBorder && (
                                         <button 
                                           onClick={(e) => {

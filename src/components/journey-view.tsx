@@ -291,8 +291,11 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
               const isBorder = wp.type === 'border';
               const isCompleted = completedWaypoints.includes(wp.id);
               
-              const mapQuery = wp.lat && wp.lon ? `${wp.lat},${wp.lon}` : wp.name;
-              const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+              const destName = isHotel && hotelOverrides[wp.id]?.address 
+                ? hotelOverrides[wp.id].address 
+                : wp.name;
+              
+              const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destName || '')}&travelmode=driving`;
               const wazeUrl = wp.lat && wp.lon ? `https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes` : `https://waze.com/ul?q=${encodeURIComponent(wp.name)}&navigate=yes`;
 
               return (

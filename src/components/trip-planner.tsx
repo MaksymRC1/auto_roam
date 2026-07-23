@@ -369,18 +369,18 @@ export function TripPlanner() {
                   <div className="p-5 border-b border-white/10 bg-black/20 shrink-0 flex items-start justify-between">
                     <div>
                       <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
-                      <p className="text-sm font-medium text-blue-300 mt-1">
+                      <p className="text-sm font-medium text-white/60 mt-1">
                         {totalDistance} км • ~{formatTime(totalDuration)}
                       </p>
                     </div>
                     <button 
-                      className="md:hidden p-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 transition-colors flex items-center justify-center relative focus:outline-none"
+                      className="md:hidden p-2.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors flex items-center justify-center relative focus:outline-none"
                       onClick={() => setIsMobileFuelOpen(true)}
                       title="Розрахунок палива"
                     >
                       <Fuel className="w-5 h-5" />
                       {needsFuel && (
-                        <span className="absolute top-0 right-0 w-3 h-3 bg-amber-500 rounded-full border-2 border-[#131620]"></span>
+                        <span className="absolute top-0 right-0 w-3 h-3 bg-white rounded-full border-2 border-[#131620]"></span>
                       )}
                     </button>
                   </div>
@@ -415,7 +415,7 @@ export function TripPlanner() {
                                 )}
                               </div>
                               
-                              <div className={`flex-1 ml-4 bg-white/10 backdrop-blur-md p-3 rounded-lg border shadow-sm transition-all relative ${completedWaypoints.includes(wp.id) ? 'border-emerald-500/50 opacity-60' : 'border-white/10 group-hover:border-white/30'}`}>
+                              <div className={`flex-1 ml-4 bg-white/10 backdrop-blur-md p-3 rounded-lg border shadow-sm transition-all relative ${completedWaypoints.includes(wp.id) ? 'border-white/20 opacity-60' : 'border-white/10 group-hover:border-white/30'}`}>
                                 {!isStart && !isFinish && !isFuel && (
                                   <button 
                                     onClick={() => {
@@ -443,14 +443,14 @@ export function TripPlanner() {
                                     </span>
                                   )}
                                   {isStart && (
-                                    <span className="text-xs text-emerald-400 font-medium mt-1">Точка відправлення</span>
+                                    <span className="text-xs text-white/60 font-medium mt-1">Точка відправлення</span>
                                   )}
                                   {wp.lat && wp.lon && (!isHotel || (isHotel && hotelOverrides[wp.id]?.lat)) && (
                                     <div className="flex gap-2 mt-2 pt-2 border-t border-white/10 items-center">
-                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-blue-300 bg-blue-900/30 px-2 py-1 rounded hover:bg-blue-900/50 font-medium flex items-center gap-1 transition-colors border border-blue-800/50">
+                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1 transition-colors border border-white/10">
                                         <Navigation2 className="w-3 h-3" /> Waze
                                       </a>
-                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-emerald-300 bg-emerald-900/30 px-2 py-1 rounded hover:bg-emerald-900/50 font-medium flex items-center gap-1 transition-colors border border-emerald-800/50">
+                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1 transition-colors border border-white/10">
                                         <MapPin className="w-3 h-3" /> Maps
                                       </a>
                                       {isBorder && (
@@ -461,8 +461,8 @@ export function TripPlanner() {
                                           }}
                                           className={
                                             wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry)
-                                              ? "text-blue-300 bg-blue-900/30 p-1.5 rounded hover:bg-blue-900/50 flex items-center justify-center transition-colors border border-blue-800/50 ml-auto"
-                                              : "text-amber-300 bg-amber-900/30 p-1.5 rounded hover:bg-amber-900/50 flex items-center justify-center transition-colors border border-amber-800/50 ml-auto"
+                                              ? "text-white/80 bg-white/5 p-1.5 rounded hover:bg-white/10 flex items-center justify-center transition-colors border border-white/10 ml-auto"
+                                              : "text-white/80 bg-white/5 p-1.5 rounded hover:bg-white/10 flex items-center justify-center transition-colors border border-white/10 ml-auto"
                                           }
                                           title="Інформація про пункт пропуску"
                                         >
@@ -488,7 +488,7 @@ export function TripPlanner() {
                                       />
                                       <button
                                         onClick={() => setSelectedStay22Id(wp.id)}
-                                        className="w-full mt-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors py-1.5 rounded-lg text-[11px] font-medium flex items-center justify-center gap-1.5"
+                                        className="w-full mt-1 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-1.5 rounded-lg text-[11px] font-medium flex items-center justify-center gap-1.5"
                                       >
                                         <MapPin className="w-3.5 h-3.5" /> Знайти готелі на мапі
                                       </button>

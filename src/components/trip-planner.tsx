@@ -761,6 +761,7 @@ function AccordionPanels() {
   const needsFuel = totalDistance > 0 && totalFuelCost === 0 && !viewedPanels.includes('fuel');
   const needsHotel = totalDuration > 480;
   const needsBorders = crossedCountries.length > 1 && !viewedPanels.includes('insurance');
+  const needsBudget = (needsFuel || needsBorders || needsHotel) && !viewedPanels.includes('budget');
 
   return (
     <Accordion 
@@ -776,23 +777,23 @@ function AccordionPanels() {
     >
                   <AccordionItem value="fuel" className="hidden md:block border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full sm:pr-0 gap-2 text-left">
-                        <div className="flex items-center gap-3 text-base min-w-0">
-                          <div className="w-8 h-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
-                            <Fuel className="w-4 h-4" />
-                          </div>
-                          <span className="font-semibold whitespace-nowrap truncate">Розрахунок палива</span>
+                      <div className="flex items-center gap-3 w-full pr-2">
+                        <div className="w-8 h-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
+                          <Fuel className="w-4 h-4" />
+                        </div>
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-left flex-1 min-w-0">
+                          <span className="font-semibold text-base leading-tight">Розрахунок палива</span>
                           {needsFuel && (
-                            <span className="flex shrink-0 items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
-                              <AlertCircle className="w-3 h-3" />
+                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title="Потребує уваги">
+                              <AlertCircle className="w-3.5 h-3.5" />
+                            </span>
+                          )}
+                          {totalDistance > 0 && (
+                            <span className="text-xs font-medium text-white/80 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full whitespace-nowrap">
+                              {totalDistance} км {totalFuelCost > 0 ? `• ${currencySymbol} ${totalFuelCost}` : ''}
                             </span>
                           )}
                         </div>
-                        {totalDistance > 0 && (
-                          <span className="text-sm shrink-0 font-normal text-white/80 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full mt-2 sm:mt-0 whitespace-nowrap w-fit">
-                            {totalDistance} км {totalFuelCost > 0 ? `• ${currencySymbol} ${totalFuelCost}` : ''}
-                          </span>
-                        )}
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
@@ -804,16 +805,18 @@ function AccordionPanels() {
 
                   <AccordionItem value="insurance" className="border-b border-white/10 px-2">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
-                      <div className="flex items-center gap-3 text-base">
-                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
+                      <div className="flex items-center gap-3 w-full pr-2">
+                        <div className="w-8 h-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
                           <ShieldCheck className="w-4 h-4" />
                         </div>
-                        <span className="font-semibold">Страхування та віньєтки</span>
-                        {needsBorders && (
-                          <span className="flex items-center gap-1 text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 shadow-sm ml-1" title="Потребує уваги">
-                            <AlertCircle className="w-3 h-3" />
-                          </span>
-                        )}
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-left flex-1 min-w-0">
+                          <span className="font-semibold text-base leading-tight">Страхування та віньєтки</span>
+                          {needsBorders && (
+                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title="Потребує уваги">
+                              <AlertCircle className="w-3.5 h-3.5" />
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
@@ -825,11 +828,18 @@ function AccordionPanels() {
 
                   <AccordionItem value="budget" className="px-2 border-none">
                     <AccordionTrigger className="hover:no-underline px-4 py-4 data-[state=open]:text-blue-300 group">
-                      <div className="flex items-center gap-3 text-base">
-                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
+                      <div className="flex items-center gap-3 w-full pr-2">
+                        <div className="w-8 h-8 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-data-[state=open]:text-blue-400 group-data-[state=open]:bg-blue-500/10 group-data-[state=open]:border-blue-500/20 transition-colors">
                           <Wallet className="w-4 h-4" />
                         </div>
-                        <span className="font-semibold">Загальний кошторис</span>
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-left flex-1 min-w-0">
+                          <span className="font-semibold text-base leading-tight">Загальний кошторис</span>
+                          {needsBudget && (
+                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title="Потребує уваги">
+                              <AlertCircle className="w-3.5 h-3.5" />
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">

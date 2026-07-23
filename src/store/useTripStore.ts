@@ -136,6 +136,8 @@ interface TripState {
   setHasSeenJourneyOnboarding: (val: boolean) => void;
   hasSeenTabletOnboarding: boolean;
   setHasSeenTabletOnboarding: (val: boolean) => void;
+  hasSeenDesktopOnboarding: boolean;
+  setHasSeenDesktopOnboarding: (val: boolean) => void;
 }
 
 // Race condition guard: incremented on each calculateRoute call
@@ -159,6 +161,8 @@ export const useTripStore = create<TripState>()(
   setHasSeenJourneyOnboarding: (val: boolean) => set({ hasSeenJourneyOnboarding: val }),
   hasSeenTabletOnboarding: false,
   setHasSeenTabletOnboarding: (val: boolean) => set({ hasSeenTabletOnboarding: val }),
+  hasSeenDesktopOnboarding: false,
+  setHasSeenDesktopOnboarding: (val: boolean) => set({ hasSeenDesktopOnboarding: val }),
   updateWaypoint: (id, updates) => set(state => ({
     waypoints: state.waypoints.map(wp => wp.id === id ? { ...wp, ...updates } : wp)
   })),
@@ -680,6 +684,7 @@ export const useTripStore = create<TripState>()(
         hasSeenOnboarding: state.hasSeenOnboarding,
         hasSeenJourneyOnboarding: state.hasSeenJourneyOnboarding,
         hasSeenTabletOnboarding: state.hasSeenTabletOnboarding,
+        hasSeenDesktopOnboarding: state.hasSeenDesktopOnboarding,
       }),
     }
   )

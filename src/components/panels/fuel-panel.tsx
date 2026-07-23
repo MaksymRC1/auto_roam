@@ -20,7 +20,7 @@ export function FuelPanel() {
   
   const [isFocused, setIsFocused] = useState(false);
   const [isAnyAmountFocused, setIsAnyAmountFocused] = useState(false);
-  const lastToastTime = useRef(0);
+
 
   // Fetch real exchange rates on mount
   useEffect(() => {
@@ -51,66 +51,69 @@ export function FuelPanel() {
     const selectedCountries = Object.keys(nextAmounts);
     if (selectedCountries.length === 0) return nextAmounts;
 
-    let cheapestSelected = selectedCountries[0];
-    let minPrice = Infinity;
-    selectedCountries.forEach(c => {
-      const price = fuelPrices[c]?.[selectedFuelType];
-      if (price !== undefined && price > 0 && price < minPrice) {
-        minPrice = price;
-        cheapestSelected = c;
-      }
-    });
-
-    const isNewToggle = nextAmounts[activeCode] === "";
-
-    if ((activeCode !== cheapestSelected || isNewToggle) && nextAmounts[cheapestSelected] !== undefined) {
-      let sumOthers = 0;
-      Object.entries(nextAmounts).forEach(([k, v]) => {
-        if (k !== cheapestSelected) {
-          sumOthers += parseFloat(v) || 0;
-        }
-      });
-      
-      const numericC = parseFloat(consumption) || 0;
-      const cFuel = Math.round(((totalDistance / 100) * numericC) * FUEL_BUFFER_RATIO);
-      
-      const newCheapestAmount = Math.max(0, cFuel - sumOthers);
-      nextAmounts[cheapestSelected] = (Math.round(newCheapestAmount * 10) / 10).toString();
-    }
-
-    // Final validation to prevent exceeding total calculated fuel
-    let finalSum = 0;
-    Object.values(nextAmounts).forEach(v => finalSum += parseFloat(v) || 0);
-    
     const numericC = parseFloat(consumption) || 0;
     const cFuel = Math.round(((totalDistance / 100) * numericC) * FUEL_BUFFER_RATIO);
-    
-    if (finalSum > cFuel + 0.1) {
-      // Revert the excess from the activeCode that caused it
-      let sumWithoutActive = 0;
-      Object.entries(nextAmounts).forEach(([k, v]) => {
-        if (k !== activeCode) sumWithoutActive += parseFloat(v) || 0;
+
+    // Parse all amounts, cap active code at cFuel if it exceeds
+    let activeVal = parseFloat(nextAmounts[activeCode]) || 0;
+    if (activeVal > cFuel) {
+      activeVal = cFuel;
+      nextAmounts[activeCode] = activeVal.toString();
+    }
+
+    let sum = 0;
+    const amounts: Record<string, number> = {};
+    selectedCountries.forEach(c => {
+      const v = parseFloat(nextAmounts[c]) || 0;
+      amounts[c] = v;
+      sum += v;
+    });
+
+    if (Math.abs(sum - cFuel) < 0.1) {
+      return nextAmounts; // already balanced
+    }
+
+    const otherCountries = selectedCountries.filter(c => c !== activeCode);
+
+    if (sum > cFuel) {
+      // Need to reduce other countries. Start with the most expensive.
+      let excess = sum - cFuel;
+      const sortedOthersDesc = [...otherCountries].sort((a, b) => {
+        const priceA = fuelPrices[a]?.[selectedFuelType] || 0;
+        const priceB = fuelPrices[b]?.[selectedFuelType] || 0;
+        return priceB - priceA;
       });
-      
-      const maxAllowed = Math.max(0, cFuel - sumWithoutActive);
-      nextAmounts[activeCode] = (Math.round(maxAllowed * 10) / 10).toString();
-      
-      // Throttle toast to once every 3 seconds
-      const now = Date.now();
-      if (now - lastToastTime.current > 3000) {
-        lastToastTime.current = now;
-        // Dynamic import to avoid SSR issues
-        import('izitoast').then((module) => {
-          const iziToast = module.default;
-          iziToast.warning({
-            title: 'Увага',
-            message: 'Неможливо додати палива більше, ніж потрібно для маршруту',
-            position: 'topRight',
-            timeout: 3000
-          });
+
+      for (const c of sortedOthersDesc) {
+        if (excess <= 0) break;
+        const v = amounts[c];
+        if (v > 0) {
+          const reduction = Math.min(v, excess);
+          amounts[c] -= reduction;
+          excess -= reduction;
+        }
+      }
+    } else {
+      // Need to increase other countries. Give all deficit to the cheapest.
+      const deficit = cFuel - sum;
+      if (otherCountries.length > 0) {
+        const sortedOthersAsc = [...otherCountries].sort((a, b) => {
+          const priceA = fuelPrices[a]?.[selectedFuelType] || 0;
+          const priceB = fuelPrices[b]?.[selectedFuelType] || 0;
+          return priceA - priceB;
         });
+        const cheapest = sortedOthersAsc[0];
+        amounts[cheapest] += deficit;
+      } else {
+        // If there's only one country, give it all
+        amounts[activeCode] = cFuel;
       }
     }
+
+    // Convert back to strings with 1 decimal place max
+    selectedCountries.forEach(c => {
+      nextAmounts[c] = (Math.round(amounts[c] * 10) / 10).toString();
+    });
 
     return nextAmounts;
   };

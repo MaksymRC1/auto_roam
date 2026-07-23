@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface FooterProps {
   /** Optional: callback to open the rating modal from the parent page */
@@ -9,6 +9,17 @@ interface FooterProps {
 
 export function Footer({ onOpenRating }: FooterProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
+
+  useEffect(() => {
+    if (isContactOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isContactOpen]);
 
   return (
     <>

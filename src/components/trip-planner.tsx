@@ -519,7 +519,7 @@ export function TripPlanner() {
                           className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
                           title="Зберегти маршрут"
                         >
-                          <Bookmark className="w-6 h-6" />
+                          <Navigation className="w-6 h-6" />
                         </button>
                         <button 
                           onClick={handleShare}

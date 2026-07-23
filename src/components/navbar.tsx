@@ -76,7 +76,7 @@ export function Navbar() {
           className={`md:hidden absolute top-14 left-0 w-full flex flex-col items-center py-8 gap-6 shadow-2xl transition-all duration-300 origin-top z-50 ${
             isMenuOpen ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-95 pointer-events-none"
           }`} 
-          style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
+          style={{ background: "rgba(0, 0, 0, 0.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
           aria-hidden={!isMenuOpen}
         >
           <a className="text-white/90 hover:text-white font-medium text-lg" href="/articles" onClick={() => setIsMenuOpen(false)}>Статті</a>

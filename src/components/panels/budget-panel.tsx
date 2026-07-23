@@ -167,17 +167,8 @@ export function BudgetPanel() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-800 p-6 text-white flex flex-col md:flex-row md:items-center justify-between shadow-lg gap-4">
-          <div>
-            <p className="text-emerald-100 text-sm mb-1 font-medium">Разом (орієнтовно)</p>
-            <p className="text-4xl font-bold tracking-tight">{formatCost(totalEur)}</p>
-          </div>
-          <div className="flex flex-col md:items-end text-sm text-emerald-100">
-            <p className="flex justify-between w-full md:w-auto gap-4">
-              <span>Без резерву:</span> 
-              <span className="font-semibold">{formatCost(subtotalEur)}</span>
-            </p>
-          </div>
+        <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-800 p-6 text-white flex justify-center items-center shadow-lg">
+          <p className="text-5xl font-bold tracking-tight text-center">{formatCost(totalEur)}</p>
         </div>
       </div>
     </div>

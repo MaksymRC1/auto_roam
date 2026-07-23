@@ -115,10 +115,13 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
     totalFuelCostEur += amount * priceEur;
   });
 
-  const hotelCostEur = waypoints.filter(wp => wp.id.startsWith('hotel-')).reduce((sum, wp) => {
+  const hotelStops = waypoints.filter(wp => wp.id.startsWith('hotel-'));
+  const hasAnyHotelOverride = hotelStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+
+  const hotelCostEur = hotelStops.reduce((sum, wp) => {
     const override = hotelOverrides[wp.id];
     if (override && override.priceEur !== undefined) return sum + override.priceEur;
-    return sum + getHotelPrice(wp.countryCode || 'UNKNOWN');
+    return sum + (hasAnyHotelOverride ? 0 : getHotelPrice(wp.countryCode || 'UNKNOWN'));
   }, 0);
 
   const vignetteCostEur = crossedCountries.reduce((sum, code) => {

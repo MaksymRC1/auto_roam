@@ -9,7 +9,6 @@ export const CURRENCY_SYMBOLS: Record<string, string> = {
   EUR: '€',
   USD: '$',
   UAH: '₴',
-  PLN: 'zł',
 };
 
 export function getCurrencySymbol(currency: string): string {

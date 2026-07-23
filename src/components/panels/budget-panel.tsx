@@ -69,11 +69,10 @@ export function BudgetPanel() {
     <div className="flex-1 flex flex-col space-y-4">
       <div className="pb-4 border-b border-white/10 flex justify-end">
           <Tabs value={currency} onValueChange={(v) => setCurrency(v)} className="w-full md:w-[240px]">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="EUR">EUR</TabsTrigger>
               <TabsTrigger value="USD">USD</TabsTrigger>
               <TabsTrigger value="UAH">UAH</TabsTrigger>
-              <TabsTrigger value="PLN">PLN</TabsTrigger>
             </TabsList>
           </Tabs>
       </div>

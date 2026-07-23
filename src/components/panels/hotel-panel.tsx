@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
@@ -88,27 +87,24 @@ export function HotelPanel() {
           <div className="flex flex-col gap-3 pt-2">
             <div className="flex items-center gap-3">
               <Label className="text-white/70 flex-1">Зупинятися кожні (годин):</Label>
-              <Select 
+              <select 
                 value={customTime ? String(customTime / 60) : "0"} 
-                onValueChange={(val) => {
-                  const num = Number(val);
+                onChange={(e) => {
+                  const num = Number(e.target.value);
                   setHotelSettings('time', num > 0 ? num * 60 : 0, customDistance);
                 }}
+                className="w-32 bg-[#131620] border border-white/10 text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-white/30 appearance-none"
+                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(255, 255, 255, 0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9' /%3E%3C/svg%3E")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em', paddingRight: '2.5rem' }}
               >
-                <SelectTrigger className="w-32 bg-[#131620] border-white/10 text-white">
-                  <SelectValue placeholder="Без зупинок" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="0">Без зупинок</SelectItem>
-                  <SelectItem value="4">4 години</SelectItem>
-                  <SelectItem value="6">6 годин</SelectItem>
-                  <SelectItem value="8">8 годин</SelectItem>
-                  <SelectItem value="10">10 годин</SelectItem>
-                  <SelectItem value="12">12 годин</SelectItem>
-                  <SelectItem value="14">14 годин</SelectItem>
-                  <SelectItem value="16">16 годин</SelectItem>
-                </SelectContent>
-              </Select>
+                <option value="0" className="bg-[#131620]">Без зупинок</option>
+                <option value="4" className="bg-[#131620]">4 години</option>
+                <option value="6" className="bg-[#131620]">6 годин</option>
+                <option value="8" className="bg-[#131620]">8 годин</option>
+                <option value="10" className="bg-[#131620]">10 годин</option>
+                <option value="12" className="bg-[#131620]">12 годин</option>
+                <option value="14" className="bg-[#131620]">14 годин</option>
+                <option value="16" className="bg-[#131620]">16 годин</option>
+              </select>
             </div>
             <div className="flex items-center gap-3">
               <Label className="text-white/70 flex-1">Або кожні (км):</Label>

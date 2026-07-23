@@ -154,7 +154,7 @@ export const useTripStore = create<TripState>()(
   isDefaultConsumption: true,
   fuelAmounts: {},
   currency: "EUR",
-  exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08, PLN: 4.3 },
+  exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08 },
   hotelMode: 'time',
   hotelCustomTime: LONG_TRIP_THRESHOLD_MINS,
   hotelCustomDistance: 800,
@@ -427,7 +427,7 @@ export const useTripStore = create<TripState>()(
         
         const geo = await reverseGeocode(point[0], point[1]);
         const cityName = geo?.city || 'Траса';
-        const name = cityName === 'Траса' ? 'Транзитна ночівля' : `Ночівля: ${cityName}`;
+        const name = cityName === 'Траса' ? 'Зупинка' : `Ночівля: ${cityName}`;
         let countryCode = geo?.countryCode || 'UNKNOWN';
         
         const dist = state.totalDistance * ratio;
@@ -615,7 +615,7 @@ export const useTripStore = create<TripState>()(
     hotelCustomDistance: 800,
     ignoredWaypoints: [],
     currency: 'EUR',
-    exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08, PLN: 4.3 },
+    exchangeRates: { EUR: 1, UAH: 42.5, USD: 1.08 },
     insuranceCost: 0,
     includeReserve: true,
     completedWaypoints: [],

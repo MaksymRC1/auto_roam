@@ -165,7 +165,6 @@ export function FuelPanel() {
             <SelectItem value="EUR">EUR (€)</SelectItem>
             <SelectItem value="UAH">UAH (₴)</SelectItem>
             <SelectItem value="USD">USD ($)</SelectItem>
-            <SelectItem value="PLN">PLN (zł)</SelectItem>
           </SelectContent>
         </Select>
       </div>

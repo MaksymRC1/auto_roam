@@ -24,6 +24,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const formatTime = (mins: number) => {
   const h = Math.floor(mins / 60);
@@ -617,9 +618,13 @@ export function TripPlanner() {
 
       {/* Mobile Fuel Modal */}
       <Dialog open={isMobileFuelOpen} onOpenChange={setIsMobileFuelOpen}>
-        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar">
-          <DialogHeader>
-            <DialogTitle className="text-xl">Розрахунок палива</DialogTitle>
+        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar" showCloseButton={false}>
+          <DialogHeader className="flex flex-row items-center gap-3 space-y-0 pb-2 border-b border-white/10">
+            <Button variant="ghost" size="sm" onClick={() => setIsMobileFuelOpen(false)} className="-ml-2 px-2 text-white/70 hover:text-white hover:bg-white/10 h-9">
+              <ArrowLeft className="w-5 h-5 mr-1" />
+              Назад
+            </Button>
+            <DialogTitle className="text-xl m-0">Розрахунок палива</DialogTitle>
           </DialogHeader>
           <div className="mt-4">
             <FuelPanel />

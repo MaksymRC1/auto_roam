@@ -170,6 +170,9 @@ export function BudgetPanel() {
         <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-800 p-6 text-white flex justify-center items-center shadow-lg">
           <p className="text-5xl font-bold tracking-tight text-center">{formatCost(totalEur)}</p>
         </div>
+        <p className="text-center text-xs text-white/40 mt-3 px-4">
+          * Загальна сума є орієнтовною та може відрізнятися від фактичних витрат
+        </p>
       </div>
     </div>
   );

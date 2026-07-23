@@ -306,7 +306,19 @@ export function FuelPanel() {
               Кількість палива:
               <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger>
+                  <TooltipTrigger 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      import('izitoast').then((module) => {
+                        module.default.info({
+                          title: 'Кількість палива',
+                          message: 'Включає 10% запасу для більш надійного розрахунку',
+                          position: 'topCenter',
+                          timeout: 3000
+                        });
+                      });
+                    }}
+                  >
                     <Info className="w-4 h-4 text-white/40 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>

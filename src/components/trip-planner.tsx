@@ -623,12 +623,12 @@ export function TripPlanner() {
       {/* Mobile Fuel Modal */}
       <Dialog open={isMobileFuelOpen} onOpenChange={setIsMobileFuelOpen}>
         <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar" showCloseButton={false}>
-          <DialogHeader className="flex flex-row items-center gap-3 space-y-0 pb-2 border-b border-white/10">
-            <Button variant="ghost" size="sm" onClick={() => setIsMobileFuelOpen(false)} className="-ml-2 px-2 text-white/70 hover:text-white hover:bg-white/10 h-9">
-              <ArrowLeft className="w-5 h-5 mr-1" />
+          <DialogHeader className="flex flex-row items-center justify-between pb-2 border-b border-white/10 space-y-0">
+            <DialogTitle className="text-xl m-0 text-white">Розрахунок палива</DialogTitle>
+            <button onClick={() => setIsMobileFuelOpen(false)} className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
+              <ArrowLeft className="w-3 h-3" />
               Назад
-            </Button>
-            <DialogTitle className="text-xl m-0">Розрахунок палива</DialogTitle>
+            </button>
           </DialogHeader>
           <div className="mt-4">
             <FuelPanel />

@@ -248,7 +248,7 @@ export function FuelPanel() {
                       onClick={() => toggleCountry(code)}
                       className={`px-3 py-1.5 text-sm rounded-xl border transition-colors ${
                         isSelected 
-                          ? 'bg-blue-600/80 text-white border-blue-500' 
+                          ? 'bg-white/20 text-white border-white/30' 
                           : 'bg-white/5 text-white/80 border-white/10 hover:bg-white/10'
                       }`}
                     >
@@ -343,7 +343,7 @@ export function FuelPanel() {
 
           <div className="flex justify-between text-lg font-bold pt-3 border-t border-white/10 mt-2">
             <span className="text-white/80">Орієнтовна вартість:</span>
-            <span className="text-blue-400">{currencySymbol} {totalCostLocal}</span>
+            <span className="text-white">{currencySymbol} {totalCostLocal}</span>
           </div>
         </div>
 

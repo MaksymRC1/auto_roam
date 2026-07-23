@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft } from "lucide-react";
+import { MapPin, Navigation2, MoreVertical, Trash2, Fuel, Bed, Flag, CheckCircle2, ChevronRight, Settings, Plus, RotateCcw, Save, Briefcase, Share, Heart, Menu, Compass, ArrowRight, ExternalLink, ShieldCheck, Camera, HelpCircle, FileText, Smartphone, Download, User, Info, AlertCircle, X, ChevronLeft, Calendar } from 'lucide-react';
+import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { LeftPlaceholder } from "./left-placeholder";
@@ -447,11 +448,11 @@ export function TripPlanner() {
                                   )}
                                   {wp.lat && wp.lon && (!isHotel || (isHotel && hotelOverrides[wp.id]?.lat)) && (
                                     <div className="flex gap-2 mt-2 pt-2 border-t border-white/10 items-center">
-                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1 transition-colors border border-white/10">
-                                        <Navigation2 className="w-3 h-3" /> Waze
+                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1.5 transition-colors border border-white/10">
+                                        <WazeIcon className="w-3.5 h-3.5" /> Waze
                                       </a>
-                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1 transition-colors border border-white/10">
-                                        <MapPin className="w-3 h-3" /> Maps
+                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1.5 transition-colors border border-white/10">
+                                        <GoogleMapsIcon className="w-3 h-3" /> Maps
                                       </a>
                                       {isBorder && (
                                         <button 
@@ -732,7 +733,9 @@ export function TripPlanner() {
             ) : (
               hotelCustomTime === 0 && (
                 <div className="flex flex-col items-center justify-center py-10 px-4 text-center border border-dashed border-white/10 rounded-xl bg-white/5">
-                  <span className="text-2xl mb-2">🚗</span>
+                  <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 text-white/50">
+                    <CarFront className="w-6 h-6" />
+                  </div>
                   <p className="text-white/70 font-medium">Ви обрали подорож без зупинок на ночівлю.</p>
                   <p className="text-sm text-white/40 mt-1">Карта готелів прихована.</p>
                 </div>

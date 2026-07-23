@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
-import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
+import { Navigation2, Clock, CheckCircle2, Circle, MoreVertical, MapPin, ChevronDown, ChevronUp, Flag, ExternalLink, Bed, Fuel, AlertCircle, Calendar, Share2, Copy, Check, Heart } from 'lucide-react';
+import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 import { VIGNETTE_DB } from "@/lib/borders";
 import { RatingModal } from "@/components/rating-modal";
@@ -322,7 +323,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           onClick={(e) => e.stopPropagation()}
                           className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-white/5 md:bg-white/5 text-white/80 hover:bg-white/10 md:hover:bg-white/10 hover:text-white border border-white/10 md:border-white/10 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
-                          <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
+                          <GoogleMapsIcon className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Google Maps
                         </a>
                         <a 
@@ -332,7 +333,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           onClick={(e) => e.stopPropagation()}
                           className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-white/5 md:bg-white/5 text-white/80 hover:bg-white/10 md:hover:bg-white/10 hover:text-white border border-white/10 md:border-white/10 text-sm md:text-xs font-semibold md:font-medium transition-colors"
                         >
-                          <ExternalLink className="w-4 h-4 md:w-3.5 md:h-3.5" />
+                          <WazeIcon className="w-4 h-4 md:w-3.5 md:h-3.5" />
                           Waze
                         </a>
                       </div>

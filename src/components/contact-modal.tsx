@@ -12,14 +12,21 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
+
+      const preventScroll = (e: Event) => {
+        e.preventDefault();
+      };
+
+      window.addEventListener("wheel", preventScroll, { passive: false });
+      window.addEventListener("touchmove", preventScroll, { passive: false });
+
+      return () => {
+        document.body.style.overflow = "unset";
+        document.documentElement.style.overflow = "unset";
+        window.removeEventListener("wheel", preventScroll);
+        window.removeEventListener("touchmove", preventScroll);
+      };
     }
-    return () => {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
-    };
   }, [isOpen]);
 
   if (!isOpen) return null;

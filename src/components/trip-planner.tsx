@@ -635,9 +635,9 @@ export function TripPlanner() {
                 setSelectedBorderInfoId(null);
                 setIsMobileInsuranceOpen(true);
               }}
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-colors focus:outline-none cursor-pointer"
+              className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-3.5 font-bold text-[15px] shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none cursor-pointer"
             >
-              <ShieldCheck className="w-4 h-4" />
+              <ShieldCheck className="w-4 h-4 text-slate-700" />
               Оформити страхування (Зелена картка)
             </button>
           </div>

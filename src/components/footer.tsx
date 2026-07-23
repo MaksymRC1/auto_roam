@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface FooterProps {
   /** Optional: callback to open the rating modal from the parent page */
@@ -14,14 +15,23 @@ export function Footer({ onOpenRating }: FooterProps) {
     if (isContactOpen) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
+
+      const preventScroll = (e: Event) => {
+        // Prevent scrolling unless the event originates from inside the popup itself
+        // But since the popup has no scrollable content, we can just prevent all.
+        e.preventDefault();
+      };
+
+      window.addEventListener("wheel", preventScroll, { passive: false });
+      window.addEventListener("touchmove", preventScroll, { passive: false });
+
+      return () => {
+        document.body.style.overflow = "unset";
+        document.documentElement.style.overflow = "unset";
+        window.removeEventListener("wheel", preventScroll);
+        window.removeEventListener("touchmove", preventScroll);
+      };
     }
-    return () => {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
-    };
   }, [isContactOpen]);
 
   return (
@@ -48,6 +58,12 @@ export function Footer({ onOpenRating }: FooterProps) {
           </div>
         </div>
         <div className="flex items-center gap-4 relative">
+          <Link href="/terms" className="hover:text-white transition-colors cursor-pointer focus:outline-none pointer-events-auto">
+            Умови використання
+          </Link>
+          <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer focus:outline-none pointer-events-auto">
+            Політика конфіденційності
+          </Link>
           <button
             onClick={(e) => {
               e.preventDefault();

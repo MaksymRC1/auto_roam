@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTripStore, getHotelPrice } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice, isHotelActive } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
 
 export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView = false }: { lat?: number; lon?: number; address: string; defaultOpen?: boolean; isModalView?: boolean }) {
@@ -67,7 +67,8 @@ export function HotelPanel() {
     setHotelSettings,
     currency,
     exchangeRates,
-    hotelOverrides
+    hotelOverrides,
+    setHotelOverride
   } = useTripStore();
   
   // Read hotel stops directly from global waypoints

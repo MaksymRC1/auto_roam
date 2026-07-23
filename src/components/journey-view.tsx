@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTripStore, getHotelPrice } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice, isHotelActive } from "@/store/useTripStore";
 import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
@@ -59,7 +59,8 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
     totalDistance,
     totalDuration,
     fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates,
-    insuranceCost, includeReserve, hotelOverrides, crossedCountries
+    insuranceCost, includeReserve, hotelOverrides, hotelCustomTime, crossedCountries,
+    setHotelOverride
   } = useTripStore();
 
   useEffect(() => {
@@ -117,9 +118,10 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
   });
 
   const hotelStops = waypoints.filter(wp => wp.id.startsWith('hotel-'));
-  const hasAnyHotelOverride = hotelStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+  const activeHotelStops = hotelStops.filter(wp => isHotelActive(wp.id, hotelCustomTime, hotelOverrides));
+  const hasAnyHotelOverride = activeHotelStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
 
-  const hotelCostEur = hotelStops.reduce((sum, wp) => {
+  const hotelCostEur = activeHotelStops.reduce((sum, wp) => {
     const override = hotelOverrides[wp.id];
     if (override && override.priceEur !== undefined) return sum + override.priceEur;
     return sum + (hasAnyHotelOverride ? 0 : getHotelPrice(wp.countryCode || 'UNKNOWN'));
@@ -274,6 +276,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
               const isFinish = index === waypoints.length - 1;
               const isFuel = wp.type === 'fuel';
               const isHotel = wp.id.startsWith('hotel-');
+              const isHotelSkipped = isHotel && !isHotelActive(wp.id, hotelCustomTime, hotelOverrides);
               const isBorder = wp.type === 'border';
               const isCompleted = completedWaypoints.includes(wp.id);
               
@@ -309,10 +312,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   } ${
                     isCompleted 
                       ? 'opacity-60 bg-white/5 border-white/20' 
-                      : 'hover:bg-white/10 hover:border-white/20'
+                      : isHotelSkipped
+                        ? 'opacity-40 bg-white/5 border-white/10'
+                        : 'hover:bg-white/10 hover:border-white/20'
                   }`}>
                     <div className="flex flex-col text-left md:pr-16">
-                      <span className={`text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted ? 'line-through text-white/50 print:text-slate-500' : ''}`}>
+                      <span className={`text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted || isHotelSkipped ? 'text-white/50 print:text-slate-500' : ''}`}>
                         {wp.name}
                       </span>
                       <div className="mt-4 mb-2 flex flex-row items-center gap-2 md:gap-3 w-full">
@@ -321,20 +326,20 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           target="_blank" 
                           rel="noreferrer" 
                           onClick={(e) => e.stopPropagation()}
-                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-white/5 md:bg-white/5 text-white/80 hover:bg-white/10 md:hover:bg-white/10 hover:text-white border border-white/10 md:border-white/10 text-sm md:text-xs font-semibold md:font-medium transition-colors"
+                          className="flex-1 flex justify-center items-center py-3 md:py-2 rounded-xl md:rounded-lg bg-white/5 text-white/80 hover:bg-white/10 hover:text-white border border-white/10 transition-colors"
+                          title="Google Maps"
                         >
-                          <GoogleMapsIcon className="w-4 h-4 md:w-3.5 md:h-3.5" />
-                          Google Maps
+                          <GoogleMapsIcon className="w-5 h-5 md:w-4 md:h-4" />
                         </a>
                         <a 
                           href={wazeUrl} 
                           target="_blank" 
                           rel="noreferrer" 
                           onClick={(e) => e.stopPropagation()}
-                          className="flex-1 flex justify-center items-center gap-2 px-3 py-3 md:py-1.5 rounded-xl md:rounded-lg bg-white/5 md:bg-white/5 text-white/80 hover:bg-white/10 md:hover:bg-white/10 hover:text-white border border-white/10 md:border-white/10 text-sm md:text-xs font-semibold md:font-medium transition-colors"
+                          className="flex-1 flex justify-center items-center py-3 md:py-2 rounded-xl md:rounded-lg bg-white/5 text-white/80 hover:bg-white/10 hover:text-white border border-white/10 transition-colors"
+                          title="Waze"
                         >
-                          <WazeIcon className="w-4 h-4 md:w-3.5 md:h-3.5" />
-                          Waze
+                          <WazeIcon className="w-5 h-5 md:w-4 md:h-4" />
                         </a>
                       </div>
 
@@ -343,6 +348,24 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           <Navigation2 className="w-4 h-4" /> 
                           {wp.distanceFromStart} км від старту • {formatTime(wp.timeFromStart)}
                         </span>
+                      )}
+
+                      {isHotel && (
+                        <div className="mt-4 border-t border-white/10 pt-4">
+                           <button
+                             onClick={(e) => {
+                               e.stopPropagation();
+                               setHotelOverride(wp.id, { skipped: !isHotelSkipped });
+                             }}
+                             className={`w-full py-2 rounded-xl text-sm font-medium transition-colors ${
+                               isHotelSkipped 
+                                 ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' 
+                                 : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90'
+                             }`}
+                           >
+                             {isHotelSkipped ? 'Активувати ночівлю' : 'Не враховувати у витратах'}
+                           </button>
+                        </div>
                       )}
                     </div>
                   </div>

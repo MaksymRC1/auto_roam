@@ -38,6 +38,14 @@ export function getHotelPrice(countryCode: string) {
   return averageHotelPriceEur[countryCode] || 60;
 }
 
+export function isHotelActive(wpId: string, hotelCustomTime: number, hotelOverrides: Record<string, HotelOverride>) {
+  const override = hotelOverrides[wpId];
+  if (override?.skipped !== undefined) {
+    return !override.skipped;
+  }
+  return hotelCustomTime > 0;
+}
+
 export type PanelType = 'map' | 'fuel' | 'hotel' | 'borders' | 'budget' | 'insurance';
 
 export interface StopInput {
@@ -57,6 +65,7 @@ export interface HotelOverride {
   priceEur?: number;
   inputPrice?: number;
   inputCurrency?: string;
+  skipped?: boolean;
 }
 
 interface TripState {
@@ -404,9 +413,10 @@ export const useTripStore = create<TripState>()(
       
       if (state.hotelMode === 'auto' || state.hotelMode === 'time') {
         const timeLimit = state.hotelMode === 'auto' ? LONG_TRIP_THRESHOLD_MINS : state.hotelCustomTime;
-        if (state.totalDuration > timeLimit && timeLimit > 0) {
-          stopsCount = Math.floor(state.totalDuration / timeLimit);
-          ratioStep = timeLimit / state.totalDuration;
+        const layoutTimeLimit = timeLimit > 0 ? timeLimit : 8 * 60; // Default to 8h for layout if set to 0
+        if (state.totalDuration > layoutTimeLimit) {
+          stopsCount = Math.floor(state.totalDuration / layoutTimeLimit);
+          ratioStep = layoutTimeLimit / state.totalDuration;
         }
       } else if (state.hotelMode === 'distance') {
         if (state.totalDistance > state.hotelCustomDistance && state.hotelCustomDistance > 0) {

@@ -448,11 +448,11 @@ export function TripPlanner() {
                                   )}
                                   {wp.lat && wp.lon && (!isHotel || (isHotel && hotelOverrides[wp.id]?.lat)) && (
                                     <div className="flex gap-2 mt-2 pt-2 border-t border-white/10 items-center">
-                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1.5 transition-colors border border-white/10">
-                                        <WazeIcon className="w-3.5 h-3.5" /> Waze
+                                      <a href={`https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes`} target="_blank" rel="noreferrer" className="text-white/80 bg-white/5 w-7 h-7 rounded hover:bg-white/10 flex items-center justify-center transition-colors border border-white/10" title="Waze">
+                                        <WazeIcon className="w-3.5 h-3.5" />
                                       </a>
-                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-[11px] text-white/80 bg-white/5 px-2 py-1 rounded hover:bg-white/10 font-medium flex items-center gap-1.5 transition-colors border border-white/10">
-                                        <GoogleMapsIcon className="w-3 h-3" /> Maps
+                                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${wp.lat},${wp.lon}&travelmode=driving`} target="_blank" rel="noreferrer" className="text-white/80 bg-white/5 w-7 h-7 rounded hover:bg-white/10 flex items-center justify-center transition-colors border border-white/10" title="Google Maps">
+                                        <GoogleMapsIcon className="w-3.5 h-3.5" />
                                       </a>
                                       {isBorder && (
                                         <button 

@@ -139,42 +139,59 @@ export function HotelPanel() {
             </div>
           ) : (
             (() => {
-              const hasAnyHotelOverride = stops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+              const activeStops = stops.filter(wp => isHotelActive(wp.id, customTime, hotelOverrides));
+              const hasAnyHotelOverride = activeStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+              
               return stops.map(stop => {
                 const override = hotelOverrides[stop.id];
+                const isSkipped = !isHotelActive(stop.id, customTime, hotelOverrides);
                 const priceEur = override?.priceEur !== undefined 
                   ? override.priceEur 
                   : (hasAnyHotelOverride ? 0 : getHotelPrice(stop.countryCode || 'UNKNOWN'));
                 const priceLocal = Math.round(priceEur * (exchangeRates[currency] || 1));
                 
                 return (
-                <div key={stop.id} className="rounded-xl border border-white/10 p-5 space-y-3 bg-white/5 hover:border-amber-500/50 transition-colors shadow-sm">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="flex items-center gap-1.5 font-bold text-white/90 text-lg">
-                      <MapPin className="w-4 h-4 text-amber-500" />
-                      {override?.url ? (
-                        <a href={override.url} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline flex items-center gap-1">
-                          {stop.name} <ExternalLink className="w-3 h-3" />
-                        </a>
-                      ) : (
-                        stop.name
-                      )}
+                <div key={stop.id} className={`rounded-xl border border-white/10 p-5 space-y-3 transition-colors shadow-sm ${isSkipped ? 'bg-white/5 opacity-50' : 'bg-white/10 hover:border-amber-500/50'}`}>
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-1.5 font-bold text-white/90 text-lg">
+                        <MapPin className="w-4 h-4 text-amber-500" />
+                        {override?.url ? (
+                          <a href={override.url} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline flex items-center gap-1">
+                            {stop.name} <ExternalLink className="w-3 h-3" />
+                          </a>
+                        ) : (
+                          stop.name
+                        )}
+                      </div>
+                      <p className="text-sm text-white/50 mt-1">
+                        Орієнтовне прибуття через {Math.floor(stop.timeFromStart / 60)} год {stop.timeFromStart % 60} хв
+                      </p>
+                      <p className="text-xs text-white/40 mt-1">
+                        Відстань від старту: {stop.distanceFromStart} км
+                      </p>
                     </div>
-                    <p className="text-sm text-white/50 mt-1">
-                      Орієнтовне прибуття через {Math.floor(stop.timeFromStart / 60)} год {stop.timeFromStart % 60} хв
-                    </p>
-                    <p className="text-xs text-white/40 mt-1">
-                      Відстань від старту: {stop.distanceFromStart} км
-                    </p>
-                  </div>
-                  <div className="text-right bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
-                    <span className="text-xs text-white/50 block">
-                      {override?.priceEur !== undefined ? "Точна ціна" : "Середня ціна"}
-                    </span>
-                    <span className="text-sm font-bold text-amber-400">
-                      {override?.priceEur !== undefined ? "" : "від "}{priceLocal} {currency} / ніч
-                    </span>
+                    <div className="flex flex-col gap-2 items-end">
+                      <div className="text-right bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
+                        <span className="text-xs text-white/50 block">
+                          {isSkipped ? "Не враховується" : (override?.priceEur !== undefined ? "Точна ціна" : "Середня ціна")}
+                        </span>
+                        <span className={`text-sm font-bold ${isSkipped ? 'text-white/40' : 'text-amber-400'}`}>
+                          {override?.priceEur !== undefined ? "" : "від "}{priceLocal} {currency} / ніч
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => setHotelOverride(stop.id, { skipped: !isSkipped })}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          isSkipped 
+                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' 
+                            : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90'
+                        }`}
+                      >
+                        {isSkipped ? 'Активувати ночівлю' : 'Не враховувати'}
+                      </button>
+                    </div>
                   </div>
                 </div>
                 

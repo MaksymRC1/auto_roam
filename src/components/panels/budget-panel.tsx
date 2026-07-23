@@ -1,6 +1,6 @@
 "use client";
 
-import { useTripStore, getHotelPrice } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice, isHotelActive } from "@/store/useTripStore";
 import { ShieldAlert, AlertTriangle, Fuel, Bed, Flag, ShieldCheck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VIGNETTE_DB } from "@/lib/borders";
@@ -16,6 +16,7 @@ export function BudgetPanel() {
     fuelPrices,
     selectedFuelType,
     hotelOverrides,
+    hotelCustomTime,
     crossedCountries,
     insuranceCost,
     setInsuranceCost,
@@ -35,16 +36,17 @@ export function BudgetPanel() {
 
   // 2. Hotel Cost (Dynamic)
   const hotelStops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
-  const hasAnyHotelOverride = hotelStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+  const activeHotelStops = hotelStops.filter(wp => isHotelActive(wp.id, hotelCustomTime, hotelOverrides));
+  const hasAnyHotelOverride = activeHotelStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
 
-  const hotelCostEur = hotelStops.reduce((sum, wp) => {
+  const hotelCostEur = activeHotelStops.reduce((sum, wp) => {
     const override = hotelOverrides[wp.id];
     if (override && override.priceEur !== undefined) {
       return sum + override.priceEur;
     }
     return sum + (hasAnyHotelOverride ? 0 : getHotelPrice(wp.countryCode || 'UNKNOWN'));
   }, 0);
-  const stopsCount = hotelStops.length;
+  const stopsCount = activeHotelStops.length;
 
   // 3. Vignette costs (real data from VIGNETTE_DB)
   const vignetteCostEur = crossedCountries.reduce((sum, code) => {

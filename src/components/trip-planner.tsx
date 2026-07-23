@@ -88,6 +88,8 @@ export function TripPlanner() {
     return totalCostEur === 0;
   }, [totalDistance, fuelAmounts, fuelPrices, selectedFuelType]);
 
+  const needsHotel = totalDuration > 480;
+
   useEffect(() => {
     if (isCalculated) return;
     const timer = setInterval(() => {

@@ -59,6 +59,7 @@ export interface StopInput {
 
 export interface HotelOverride {
   name?: string;
+  address?: string;
   url?: string;
   lat?: number;
   lon?: number;

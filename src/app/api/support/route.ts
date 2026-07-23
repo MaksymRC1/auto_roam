@@ -23,7 +23,7 @@ export async function POST(request: Request) {
         text = `📩 *Нове запитання з сайту AutoRoam!*\n\n*Ім'я:* ${escapeTelegramMarkdown(String(name || ''))}\n*Email:* ${escapeTelegramMarkdown(String(email || ''))}\n*Повідомлення:* ${escapeTelegramMarkdown(String(message || ''))}`;
       }
 
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -32,6 +32,13 @@ export async function POST(request: Request) {
           parse_mode: 'Markdown',
         }),
       });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error('Telegram API Error:', errorText);
+      } else {
+        console.log('Telegram message sent successfully!');
+      }
     } else {
       console.log('Received support request (Telegram config missing):', data);
     }

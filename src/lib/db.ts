@@ -2,6 +2,11 @@ import { sql } from '@vercel/postgres';
 import fs from 'fs';
 import path from 'path';
 
+// Map Neon's DATABASE_URL to Vercel's POSTGRES_URL if needed
+if (!process.env.POSTGRES_URL && process.env.DATABASE_URL) {
+  process.env.POSTGRES_URL = process.env.DATABASE_URL;
+}
+
 const hasDb = !!process.env.POSTGRES_URL;
 
 // Path to local file storage for local development fallback

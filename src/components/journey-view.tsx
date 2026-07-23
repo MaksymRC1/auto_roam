@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTripStore, getHotelPrice } from "@/store/useTripStore";
-import { Navigation2, Clock, CheckCircle2, Circle, MoreVertical, MapPin, ChevronDown, ChevronUp, Flag, ExternalLink, Bed, Fuel, AlertCircle, Calendar, Share2, Copy, Check, Heart } from 'lucide-react';
+import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 import { VIGNETTE_DB } from "@/lib/borders";

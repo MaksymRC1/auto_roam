@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation2, MoreVertical, Trash2, Fuel, Bed, Flag, CheckCircle2, ChevronRight, Settings, Plus, RotateCcw, Save, Briefcase, Share, Heart, Menu, Compass, ArrowRight, ExternalLink, ShieldCheck, Camera, HelpCircle, FileText, Smartphone, Download, User, Info, AlertCircle, X, ChevronLeft, Calendar } from 'lucide-react';
+import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft } from "lucide-react";
+import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft, CarFront } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
@@ -234,7 +234,7 @@ export function TripPlanner() {
           <div className="flex flex-col md:flex-row gap-6 lg:gap-8 w-full flex-1 pb-16 md:pb-8">
             
             {/* Mobile Bottom Navigation Bar */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0F111A] border-t border-white/5 pb-4 pt-3 px-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 pb-4 pt-3 px-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
               
               {/* Toggle Map / Timeline */}
               <button 
@@ -257,7 +257,7 @@ export function TripPlanner() {
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenStops && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
                     <SheetTitle className="text-white text-base">Параметри маршруту</SheetTitle>
                     <SheetClose render={
@@ -282,7 +282,7 @@ export function TripPlanner() {
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenInsurance && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
                     <SheetTitle className="text-white text-base">Страхування та віньєтки</SheetTitle>
                     <SheetClose render={
@@ -307,7 +307,7 @@ export function TripPlanner() {
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenBudget && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
-                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
                     <SheetTitle className="text-white text-base">Загальний кошторис</SheetTitle>
                     <SheetClose render={
@@ -573,7 +573,7 @@ export function TripPlanner() {
 
       {/* Share/Save Dialog */}
       <Dialog open={shareOpen} onOpenChange={setShareOpen}>
-        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md">
+        <DialogContent className="border-white/10 text-white sm:max-w-md" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
             <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
             <DialogDescription className="text-white/60">
@@ -623,7 +623,7 @@ export function TripPlanner() {
 
       {/* Mobile Fuel Modal */}
       <Dialog open={isMobileFuelOpen} onOpenChange={setIsMobileFuelOpen}>
-        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar" showCloseButton={false}>
+        <DialogContent className="border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar" showCloseButton={false} style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader className="flex flex-row items-center justify-between pb-2 border-b border-white/10 space-y-0">
             <DialogTitle className="text-xl m-0 text-white">Розрахунок палива</DialogTitle>
             <button onClick={() => setIsMobileFuelOpen(false)} className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
@@ -639,7 +639,7 @@ export function TripPlanner() {
 
       {/* Borders Info Modal */}
       <Dialog open={selectedBorderInfoId !== null} onOpenChange={(open) => !open && setSelectedBorderInfoId(null)}>
-        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <DialogContent className="border-white/10 text-white sm:max-w-xl max-h-[90vh] overflow-y-auto custom-scrollbar" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
             <DialogTitle className="text-xl">Інформація про пункт пропуску</DialogTitle>
           </DialogHeader>
@@ -665,7 +665,7 @@ export function TripPlanner() {
 
       {/* Stay22 Hotel Modal */}
       <Dialog open={selectedStay22Id !== null} onOpenChange={(open) => !open && setSelectedStay22Id(null)}>
-        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <DialogContent className="border-white/10 text-white sm:max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
             <DialogTitle className="text-xl">Пошук готелів поблизу</DialogTitle>
           </DialogHeader>

@@ -181,7 +181,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
 
       {/* Share Dialog */}
       <Dialog open={shareOpen} onOpenChange={setShareOpen}>
-        <DialogContent className="bg-[#131620] border-white/10 text-white sm:max-w-md">
+        <DialogContent className="border-white/10 text-white sm:max-w-md" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
             <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
             <DialogDescription className="text-white/60">
@@ -218,7 +218,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
       <RatingModal isOpen={isRatingOpen} onClose={() => setIsRatingOpen(false)} />
 
       <div className="w-full max-w-4xl mx-auto pb-32 md:pb-24 pt-8 px-4 font-sans">
-        <div className="bg-[#1a1f2e]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
+        <div className="border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
         
         {/* Header */}
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between mb-8 md:mb-12 gap-6 border-b border-white/10 pb-6 md:pb-8">

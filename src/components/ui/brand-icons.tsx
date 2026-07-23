@@ -1,13 +1,16 @@
 export function GoogleMapsIcon({ className }: { className?: string }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Google Maps" role="img" viewBox="0 0 512 512" fill="currentColor" className={className}>
-      <path d="M0 512V0h512z" fillOpacity="0.2"/>
-      <path d="M256 288L32 512h448z" fillOpacity="0.4"/>
-      <path d="M288 256L512 32v448z" fillOpacity="0.6"/>
-      <path stroke="currentColor" strokeWidth="71" d="M0 512L512 0" opacity="0.8"/>
-      <path fill="none" stroke="currentColor" strokeWidth="22" d="M175 173h50a50 54 0 1 1-15-41"/>
-      <path d="M353 85a70 70 0 0 1 140 0c0 70-70 70-70 157 0-87-70-87-70-157" opacity="0.9"/>
-      <circle cx="423" cy="89" r="25" fill="currentColor" />
+    <svg 
+      className={className}
+      viewBox="0 0 14 14" 
+      role="img" 
+      focusable="false" 
+      aria-label="Google Maps"
+      aria-hidden="true" 
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+    >
+      <path d="M 7,1 C 4.929086,1 3.25,2.67871 3.25,4.75 3.25,5.33008 3.381836,5.88013 3.617312,6.37012 3.630484,6.39796 7,13 7,13 L 10.34205,6.45215 C 10.60279,5.94166 10.75,5.36303 10.75,4.75 10.75,2.67871 9.07129,1 7,1 Z M 7,7 C 5.757437,7 4.75,5.99219 4.75,4.75 4.75,3.50781 5.757437,2.5 7,2.5 8.24219,2.5 9.25,3.50781 9.25,4.75 9.25,5.99219 8.24219,7 7,7 Z"/>
     </svg>
   );
 }

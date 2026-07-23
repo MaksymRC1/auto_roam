@@ -51,7 +51,7 @@ export function MapPickerModal({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-2xl h-[80vh] flex flex-col p-4 w-[95vw] max-w-none sm:w-full">
+      <DialogContent className="sm:max-w-2xl h-[80vh] flex flex-col p-4 w-[95vw] max-w-none sm:w-full border-white/10" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
         <DialogHeader>
           <DialogTitle>Оберіть точку на карті</DialogTitle>
         </DialogHeader>

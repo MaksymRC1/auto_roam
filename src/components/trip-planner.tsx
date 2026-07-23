@@ -45,6 +45,7 @@ export function TripPlanner() {
   const [selectedStay22Id, setSelectedStay22Id] = useState<string | null>(null);
   const [isMobileInsuranceOpen, setIsMobileInsuranceOpen] = useState(false);
   const [hasSeenStops, setHasSeenStops] = useState(false);
+  const [hasSeenHotel, setHasSeenHotel] = useState(false);
   const [hasSeenInsurance, setHasSeenInsurance] = useState(false);
   const [hasSeenBudget, setHasSeenBudget] = useState(false);
 
@@ -265,6 +266,31 @@ export function TripPlanner() {
                   <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
                     <div className="p-5 text-white pb-24">
                       <StopsInput idPrefix="mobile-stops" />
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+
+              {/* Hotel Sheet */}
+              <Sheet key="mobile-hotel-sheet">
+                <SheetTrigger render={<button onClick={() => setHasSeenHotel(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Ночівля та зупинки" />}>
+                  <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
+                  <Bed className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                  {!hasSeenHotel && needsHotel && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
+                </SheetTrigger>
+                <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
+                  <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
+                    <SheetTitle className="text-white text-base">Ночівля та зупинки</SheetTitle>
+                    <SheetClose render={
+                      <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
+                        <ArrowLeft className="w-3 h-3" />
+                        Назад
+                      </button>
+                    } />
+                  </SheetHeader>
+                  <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 custom-scrollbar">
+                    <div className="p-5 text-white pb-24">
+                      <HotelPanel />
                     </div>
                   </div>
                 </SheetContent>

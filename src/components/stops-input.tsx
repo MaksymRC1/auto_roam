@@ -121,7 +121,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
                     updateStop(realId, `Поточне місцезнаходження | ${latitude}, ${longitude}`);
                   }
                 }, (error) => {
-                  console.error(error);
+                  console.warn("Geolocation error:", error.message || error.code);
                   alert("Не вдалося отримати доступ до вашої геопозиції");
                 });
               }}

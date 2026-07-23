@@ -156,9 +156,10 @@ export function FuelPanel() {
 
   return (
     <div className="flex-1 flex flex-col space-y-4">
-      <div className="pb-4 border-b border-white/10 flex justify-end">
+      <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <span className="text-sm font-medium text-white/80">Валюта розрахунків</span>
         <Select value={currency} onValueChange={(v) => { if (v) setCurrency(v); }}>
-          <SelectTrigger className="w-24 h-10 text-xs">
+          <SelectTrigger className="w-24 h-10 text-xs bg-white/5 border-white/10">
             <SelectValue placeholder="Валюта" />
           </SelectTrigger>
           <SelectContent>
@@ -171,8 +172,8 @@ export function FuelPanel() {
       <div className="pt-2 space-y-6">
         
         <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label>Тип палива</Label>
+          <div className="flex flex-col gap-2">
+            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">Тип палива</Label>
             <Select value={selectedFuelType} onValueChange={(v) => { 
               if (v) {
                 setFuelType(v as FuelType); 
@@ -182,7 +183,7 @@ export function FuelPanel() {
                 setTimeout(() => useTripStore.getState().autoAssignFuel(), 0);
               }
             }}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-sm">
                 <SelectValue placeholder="Виберіть паливо">
                   {selectedFuelType === 'gasoline' ? 'Бензин' : selectedFuelType === 'diesel' ? 'Дизель' : 'Газ'}
                 </SelectValue>
@@ -194,9 +195,9 @@ export function FuelPanel() {
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
-            <Label>Витрата (л/100 км)</Label>
-            <div className="relative w-36">
+          <div className="flex flex-col gap-2">
+            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">Витрата (л/100 км)</Label>
+            <div className="relative w-full">
               <Input 
                 type="text"
                 inputMode="decimal"
@@ -220,7 +221,7 @@ export function FuelPanel() {
                   const val = e.target.value.replace(',', '.').replace(/[^0-9.]/g, '');
                   setConsumption(val, false);
                 }}
-                className={`pr-20 text-right font-medium ${isDefaultConsumption && !isFocused ? 'text-white/50 bg-white/5' : ''}`}
+                className={`w-full h-11 pr-[72px] text-right font-medium text-sm ${isDefaultConsumption && !isFocused ? 'text-white/50 bg-white/5' : ''}`}
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40 pointer-events-none">л/100 км</span>
             </div>

@@ -142,13 +142,13 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
       <JourneyOnboardingTour />
       
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none" style={{ background: "rgba(0, 0, 0, 0.45)" }}>
+      <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none bg-black/60 md:bg-transparent">
         {/* Повернутися на сайт */}
         <div className="relative group flex items-center">
           <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title="Повернутися на сайт">
             <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
           </Link>
-          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 md:mb-0 md:left-14 md:-translate-x-0 md:bottom-auto scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
             Повернутися на головну
           </span>
         </div>
@@ -163,7 +163,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           >
             <Share2 className="w-5 h-5 text-white/90" />
           </button>
-          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 md:mb-0 md:left-14 md:-translate-x-0 md:bottom-auto scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
             Поділитися
           </span>
         </div>
@@ -178,7 +178,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           >
             <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
           </button>
-          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 md:mb-0 md:left-14 md:-translate-x-0 md:bottom-auto scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
             Підтримати проект
           </span>
         </div>
@@ -198,14 +198,14 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
               <input
                 readOnly
                 value={shareLink}
-                className="w-full bg-black/50 border border-white/20 rounded-md px-3 py-2 text-sm text-white focus:outline-none"
+                className="w-full bg-black/50 border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:outline-none"
               />
             </div>
             <button
               onClick={copyToClipboard}
-              className="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-md transition-colors flex items-center gap-2"
+              className="px-4 py-3 bg-white hover:bg-slate-100 text-slate-900 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 font-bold shadow-lg active:scale-[0.98] shrink-0"
             >
-              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {copied ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5 text-slate-700" />}
             </button>
           </div>
           
@@ -215,6 +215,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
             </a>
             <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <MessageCircle className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#1877f2] hover:border-[#1877f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#1877f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">f</span>
+            </a>
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">𝕏</span>
             </a>
           </div>
         </DialogContent>
@@ -332,28 +338,30 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           target="_blank" 
                           rel="noreferrer" 
                           onClick={(e) => e.stopPropagation()}
-                          className={`flex-1 flex justify-center items-center py-3 md:py-2 rounded-xl md:rounded-lg bg-white/5 border border-white/10 transition-colors ${
+                          className={`flex-1 flex justify-center items-center gap-2 py-3.5 md:py-3 rounded-2xl md:rounded-xl bg-white/10 border border-white/20 transition-all active:scale-[0.98] shadow-sm ${
                             isCompleted || isHotelSkipped 
                               ? 'opacity-30 pointer-events-none' 
-                              : 'text-white/80 hover:bg-white/10 hover:text-white'
+                              : 'text-white/90 hover:bg-white/20 hover:border-white/30 hover:text-white'
                           }`}
                           title="Google Maps"
                         >
-                          <GoogleMapsIcon className="w-5 h-5 md:w-4 md:h-4" />
+                          <GoogleMapsIcon className="w-5 h-5" />
+                          <span className="font-semibold text-sm">Google Maps</span>
                         </a>
                         <a 
                           href={wazeUrl} 
                           target="_blank" 
                           rel="noreferrer" 
                           onClick={(e) => e.stopPropagation()}
-                          className={`flex-1 flex justify-center items-center py-3 md:py-2 rounded-xl md:rounded-lg bg-white/5 border border-white/10 transition-colors ${
+                          className={`flex-1 flex justify-center items-center gap-2 py-3.5 md:py-3 rounded-2xl md:rounded-xl bg-white/10 border border-white/20 transition-all active:scale-[0.98] shadow-sm ${
                             isCompleted || isHotelSkipped 
                               ? 'opacity-30 pointer-events-none' 
-                              : 'text-white/80 hover:bg-white/10 hover:text-white'
+                              : 'text-white/90 hover:bg-white/20 hover:border-white/30 hover:text-white'
                           }`}
                           title="Waze"
                         >
-                          <WazeIcon className="w-5 h-5 md:w-4 md:h-4" />
+                          <WazeIcon className="w-5 h-5" />
+                          <span className="font-semibold text-sm">Waze</span>
                         </a>
                       </div>
 

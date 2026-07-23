@@ -84,6 +84,7 @@ interface TripState {
   routeGeometry: [number, number][]; // Array of [lat, lon]
   crossedCountries: string[]; // ISO Country codes e.g. UA, PL
   activePanel: PanelType | null;
+  viewedPanels: PanelType[];
   
   fuelPrices: Record<string, FuelPricesData>;
   selectedFuelType: FuelType;
@@ -170,6 +171,7 @@ export const useTripStore = create<TripState>()(
   routeGeometry: [],
   crossedCountries: [],
   activePanel: 'fuel',
+  viewedPanels: [],
   fuelPrices: {},
   selectedFuelType: 'gasoline',
   consumption: String(DEFAULT_FUEL_CONSUMPTION),
@@ -378,7 +380,12 @@ export const useTripStore = create<TripState>()(
     }
   },
 
-  setActivePanel: (panel) => set({ activePanel: panel }),
+  setActivePanel: (panel) => set((state) => ({ 
+    activePanel: panel,
+    viewedPanels: panel && !state.viewedPanels.includes(panel) 
+      ? [...state.viewedPanels, panel] 
+      : state.viewedPanels
+  })),
   
   setFuelType: (type) => set({ selectedFuelType: type }),
   

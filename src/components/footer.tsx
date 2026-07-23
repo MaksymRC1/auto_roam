@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { TermsModal } from "./terms-modal";
+import { PrivacyModal } from "./privacy-modal";
 
 interface FooterProps {
   /** Optional: callback to open the rating modal from the parent page */
@@ -10,6 +11,8 @@ interface FooterProps {
 
 export function Footer({ onOpenRating }: FooterProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   useEffect(() => {
     if (isContactOpen) {
@@ -58,21 +61,39 @@ export function Footer({ onOpenRating }: FooterProps) {
           </div>
         </div>
         <div className="flex items-center gap-4 relative">
-          <Link href="/terms" className="hover:text-white transition-colors cursor-pointer focus:outline-none pointer-events-auto">
-            Умови використання
-          </Link>
-          <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer focus:outline-none pointer-events-auto">
-            Політика конфіденційності
-          </Link>
+          <button 
+            onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }}
+            className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
+            aria-label="Умови використання"
+            title="Умови використання"
+          >
+            <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
+              description
+            </span>
+          </button>
+          <button 
+            onClick={(e) => { e.preventDefault(); setIsPrivacyOpen(true); }}
+            className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
+            aria-label="Політика конфіденційності"
+            title="Політика конфіденційності"
+          >
+            <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
+              shield
+            </span>
+          </button>
           <button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               setIsContactOpen(!isContactOpen);
             }}
-            className="hover:text-white transition-colors cursor-pointer focus:outline-none pointer-events-auto"
+            className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
+            aria-label="Зв'язатися з нами"
+            title="Зв'язатися з нами"
           >
-            Зв&#39;язатися з нами
+            <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
+              chat
+            </span>
           </button>
           {onOpenRating && (
             <button
@@ -149,6 +170,8 @@ export function Footer({ onOpenRating }: FooterProps) {
           )}
         </div>
       </footer>
+      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+      <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
     </>
   );
 }

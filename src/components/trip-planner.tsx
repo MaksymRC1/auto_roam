@@ -43,6 +43,9 @@ export function TripPlanner() {
   const [selectedBorderInfoId, setSelectedBorderInfoId] = useState<string | null>(null);
   const [selectedStay22Id, setSelectedStay22Id] = useState<string | null>(null);
   const [isMobileInsuranceOpen, setIsMobileInsuranceOpen] = useState(false);
+  const [hasSeenStops, setHasSeenStops] = useState(false);
+  const [hasSeenInsurance, setHasSeenInsurance] = useState(false);
+  const [hasSeenBudget, setHasSeenBudget] = useState(false);
 
   // Helper to generate or read a persistent anonymous user ID
   const getOrCreateAnonymousUserId = (): string => {
@@ -66,8 +69,13 @@ export function TripPlanner() {
     fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
     insertBorderStop, hotelOverrides, setHotelOverride,
     ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute,
-    completedWaypoints, toggleWaypointCompletion, getShareUrl, getRawShareData, loadFromShareData
+    completedWaypoints, toggleWaypointCompletion, getShareUrl, getRawShareData, loadFromShareData,
+    insuranceCost
   } = useTripStore();
+
+  useEffect(() => {
+    setHasSeenBudget(false);
+  }, [waypoints, fuelAmounts, hotelOverrides, insuranceCost]);
 
   const needsFuel = useMemo(() => {
     if (totalDistance <= 0) return false;
@@ -238,9 +246,10 @@ export function TripPlanner() {
               
               {/* Route (Stops) Sheet */}
               <Sheet key="mobile-stops-sheet">
-                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
+                <SheetTrigger render={<button onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                  {!hasSeenStops && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
@@ -262,9 +271,10 @@ export function TripPlanner() {
 
               {/* Insurance & Vignettes Sheet */}
               <Sheet key="mobile-insurance-sheet" open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
-                <SheetTrigger render={<button onClick={() => setIsMobileInsuranceOpen(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
+                <SheetTrigger render={<button onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                  {!hasSeenInsurance && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
@@ -286,9 +296,10 @@ export function TripPlanner() {
 
               {/* General Cost/Budget Sheet */}
               <Sheet key="mobile-budget-sheet">
-                <SheetTrigger render={<button className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
+                <SheetTrigger render={<button onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                  {!hasSeenBudget && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="bg-slate-950/95 backdrop-blur-xl border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col">
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">

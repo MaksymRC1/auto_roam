@@ -131,13 +131,17 @@ export function HotelPanel() {
               <p>За поточними налаштуваннями додаткова ночівля не потрібна.</p>
             </div>
           ) : (
-            stops.map(stop => {
-              const override = hotelOverrides[stop.id];
-              const priceEur = override?.priceEur !== undefined ? override.priceEur : getHotelPrice(stop.countryCode || 'UNKNOWN');
-              const priceLocal = Math.round(priceEur * (exchangeRates[currency] || 1));
-              
-              return (
-              <div key={stop.id} className="rounded-xl border border-white/10 p-5 space-y-3 bg-white/5 hover:border-amber-500/50 transition-colors shadow-sm">
+            (() => {
+              const hasAnyHotelOverride = stops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+              return stops.map(stop => {
+                const override = hotelOverrides[stop.id];
+                const priceEur = override?.priceEur !== undefined 
+                  ? override.priceEur 
+                  : (hasAnyHotelOverride ? 0 : getHotelPrice(stop.countryCode || 'UNKNOWN'));
+                const priceLocal = Math.round(priceEur * (exchangeRates[currency] || 1));
+                
+                return (
+                <div key={stop.id} className="rounded-xl border border-white/10 p-5 space-y-3 bg-white/5 hover:border-amber-500/50 transition-colors shadow-sm">
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-1.5 font-bold text-white/90 text-lg">
@@ -171,7 +175,8 @@ export function HotelPanel() {
                   <Stay22Map lat={stop.lat} lon={stop.lon} address={stop.name.replace(/^Ночівля[:\s]+(?:у м\.\s*)?/, '')} />
                 </div>
               </div>
-            )})
+            );
+          })})()
           )}
         </div>
         

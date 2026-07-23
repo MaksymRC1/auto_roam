@@ -35,12 +35,14 @@ export function BudgetPanel() {
 
   // 2. Hotel Cost (Dynamic)
   const hotelStops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
+  const hasAnyHotelOverride = hotelStops.some(wp => hotelOverrides[wp.id]?.priceEur !== undefined);
+
   const hotelCostEur = hotelStops.reduce((sum, wp) => {
     const override = hotelOverrides[wp.id];
     if (override && override.priceEur !== undefined) {
       return sum + override.priceEur;
     }
-    return sum + getHotelPrice(wp.countryCode || 'UNKNOWN');
+    return sum + (hasAnyHotelOverride ? 0 : getHotelPrice(wp.countryCode || 'UNKNOWN'));
   }, 0);
   const stopsCount = hotelStops.length;
 

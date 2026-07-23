@@ -144,7 +144,7 @@ export function BudgetPanel() {
                 type="number" 
                 value={insuranceCost ? Math.round(insuranceCost * rate) : ''} 
                 onChange={(e) => setInsuranceCost(Number(e.target.value) / rate)} 
-                className="w-24 bg-black/50 border border-white/20 rounded-md px-2 py-1 text-right text-sm font-bold text-white focus:outline-none focus:border-white/40"
+                className="w-24 bg-white/5 border border-white/10 rounded-md px-2 py-1 text-right text-sm font-bold text-white focus:outline-none focus:border-white/30"
                 placeholder="0"
                 min="0"
               />
@@ -153,27 +153,27 @@ export function BudgetPanel() {
 
           <div className="h-px bg-white/10 my-2" />
 
-          <div className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${includeReserve ? 'bg-white/10 border-white/20' : 'bg-white/5 border-white/10 opacity-70'}`}>
-            <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${includeReserve ? 'bg-white/10 text-white' : 'bg-white/5 border border-white/10 text-white/50'}`}>
+          <div className={`flex flex-col gap-3 p-3 rounded-lg border transition-colors ${includeReserve ? 'bg-white/10 border-white/20' : 'bg-white/5 border-white/10 opacity-70'}`}>
+            <div className="flex items-start gap-3">
+              <div className={`w-8 h-8 shrink-0 rounded-full flex items-center justify-center ${includeReserve ? 'bg-white/10 text-white' : 'bg-white/5 border border-white/10 text-white/50'}`}>
                 <ShieldAlert className="w-4 h-4" />
               </div>
-              <div>
+              <div className="flex-1">
                 <p className={`font-semibold ${includeReserve ? 'text-white/90' : 'text-white/60'}`}>Резерв на непередбачувані витрати</p>
-                <p className={`text-xs ${includeReserve ? 'text-white/70' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
+                <p className={`text-xs mt-0.5 ${includeReserve ? 'text-white/70' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <span className={`font-bold ${includeReserve ? 'text-orange-400' : 'text-white/40 line-through'}`}>{formatCost(reserveEur)}</span>
+            <div className="flex items-center justify-between sm:justify-end gap-4 pl-11">
+              <span className={`font-bold ${includeReserve ? 'text-white/90' : 'text-white/40 line-through'}`}>{formatCost(reserveEur)}</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" checked={includeReserve} onChange={() => toggleReserve()} />
-                <div className="w-9 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-500"></div>
+                <div className="w-10 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-white/40"></div>
               </label>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-800 p-6 text-white flex justify-center items-center shadow-lg">
+        <div className="mt-6 rounded-2xl bg-white/10 border border-white/20 p-6 text-white flex justify-center items-center shadow-lg">
           <p className="text-5xl font-bold tracking-tight text-center">{formatCost(totalEur)}</p>
         </div>
         <p className="text-center text-xs text-white/40 mt-3 px-4">

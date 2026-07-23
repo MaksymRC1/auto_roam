@@ -671,34 +671,57 @@ export function TripPlanner() {
           <div className="mt-2 flex flex-col gap-4">
             
             {/* Settings Explanation */}
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-sm text-blue-200">
-              <p className="mb-3">
-                <span className="font-semibold text-blue-300">💡 За замовчуванням:</span> зупинка для ночівлі планується кожні {hotelCustomTime ? Math.round(hotelCustomTime / 60) : 8} годин. Ви можете змінити цей час нижче:
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-white/80">
+              <p className="mb-4">
+                <span className="font-semibold text-white">💡 За замовчуванням:</span> зупинка для ночівлі планується кожні {hotelCustomTime ? Math.round(hotelCustomTime / 60) : 8} годин. Ви можете змінити цей час нижче:
               </p>
-              <div className="flex items-center gap-3">
-                <span className="text-white/70">Зупинятися кожні:</span>
-                <select 
-                  value={hotelCustomTime ? String(hotelCustomTime / 60) : "0"} 
-                  onChange={(e) => {
-                    const num = Number(e.target.value);
-                    setHotelSettings('time', num > 0 ? num * 60 : 0, hotelCustomDistance);
-                  }}
-                  className="w-32 bg-[#131620] border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-white/30 appearance-none"
-                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(255, 255, 255, 0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9' /%3E%3C/svg%3E")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em', paddingRight: '2.5rem' }}
-                >
-                  <option value="0" className="bg-[#131620]">Без зупинок</option>
-                  <option value="4" className="bg-[#131620]">4 години</option>
-                  <option value="6" className="bg-[#131620]">6 годин</option>
-                  <option value="8" className="bg-[#131620]">8 годин</option>
-                  <option value="10" className="bg-[#131620]">10 годин</option>
-                  <option value="12" className="bg-[#131620]">12 годин</option>
-                  <option value="14" className="bg-[#131620]">14 годин</option>
-                  <option value="16" className="bg-[#131620]">16 годин</option>
-                </select>
+              
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between border-t border-white/10 pt-4">
+                <label className="relative flex items-center cursor-pointer gap-3">
+                  <div className="relative">
+                    <input 
+                      type="checkbox" 
+                      className="sr-only peer" 
+                      checked={!hotelCustomTime || hotelCustomTime === 0} 
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setHotelSettings('time', 0, hotelCustomDistance);
+                        } else {
+                          setHotelSettings('time', 8 * 60, hotelCustomDistance);
+                        }
+                      }}
+                    />
+                    <div className="w-10 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-white/40"></div>
+                  </div>
+                  <span className="text-sm font-medium text-white/90">Без зупинок</span>
+                </label>
+
+                {(hotelCustomTime > 0) && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-white/70">Кожні:</span>
+                    <select 
+                      value={String(Math.round(hotelCustomTime / 60))} 
+                      onChange={(e) => {
+                        const num = Number(e.target.value);
+                        setHotelSettings('time', num * 60, hotelCustomDistance);
+                      }}
+                      className="w-16 bg-[#131620] border border-white/10 text-white rounded-xl px-2 py-1.5 text-sm focus:outline-none focus:border-white/30 appearance-none text-center"
+                    >
+                      <option value="4" className="bg-[#131620]">4</option>
+                      <option value="6" className="bg-[#131620]">6</option>
+                      <option value="8" className="bg-[#131620]">8</option>
+                      <option value="10" className="bg-[#131620]">10</option>
+                      <option value="12" className="bg-[#131620]">12</option>
+                      <option value="14" className="bg-[#131620]">14</option>
+                      <option value="16" className="bg-[#131620]">16</option>
+                    </select>
+                    <span className="text-white/70">годин</span>
+                  </div>
+                )}
               </div>
             </div>
 
-            {selectedStay22Id && (
+            {selectedStay22Id && hotelCustomTime > 0 ? (
               <Stay22Map 
                 lat={waypoints.find(w => w.id === selectedStay22Id)?.lat}
                 lon={waypoints.find(w => w.id === selectedStay22Id)?.lon}
@@ -706,6 +729,14 @@ export function TripPlanner() {
                 defaultOpen={true}
                 isModalView={true}
               />
+            ) : (
+              hotelCustomTime === 0 && (
+                <div className="flex flex-col items-center justify-center py-10 px-4 text-center border border-dashed border-white/10 rounded-xl bg-white/5">
+                  <span className="text-2xl mb-2">🚗</span>
+                  <p className="text-white/70 font-medium">Ви обрали подорож без зупинок на ночівлю.</p>
+                  <p className="text-sm text-white/40 mt-1">Карта готелів прихована.</p>
+                </div>
+              )
             )}
           </div>
         </DialogContent>

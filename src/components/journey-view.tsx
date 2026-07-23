@@ -139,7 +139,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
   return (
     <>
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 bg-[#1a1f2e]/90 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none">
+      <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none" style={{ background: "rgba(0, 0, 0, 0.45)" }}>
         {/* Повернутися на сайт */}
         <div className="relative group flex items-center">
           <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title="Повернутися на сайт">
@@ -307,7 +307,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                         toggleWaypointCompletion(wp.id);
                       }
                     }}
-                    className={`flex-1 w-full bg-[#1a1f2e] md:bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
+                    className={`flex-1 w-full bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 transition-all duration-300 relative z-10 print:bg-transparent print:border-slate-300 print:text-black ${
                     !isStart && !isFinish ? 'cursor-pointer' : ''
                   } ${
                     isCompleted 

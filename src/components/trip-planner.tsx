@@ -377,6 +377,7 @@ export function TripPlanner() {
                       </p>
                     </div>
                     <button 
+                      id="tour-step-fuel"
                       className="md:hidden p-2.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors flex items-center justify-center relative focus:outline-none"
                       onClick={() => setIsMobileFuelOpen(true)}
                       title="Розрахунок палива"

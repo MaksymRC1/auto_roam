@@ -349,7 +349,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           title="Google Maps"
                         >
                           <GoogleMapsIcon className="w-5 h-5" />
-                          <span className="font-semibold text-sm">Google Maps</span>
+                          <span className="hidden md:inline font-semibold text-sm">Google Maps</span>
                         </a>
                         <a 
                           href={wazeUrl} 
@@ -364,7 +364,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           title="Waze"
                         >
                           <WazeIcon className="w-5 h-5" />
-                          <span className="font-semibold text-sm">Waze</span>
+                          <span className="hidden md:inline font-semibold text-sm">Waze</span>
                         </a>
                       </div>
 

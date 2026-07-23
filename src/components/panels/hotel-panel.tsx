@@ -14,7 +14,7 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
     return (
       <Button 
         onClick={() => setIsOpen(true)}
-        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium shadow-sm transition-all"
+        className="w-full bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium shadow-sm transition-all"
       >
         <MapIcon className="w-4 h-4 mr-2" /> Знайти готелі та Airbnb на мапі (Stay22)
       </Button>
@@ -26,7 +26,7 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
 
   return (
     <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-200">
-      <div className="flex items-center justify-between bg-blue-500/10 text-blue-300 text-xs p-3 rounded-lg border border-blue-500/20">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/5 text-white/80 text-xs p-3 rounded-lg border border-white/10 gap-3">
         {isModalView ? (
           <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та вставте в поле "Адреса готелю" для цього пункту ночівлі, щоб зберегти свій вибір.</p>
         ) : (
@@ -37,13 +37,13 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
             variant="outline" 
             size="sm" 
             onClick={() => setIsOpen(false)}
-            className="h-7 text-xs shrink-0 ml-3 bg-white/10 border-white/20 text-white hover:bg-white/20"
+            className="h-7 text-xs shrink-0 bg-white/10 border-white/20 text-white hover:bg-white/20 w-full sm:w-auto"
           >
             Сховати мапу
           </Button>
         )}
       </div>
-      <div className="w-full h-[450px] rounded-lg overflow-hidden border border-amber-200 shadow-inner relative">
+      <div className="w-full h-[450px] rounded-lg overflow-hidden border border-white/10 shadow-inner relative">
         <iframe
           src={src}
           width="100%"

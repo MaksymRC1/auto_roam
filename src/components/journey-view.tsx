@@ -357,24 +357,6 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                           {wp.distanceFromStart} км від старту • {formatTime(wp.timeFromStart)}
                         </span>
                       )}
-
-                      {isHotel && (
-                        <div className="mt-4 border-t border-white/10 pt-4">
-                           <button
-                             onClick={(e) => {
-                               e.stopPropagation();
-                               setHotelOverride(wp.id, { skipped: !isHotelSkipped });
-                             }}
-                             className={`w-full py-2 rounded-xl text-sm font-medium transition-colors ${
-                               isHotelSkipped 
-                                 ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' 
-                                 : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90'
-                             }`}
-                           >
-                             {isHotelSkipped ? 'Активувати ночівлю' : 'Не враховувати у витратах'}
-                           </button>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>

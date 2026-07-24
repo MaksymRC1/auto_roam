@@ -1,3 +1,4 @@
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 "use client";
 
 import { useState, useEffect } from "react";
@@ -12,16 +13,7 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
   const [hoveredStar, setHoveredStar] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   // Reset state when modal opens
   useEffect(() => {

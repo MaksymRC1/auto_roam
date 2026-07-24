@@ -1,5 +1,6 @@
 "use client";
 
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useEffect, useRef } from "react";
 
 interface TermsModalProps {
@@ -10,17 +11,7 @@ interface TermsModalProps {
 export function TermsModal({ isOpen, onClose }: TermsModalProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-
-      return () => {
-        document.body.style.overflow = "unset";
-        document.documentElement.style.overflow = "unset";
-      };
-    }
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   if (!isOpen) return null;
 

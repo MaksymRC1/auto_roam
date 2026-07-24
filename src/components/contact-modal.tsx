@@ -1,5 +1,6 @@
 "use client";
 
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useEffect } from "react";
 
 interface ContactModalProps {
@@ -8,26 +9,7 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-
-      const preventScroll = (e: Event) => {
-        e.preventDefault();
-      };
-
-      window.addEventListener("wheel", preventScroll, { passive: false });
-      window.addEventListener("touchmove", preventScroll, { passive: false });
-
-      return () => {
-        document.body.style.overflow = "unset";
-        document.documentElement.style.overflow = "unset";
-        window.removeEventListener("wheel", preventScroll);
-        window.removeEventListener("touchmove", preventScroll);
-      };
-    }
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   if (!isOpen) return null;
 

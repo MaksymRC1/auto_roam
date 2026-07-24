@@ -1,5 +1,6 @@
-import { useScrollLock } from "@/hooks/use-scroll-lock";
 "use client";
+
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 
 import { useState, useEffect } from "react";
 

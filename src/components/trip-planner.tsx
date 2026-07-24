@@ -49,6 +49,7 @@ export function TripPlanner() {
   const [selectedStay22Id, setSelectedStay22Id] = useState<string | null>(null);
   const [isMobileInsuranceOpen, setIsMobileInsuranceOpen] = useState(false);
   const [hasSeenStops, setHasSeenStops] = useState(false);
+  const [hasSeenFuel, setHasSeenFuel] = useState(false);
   const [hasSeenHotel, setHasSeenHotel] = useState(false);
   const [hasSeenInsurance, setHasSeenInsurance] = useState(false);
   const [hasSeenBudget, setHasSeenBudget] = useState(false);
@@ -237,8 +238,8 @@ export function TripPlanner() {
           </div>
         </div>
       ) : (
-        <div className="max-w-[1280px] mx-auto w-full flex-1 flex flex-col relative pt-24 pb-32 md:pb-32 px-4 md:px-8 z-10">
-          <div className="flex flex-col md:flex-row gap-6 lg:gap-8 w-full flex-1 pb-16 md:pb-8">
+        <div className="max-w-[1280px] mx-auto w-full flex-1 flex flex-col relative pt-24 pb-24 md:pb-32 px-4 md:px-8 z-10">
+          <div className="flex flex-col md:flex-row gap-6 lg:gap-8 w-full flex-1 pb-4 md:pb-8">
             
             {/* Mobile Bottom Navigation Bar */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 pb-4 pt-3 px-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
@@ -268,6 +269,18 @@ export function TripPlanner() {
                   </div>
                 </SheetContent>
               </Sheet>
+
+              {/* Fuel Settings */}
+              <button 
+                id="tour-step-fuel"
+                onClick={() => { setIsMobileFuelOpen(true); setHasSeenFuel(true); }}
+                className="relative flex items-center justify-center w-10 h-10 outline-none group"
+                title="Розрахунок палива"
+              >
+                <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
+                <Fuel className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                {!hasSeenFuel && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
+              </button>
 
               {/* Insurance & Vignettes Sheet */}
               <Sheet key="mobile-insurance-sheet" open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
@@ -361,17 +374,6 @@ export function TripPlanner() {
                         {totalDistance} км • ~{formatTime(totalDuration)}
                       </p>
                     </div>
-                    <button 
-                      id="tour-step-fuel"
-                      className="md:hidden p-2.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors flex items-center justify-center relative focus:outline-none"
-                      onClick={() => setIsMobileFuelOpen(true)}
-                      title="Розрахунок палива"
-                    >
-                      <Fuel className="w-5 h-5" />
-                      {needsFuel && (
-                        <span className="absolute top-0 right-0 w-3 h-3 bg-white rounded-full border-2 border-[#131620]"></span>
-                      )}
-                    </button>
                   </div>
                   
                   <div className="flex-1 p-5 md:overflow-y-auto custom-scrollbar pb-12">

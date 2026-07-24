@@ -46,3 +46,5 @@ next-env.d.ts
 # Local database fallback
 local-db-journeys.json
 
+# Antigravity/MCP
+.agents/

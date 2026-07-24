@@ -1,6 +1,40 @@
-# AutoRoam: PWA Планувальник Автомобільних Подорожей
+<div align="center">
+  
+  # AutoRoam
+  **PWA Планувальник Автомобільних Подорожей**
+
+  [![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+  **🌍 Офіційний сайт: [autoroam.com.ua](https://autoroam.com.ua)**
+</div>
+
+---
 
 AutoRoam — це розумний веб-додаток (Progressive Web App) для водіїв, який перетворює планування далекої автомобільної подорожі з хаосу вкладок на єдиний зрозумілий таймлайн. Додаток автоматизує розрахунки бюджету, пошук місць для ночівлі та надає актуальну інформацію про перетин кордонів і віньєтки.
+
+## 🖼️ Галерея Інтерфейсу
+
+<p align="center">
+  <img src="public/screenshots/1-landing.png" width="48%" alt="Головна сторінка">
+  <img src="public/screenshots/2-timeline.png" width="48%" alt="Таймлайн маршруту">
+</p>
+<p align="center">
+  <img src="public/screenshots/3-details.png" width="48%" alt="Деталі зупинок та ночівлі">
+  <img src="public/screenshots/4-budget.png" width="48%" alt="Кошторис та витрати">
+</p>
+
+### 📱 Мобільна версія
+
+<p align="center">
+  <img src="public/screenshots/m1-timeline.jpg" width="19%" alt="Таймлайн">
+  <img src="public/screenshots/m2-loading.jpg" width="19%" alt="Завантаження">
+  <img src="public/screenshots/m3-budget.jpg" width="19%" alt="Кошторис">
+  <img src="public/screenshots/m4-insurance.jpg" width="19%" alt="Автоцивілка">
+  <img src="public/screenshots/m5-hotel.jpg" width="19%" alt="Готелі">
+</p>
 
 ## 💡 Ідея проекту
 Звичайна навігація (як Google Maps) добре показує шлях, але не відповідає на ключові питання мандрівника: "Скільки це коштуватиме?", "Де мені доведеться зупинитися на ніч?", "Які кордони я перетинатиму і що там з платними дорогами?".

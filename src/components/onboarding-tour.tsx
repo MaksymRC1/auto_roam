@@ -12,11 +12,6 @@ interface TourStep {
 
 const steps: TourStep[] = [
   {
-    title: "Карта та Хронологія",
-    description: "Перемикайтеся між картою та детальним списком вашого маршруту.",
-    targetId: "tour-step-view"
-  },
-  {
     title: "Параметри маршруту",
     description: "Додавайте або редагуйте зупинки, заправки та місця для відпочинку.",
     targetId: "tour-step-stops"

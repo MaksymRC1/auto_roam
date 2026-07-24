@@ -243,20 +243,6 @@ export function TripPlanner() {
             {/* Mobile Bottom Navigation Bar */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 pb-4 pt-3 px-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
               
-              {/* Toggle Map / Timeline */}
-              <button 
-                id="tour-step-view"
-                onClick={() => setLeftView(leftView === 'timeline' ? 'map' : 'timeline')} 
-                className="relative flex items-center justify-center w-10 h-10 outline-none group"
-                title={leftView === 'timeline' ? "Показати карту" : "Показати хронологію"}
-              >
-                <div className={`absolute inset-0 bg-[#3b82f6]/10 rounded-full transition-transform duration-300 ${leftView === 'map' ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
-                {leftView === 'timeline' ? (
-                  <MapIcon className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
-                ) : (
-                  <Clock className="w-5 h-5 relative z-10 text-blue-400 group-hover:text-blue-300 transition-colors" />
-                )}
-              </button>
               
               {/* Route (Stops) Sheet */}
               <Sheet key="mobile-stops-sheet">
@@ -350,23 +336,15 @@ export function TripPlanner() {
               </Tabs>
 
               <Card id="desktop-tour-map" className="flex-1 overflow-hidden flex flex-col relative bg-black/40 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl text-white">
-                {/* Map Sliding Panel on Mobile / Absolute overlay on Desktop */}
+                {/* Desktop Map Overlay (Hidden on Mobile) */}
                 <div className={`
-                  transition-all duration-300
-                  fixed bottom-0 left-0 right-0 h-[85vh] bg-slate-950 z-[45] rounded-t-3xl overflow-hidden border-t border-white/10 flex flex-col
-                  md:absolute md:inset-0 md:z-0 md:h-auto md:bg-transparent md:rounded-none md:border-none
+                  hidden md:flex transition-all duration-300
+                  absolute inset-0 z-0 h-auto bg-transparent rounded-none border-none flex-col
                   ${leftView === 'map' 
-                    ? 'translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] md:opacity-100' 
-                    : 'translate-y-full pointer-events-none md:translate-y-0 md:opacity-0'}
+                    ? 'opacity-100' 
+                    : 'pointer-events-none opacity-0'}
                 `}>
-                  <div className="md:hidden flex items-center justify-between p-5 border-b border-white/10 shrink-0 bg-slate-950/95 backdrop-blur-xl z-10">
-                    <h3 className="text-white font-semibold">Карта маршруту</h3>
-                    <button onClick={() => setLeftView('timeline')} className="text-white/50 hover:text-white transition-colors">
-                       <span className="sr-only">Закрити</span>
-                       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                  </div>
-                  <div className="flex-1 relative pb-20 md:pb-0">
+                  <div className="flex-1 relative pb-0">
                     <MapPanel />
                   </div>
                 </div>

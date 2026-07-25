@@ -155,12 +155,16 @@
   }
   body {
     @apply bg-background text-foreground;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
   html {
     @apply font-sans;
+    touch-action: manipulation;
   }
   button, a {
     cursor: pointer;
+    touch-action: manipulation;
   }
   button:disabled {
     cursor: not-allowed;

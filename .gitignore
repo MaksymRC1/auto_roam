@@ -48,3 +48,7 @@ local-db-journeys.json
 
 # Antigravity/MCP
 .agents/
+
+# Playwright
+/playwright-report
+/test-results

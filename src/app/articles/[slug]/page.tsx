@@ -79,11 +79,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-white mt-2 border-b border-white/10 pb-3 mb-5">Топ маршрутів</h3>
+            <h3 className="text-xl font-bold text-white mt-2 border-b border-white/10 pb-3 mb-5">{(article as any).routesTitle || "Топ маршрутів"}</h3>
             <ul className="flex flex-col gap-5">
-              {article.routes.map((route: { name: string; desc: string }, idx: number) => (
+              {article.routes.map((route: { name: string; desc: string; icon?: string }, idx: number) => (
                 <li key={idx} className="flex gap-3 items-start">
-                  <span className="material-symbols-outlined text-white/80 mt-1">route</span>
+                  <span className="material-symbols-outlined text-white/80 mt-1">{route.icon || "route"}</span>
                   <div>
                     <strong className="text-white text-lg block mb-1">{route.name}</strong>
                     <span className="text-base text-white/70">{route.desc}</span>

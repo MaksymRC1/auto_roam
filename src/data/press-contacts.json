@@ -1,0 +1,474 @@
+[
+  {
+    "name": "Максиме",
+    "email": "maksymotroshko@ukr.net",
+    "outlet": "DOU / AIN / Speka (Тест TECH)",
+    "templateType": "tech",
+    "note": "Знаю, що ваша аудиторія цінує круті кейси українського бутстрепінгу та інді-розробки",
+    "active": false
+  },
+  {
+    "name": "Максиме",
+    "email": "maksymotroshko@ukr.net",
+    "outlet": "MC.today / Forbes / Vector (Тест BUSINESS)",
+    "templateType": "business",
+    "note": "З задоволенням читаю у вас історії про нові українські сервіси, які спрощують життя",
+    "active": false
+  },
+  {
+    "name": "Максиме",
+    "email": "maksymotroshko@ukr.net",
+    "outlet": "Autoconsulting / Travel-блог (Тест AUTO)",
+    "templateType": "auto",
+    "note": "Ваші читачі знають все про автомобілі та дальні поїздки, тому цей сервіс стане для них знахідкою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@ain.ua",
+    "outlet": "AIN.UA",
+    "templateType": "tech",
+    "note": "Ділюся з вами кейсом створення сучасного українського авто-асистента на Next.js 16",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@dou.ua",
+    "outlet": "DOU.ua",
+    "templateType": "tech",
+    "note": "Знаю, що ваша спільнота цінує якісні інженерні кейси українського бутстрепінгу та інді-розробки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "contact@speka.media",
+    "outlet": "SPEKA.media",
+    "templateType": "tech",
+    "note": "Новий український ШІ-проєкт для планування автоподорожей за трендами інді-хакінг",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@dev.ua",
+    "outlet": "dev.ua",
+    "templateType": "tech",
+    "note": "Кейс українського розробника: як соло-фаундер створив конкурента корпоративним навігаторам",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "mezha.cdt@gmail.com",
+    "outlet": "Mezha.Media",
+    "templateType": "tech",
+    "note": "Проєкт українського розробника з фокусом на UX, швидкість та сучасні веб-технології",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@highload.today",
+    "outlet": "Highload.today",
+    "templateType": "tech",
+    "note": "Технічний кейс створення архітектури з Next.js 16, React 19 та Vercel Postgres",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@root-nation.com",
+    "outlet": "Root Nation",
+    "templateType": "tech",
+    "note": "Український технологічний стартап у сфері автоподорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@itc.ua",
+    "outlet": "ITC.ua",
+    "templateType": "tech",
+    "note": "Новий безкоштовний український PWA-застосунок для водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mc.today",
+    "outlet": "MC.today",
+    "templateType": "business",
+    "note": "Історія про те, як український підприємець створив зручний інструмент, що замінює 10 вкладок при плануванні поїздки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@forbes.ua",
+    "outlet": "Forbes Україна",
+    "templateType": "business",
+    "note": "Новий український інструмент для автоматизації дальніх поїздок Європою та Україною",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@vctr.media",
+    "outlet": "Vector Media",
+    "templateType": "business",
+    "note": "Продукт українського фаундера, який розв'язує реальну проблему водіїв і мандрівників",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "tech@liga.net",
+    "outlet": "LIGA.Tech",
+    "templateType": "business",
+    "note": "Український веб-сервіс, який допомагає розраховувати бюджет на пальне та ночівлі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "epravda@pravda.ua",
+    "outlet": "Економічна правда",
+    "templateType": "business",
+    "note": "Як новий український сервіс автоматизує розрахунок пального та віньєток за кордоном",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@thepage.ua",
+    "outlet": "The Page Україна",
+    "templateType": "business",
+    "note": "Інноваційний український помічник для автоподорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@shotam.info",
+    "outlet": "ШоТам",
+    "templateType": "business",
+    "note": "Позитивна новина: український розробник безкоштовно запустив корисний сервіс для водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@24tv.ua",
+    "outlet": "24 Канал",
+    "templateType": "business",
+    "note": "Українці створили розумний додаток для планування дальніх автопоїздок",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@nashkiev.ua",
+    "outlet": "Наш Київ",
+    "templateType": "business",
+    "note": "Корисний український сервіс для тих, хто планує подорож на автомобілі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "focus@focus.ua",
+    "outlet": "Фокус",
+    "templateType": "business",
+    "note": "Новий український авто-асистент, який економить час та кошти водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autocentre.ua",
+    "outlet": "Автоцентр (Autocentre.ua)",
+    "templateType": "auto",
+    "note": "Ваші читачі знають все про автомобілі, тому цей безкоштовний калькулятор пального та ночівель стане для них знахідкою",
+    "active": false
+  },
+  {
+    "name": "Василю",
+    "email": "vshpyra@ads.in.ua",
+    "outlet": "MMR.net.ua (Motor Media Review)",
+    "templateType": "auto",
+    "note": "Корисний український інструмент для розрахунку витрат на пальне та віньєтки у далеких поїздках",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autoconsulting.ua",
+    "outlet": "AutoConsulting",
+    "templateType": "auto",
+    "note": "Новий український авто-асистент для планування маршрутів без штрафів і перевтоми",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editorial@auto.ria.com",
+    "outlet": "AUTO.RIA Журнал",
+    "templateType": "auto",
+    "note": "Безкоштовний український PWA-помічник для водіїв, який замінює звичні навігатори у довгих поїздках",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "auto@rbc.ua",
+    "outlet": "РБК-Україна Авто",
+    "templateType": "auto",
+    "note": "Як автоматично порахувати ціну пального в різних країнах та знайти платні дороги",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "unian.headquoters@unian.net",
+    "outlet": "УНІАН Авто / Туризм",
+    "templateType": "auto",
+    "note": "Новий український додаток для тих, хто подорожує Європою та Україною на авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@obozrevatel.com",
+    "outlet": "OBOZ.UA Авто",
+    "templateType": "auto",
+    "note": "Розумний український сервіс, який підкаже де зупинитися на ніч і як купити віньєтку в 1 клік",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@tvoemisto.tv",
+    "outlet": "Твоє Місто",
+    "templateType": "auto",
+    "note": "Корисна розробка для українських водіїв та мандрівників",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@lowcostavia.com.ua",
+    "outlet": "Lowcost Avia",
+    "templateType": "auto",
+    "note": "Незамінний інструмент для тих, хто планує самостійні подорожі Європою на машині",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autoportal.ua",
+    "outlet": "ТопЖир (TopGir.com.ua)",
+    "templateType": "auto",
+    "note": "Культовий український авто-портал та тисячі водіїв точно оцінять цей корисний додаток",
+    "active": false
+  },
+  {
+    "name": "Тарасе",
+    "email": "tk@hmarochos.kiev.ua",
+    "outlet": "Хмарочос (Hmarochos)",
+    "templateType": "auto",
+    "note": "Як новий український сервіс покращує міську мобільність та автоматизує автоподорожі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@telegraf.com.ua",
+    "outlet": "Телеграф (Telegraf.com.ua)",
+    "templateType": "auto",
+    "note": "Корисний український додаток для водіїв, що планують далекі поїздки та транзит",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@nv.ua",
+    "outlet": "NV.ua (New Voice Україна)",
+    "templateType": "tech",
+    "note": "Створено український PWA-додаток, який замінює 15 вкладок у браузері при плануванні подорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mind.ua",
+    "outlet": "Mind.ua",
+    "templateType": "business",
+    "note": "Як українська інноваційна розробка автоматизує підрахунок пального та віньєток у Європі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@delo.ua",
+    "outlet": "Delo.ua",
+    "templateType": "business",
+    "note": "Нове українське ІТ-рішення для автоматизації логістики та розрахунку дорожніх зборів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pr@inventure.ua",
+    "outlet": "InVenture",
+    "templateType": "business",
+    "note": "Перспективний український стартап у сфері TravelTech та транспортної автоматизації",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@marketer.ua",
+    "outlet": "Marketer.ua",
+    "templateType": "tech",
+    "note": "Кейс розробки та просування українського PWA-застосунку для автомобілістів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "korr-pressrelease@korrespondent.net",
+    "outlet": "Кореспондент.net",
+    "templateType": "tech",
+    "note": "Новий безкоштовний український сервіс для водіїв, який рахує витрати на пальне та віньєтки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "office@ukrinform.com",
+    "outlet": "Укрінформ",
+    "templateType": "auto",
+    "note": "Корисний сервіс для українців за кордоном, який допомагає планувати перетин кордонів та транзит",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@hromadske.ua",
+    "outlet": "Громадське (Hromadske.ua)",
+    "templateType": "auto",
+    "note": "Український розробник створив безкоштовний додаток для зручних та безпечних поїздок Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "apostrophe@apostrophe.ua",
+    "outlet": "Апостроф",
+    "templateType": "auto",
+    "note": "Розумний український помічник для тих, хто подорожує на власному авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@autogeek.com.ua",
+    "outlet": "Autogeek",
+    "templateType": "auto",
+    "note": "ТОП №1 в Україні про еко-транспорт, електромобілі та смарт-технології в авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@cfts.org.ua",
+    "outlet": "ЦТС (Центр транспортних стратегій)",
+    "templateType": "business",
+    "note": "Головний транспортний та інфраструктурний портал України: цифровізація перевезень",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@ukrautoprom.com.ua",
+    "outlet": "УкрАвтопром",
+    "templateType": "auto",
+    "note": "Офіційна аналітика та новини авторинку України: новий корисний український додаток",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "contact@autoexpert.in.ua",
+    "outlet": "AutoExpert",
+    "templateType": "auto",
+    "note": "Профільний портал для автоекспертів, інженерів та професійних водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "support@electrocars.ua",
+    "outlet": "Electrocars",
+    "templateType": "auto",
+    "note": "Спільнота власників електромобілів в Україні: розрахунок платних доріг та віньєток Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "kontakt@yavp.pl",
+    "outlet": "Yavp.pl (Я в Польщі)",
+    "templateType": "auto",
+    "note": "Головний портал для українців у Польщі: сотні тисяч водіїв, що їздять трасами Польща–Україна",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@ukrainians.cz",
+    "outlet": "Ukrainians.cz",
+    "templateType": "auto",
+    "note": "Головний ресурс для українців у Чехії та транзитних мандрівників Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "telegraf.design@gmail.com",
+    "outlet": "Telegraf.Design",
+    "templateType": "tech",
+    "note": "Головне українське видання про UX/UI та продуктовий дизайн: кейс створення зручного PWA",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "marketing@playua.net",
+    "outlet": "PlayUA",
+    "templateType": "tech",
+    "note": "Культова українська гік- та інді-спільнота: підтримка нових українських софт-проектів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "press@ecoact.org.ua",
+    "outlet": "Екодія (Ecoaction)",
+    "templateType": "tech",
+    "note": "Висвітлення інновацій у сфері сталої міської мобільності та смарт-транспорту",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "adv@igotoworld.com",
+    "outlet": "IGotoWorld",
+    "templateType": "auto",
+    "note": "Великий профільний туристичний портал про подорожі, транзит та авто-маршрути",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@nachasi.com",
+    "outlet": "Na chasi",
+    "templateType": "tech",
+    "note": "Трендове медіа про нові українські стартапи, інновації, смарт-сервіси та цифрову економіку",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@gagadget.com",
+    "outlet": "Gagadget Україна",
+    "templateType": "tech",
+    "note": "Один із найпопулярніших в Україні порталів оглядів нових додатків, софту та гаджетів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@techtoday.in.ua",
+    "outlet": "TechToday",
+    "templateType": "tech",
+    "note": "Спеціалізоване технологічне та мобільне видання для ентузіастів інновацій",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@the-village.com.ua",
+    "outlet": "The Village Україна",
+    "templateType": "tech",
+    "note": "Як новий український PWA-додаток спрощує життя водіям та мандрівникам",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "team@bzh.life",
+    "outlet": "БЖ (BZH.life)",
+    "templateType": "auto",
+    "note": "Розумний український сервіс для тих, хто планує автоподорожі Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "com@espreso.tv",
+    "outlet": "Еспресо.TV",
+    "templateType": "tech",
+    "note": "Український розробник представив безкоштовний помічник для розрахунку європейських дорожніх зборів",
+    "active": false
+  }
+]

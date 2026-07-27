@@ -5,16 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info } from "lucide-react";
+import { Info, Pencil } from "lucide-react";
 import 'izitoast/dist/css/iziToast.min.css';
 
 
-import { useTripStore, FuelType } from "@/store/useTripStore";
+import { useTripStore, FuelType, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { FUEL_BUFFER_RATIO, getCurrencySymbol } from "@/lib/constants";
 
 export function FuelPanel() {
   const { 
-    totalDistance, fuelPrices, fetchFuelPrices, selectedFuelType, setFuelType, crossedCountries,
+    totalDistance, fuelPrices, customFuelPrices, setCustomFuelPrice, fetchFuelPrices, selectedFuelType, setFuelType, crossedCountries,
     consumption, setConsumption, isDefaultConsumption, fuelAmounts, setFuelAmounts, currency, setCurrency, exchangeRates, setExchangeRates
   } = useTripStore();
   
@@ -79,8 +79,8 @@ export function FuelPanel() {
       // Need to reduce other countries. Start with the most expensive.
       let excess = sum - cFuel;
       const sortedOthersDesc = [...otherCountries].sort((a, b) => {
-        const priceA = fuelPrices[a]?.[selectedFuelType] || 0;
-        const priceB = fuelPrices[b]?.[selectedFuelType] || 0;
+        const priceA = getEffectiveFuelPrice(a, fuelPrices, selectedFuelType, customFuelPrices);
+        const priceB = getEffectiveFuelPrice(b, fuelPrices, selectedFuelType, customFuelPrices);
         return priceB - priceA;
       });
 
@@ -98,8 +98,8 @@ export function FuelPanel() {
       const deficit = cFuel - sum;
       if (otherCountries.length > 0) {
         const sortedOthersAsc = [...otherCountries].sort((a, b) => {
-          const priceA = fuelPrices[a]?.[selectedFuelType] || 0;
-          const priceB = fuelPrices[b]?.[selectedFuelType] || 0;
+          const priceA = getEffectiveFuelPrice(a, fuelPrices, selectedFuelType, customFuelPrices);
+          const priceB = getEffectiveFuelPrice(b, fuelPrices, selectedFuelType, customFuelPrices);
           return priceA - priceB;
         });
         const cheapest = sortedOthersAsc[0];
@@ -147,7 +147,7 @@ export function FuelPanel() {
 
   Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
     const amount = parseFloat(amountStr) || 0;
-    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+    const priceEur = getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
     distributedFuel += amount;
     totalCostEur += amount * priceEur;
   });
@@ -188,13 +188,15 @@ export function FuelPanel() {
             }}>
               <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-sm">
                 <SelectValue placeholder="Виберіть паливо">
-                  {selectedFuelType === 'gasoline' ? 'Бензин' : selectedFuelType === 'diesel' ? 'Дизель' : 'Газ'}
+                  {selectedFuelType === 'gasoline' ? 'Бензин 95' : selectedFuelType === 'gasoline_premium' ? 'Бензин 98/100 (Преміум)' : selectedFuelType === 'diesel' ? 'Дизель' : selectedFuelType === 'diesel_premium' ? 'Дизель (Преміум)' : 'Газ (LPG)'}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="gasoline">Бензин</SelectItem>
+                <SelectItem value="gasoline">Бензин 95</SelectItem>
+                <SelectItem value="gasoline_premium">Бензин 98/100 (Преміум)</SelectItem>
                 <SelectItem value="diesel">Дизель</SelectItem>
-                <SelectItem value="lpg">Газ</SelectItem>
+                <SelectItem value="diesel_premium">Дизель (Преміум)</SelectItem>
+                <SelectItem value="lpg">Газ (LPG)</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -242,9 +244,9 @@ export function FuelPanel() {
                   } catch (e) {
                     // Ignore error for invalid codes like "UNKNOWN"
                   }
-                  const priceEur = fuelPrices[code]?.[selectedFuelType];
+                  const priceEur = getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
                   const isSelected = fuelAmounts[code] !== undefined;
-                  const priceLocal = priceEur ? (priceEur * rate).toFixed(2) : null;
+                  const priceLocal = priceEur > 0 ? (priceEur * rate).toFixed(2) : null;
                   
                   return (
                     <button
@@ -265,19 +267,44 @@ export function FuelPanel() {
              {Object.keys(fuelAmounts).length > 0 && (
                <div className="space-y-3 pt-2">
                  {Object.entries(fuelAmounts).map(([code, amount]) => {
-                    const countryName = regionNames.of(code) || code;
-                    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
-                    const priceLocal = priceEur * rate;
-                    const countryCostLocal = Math.round((parseFloat(amount) || 0) * priceLocal);
+                     const countryName = regionNames.of(code) || code;
+                     const priceEur = getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
+                     const priceLocal = priceEur * rate;
+                     const countryCostLocal = Math.round((parseFloat(amount) || 0) * priceLocal);
 
-                    return (
-                      <div key={code}>
-                        <div className="flex items-center gap-3">
-                          <div className="flex-1">
-                            <Label className="text-xs text-white/50 mb-1 block">
-                              {countryName} ({currencySymbol}{priceLocal.toFixed(2)}/л)
-                            </Label>
-                            <div className="relative">
+                     return (
+                       <div key={code}>
+                         <div className="flex items-center gap-3">
+                           <div className="flex-1">
+                             <div className="flex items-center justify-between gap-2 mb-1">
+                                <Label className="text-xs text-white/70 truncate">
+                                  {countryName}
+                                </Label>
+                                <div className="flex items-center gap-1 text-xs text-white/50 shrink-0 whitespace-nowrap">
+                                  <span>{currencySymbol}</span>
+                                  <input
+                                    type="text"
+                                    inputMode="decimal"
+                                    value={priceLocal > 0 ? priceLocal.toFixed(2) : ''}
+                                    placeholder="0.00"
+                                    onChange={(e) => {
+                                      const val = parseFloat(e.target.value.replace(',', '.'));
+                                      if (!isNaN(val) && val > 0) {
+                                        setCustomFuelPrice(code, selectedFuelType, Number((val / rate).toFixed(4)));
+                                      } else if (e.target.value === '' || val <= 0) {
+                                        setCustomFuelPrice(code, selectedFuelType, 0);
+                                      }
+                                    }}
+                                    className="w-14 bg-white/10 border border-white/20 rounded px-1.5 py-0.5 text-xs text-white text-right focus:outline-none focus:border-emerald-400"
+                                    title="Натисніть, щоб змінити ціну за літр"
+                                  />
+                                  <span className="inline-flex items-center gap-1 shrink-0 whitespace-nowrap">
+                                    <span>/л</span>
+                                    <Pencil className="w-3 h-3 text-white/40 shrink-0" />
+                                  </span>
+                                </div>
+                              </div>
+                             <div className="relative">
                               <Input 
                                 type="text"
                                 inputMode="decimal"

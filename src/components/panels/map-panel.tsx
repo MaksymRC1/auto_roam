@@ -19,6 +19,9 @@ export function MapPanel() {
 
   return (
     <div className="relative w-full h-full flex-1 bg-transparent">
+      <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-md border border-white/10 text-white/80 px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-2 shadow-lg pointer-events-none">
+        <span>📍 Клікніть на мапі, щоб додати проміжну зупинку</span>
+      </div>
       <APIProvider apiKey={apiKey} libraries={['places', 'geometry']}>
         <GoogleMapComponent />
       </APIProvider>

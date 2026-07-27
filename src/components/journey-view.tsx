@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTripStore, getHotelPrice, isHotelActive } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice, isHotelActive, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
@@ -59,7 +59,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
     loadFromRawData,
     totalDistance,
     totalDuration,
-    fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates,
+    fuelPrices, customFuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates,
     insuranceCost, includeReserve, hotelOverrides, hotelCustomTime, crossedCountries,
     setHotelOverride
   } = useTripStore();
@@ -114,7 +114,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
   let totalFuelCostEur = 0;
   Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
     const amount = parseFloat(amountStr) || 0;
-    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+    const priceEur = getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
     totalFuelCostEur += amount * priceEur;
   });
 

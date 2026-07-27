@@ -1,9 +1,9 @@
 "use client";
 
-import { useTripStore, getHotelPrice, isHotelActive } from "@/store/useTripStore";
+import { useTripStore, getHotelPrice, isHotelActive, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { ShieldAlert, AlertTriangle, Fuel, Bed, Flag, ShieldCheck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VIGNETTE_DB } from "@/lib/borders";
+import { VIGNETTE_DB, DISTANCE_TOLL_RATES } from "@/lib/borders";
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
 
 export function BudgetPanel() {
@@ -14,7 +14,9 @@ export function BudgetPanel() {
     exchangeRates,
     fuelAmounts,
     fuelPrices,
+    customFuelPrices,
     selectedFuelType,
+    totalDistance,
     hotelOverrides,
     hotelCustomTime,
     crossedCountries,
@@ -29,7 +31,7 @@ export function BudgetPanel() {
   let totalFuelLiters = 0;
   Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
     const amount = parseFloat(amountStr) || 0;
-    const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+    const priceEur = getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
     totalFuelCostEur += amount * priceEur;
     totalFuelLiters += amount;
   });
@@ -48,14 +50,50 @@ export function BudgetPanel() {
   }, 0);
   const stopsCount = activeHotelStops.length;
 
-  // 3. Vignette costs (real data from VIGNETTE_DB)
-  const vignetteCostEur = crossedCountries.reduce((sum, code) => {
+  // 3. Vignette & Toll Booth costs (distance-based estimation)
+  const countryDistances: Record<string, number> = {};
+  const borderStops = [...waypoints].filter(wp => wp.type === 'border' && wp.fromCountry && wp.toCountry).sort((a, b) => a.distanceFromStart - b.distanceFromStart);
+  
+  if (borderStops.length === 0) {
+    if (crossedCountries.length > 0 && totalDistance > 0) {
+      const evenDist = totalDistance / crossedCountries.length;
+      crossedCountries.forEach(c => { countryDistances[c] = evenDist; });
+    }
+  } else {
+    let lastDist = 0;
+    let currentCountry = borderStops[0].fromCountry!;
+    borderStops.forEach(b => {
+      const segDist = Math.max(0, b.distanceFromStart - lastDist);
+      countryDistances[currentCountry] = (countryDistances[currentCountry] || 0) + segDist;
+      currentCountry = b.toCountry!;
+      lastDist = b.distanceFromStart;
+    });
+    const finalSeg = Math.max(0, totalDistance - lastDist);
+    countryDistances[currentCountry] = (countryDistances[currentCountry] || 0) + finalSeg;
+  }
+
+  let vignetteCostEur = 0;
+  let tollBoothCostEur = 0;
+
+  crossedCountries.forEach(code => {
     const vignette = VIGNETTE_DB[code];
-    return sum + (vignette ? vignette.priceEur : 0);
-  }, 0);
+    if (vignette) {
+      vignetteCostEur += vignette.priceEur;
+    }
+    const distanceToll = DISTANCE_TOLL_RATES[code];
+    if (distanceToll) {
+      const dist = countryDistances[code] || 0;
+      if (dist > 0) {
+        const estCost = Math.round(dist * distanceToll.ratePerKmEur);
+        if (estCost > 0) {
+          tollBoothCostEur += estCost;
+        }
+      }
+    }
+  });
 
   // 4. Totals
-  const subtotalEur = totalFuelCostEur + hotelCostEur + vignetteCostEur + insuranceCost;
+  const subtotalEur = totalFuelCostEur + hotelCostEur + vignetteCostEur + tollBoothCostEur + insuranceCost;
   const reserveEur = subtotalEur * EMERGENCY_RESERVE_RATIO;
   const totalEur = subtotalEur + (includeReserve ? reserveEur : 0);
 
@@ -125,10 +163,10 @@ export function BudgetPanel() {
               </div>
               <div className="min-w-0 flex-1 pr-2">
                 <p className="font-semibold text-white/90">Віньєтки та збори</p>
-                <p className="text-xs text-white/50">Оплата платних доріг</p>
+                <p className="text-xs text-white/50">Оплата платних доріг та магістралей</p>
               </div>
             </div>
-            <span className="font-bold text-white/90 shrink-0 whitespace-nowrap">{formatCost(vignetteCostEur)}</span>
+            <span className="font-bold text-white/90 shrink-0 whitespace-nowrap">{formatCost(vignetteCostEur + tollBoothCostEur)}</span>
           </div>
 
           <div className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10">

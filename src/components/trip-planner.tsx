@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft, CarFront } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
-import { useTripStore, PanelType, HotelOverride } from "@/store/useTripStore";
+import { useTripStore, PanelType, HotelOverride, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { MapPanel } from "./panels/map-panel";
 import { OnboardingTour } from "./onboarding-tour";
 import { TabletOnboardingTour } from "./tablet-onboarding-tour";
@@ -73,7 +73,7 @@ export function TripPlanner() {
     waypoints, 
     activePanel, 
     setActivePanel,
-    fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
+    fuelPrices, customFuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
     insertBorderStop, hotelOverrides, setHotelOverride,
     ignoredWaypoints, ignoreWaypoint, removeStop, calculateRoute,
     completedWaypoints, toggleWaypointCompletion, getShareUrl, getRawShareData, loadFromShareData,
@@ -90,11 +90,11 @@ export function TripPlanner() {
     if (totalDistance <= 0) return false;
     let totalCostEur = 0;
     Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
-      totalCostEur += (parseFloat(amountStr) || 0) * (fuelPrices[code]?.[selectedFuelType] || 0);
+      totalCostEur += (parseFloat(amountStr) || 0) * getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
     });
     if (viewedPanels.includes('fuel')) return false;
     return totalCostEur === 0;
-  }, [totalDistance, fuelAmounts, fuelPrices, selectedFuelType, viewedPanels]);
+  }, [totalDistance, fuelAmounts, fuelPrices, customFuelPrices, selectedFuelType, viewedPanels]);
 
   const needsHotel = totalDuration > 480;
 
@@ -731,7 +731,7 @@ function AccordionPanels() {
     setActivePanel,
     totalDistance, 
     totalDuration,
-    fuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
+    fuelPrices, customFuelPrices, selectedFuelType, fuelAmounts, currency, exchangeRates, crossedCountries,
     insuranceCost,
     viewedPanels
   } = useTripStore();
@@ -743,11 +743,11 @@ function AccordionPanels() {
     let totalCostEur = 0;
     Object.entries(fuelAmounts).forEach(([code, amountStr]) => {
       const amount = parseFloat(amountStr) || 0;
-      const priceEur = fuelPrices[code]?.[selectedFuelType] || 0;
+      const priceEur = getEffectiveFuelPrice(code, fuelPrices, selectedFuelType, customFuelPrices);
       totalCostEur += amount * priceEur;
     });
     return Math.round(totalCostEur * rate);
-  }, [fuelAmounts, fuelPrices, selectedFuelType, rate]);
+  }, [fuelAmounts, fuelPrices, customFuelPrices, selectedFuelType, rate]);
 
   const needsFuel = totalDistance > 0 && totalFuelCost === 0 && !viewedPanels.includes('fuel');
   const needsHotel = totalDuration > 480;

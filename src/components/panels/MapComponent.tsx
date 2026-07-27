@@ -49,7 +49,7 @@ function PolylineRenderer({ geometry }: { geometry: [number, number][] }) {
 }
 
 export default function MapComponent() {
-  const { routeGeometry, isCalculated, waypoints } = useTripStore();
+  const { routeGeometry, isCalculated, waypoints, addStopAtLocation } = useTripStore();
 
   const defaultCenter = { lat: 48.3794, lng: 31.1656 }; // Ukraine center
 
@@ -60,6 +60,11 @@ export default function MapComponent() {
       disableDefaultUI={true}
       mapId="DEMO_MAP_ID"
       style={{ width: '100%', height: '100%' }}
+      onClick={(e) => {
+        if (e.detail.latLng) {
+          addStopAtLocation(e.detail.latLng.lat, e.detail.latLng.lng);
+        }
+      }}
     >
       <MapUpdater geometry={routeGeometry} isCalculated={isCalculated} />
       {isCalculated && routeGeometry.length > 0 && (

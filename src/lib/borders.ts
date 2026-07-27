@@ -16,13 +16,34 @@ interface VignetteInfo {
 export const VIGNETTE_DB: Record<string, VignetteInfo> = {
   'PL': { country: 'Польща', emoji: '🇵🇱', type: 'Оплата на воротах / e-TOLL', link: 'https://etoll.gov.pl/ua/', priceEur: 10, notes: 'Автомагістралі A2, A4' },
   'RO': { country: 'Румунія', emoji: '🇷🇴', type: 'Електронна ровіньєтка', link: 'https://www.roviniete.ro/uk/', priceEur: 7, notes: "Обов'язкова на всіх національних дорогах" },
-  'BG': { country: 'Болгарія', emoji: '🇧🇬', type: 'Електронна віньєтка (BG TOLL)', link: 'https://web.bgtoll.bg/', priceEur: 8, notes: "Обов'язкова на всіх національних дорогах" },
-  'SK': { country: 'Словаччина', emoji: '🇸🇰', type: 'Електронна віньєтка', link: 'https://eznamka.sk/en/', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
+  'BG': { country: 'Болгарія', emoji: '🇧🇬', type: 'Електронна віньєтка (BG TOLL)', link: 'https://www.bgtoll.bg/en/e-vignette', priceEur: 8, notes: "Обов'язкова на всіх національних дорогах" },
+  'SK': { country: 'Словаччина', emoji: '🇸🇰', type: 'Електронна віньєтка', link: 'https://eznamka.sk/en', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
   'CZ': { country: 'Чехія', emoji: '🇨🇿', type: 'Електронна віньєтка', link: 'https://edalnice.gov.cz/en', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
   'HU': { country: 'Угорщина', emoji: '🇭🇺', type: 'Електронна віньєтка (e-matrica)', link: 'https://ematrica.nemzetiutdij.hu/', priceEur: 15, notes: "Обов'язкова для автомагістралей" },
   'AT': { country: 'Австрія', emoji: '🇦🇹', type: 'Віньєтка (ASFINAG)', link: 'https://shop.asfinag.at/en/', priceEur: 10, notes: "Обов'язкова для автомагістралей. Є цифрова версія." },
   'CH': { country: 'Швейцарія', emoji: '🇨🇭', type: 'Електронна віньєтка (e-vignette)', link: 'https://via.admin.ch/shop/dashboard', priceEur: 42, notes: "Обов'язкова для автомагістралей (лише річна)" },
   'MD': { country: 'Молдова', emoji: '🇲🇩', type: 'Електронна віньєтка (e-Vinieta)', link: 'https://evinieta.gov.md/', priceEur: 4, notes: "Обов'язкова для іноземних авто" },
+  'RS': { country: 'Сербія', emoji: '🇷🇸', type: 'Оплата за ділянки / електронний TAG', link: 'https://www.putevi-srbije.rs/index.php/en/', priceEur: 15, notes: 'Оплата на воротах або через електронний пристрій TAG' },
+};
+
+export interface DistanceTollRate {
+  country: string;
+  ratePerKmEur: number; // EUR per km on highways
+  notes?: string;
+  calculatorUrl?: string;
+}
+
+export const DISTANCE_TOLL_RATES: Record<string, DistanceTollRate> = {
+  'PL': { country: 'Польща', ratePerKmEur: 0.05, notes: 'Магістралі A1, A2, A4 (е-TOLL/ворота)', calculatorUrl: 'https://etoll.gov.pl/ua/' },
+  'RS': { country: 'Сербія', ratePerKmEur: 0.06, notes: 'Оплата за ділянки (ворота/TAG)', calculatorUrl: 'https://www.putevi-srbije.rs/index.php/en/' },
+  'HR': { country: 'Хорватія', ratePerKmEur: 0.07, notes: 'Оплата на воротах (ENC/карткою)', calculatorUrl: 'https://www.hac.hr/en/toll-rates' },
+  'IT': { country: 'Італія', ratePerKmEur: 0.08, notes: 'Автостради (Telepass/карткою)', calculatorUrl: 'https://www.autostrade.it/en/pedaggio' },
+  'FR': { country: 'Франція', ratePerKmEur: 0.10, notes: 'Autoroutes (Télépéage/карткою)', calculatorUrl: 'https://www.autoroutes.fr/en/routes.htm' },
+  'ES': { country: 'Іспанія', ratePerKmEur: 0.09, notes: 'Платні ділянки (AP)', calculatorUrl: 'https://www.autopistas.com/en/' },
+  'PT': { country: 'Португалія', ratePerKmEur: 0.08, notes: 'Via Verde / електронна оплата', calculatorUrl: 'https://www.portugaltolls.com/en/' },
+  'GR': { country: 'Греція', ratePerKmEur: 0.06, notes: 'Оплата на пунктах збору', calculatorUrl: 'https://www.aegomotorsway.gr/' },
+  'MK': { country: 'Північна Македонія', ratePerKmEur: 0.04, notes: 'Оплата на пунктах збору', calculatorUrl: 'https://roads.org.mk/' },
+  'TR': { country: 'Туреччина', ratePerKmEur: 0.03, notes: 'HGS / OGS', calculatorUrl: 'https://www.kgm.gov.tr/' },
 };
 
 

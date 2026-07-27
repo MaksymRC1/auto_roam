@@ -9,12 +9,39 @@ import { FUEL_BUFFER_RATIO, LONG_TRIP_THRESHOLD_MINS, DEFAULT_FUEL_CONSUMPTION }
 
 export type WaypointType = 'start' | 'finish' | 'stop' | 'border' | 'fuel';
 
-export type FuelType = 'gasoline' | 'diesel' | 'lpg';
+export type FuelType = 'gasoline' | 'gasoline_premium' | 'diesel' | 'diesel_premium' | 'lpg';
 
 export interface FuelPricesData {
-  gasoline: number;
-  diesel: number;
-  lpg: number;
+  gasoline?: number;
+  gasoline_premium?: number;
+  diesel?: number;
+  diesel_premium?: number;
+  lpg?: number;
+  [key: string]: number | undefined;
+}
+
+export function getEffectiveFuelPrice(
+  code: string,
+  fuelPrices: Record<string, FuelPricesData>,
+  selectedFuelType: FuelType,
+  customFuelPrices?: Record<string, Record<string, number>>
+): number {
+  if (customFuelPrices && customFuelPrices[code] && customFuelPrices[code][selectedFuelType] !== undefined) {
+    const custom = customFuelPrices[code][selectedFuelType];
+    if (custom > 0) return custom;
+  }
+  const direct = fuelPrices[code]?.[selectedFuelType];
+  if (direct && direct > 0) return direct;
+
+  if (selectedFuelType === 'gasoline_premium') {
+    const base = fuelPrices[code]?.['gasoline'];
+    if (base && base > 0) return Number((base * 1.15).toFixed(2));
+  }
+  if (selectedFuelType === 'diesel_premium') {
+    const base = fuelPrices[code]?.['diesel'];
+    if (base && base > 0) return Number((base * 1.12).toFixed(2));
+  }
+  return 0;
 }
 
 export interface Waypoint {
@@ -88,6 +115,7 @@ interface TripState {
   viewedPanels: PanelType[];
   
   fuelPrices: Record<string, FuelPricesData>;
+  customFuelPrices: Record<string, Record<string, number>>;
   selectedFuelType: FuelType;
   
   consumption: string;
@@ -98,12 +126,14 @@ interface TripState {
   
   setStops: (stops: StopInput[]) => void;
   addStop: () => void;
+  addStopAtLocation: (lat: number, lon: number, address?: string) => Promise<void>;
   removeStop: (id: string) => void;
   updateStop: (id: string, value: string) => void;
   insertBorderStop: (borderPoint: BorderPoint, previousStopDistance: number) => void;
   calculateRoute: () => Promise<void>;
   setActivePanel: (panel: PanelType | null) => void;
   setFuelType: (type: FuelType) => void;
+  setCustomFuelPrice: (countryCode: string, fuelType: string, price: number) => void;
   fetchFuelPrices: () => Promise<void>;
   
   setConsumption: (c: string, isDefault?: boolean) => void;
@@ -178,6 +208,7 @@ export const useTripStore = create<TripState>()(
   activePanel: 'fuel',
   viewedPanels: [],
   fuelPrices: {},
+  customFuelPrices: {},
   selectedFuelType: 'gasoline',
   consumption: String(DEFAULT_FUEL_CONSUMPTION),
   isDefaultConsumption: true,
@@ -201,6 +232,24 @@ export const useTripStore = create<TripState>()(
     const newStops = [...stops];
     newStops.splice(newStops.length - 1, 0, newStop);
     set({ stops: newStops });
+  },
+
+  addStopAtLocation: async (lat: number, lon: number, address?: string) => {
+    let value = address;
+    if (!value) {
+      try {
+        const res = await reverseGeocode(lat, lon);
+        value = res?.city || `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+      } catch (e) {
+        value = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+      }
+    }
+    const stops = get().stops;
+    const newStop = { id: crypto.randomUUID(), value: value || `${lat.toFixed(4)}, ${lon.toFixed(4)}` };
+    const newStops = [...stops];
+    newStops.splice(newStops.length - 1, 0, newStop);
+    set({ stops: newStops });
+    await get().calculateRoute();
   },
   
   removeStop: (id) => set((state) => {
@@ -363,6 +412,17 @@ export const useTripStore = create<TripState>()(
       // Sort waypoints strictly by distance to ensure correct timeline flow
       waypoints.sort((a, b) => a.distanceFromStart - b.distanceFromStart);
 
+      const newCrossedCountries = Array.from(countries).filter(c => c !== 'UNKNOWN');
+      
+      // Clean up fuelAmounts for any dropped country
+      const prevFuelAmounts = get().fuelAmounts;
+      const cleanedFuelAmounts: Record<string, string> = {};
+      Object.entries(prevFuelAmounts).forEach(([code, val]) => {
+        if (newCrossedCountries.includes(code)) {
+          cleanedFuelAmounts[code] = val;
+        }
+      });
+
       set({
         isCalculated: true,
         isLoading: false,
@@ -370,7 +430,8 @@ export const useTripStore = create<TripState>()(
         totalDistance: route.distanceKm,
         totalDuration: route.durationMins,
         routeGeometry: route.geometry,
-        crossedCountries: Array.from(countries).filter(c => c !== 'UNKNOWN'),
+        crossedCountries: newCrossedCountries,
+        fuelAmounts: cleanedFuelAmounts,
         waypoints,
         activePanel: null
       });
@@ -393,6 +454,21 @@ export const useTripStore = create<TripState>()(
   })),
   
   setFuelType: (type) => set({ selectedFuelType: type }),
+  
+  setCustomFuelPrice: (countryCode, fuelType, price) => set((state) => {
+    const countryPrices = { ...(state.customFuelPrices[countryCode] || {}) };
+    if (price <= 0 || isNaN(price)) {
+      delete countryPrices[fuelType];
+    } else {
+      countryPrices[fuelType] = price;
+    }
+    return {
+      customFuelPrices: {
+        ...state.customFuelPrices,
+        [countryCode]: countryPrices
+      }
+    };
+  }),
   
   setConsumption: (c, isDefault = false) => {
     set({ consumption: c, isDefaultConsumption: isDefault });
@@ -522,6 +598,11 @@ export const useTripStore = create<TripState>()(
     const conservativeFuel = Math.round(totalFuel * FUEL_BUFFER_RATIO);
     
     let nextAmounts = { ...state.fuelAmounts };
+    Object.keys(nextAmounts).forEach(key => {
+      if (!state.crossedCountries.includes(key)) {
+        delete nextAmounts[key];
+      }
+    });
     let selectedKeys = Object.keys(nextAmounts);
     
     if (selectedKeys.length === 0) {
@@ -530,7 +611,7 @@ export const useTripStore = create<TripState>()(
       let minPrice = Infinity;
       
       state.crossedCountries.forEach(country => {
-        const price = state.fuelPrices[country]?.[state.selectedFuelType];
+        const price = getEffectiveFuelPrice(country, state.fuelPrices, state.selectedFuelType, state.customFuelPrices);
         if (price !== undefined && price > 0 && price < minPrice) {
           minPrice = price;
           cheapestCountry = country;
@@ -545,7 +626,7 @@ export const useTripStore = create<TripState>()(
       let cheapestSelected = selectedKeys[0];
       let minPrice = Infinity;
       selectedKeys.forEach(c => {
-        const price = state.fuelPrices[c]?.[state.selectedFuelType];
+        const price = getEffectiveFuelPrice(c, state.fuelPrices, state.selectedFuelType, state.customFuelPrices);
         if (price !== undefined && price > 0 && price < minPrice) {
           minPrice = price;
           cheapestSelected = c;
@@ -640,6 +721,7 @@ export const useTripStore = create<TripState>()(
     crossedCountries: [],
     activePanel: 'fuel',
     fuelPrices: {},
+    customFuelPrices: {},
     fuelAmounts: {},
     consumption: String(DEFAULT_FUEL_CONSUMPTION),
     isDefaultConsumption: true,
@@ -670,6 +752,7 @@ export const useTripStore = create<TripState>()(
         crossedCountries: state.crossedCountries,
         activePanel: state.activePanel,
         fuelPrices: state.fuelPrices,
+        customFuelPrices: state.customFuelPrices,
         selectedFuelType: state.selectedFuelType,
         consumption: state.consumption,
         isDefaultConsumption: state.isDefaultConsumption,

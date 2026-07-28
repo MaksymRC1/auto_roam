@@ -7,6 +7,14 @@ import * as Sentry from "@sentry/nextjs";
 Sentry.init({
   dsn: "https://3d9b873d35c6d77a9773ad590499aa29@o4511762185519104.ingest.de.sentry.io/4511762268094544",
 
+  // Ignore common noise errors from third-party scripts and injected webviews
+  ignoreErrors: [
+    "window.webkit.messageHandlers",
+    "sendDataToNative",
+    "sendPageHideMessage",
+    "evaluating 'window.webkit.messageHandlers'"
+  ],
+
   // Add optional integrations for additional features
   integrations: [Sentry.replayIntegration()],
 

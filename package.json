@@ -19,6 +19,7 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@googlemaps/polyline-codec": "^1.0.28",
     "@sentry/nextjs": "^10.66.0",
     "@vercel/analytics": "^2.0.1",

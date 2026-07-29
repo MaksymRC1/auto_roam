@@ -470,5 +470,437 @@
     "templateType": "tech",
     "note": "Український розробник представив безкоштовний помічник для розрахунку європейських дорожніх зборів",
     "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@finance.ua",
+    "outlet": "Finance.ua",
+    "templateType": "business",
+    "note": "Фінансовий портал: як українцям зекономити на дорожніх зборах та пальному в Європі (Travel Tech)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@minfin.com.ua",
+    "outlet": "Minfin",
+    "templateType": "business",
+    "note": "Потужний портал про особисті фінанси: оптимізація витрат у закордонних поїздках",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@psm7.com",
+    "outlet": "PaySpace Magazine",
+    "templateType": "tech",
+    "note": "Видання про фінтех і платежі: PWA-додаток для оплати віньєток на офіційних урядових порталах",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@pingvin.pro",
+    "outlet": "Pingvin.Pro",
+    "templateType": "tech",
+    "note": "Популярний IT-портал, ідеальна аудиторія для софту, стартапів та PWA додатків",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@tokar.ua",
+    "outlet": "Tokar.ua",
+    "templateType": "tech",
+    "note": "Блог про технології та український інтернет: корисний веб-додаток для водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pr@tripmydream.com",
+    "outlet": "Tripmydream",
+    "templateType": "tech",
+    "note": "Найбільший український travel-ком'юніті: планування самостійних автоподорожей Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@lowcost.ua",
+    "outlet": "Lowcost.ua",
+    "templateType": "tech",
+    "note": "Портал бюджетних подорожей: новий сервіс, що допомагає подорожувати автомобілем дешевше",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@zaxid.net",
+    "outlet": "ZAXID.NET",
+    "templateType": "auto",
+    "note": "Головне медіа Західної України. Їхні читачі найчастіше перетинають кордон на авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@mukachevo.net",
+    "outlet": "Mukachevo.net",
+    "templateType": "auto",
+    "note": "Топ медіа Закарпаття — ключового транзитного регіону для поїздок в Угорщину/Словаччину",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "portal@lviv.ua",
+    "outlet": "Львівський портал",
+    "templateType": "auto",
+    "note": "Популярний львівський ресурс, аудиторія активно подорожує Європою на власних авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@babel.ua",
+    "outlet": "Бабель",
+    "templateType": "tech",
+    "note": "Сучасне медіа з великою лояльною аудиторією міських жителів та мандрівників",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "team@rubryka.com",
+    "outlet": "Рубрика",
+    "templateType": "tech",
+    "note": "Журналістика рішень. Створення українцем безкоштовного PWA, що полегшує життя — ідеально під їхній формат",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@lb.ua",
+    "outlet": "Лівий берег (LB.ua)",
+    "templateType": "tech",
+    "note": "Одне з найавторитетніших суспільно-політичних видань, люблять підтримувати українські ініціативи",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@glavcom.ua",
+    "outlet": "Главком",
+    "templateType": "tech",
+    "note": "Величезний трафік, загальнонаціональні новини. Новий український стартап",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "lifepravda@gmail.com",
+    "outlet": "УП.Життя",
+    "templateType": "tech",
+    "note": "Лайфстайл-розділ Української Правди. Аудиторія: туристи, біженці, експати",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "tsn@1plus1.tv",
+    "outlet": "ТСН (Техно / Туризм)",
+    "templateType": "tech",
+    "note": "Найбільший портал країни. У них є розділи «Туризм» та «Технології»",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@gordonua.com",
+    "outlet": "Gordon.ua",
+    "templateType": "tech",
+    "note": "Масове медіа з багатомільйонним охопленням українців у ЄС та в Україні",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@hvylya.net",
+    "outlet": "Хвиля",
+    "templateType": "business",
+    "note": "Популярний портал, що часто пише про ціни на бензин, інфраструктуру та життя українців за кордоном",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "styler@rbc.ua",
+    "outlet": "RBC Styler",
+    "templateType": "tech",
+    "note": "Лайфстайл-розділ РБК-Україна, що спеціалізується на корисних порадах, додатках та туризмі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@zaborona.com",
+    "outlet": "Заборона",
+    "templateType": "tech",
+    "note": "Прогресивне медіа, аудиторія якого високо оцінить сучасний інді-додаток (PWA) для подорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "lifepravda@pravda.ua",
+    "outlet": "УП.Життя",
+    "templateType": "tech",
+    "note": "Лайфстайл-розділ Української Правди. Аудиторія: туристи, біженці, експати (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@tsn.ua",
+    "outlet": "ТСН (Техно / Туризм)",
+    "templateType": "tech",
+    "note": "Найбільший портал країни. У них є розділи «Туризм» та «Технології» (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@portal.lviv.ua",
+    "outlet": "Львівський портал",
+    "templateType": "auto",
+    "note": "Популярний львівський ресурс, аудиторія активно подорожує Європою на власних авто (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mukachevo.net",
+    "outlet": "Mukachevo.net",
+    "templateType": "auto",
+    "note": "Топ медіа Закарпаття — ключового транзитного регіону для поїздок в Угорщину/Словаччину (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@dip.org.ua",
+    "outlet": "DIP",
+    "templateType": "auto",
+    "note": "Дипломатія та Подорожі (dip.org.ua) — спеціалізований ресурс для туристів та експатів.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakcja@ukrayina.pl",
+    "outlet": "Ukrayina.pl",
+    "templateType": "auto",
+    "note": "Найбільший портал для українців у Польщі. Їхня аудиторія постійно подорожує на авто між Україною та ЄС.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@uaways.com",
+    "outlet": "UaWays",
+    "templateType": "auto",
+    "note": "Спеціалізований тревел-блог та спільнота українських мандрівників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pr@opendatabot.ua",
+    "outlet": "Опендатабот (Блог)",
+    "templateType": "tech",
+    "note": "Опендатабот часто публікує корисні інструменти (зокрема для водіїв, ПДР, штрафи), їхня аудиторія — підприємці.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "auto@24tv.ua",
+    "outlet": "Auto24",
+    "templateType": "auto",
+    "note": "Автомобільна редакція 24 Каналу. Вузька авто-аудиторія.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "vikna@stb.ua",
+    "outlet": "Вікна-Новини",
+    "templateType": "tech",
+    "note": "Проєкт СТБ. Останнім часом пишуть багато інструкцій (як виїхати, правила в ЄС, корисні додатки для біженців).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@theukrainians.org",
+    "outlet": "The Ukrainians",
+    "templateType": "tech",
+    "note": "Якісне медіа. Люблять історії створення корисних інді-проєктів від українців.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@platfor.ma",
+    "outlet": "Platfor.ma",
+    "templateType": "tech",
+    "note": "Креативний портал. Пишуть про нестандартні, сучасні технологічні рішення та подорожі.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@ukrainer.net",
+    "outlet": "Ukraїner",
+    "templateType": "auto",
+    "note": "Проєкт, який багато подорожує сам і розповідає про життя українців в інших країнах.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@glavred.info",
+    "outlet": "Главред (Авто / Туризм)",
+    "templateType": "auto",
+    "note": "Великий портал, що має активні розділи для водіїв та мандрівників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@nachasi.com",
+    "outlet": "Na chasi",
+    "templateType": "tech",
+    "note": "Креативне медіа про технології та сучасну культуру.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mezha.media",
+    "outlet": "Mezha.Media",
+    "templateType": "tech",
+    "note": "Потужний технологічний портал, де часто підтримують українських розробників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@root-nation.com",
+    "outlet": "Root Nation",
+    "templateType": "tech",
+    "note": "Популярний IT та гаджет-портал.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@gagadget.com",
+    "outlet": "Gagadget",
+    "templateType": "tech",
+    "note": "Медіа про технології, гаджети та софт.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@playua.net",
+    "outlet": "PlayUA",
+    "templateType": "tech",
+    "note": "Гік-портал, аудиторія часто позитивно реагує на корисні інді-проєкти.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@varosh.com.ua",
+    "outlet": "Varosh",
+    "templateType": "auto",
+    "note": "Топове медіа Закарпаття (регіон, де найбільше перетинають кордон на авто).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@zakarpattya.net.ua",
+    "outlet": "Закарпаття Онлайн",
+    "templateType": "auto",
+    "note": "Ще одне популярне прикордонне медіа Закарпаття.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "volnov@gmail.com",
+    "outlet": "Волинські Новини",
+    "templateType": "auto",
+    "note": "Головне медіа Волині (поруч пункт пропуску Ягодин, високий автотрафік до Польщі).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "shpalta.media@gmail.com",
+    "outlet": "Шпальта (Чернівці)",
+    "templateType": "auto",
+    "note": "Регіональне медіа Буковини (поруч кордон з Румунією).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "kurs.if.ua@gmail.com",
+    "outlet": "Курс (Івано-Франківськ)",
+    "templateType": "auto",
+    "note": "Новини Івано-Франківщини, чиї жителі часто мандрують до Європи.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "hello@cases.media",
+    "outlet": "Cases.media",
+    "templateType": "tech",
+    "note": "Платформа для креативних індустрій та IT.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@gwaramedia.com",
+    "outlet": "Gwara Media",
+    "templateType": "tech",
+    "note": "Незалежне медіа, яке пише про соціальні ініціативи та технології.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "svidomi.media@gmail.com",
+    "outlet": "Свідомі",
+    "templateType": "tech",
+    "note": "Незалежне онлайн-медіа з молодою та прогресивною аудиторією.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pragmatika.media@gmail.com",
+    "outlet": "Pragmatika",
+    "templateType": "tech",
+    "note": "Видання про архітектуру, урбаністику та транспорт.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "veterdoit@gmail.com",
+    "outlet": "Veter doit",
+    "templateType": "auto",
+    "note": "Відомий тревел-блог та медіа про мандри.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@mandry.club",
+    "outlet": "Mandry.club",
+    "templateType": "auto",
+    "note": "Портал для мандрівників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakcja@vpolshi.pl",
+    "outlet": "VPolshi.pl",
+    "templateType": "auto",
+    "note": "Інформаційний портал для українців, які перебувають у Польщі.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakcja@naszwybir.pl",
+    "outlet": "Наш Вибір (Польща)",
+    "templateType": "auto",
+    "note": "Газета та портал для українців у Польщі.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakce@proukrainu.cz",
+    "outlet": "ProUkrainu (Чехія)",
+    "templateType": "auto",
+    "note": "Головний інформаційний ресурс для українців у Чехії.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@investory.news",
+    "outlet": "Investory News",
+    "templateType": "business",
+    "note": "Бізнес-портал про інвестиції та стартапи.",
+    "active": false
   }
 ]

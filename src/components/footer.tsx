@@ -44,15 +44,26 @@ export function Footer({ onOpenRating }: FooterProps) {
         <div className="flex items-center gap-3">
           <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
           <div className="relative group cursor-default">
-            <span className="bg-white/10 px-2 py-0.5 rounded text-white/70 hover:bg-white/20 transition-colors">v1.0.1</span>
+            <span className="bg-white/10 px-2 py-0.5 rounded text-white/70 hover:bg-white/20 transition-colors">v1.0.2</span>
             
             {/* Version Tooltip */}
             <div className="absolute bottom-full left-0 mb-2 w-[250px] p-3 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 translate-y-1 group-hover:translate-y-0 z-[120] bg-black/50 backdrop-blur-md border border-white/10">
               <h4 className="text-white/90 font-medium text-[13px] mb-2 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[14px] text-blue-400">new_releases</span>
-                Версія 1.0.1
+                Версія 1.0.2
               </h4>
-              <ul className="text-white/60 text-[11px] flex flex-col gap-1 list-disc pl-4">
+              <ul className="text-white/60 text-[11px] flex flex-col gap-1.5 list-disc pl-4 mt-1">
+                <li>
+                  <span className="inline-flex items-center gap-1">
+                    <span>Підтримка PWA</span>
+                    <span className="relative group/info flex items-center translate-y-[0.5px]">
+                      <span className="material-symbols-outlined text-[11px] leading-none text-white/40 hover:text-white/80 cursor-help transition-colors">info</span>
+                      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 bg-black/90 border border-white/10 rounded text-[10px] leading-tight text-white/90 whitespace-nowrap opacity-0 group-hover/info:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
+                        встановлення як додаток
+                      </span>
+                    </span>
+                  </span>
+                </li>
                 <li>Офлайн-режим</li>
                 <li>Інтерактивний таймлайн маршруту</li>
                 <li>Калькулятор пального та кошторис</li>

@@ -12,7 +12,9 @@ Sentry.init({
     "window.webkit.messageHandlers",
     "sendDataToNative",
     "sendPageHideMessage",
-    "evaluating 'window.webkit.messageHandlers'"
+    "evaluating 'window.webkit.messageHandlers'",
+    "runtime.sendMessage",
+    "Tab not found"
   ],
 
   // Add optional integrations for additional features

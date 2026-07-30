@@ -16,7 +16,7 @@ interface RouteData {
 }
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Dynamically generate static params for all 50 routes to pre-render them
@@ -27,7 +27,8 @@ export async function generateStaticParams() {
 }
 
 // Dynamically generate SEO metadata for each route
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const route = routesData.find((r: RouteData) => r.slug === params.slug);
   
   if (!route) {
@@ -49,7 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function RoutePage({ params }: Props) {
+export default async function RoutePage(props: Props) {
+  const params = await props.params;
   const route = routesData.find((r: RouteData) => r.slug === params.slug);
 
   if (!route) {

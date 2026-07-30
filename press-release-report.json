@@ -1,0 +1,150 @@
+{
+  "summary": {
+    "total": 20,
+    "success": 20,
+    "failed": 0,
+    "isDryRun": false
+  },
+  "details": [
+    {
+      "email": "info@autocentre.ua",
+      "outlet": "Автоцентр",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:03.628Z"
+    },
+    {
+      "email": "news@auto.ria.com",
+      "outlet": "AUTO.RIA",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:08.052Z"
+    },
+    {
+      "email": "news@rst.ua",
+      "outlet": "RST.ua",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:12.477Z"
+    },
+    {
+      "email": "editor@infocar.ua",
+      "outlet": "InfoCar",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:16.894Z"
+    },
+    {
+      "email": "info@mmr.net.ua",
+      "outlet": "MMR",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:21.347Z"
+    },
+    {
+      "email": "info@finance.ua",
+      "outlet": "Finance.ua",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:25.778Z"
+    },
+    {
+      "email": "info@minfin.com.ua",
+      "outlet": "Minfin",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:30.206Z"
+    },
+    {
+      "email": "info@nv.ua",
+      "outlet": "NV (New Voice)",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:34.646Z"
+    },
+    {
+      "email": "news@liga.net",
+      "outlet": "LIGA.net",
+      "template": "tech",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:39.059Z"
+    },
+    {
+      "email": "info@delo.ua",
+      "outlet": "Delo.ua",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:43.499Z"
+    },
+    {
+      "email": "info@glavcom.ua",
+      "outlet": "Главком",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:47.931Z"
+    },
+    {
+      "email": "lb.ua@gmail.com",
+      "outlet": "LB.ua",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:52.341Z"
+    },
+    {
+      "email": "info@obozrevatel.com",
+      "outlet": "Obozrevatel",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:16:56.878Z"
+    },
+    {
+      "email": "info@focus.ua",
+      "outlet": "Фокус",
+      "template": "auto",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:01.312Z"
+    },
+    {
+      "email": "news@rbc.ua",
+      "outlet": "РБК-Україна",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:05.721Z"
+    },
+    {
+      "email": "info@zaborona.com",
+      "outlet": "Заборона",
+      "template": "tech",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:10.141Z"
+    },
+    {
+      "email": "info@babel.ua",
+      "outlet": "Бабель",
+      "template": "tech",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:14.562Z"
+    },
+    {
+      "email": "info@techukraine.org",
+      "outlet": "TechUkraine",
+      "template": "tech",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:18.965Z"
+    },
+    {
+      "email": "info@inventure.ua",
+      "outlet": "InVenture",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:23.406Z"
+    },
+    {
+      "email": "info@itukraine.org.ua",
+      "outlet": "IT Ukraine Association",
+      "template": "tech",
+      "status": "SUCCESS",
+      "timestamp": "2026-07-30T18:17:27.845Z"
+    }
+  ]
+}

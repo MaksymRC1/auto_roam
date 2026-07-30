@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import articlesData from '@/data/articles.json';
+import routesData from '@/data/popular-routes.json';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles: MetadataRoute.Sitemap = articlesData.map((article) => ({
@@ -7,6 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.7,
+  }));
+
+  const routes: MetadataRoute.Sitemap = routesData.map((route) => ({
+    url: `https://autoroam.com.ua/marshrut/${route.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
   }));
 
   return [
@@ -35,5 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     ...articles,
+    ...routes,
   ];
 }

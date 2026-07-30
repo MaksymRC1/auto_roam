@@ -902,5 +902,165 @@
     "templateType": "business",
     "note": "Бізнес-портал про інвестиції та стартапи.",
     "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autocentre.ua",
+    "outlet": "Автоцентр",
+    "templateType": "auto",
+    "note": "Найбільший автомобільний портал України.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@auto.ria.com",
+    "outlet": "AUTO.RIA",
+    "templateType": "auto",
+    "note": "Новинний розділ найбільшого маркетплейсу авто.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@rst.ua",
+    "outlet": "RST.ua",
+    "templateType": "auto",
+    "note": "Популярний автопортал та новини.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@infocar.ua",
+    "outlet": "InfoCar",
+    "templateType": "auto",
+    "note": "Портал тест-драйвів та автомобільних новин.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@mmr.net.ua",
+    "outlet": "MMR",
+    "templateType": "auto",
+    "note": "Motor Media Review - автоновини.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@finance.ua",
+    "outlet": "Finance.ua",
+    "templateType": "business",
+    "note": "Фінансовий портал (часто пишуть про страховки, витрати на авто, туризм).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@minfin.com.ua",
+    "outlet": "Minfin",
+    "templateType": "business",
+    "note": "Найбільший фінансовий портал.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@nv.ua",
+    "outlet": "NV (New Voice)",
+    "templateType": "business",
+    "note": "Одне з найбільших загальнонаціональних медіа.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@liga.net",
+    "outlet": "LIGA.net",
+    "templateType": "tech",
+    "note": "Велике медіа з потужними розділами Бізнес та Тех.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@delo.ua",
+    "outlet": "Delo.ua",
+    "templateType": "business",
+    "note": "Головне бізнес-медіа України.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@glavcom.ua",
+    "outlet": "Главком",
+    "templateType": "auto",
+    "note": "Загальнонаціональне суспільно-політичне медіа.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "lb.ua@gmail.com",
+    "outlet": "LB.ua",
+    "templateType": "business",
+    "note": "Лівий Берег - загальнонаціональне медіа.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@obozrevatel.com",
+    "outlet": "Obozrevatel",
+    "templateType": "auto",
+    "note": "Одне з найвідвідуваніших інтернет-видань.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@focus.ua",
+    "outlet": "Фокус",
+    "templateType": "auto",
+    "note": "Загальнонаціональний новинний портал.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@rbc.ua",
+    "outlet": "РБК-Україна",
+    "templateType": "business",
+    "note": "Велике новинне медіа, багато пишуть про кордони та авто.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@zaborona.com",
+    "outlet": "Заборона",
+    "templateType": "tech",
+    "note": "Незалежне медіа з молодіжною аудиторією.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@babel.ua",
+    "outlet": "Бабель",
+    "templateType": "tech",
+    "note": "Популярне медіа про суспільство та технології.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@techukraine.org",
+    "outlet": "TechUkraine",
+    "templateType": "tech",
+    "note": "Портал про українське IT та стартапи.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@inventure.ua",
+    "outlet": "InVenture",
+    "templateType": "business",
+    "note": "Портал про інвестиції та венчурний капітал.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@itukraine.org.ua",
+    "outlet": "IT Ukraine Association",
+    "templateType": "tech",
+    "note": "Асоціація IT України.",
+    "active": false
   }
 ]

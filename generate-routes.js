@@ -5,7 +5,12 @@ const uaCities = [
   { name: 'Львів', id: 'lviv', lat: 49.8397, lon: 24.0297 },
   { name: 'Одеса', id: 'odesa', lat: 46.4825, lon: 30.7233 },
   { name: 'Дніпро', id: 'dnipro', lat: 48.4647, lon: 35.0462 },
-  { name: 'Ужгород', id: 'uzhhorod', lat: 48.6208, lon: 22.2879 }
+  { name: 'Ужгород', id: 'uzhhorod', lat: 48.6208, lon: 22.2879 },
+  { name: 'Вінниця', id: 'vinnytsia', lat: 49.2331, lon: 28.4682 },
+  { name: 'Чернівці', id: 'chernivtsi', lat: 48.2915, lon: 25.9348 },
+  { name: 'Івано-Франківськ', id: 'ivano-frankivsk', lat: 48.9226, lon: 24.7111 },
+  { name: 'Тернопіль', id: 'ternopil', lat: 49.5535, lon: 25.5948 },
+  { name: 'Хмельницький', id: 'khmelnytskyi', lat: 49.4230, lon: 26.9871 }
 ];
 
 const euCities = [

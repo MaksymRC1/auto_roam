@@ -3,6 +3,7 @@ import { BackgroundSlideshow } from "@/components/background-slideshow";
 import { ArticleRating } from "@/components/article-rating";
 import { Footer } from "@/components/footer";
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import articlesData from "@/data/articles.json";
 
@@ -11,6 +12,7 @@ async function getArticle(slug: string) {
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const t = useTranslations('Articles');
   const resolvedParams = await params;
   const article = await getArticle(resolvedParams.slug);
 
@@ -70,7 +72,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="flex gap-4">
               <span className="material-symbols-outlined text-blue-400 text-[32px]">explore</span>
               <div>
-                <h3 className="text-sm font-bold text-white mb-1">Порада мандрівникам</h3>
+                <h3 className="text-sm font-bold text-white mb-1">{t('tipBadge')}</h3>
                 <p className="text-base text-white/80">
                   {article.tip}
                 </p>
@@ -79,7 +81,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-white mt-2 border-b border-white/10 pb-3 mb-5">{(article as any).routesTitle || "Топ маршрутів"}</h3>
+            <h3 className="text-xl font-bold text-white mt-2 border-b border-white/10 pb-3 mb-5">{(article as any).routesTitle || t('routesTitle')}</h3>
             <ul className="flex flex-col gap-5">
               {article.routes.map((route: { name: string; desc: string; icon?: string }, idx: number) => (
                 <li key={idx} className="flex gap-3 items-start">

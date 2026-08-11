@@ -1,6 +1,8 @@
 import { MapPin, Navigation } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
+  const t = useTranslations('Global');
   return (
     <div className="fixed inset-0 z-[10000] bg-slate-950 flex flex-col items-center justify-center">
       <div className="relative w-32 h-32 flex items-center justify-center">
@@ -28,7 +30,7 @@ export default function Loading() {
         Auto<span className="text-blue-500">Roam</span>
       </h2>
       <p className="mt-2 text-white/50 text-sm animate-pulse">
-        Прокладаємо шлях...
+        {t('loading')}
       </p>
     </div>
   );

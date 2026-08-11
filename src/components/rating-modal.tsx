@@ -1,8 +1,8 @@
 "use client";
 
 import { useScrollLock } from "@/hooks/use-scroll-lock";
-
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface RatingModalProps {
   isOpen: boolean;
@@ -10,6 +10,7 @@ interface RatingModalProps {
 }
 
 export function RatingModal({ isOpen, onClose }: RatingModalProps) {
+  const t = useTranslations('Modals.Rating');
   const [rating, setRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -67,10 +68,10 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
               className="text-xl text-white mb-1 font-bold"
               style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
             >
-              Оцініть AutoRoam
+              {t('title')}
             </h2>
             <p className="text-xs text-white/70">
-              Ваша підтримка допомагає нам ставати кращими
+              {t('subtitle')}
             </p>
           </div>
           <button
@@ -127,7 +128,7 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
               <span className="material-symbols-outlined text-[16px]">
                 check_circle
               </span>
-              Дякуємо за вашу оцінку!
+              {t('thanks')}
             </div>
           )}
         </div>
@@ -138,10 +139,10 @@ export function RatingModal({ isOpen, onClose }: RatingModalProps) {
         {/* Donate Section */}
         <div>
           <h3 className="text-sm text-white font-bold mb-1">
-            Підтримати проект
+            {t('supportProject')}
           </h3>
           <p className="text-xs text-white/50 mb-3">
-            Допоможіть нам розвивати AutoRoam далі
+            {t('supportDesc')}
           </p>
           <div className="flex flex-col gap-2">
             <a

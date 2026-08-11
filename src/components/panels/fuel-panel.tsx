@@ -18,7 +18,7 @@ export function FuelPanel() {
     totalDistance, fuelPrices, customFuelPrices, setCustomFuelPrice, fetchFuelPrices, selectedFuelType, setFuelType, crossedCountries,
     consumption, setConsumption, isDefaultConsumption, fuelAmounts, setFuelAmounts, currency, setCurrency, exchangeRates, setExchangeRates
   } = useTripStore();
-  const t = useTranslations('FuelPanel');
+  const t = useTranslations('Fuel');
   
   const [isFocused, setIsFocused] = useState(false);
   const [isAnyAmountFocused, setIsAnyAmountFocused] = useState(false);
@@ -162,10 +162,10 @@ export function FuelPanel() {
   return (
     <div className="flex-1 flex flex-col space-y-4">
       <div className="flex items-center justify-between pb-4 border-b border-white/10">
-        <span className="text-sm font-medium text-white/80">{t('currency')}</span>
+        <span className="text-sm font-medium text-white/80">{t('calcCurrency')}</span>
         <Select value={currency} onValueChange={(v) => { if (v) setCurrency(v); }}>
           <SelectTrigger className="w-24 h-10 text-xs bg-white/5 border-white/10">
-            <SelectValue placeholder={t('currency')} />
+            <SelectValue placeholder={t('calcCurrency')} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="EUR">EUR (€)</SelectItem>
@@ -190,20 +190,20 @@ export function FuelPanel() {
             }}>
               <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-sm">
                 <SelectValue placeholder={t('fuelType')}>
-                  {selectedFuelType === 'gasoline' ? t('petrol95') : selectedFuelType === 'gasoline_premium' ? t('petrol98') : selectedFuelType === 'diesel' ? t('diesel') : selectedFuelType === 'diesel_premium' ? t('dieselPremium') : t('lpg')}
+                  {selectedFuelType === 'gasoline' ? t('types.gasoline') : selectedFuelType === 'gasoline_premium' ? t('types.gasoline_premium') : selectedFuelType === 'diesel' ? t('types.diesel') : selectedFuelType === 'diesel_premium' ? t('types.diesel_premium') : t('types.lpg')}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="gasoline">{t('petrol95')}</SelectItem>
-                <SelectItem value="gasoline_premium">{t('petrol98')}</SelectItem>
-                <SelectItem value="diesel">{t('diesel')}</SelectItem>
-                <SelectItem value="diesel_premium">{t('dieselPremium')}</SelectItem>
-                <SelectItem value="lpg">{t('lpg')}</SelectItem>
+                <SelectItem value="gasoline">{t('types.gasoline')}</SelectItem>
+                <SelectItem value="gasoline_premium">{t('types.gasoline_premium')}</SelectItem>
+                <SelectItem value="diesel">{t('types.diesel')}</SelectItem>
+                <SelectItem value="diesel_premium">{t('types.diesel_premium')}</SelectItem>
+                <SelectItem value="lpg">{t('types.lpg')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="flex flex-col gap-2">
-            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">{t('consumption')}</Label>
+            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">{t('consumptionLabel')}</Label>
             <div className="relative w-full">
               <Input 
                 type="text"
@@ -230,14 +230,14 @@ export function FuelPanel() {
                 }}
                 className={`w-full h-11 pr-[72px] text-right font-medium text-sm ${isDefaultConsumption && !isFocused ? 'text-white/50 bg-white/5' : ''}`}
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40 pointer-events-none">л/100 км</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40 pointer-events-none">{t('litersPer100km')}</span>
             </div>
           </div>
         </div>
 
         {crossedCountries.length > 0 && (
           <div className="space-y-4">
-             <Label>Країни для заправки (натисніть, щоб додати об'єм)</Label>
+             <Label>{t('countriesToRefuel')}</Label>
              <div className="flex flex-wrap gap-2">
                 {crossedCountries.map(code => {
                   let countryName = code;
@@ -298,10 +298,10 @@ export function FuelPanel() {
                                       }
                                     }}
                                     className="w-14 bg-white/10 border border-white/20 rounded px-1.5 py-0.5 text-xs text-white text-right focus:outline-none focus:border-emerald-400"
-                                    title="Натисніть, щоб змінити ціну за літр"
+                                    title={t('clickToChangePrice')}
                                   />
                                   <span className="inline-flex items-center gap-1 shrink-0 whitespace-nowrap">
-                                    <span>/л</span>
+                                    <span>{t('perLiter')}</span>
                                     <Pencil className="w-3 h-3 text-white/40 shrink-0" />
                                   </span>
                                 </div>
@@ -316,7 +316,7 @@ export function FuelPanel() {
                                 onChange={(e) => updateAmount(code, e.target.value.replace(',', '.').replace(/[^0-9.]/g, ''))}
                                 className={`pr-8 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${isDefaultConsumption && !isFocused && !isAnyAmountFocused ? 'opacity-40 text-white/50 bg-white/5 transition-opacity' : 'opacity-100 transition-opacity'}`}
                               />
-                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40">л</span>
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-white/40">{t('litersShort')}</span>
                             </div>
                           </div>
                           <div className="w-24 text-right pt-5 text-sm font-medium text-white/90">
@@ -343,8 +343,8 @@ export function FuelPanel() {
                       e.preventDefault();
                       import('izitoast').then((module) => {
                         module.default.info({
-                          title: 'Кількість палива',
-                          message: 'Включає 10% запасу для більш надійного розрахунку',
+                          title: t('fuelAmount').replace(':', ''),
+                          message: t('reserveNotice'),
                           position: 'topCenter',
                           timeout: 3000
                         });
@@ -354,23 +354,23 @@ export function FuelPanel() {
                     <Info className="w-4 h-4 text-white/40 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Включає 10% запасу для більш надійного розрахунку</p>
+                    <p>{t('reserveNotice')}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </span>
-            <span className="font-semibold text-white/90">{Math.round(conservativeFuel)} л</span>
+            <span className="font-semibold text-white/90">{Math.round(conservativeFuel)} {t('litersShort')}</span>
           </div>
 
           <div className="flex justify-between text-sm">
-            <span className="text-white/60">Всього розподілено:</span>
-            <span className="font-semibold text-white/90">{Math.round(distributedFuel)} л</span>
+            <span className="text-white/60">{t('totalDistributed')}</span>
+            <span className="font-semibold text-white/90">{Math.round(distributedFuel)} {t('litersShort')}</span>
           </div>
 
           {isWarning && (
             <div className="flex justify-between text-sm text-red-400 bg-red-400/10 p-2 rounded-lg border border-red-400/20">
-              <span>{t('leftToDistribute')}</span>
-              <span className="font-semibold">{Math.round(remainingFuel)} л</span>
+              <span>{t('remainingToDistribute')}</span>
+              <span className="font-semibold">{Math.round(remainingFuel)} {t('litersShort')}</span>
             </div>
           )}
 

@@ -1,0 +1,310 @@
+{
+  "summary": {
+    "total": 50,
+    "success": 50,
+    "failed": 0,
+    "isDryRun": false
+  },
+  "details": [
+    {
+      "email": "hello@sifted.eu",
+      "outlet": "Sifted",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:07.239Z"
+    },
+    {
+      "email": "thomas@eu-startups.com",
+      "outlet": "EU-Startups",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:11.725Z"
+    },
+    {
+      "email": "editorial@tech.eu",
+      "outlet": "Tech.eu",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:16.263Z"
+    },
+    {
+      "email": "editor@siliconrepublic.com",
+      "outlet": "Silicon Republic",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:21.015Z"
+    },
+    {
+      "email": "tips@thenextweb.com",
+      "outlet": "The Next Web",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:25.467Z"
+    },
+    {
+      "email": "news@wired.co.uk",
+      "outlet": "Wired UK",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:29.922Z"
+    },
+    {
+      "email": "tips@techcrunch.com",
+      "outlet": "TechCrunch",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:34.390Z"
+    },
+    {
+      "email": "contact@maddyness.com",
+      "outlet": "Maddyness",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:38.801Z"
+    },
+    {
+      "email": "anna.wood@startupsmagazine.co.uk",
+      "outlet": "Startups Magazine",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:43.221Z"
+    },
+    {
+      "email": "uktips@businessinsider.com",
+      "outlet": "Business Insider",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:47.715Z"
+    },
+    {
+      "email": "editor@ain.capital",
+      "outlet": "AIN.Capital",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:52.172Z"
+    },
+    {
+      "email": "newsroom@therecursive.com",
+      "outlet": "The Recursive",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:27:56.630Z"
+    },
+    {
+      "email": "news@trendingtopics.eu",
+      "outlet": "Trending Topics",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:01.772Z"
+    },
+    {
+      "email": "info@netokracija.com",
+      "outlet": "Netokracija",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:06.413Z"
+    },
+    {
+      "email": "redakcja@mamstartup.pl",
+      "outlet": "MamStartup",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:11.430Z"
+    },
+    {
+      "email": "redakcja@spidersweb.pl",
+      "outlet": "Spider's Web",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:15.987Z"
+    },
+    {
+      "email": "redakcja@antyweb.pl",
+      "outlet": "Antyweb",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:20.798Z"
+    },
+    {
+      "email": "kontakt@startit.rs",
+      "outlet": "Startit.rs",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:25.723Z"
+    },
+    {
+      "email": "contact@inventures.eu",
+      "outlet": "Inventures.eu",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:31.138Z"
+    },
+    {
+      "email": "info@praguemorning.cz",
+      "outlet": "Prague Morning",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:35.863Z"
+    },
+    {
+      "email": "news@phocuswire.com",
+      "outlet": "PhocusWire",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:40.493Z"
+    },
+    {
+      "email": "tips@skift.com",
+      "outlet": "Skift",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:45.091Z"
+    },
+    {
+      "email": "editorial@traveldailymedia.com",
+      "outlet": "Travel Daily Media",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:49.539Z"
+    },
+    {
+      "email": "editor@tnooz.com",
+      "outlet": "Tnooz",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:54.046Z"
+    },
+    {
+      "email": "news@autoexpress.co.uk",
+      "outlet": "Auto Express",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:28:58.667Z"
+    },
+    {
+      "email": "carmagazine@bauermedia.co.uk",
+      "outlet": "Car Magazine",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:03.067Z"
+    },
+    {
+      "email": "news@travelweekly.co.uk",
+      "outlet": "Travel Weekly",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:07.516Z"
+    },
+    {
+      "email": "news@travolution.com",
+      "outlet": "Travolution",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:11.965Z"
+    },
+    {
+      "email": "editor@breakingtravelnews.com",
+      "outlet": "Breaking Travel News",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:16.458Z"
+    },
+    {
+      "email": "info@mobilityways.com",
+      "outlet": "Mobilityways",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:20.927Z"
+    },
+    {
+      "email": "redaktion@gruenderszene.de",
+      "outlet": "Gründerszene",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:25.343Z"
+    },
+    {
+      "email": "tipps@deutsche-startups.de",
+      "outlet": "Deutsche Startups",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:29.934Z"
+    },
+    {
+      "email": "redaktion@t3n.de",
+      "outlet": "T3n",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:34.438Z"
+    },
+    {
+      "email": "redaktion@derbrutkasten.com",
+      "outlet": "Der Brutkasten",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:38.902Z"
+    },
+    {
+      "email": "news@startupticker.ch",
+      "outlet": "Startupticker.ch",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:43.445Z"
+    },
+    {
+      "email": "redaktion@horizont.net",
+      "outlet": "Horizont",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:47.859Z"
+    },
+    {
+      "email": "redaktion@it-business.de",
+      "outlet": "IT-Business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:53.054Z"
+    },
+    {
+      "email": "redaktion@heise.de",
+      "outlet": "Heise Online",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:29:59.197Z"
+    },
+    {
+      "email": "info@golem.de",
+      "outlet": "Golem.de",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:03.702Z"
+    },
+    {
+      "email": "feedback@trendingtopics.at",
+      "outlet": "TrendingTopics.at",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:08.144Z"
+    },
+    {
+      "email": "editorial@uktech.news",
+      "outlet": "UKTN",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:12.600Z"
+    },
+    {
+      "email": "editor@techspark.co",
+      "outlet": "TechSpark",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:17.091Z"
+    },
+    {
+      "email": "maija@sifted.eu",
+      "outlet": "Sifted Nordics",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:21.542Z"
+    },
+    {
+      "email": "info@techbbq.org",
+      "outlet": "TechBBQ",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:26.074Z"
+    },
+    {
+      "email": "editor@arcticstartup.com",
+      "outlet": "ArcticStartup",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:30.606Z"
+    },
+    {
+      "email": "redaksjonen@shifter.no",
+      "outlet": "Shifter",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:35.028Z"
+    },
+    {
+      "email": "tips@breakit.se",
+      "outlet": "Breakit",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:39.437Z"
+    },
+    {
+      "email": "editors@siliconcanals.com",
+      "outlet": "Silicon Canals",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:43.857Z"
+    },
+    {
+      "email": "dan@tech.eu",
+      "outlet": "Tech.eu UK",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:48.351Z"
+    },
+    {
+      "email": "news@cityam.com",
+      "outlet": "CityAM",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:30:52.821Z"
+    }
+  ]
+}

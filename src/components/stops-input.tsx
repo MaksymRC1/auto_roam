@@ -25,6 +25,7 @@ interface SortableItemProps {
 
 function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop, removeStop, onSwap }: SortableItemProps) {
   const t = useTranslations('StopsInput');
+  const tCommon = useTranslations('Common');
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -82,10 +83,10 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           {!value && (
             <div className="absolute inset-0 flex items-center pointer-events-none text-white/40 text-sm font-medium z-0">
               <div className="w-full truncate group-focus-within:hidden">
-                {index === 0 ? t('from') : isLast ? t('to') : t('waypoint')}
+                {index === 0 ? t('originPlaceholder') : isLast ? t('destinationPlaceholder') : t('stopPlaceholder')}
               </div>
               <div className="w-full hidden group-focus-within:block truncate">
-                {index === 0 ? t('from') : isLast ? t('to') : t('waypoint')}
+                {index === 0 ? t('originPlaceholder') : isLast ? t('destinationPlaceholder') : t('stopPlaceholder')}
               </div>
             </div>
           )}
@@ -105,7 +106,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
               onClick={async (e) => {
                 e.stopPropagation();
                 if (!navigator.geolocation) {
-                  alert("Геолокація не підтримується вашим браузером");
+                  alert(t('geolocationNotSupported'));
                   return;
                 }
                 navigator.geolocation.getCurrentPosition(async (position) => {
@@ -124,7 +125,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
                   }
                 }, (error) => {
                   console.warn("Geolocation error:", error.message || error.code);
-                  alert(t('geolocationAccessDenied'));
+                  alert(t('geolocationDenied'));
                 });
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-white/50 hover:text-blue-400 transition-colors z-20 p-1"
@@ -137,7 +138,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
             <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto custom-scrollbar">
               {isSearching ? (
                 <div className="p-3 text-sm text-white/50 flex items-center gap-2 justify-center">
-                  <Loader2 className="w-4 h-4 animate-spin" /> {t('searchPlaceholder')}
+                  <Loader2 className="w-4 h-4 animate-spin" /> {tCommon('searching')}
                 </div>
               ) : (
                 suggestions.map((s) => (

@@ -27,15 +27,15 @@ export function InsurancePanel() {
       icon: <ShieldCheck className="w-8 h-8" />,
       desc: t('greenCardDesc'),
       link: "https://hotline.finance/ua/green-card?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=e55516d5",
-      linkText: "Оформити поліс онлайн"
+      linkText: t('greenCardLink')
     },
     {
       id: "travel",
-      title: t('travelInsuranceTitle'),
+      title: t('travelTitle'),
       icon: <Plane className="w-8 h-8" />,
-      desc: t('travelInsuranceDesc'),
+      desc: t('travelDesc'),
       link: "https://hotline.finance/ua/insurance-travel?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0",
-      linkText: "Зробити туристичну страховку"
+      linkText: t('travelLink')
     },
     {
       id: "osago",
@@ -43,7 +43,7 @@ export function InsurancePanel() {
       icon: <Car className="w-8 h-8" />,
       desc: t('osagoDesc'),
       link: "https://hotline.finance/ua/osago?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=562129",
-      linkText: "Оновити онлайн"
+      linkText: t('osagoLink')
     },
     {
       id: "accident",
@@ -51,7 +51,7 @@ export function InsurancePanel() {
       icon: <HeartPulse className="w-8 h-8" />,
       desc: t('accidentDesc'),
       link: "https://hotline.finance/ua/accidents?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0",
-      linkText: "Оформити страхування"
+      linkText: t('accidentLink')
     }
   ];
 

@@ -31,14 +31,15 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-const formatTime = (mins: number) => {
+const formatTime = (mins: number, t: any) => {
   const h = Math.floor(mins / 60);
   const m = mins % 60;
-  return `${h} год ${m > 0 ? m + ' хв' : ''}`;
+  return `${h} ${t('hoursShort')} ${m > 0 ? m + ' ' + t('minutesShort') : ''}`.trim();
 };
 
 export function TripPlanner() {
   const t = useTranslations('TripPlanner');
+  const tCommon = useTranslations('Common');
   const [mounted, setMounted] = useState(false);
   const [leftView, setLeftView] = useState<'timeline' | 'map'>('timeline');
   const [heroIndex, setHeroIndex] = useState(0);
@@ -123,7 +124,7 @@ export function TripPlanner() {
     setShareOpen(true);
     setCopied(false);
     setIsGeneratingLink(true);
-    setShareLink("Генеруємо посилання...");
+    setShareLink(t('generatingLink'));
 
     try {
       const response = await fetch("/api/journey/share", {
@@ -373,13 +374,13 @@ export function TripPlanner() {
                     <div>
                       <h2 className="font-bold text-lg text-white">{t('routeTimeline')}</h2>
                       <p className="text-sm font-medium text-white/60 mt-1">
-                        {totalDistance} км • ~{formatTime(totalDuration)}
+                        {totalDistance} {t('km')} • ~{formatTime(totalDuration, t)}
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex-1 p-5 md:overflow-y-auto custom-scrollbar pb-12">
-                    <div className="relative space-y-8" role="list" aria-label="Хронологія маршруту">
+                    <div className="relative space-y-8" role="list" aria-label={t('timelineAriaLabel')}>
                         
                         {waypoints.filter(wp => !ignoredWaypoints.includes(wp.id)).map((wp, index, array) => {
                           const isLast = index === array.length - 1;
@@ -420,7 +421,7 @@ export function TripPlanner() {
                                       }
                                     }}
                                     className="absolute top-2 right-2 p-1.5 text-white/50 hover:text-red-400 hover:bg-red-900/30 rounded transition-colors opacity-0 group-hover:opacity-100 z-10"
-                                    title="Видалити з таймлайну"
+                                    title={t('removeFromTimeline')}
                                   >
                                     <Trash2 className="w-4 h-4" />
                                   </button>
@@ -432,11 +433,11 @@ export function TripPlanner() {
 
                                   {!isStart && (
                                     <span className="text-xs text-white/60 mt-1 flex items-center gap-1">
-                                      через {wp.distanceFromStart} км <span className="text-white/30">•</span> {formatTime(wp.timeFromStart)}
+                                      {t('afterKm', { distance: wp.distanceFromStart })} <span className="text-white/30">•</span> {formatTime(wp.timeFromStart, t)}
                                     </span>
                                   )}
                                   {isStart && (
-                                    <span className="text-xs text-white/60 font-medium mt-1">Точка відправлення</span>
+                                    <span className="text-xs text-white/60 font-medium mt-1">{t('originPoint')}</span>
                                   )}
                                   {wp.lat && wp.lon && (!isHotel || (isHotel && hotelOverrides[wp.id]?.lat)) && (
                                     <div className="flex gap-2 mt-2 pt-2 border-t border-white/10 items-center w-full">
@@ -490,7 +491,7 @@ export function TripPlanner() {
                                         onClick={() => setSelectedStay22Id(wp.id)}
                                         className="w-full mt-1 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-1.5 rounded-lg text-[11px] font-medium flex items-center justify-center gap-1.5"
                                       >
-                                        <MapPin className="w-3.5 h-3.5" /> Знайти готелі на мапі
+                                        <MapPin className="w-3.5 h-3.5" /> {t('findHotelsOnMap')}
                                       </button>
                                     </div>
                                   )}
@@ -551,7 +552,7 @@ export function TripPlanner() {
           <DialogHeader>
             <DialogTitle className="text-xl">{t('saveAndShare')}</DialogTitle>
             <DialogDescription className="text-white/60">
-              Ваш маршрут збережено в базі даних. Надішліть це коротке посилання друзям, щоб вони могли переглянути вашу поїздку.
+              {t('shareLinkDescription')}
             </DialogDescription>
           </DialogHeader>
           <div className="flex items-center space-x-2 mt-4">
@@ -579,16 +580,16 @@ export function TripPlanner() {
           </div>
           
           <div className={`mt-6 flex justify-center gap-4 transition-opacity duration-300 ${isGeneratingLink ? "opacity-45 pointer-events-none" : ""}`}>
-            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\nПодивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
-              <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\n' + t('telegramShareText'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.96 1.25-5.54 3.67-.52.36-.99.53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.29-.48.79-.74 3.08-1.34 5.15-2.23 6.19-2.66 2.95-1.23 3.56-1.44 3.96-1.45.09 0 .28.02.41.1.11.08.14.19.16.27-.01.04.01.12 0 .18z"/></svg>
             </a>
-            <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
-              <MessageCircle className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            <a href={`viber://forward?text=${encodeURIComponent(t('viberShareText') + ' ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M18.88 5.12A10 10 0 0 0 4.29 17.5L2 22l4.63-2.19A10 10 0 0 0 18.88 5.12zm-3.34 11.23c-.41.52-1.14.73-1.68.32-.48-.36-1.02-.85-1.59-1.43-1.08-1.09-2.05-2.43-2.68-3.79-.34-.73-.24-1.58.26-2.09.28-.29.58-.55.89-.8.3-.25.59-.44.81-.3.12.08.26.17.41.34.46.54.91 1.07 1.34 1.62.13.16.24.32.33.5.08.16.14.35.08.57-.1.35-.38.65-.63.93-.16.17-.3.34-.35.53-.08.28.06.66.4.99.71.69 1.48 1.25 2.15 1.45.2.06.4-.04.57-.22.25-.26.54-.56.84-.71.18-.09.36-.14.54-.15.22-.01.44.05.65.17.5.28.98.59 1.46.88.22.14.45.28.69.45.16.11.27.24.35.41.09.18.15.39.11.64-.1.67-.48 1.4-1.12 1.64z"/></svg>
             </a>
             <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#1877f2] hover:border-[#1877f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#1877f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">f</span>
             </a>
-            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(t('twitterShareText'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
               <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">𝕏</span>
             </a>
           </div>
@@ -622,7 +623,7 @@ export function TripPlanner() {
           </div>
           {/* Link to insurance submenu */}
           <div className="mt-6 pt-4 border-t border-white/10 flex flex-col gap-2">
-            <p className="text-xs text-white/50 text-center">Для перетину кордону на авто обов&#39;язково потрібен страховий поліс «Зелена картка».</p>
+            <p className="text-xs text-white/50 text-center">{t('greenCardNotice')}</p>
             <button
               onClick={() => {
                 setSelectedBorderInfoId(null);
@@ -631,7 +632,7 @@ export function TripPlanner() {
               className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-3.5 font-bold text-[15px] shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4 text-slate-700" />
-              Оформити страхування (Зелена картка)
+              {t('buyGreenCard')}
             </button>
           </div>
         </DialogContent>
@@ -641,14 +642,14 @@ export function TripPlanner() {
       <Dialog open={selectedStay22Id !== null} onOpenChange={(open) => !open && setSelectedStay22Id(null)}>
         <DialogContent className="border-white/10 text-white sm:max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
-            <DialogTitle className="text-xl">Пошук готелів поблизу</DialogTitle>
+            <DialogTitle className="text-xl">{t('findHotelsNearby')}</DialogTitle>
           </DialogHeader>
           <div className="mt-2 flex flex-col gap-4">
             
             {/* Settings Explanation */}
             <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-white/80">
               <p className="mb-4">
-                <span className="font-semibold text-white">💡 За замовчуванням:</span> зупинка для ночівлі планується кожні {hotelCustomTime ? Math.round(hotelCustomTime / 60) : 8} годин. Ви можете змінити цей час нижче:
+                <span className="font-semibold text-white">{t('hotelDefaultTip').split(':')[0]}:</span> {t('hotelDefaultTip').split(':')[1]} {hotelCustomTime ? Math.round(hotelCustomTime / 60) : 8} {t('hours')}.
               </p>
               
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between border-t border-white/10 pt-4">
@@ -668,12 +669,12 @@ export function TripPlanner() {
                     />
                     <div className="w-10 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-white/40"></div>
                   </div>
-                  <span className="text-sm font-medium text-white/90">Без зупинок</span>
+                  <span className="text-sm font-medium text-white/90">{t('noStops')}</span>
                 </label>
 
                 {(hotelCustomTime > 0) && (
                   <div className="flex items-center gap-2">
-                    <span className="text-white/70">Кожні:</span>
+                    <span className="text-white/70">{t('every')}</span>
                     <select 
                       value={String(Math.round(hotelCustomTime / 60))} 
                       onChange={(e) => {
@@ -690,7 +691,7 @@ export function TripPlanner() {
                       <option value="14" className="bg-[#131620]">14</option>
                       <option value="16" className="bg-[#131620]">16</option>
                     </select>
-                    <span className="text-white/70">годин</span>
+                    <span className="text-white/70">{t('hours')}</span>
                   </div>
                 )}
               </div>
@@ -710,8 +711,8 @@ export function TripPlanner() {
                   <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 text-white/50">
                     <CarFront className="w-6 h-6" />
                   </div>
-                  <p className="text-white/70 font-medium">Ви обрали подорож без зупинок на ночівлю.</p>
-                  <p className="text-sm text-white/40 mt-1">Карта готелів прихована.</p>
+                  <p className="text-white/70 font-medium">{t('noOvernightSelected')}</p>
+                  <p className="text-sm text-white/40 mt-1">{t('hotelMapHidden')}</p>
                 </div>
               )
             )}
@@ -775,15 +776,15 @@ function AccordionPanels() {
                           <Fuel className="w-4 h-4" />
                         </div>
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-left flex-1 min-w-0">
-                          <span className="font-semibold text-base leading-tight">Розрахунок палива</span>
+                          <span className="font-semibold text-base leading-tight">{t('fuelCalcTitle')}</span>
                           {needsFuel && (
-                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title="Потребує уваги">
+                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title={t('needsAttention')}>
                               <AlertCircle className="w-3.5 h-3.5" />
                             </span>
                           )}
                           {totalDistance > 0 && (
                             <span className="text-xs font-medium text-white/80 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full whitespace-nowrap">
-                              {totalDistance} км {totalFuelCost > 0 ? `• ${currencySymbol} ${totalFuelCost}` : ''}
+                              {totalDistance} {t('km')} {totalFuelCost > 0 ? `• ${currencySymbol} ${totalFuelCost}` : ''}
                             </span>
                           )}
                         </div>
@@ -803,9 +804,9 @@ function AccordionPanels() {
                           <ShieldCheck className="w-4 h-4" />
                         </div>
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-left flex-1 min-w-0">
-                          <span className="font-semibold text-base leading-tight">Страхування та віньєтки</span>
+                          <span className="font-semibold text-base leading-tight">{t('insuranceTitle')}</span>
                           {needsBorders && (
-                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title="Потребує уваги">
+                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title={t('needsAttention')}>
                               <AlertCircle className="w-3.5 h-3.5" />
                             </span>
                           )}
@@ -826,9 +827,9 @@ function AccordionPanels() {
                           <Wallet className="w-4 h-4" />
                         </div>
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-left flex-1 min-w-0">
-                          <span className="font-semibold text-base leading-tight">Загальний кошторис</span>
+                          <span className="font-semibold text-base leading-tight">{t('totalBudgetTitle')}</span>
                           {needsBudget && (
-                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title="Потребує уваги">
+                            <span className="flex shrink-0 items-center justify-center w-5 h-5 text-amber-300 bg-amber-500/10 rounded-full border border-amber-500/20 shadow-sm" title={t('needsAttention')}>
                               <AlertCircle className="w-3.5 h-3.5" />
                             </span>
                           )}
@@ -894,13 +895,13 @@ function HotelOverrideInputs({
             name = geo.name;
          } else {
             console.warn("Geocode returned null for URL:", url);
-            setErrorMsg("Не вдалося знайти координати. Спробуйте посилання з Google Maps.");
+            setErrorMsg(t('geocodeError'));
             setIsSaving(false);
             return;
          }
        } catch (err) {
          console.error("Geocoding failed during save:", err);
-         setErrorMsg("Помилка під час пошуку координат.");
+         setErrorMsg(t('geocodeFetchError'));
          setIsSaving(false);
          return;
        }
@@ -925,7 +926,7 @@ function HotelOverrideInputs({
       <div className="relative w-full">
         <input 
           type="text" 
-          placeholder="🏨 Додайте адресу..." 
+          placeholder={t('addAddressPlaceholder')} 
           className="w-full text-xs p-2.5 pr-8 border rounded-xl border-white/10 text-white bg-white/5 hover:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/20 outline-none transition-all placeholder:text-white/30 relative z-10"
           value={url}
           autoComplete="off"
@@ -933,14 +934,14 @@ function HotelOverrideInputs({
           disabled={isSaving}
         />
         {url && url.startsWith('http') && (
-          <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors z-20" title="Відкрити посилання">
+          <a href={url} target="_blank" rel="noreferrer" className="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-300 transition-colors z-20" title={t('openLink')}>
             ↗
           </a>
         )}
       </div>
       <div className="flex items-center justify-between gap-2 w-full">
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <span className="text-xs text-white/50 whitespace-nowrap">Ціна:</span>
+          <span className="text-xs text-white/50 whitespace-nowrap">{t('price')}</span>
           <div className="relative flex items-center flex-1 h-9">
             <input 
               type="number" 
@@ -967,7 +968,7 @@ function HotelOverrideInputs({
               onClick={handleSave}
               disabled={isSaving}
             >
-              {isSaving ? <span className="w-3 h-3 border-2 border-blue-300 border-t-transparent rounded-full animate-spin" /> : "Зберегти"}
+              {isSaving ? <span className="w-3 h-3 border-2 border-blue-300 border-t-transparent rounded-full animate-spin" /> : tCommon('save')}
             </button>
           )}
         </div>

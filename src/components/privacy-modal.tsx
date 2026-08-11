@@ -2,6 +2,7 @@
 
 import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 
 interface PrivacyModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface PrivacyModalProps {
 }
 
 export function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
+  const t = useTranslations('Modals.Privacy');
   const contentRef = useRef<HTMLDivElement>(null);
 
   useScrollLock(isOpen);
@@ -36,7 +38,7 @@ export function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
         {/* Header (sticky) */}
         <div className="flex justify-between items-center p-5 border-b border-white/10 shrink-0">
           <h1 className="text-xl text-white font-bold" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
-            Політика конфіденційності
+            {t('title')}
           </h1>
           <button 
             onClick={onClose}
@@ -53,46 +55,45 @@ export function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
           className="p-5 overflow-y-auto text-slate-300 space-y-6 text-sm flex-1 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
         >
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">1. Збір та використання даних</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section1Title')}</h2>
             <p>
-              Ми поважаємо вашу приватність. На даний момент AutoRoam працює переважно на стороні клієнта (у вашому браузері). 
-              Ми не збираємо і не зберігаємо ваші персональні дані (наприклад, точні координати вашого поточного місцезнаходження), якщо ви самі не надасте їх для побудови маршруту.
+              {t('section1Body1')}
             </p>
             <p>
-              Для пошуку локацій та прокладання маршрутів введені вами дані (назви міст або координати) передаються стороннім API (Open-Meteo, OSRM, BigDataCloud, Photon). Вони використовуються виключно для виконання вашого запиту.
-            </p>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">2. Файли Cookie та локальне сховище</h2>
-            <p>
-              Ми використовуємо технології локального сховища вашого браузера (Local Storage) для збереження налаштувань (наприклад, витрати пального вашого авто, обрана валюта). Це дозволяє не вводити ці дані щоразу заново.
+              {t('section1Body2')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">3. Передача даних третім особам</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section2Title')}</h2>
             <p>
-              Ми не продаємо і не передаємо вашу персональну інформацію стороннім маркетинговим або рекламним компаніям. Ваші дані можуть оброблятися лише постачальниками API для прокладання маршруту (як зазначено в п.1).
+              {t('section2Body')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">4. Аналітика</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section3Title')}</h2>
             <p>
-              На сайті може використовуватися анонімна веб-аналітика для відстеження загальної статистики відвідувань (щоб ми розуміли, які функції найпопулярніші). Ці дані не прив&#39;язуються до конкретної особи.
+              {t('section3Body')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">5. Зв&#39;язок з нами</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section4Title')}</h2>
             <p>
-              Якщо у вас виникли запитання щодо цієї політики конфіденційності, ви можете зв&#39;язатися з нами через кнопки контактів у підвалі сайту.
+              {t('section4Body')}
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white">{t('section5Title')}</h2>
+            <p>
+              {t('section5Body')}
             </p>
           </section>
 
           <div className="pt-4 text-xs text-white/50 pb-2">
-            Останнє оновлення: {new Date().toLocaleDateString('uk-UA')}
+            {t('lastUpdated')} {new Date().toLocaleDateString('uk-UA')}
           </div>
         </div>
       </div>

@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Редакція",
+    "email": "news@24tv.ua",
+    "outlet": "24 Канал",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@korrespondent.net",
+    "outlet": "Корреспондент",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@unian.net",
+    "outlet": "УНІАН",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@the-village.com.ua",
+    "outlet": "The Village Україна",
+    "active": true,
+    "templateType": "tech"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@nashkiev.ua",
+    "outlet": "Наш Київ",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@hromadske.ua",
+    "outlet": "Громадське",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@suspilne.media",
+    "outlet": "Суспільне",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@zn.ua",
+    "outlet": "Дзеркало Тижня",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@apostrophe.ua",
+    "outlet": "Апостроф",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@mind.ua",
+    "outlet": "Mind.ua",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "ep@epravda.com.ua",
+    "outlet": "Економічна Правда",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@infocar.ua",
+    "outlet": "InfoCar",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@uamotors.com.ua",
+    "outlet": "UAMotors",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@veterdoit.com",
+    "outlet": "Veter doit",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@tripmydream.com",
+    "outlet": "TripMyDream",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@dumskaya.net",
+    "outlet": "Думская (Одеса)",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@vgorode.ua",
+    "outlet": "Vgorode",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@depo.ua",
+    "outlet": "Depo.ua",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@rubryka.com",
+    "outlet": "Рубрика",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@svidomi.in.ua",
+    "outlet": "Свідомі",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@itc.ua",
+    "outlet": "ITC.ua (додатковий контакт)",
+    "active": true,
+    "templateType": "tech"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@censor.net",
+    "outlet": "Цензор.НЕТ",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@espreso.tv",
+    "outlet": "Еспресо TV",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@prm.ua",
+    "outlet": "Прямий",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@5.ua",
+    "outlet": "5 Канал",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@ukrinform.ua",
+    "outlet": "Укрінформ",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@interfax.com.ua",
+    "outlet": "Інтерфакс-Україна",
+    "active": true,
+    "templateType": "business"
+  }
+]

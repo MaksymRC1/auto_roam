@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 
 export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView = false }: { lat?: number; lon?: number; address: string; defaultOpen?: boolean; isModalView?: boolean }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const t = useTranslations('Hotel');
 
   if (!isOpen) {
     return (
@@ -17,7 +18,7 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
         onClick={() => setIsOpen(true)}
         className="w-full bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium shadow-sm transition-all"
       >
-        <MapIcon className="w-4 h-4 mr-2" /> Знайти готелі та Airbnb на мапі (Stay22)
+        <MapIcon className="w-4 h-4 mr-2" /> {t('findHotelsStay22')}
       </Button>
     );
   }
@@ -29,9 +30,9 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
     <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-200">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/5 text-white/80 text-xs p-3 rounded-lg border border-white/10 gap-3">
         {isModalView ? (
-          <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та вставте в поле "Адреса готелю" для цього пункту ночівлі, щоб зберегти свій вибір.</p>
+          <p>{t('foundHotelTip1')}</p>
         ) : (
-          <p>💡 <b>Знайшли ідеальний готель на мапі?</b> Скопіюйте його адресу або назву та додайте як нову точку зупинки в конструкторі маршруту (блок зліва), щоб включити його у свій план.</p>
+          <p>{t('foundHotelTip2')}</p>
         )}
         {!isModalView && (
           <Button 
@@ -40,7 +41,7 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
             onClick={() => setIsOpen(false)}
             className="h-7 text-xs shrink-0 bg-white/10 border-white/20 text-white hover:bg-white/20 w-full sm:w-auto"
           >
-            Сховати мапу
+            {t('hideMap')}
           </Button>
         )}
       </div>
@@ -71,7 +72,7 @@ export function HotelPanel() {
     hotelOverrides,
     setHotelOverride
   } = useTripStore();
-  const t = useTranslations('HotelPanel');
+  const t = useTranslations('Hotel');
   
   // Read hotel stops directly from global waypoints
   const stops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
@@ -84,12 +85,12 @@ export function HotelPanel() {
         <div className="bg-white/5 p-4 rounded-xl border border-white/10 space-y-4">
           <div className="flex items-center gap-2 mb-2">
             <Settings2 className="w-4 h-4 text-white/50" />
-            <span className="font-medium text-sm text-white/80">{t('stopSettings')}</span>
+            <span className="font-medium text-sm text-white/80">{t('stopsSettings')}</span>
           </div>
           
           <div className="flex flex-col gap-3 pt-2">
             <div className="flex items-center gap-3">
-              <Label className="text-white/70 flex-1">{t('stopEvery')}</Label>
+              <Label className="text-white/70 flex-1">{t('stopEveryHours')}</Label>
               <select 
                 value={customTime ? String(customTime / 60) : "0"} 
                 onChange={(e) => {
@@ -100,23 +101,23 @@ export function HotelPanel() {
                 style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(255, 255, 255, 0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9' /%3E%3C/svg%3E")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em', paddingRight: '2.5rem' }}
               >
                 <option value="0" className="bg-[#131620]">{t('noStops')}</option>
-                <option value="4" className="bg-[#131620]">{t('hours4')}</option>
-                <option value="6" className="bg-[#131620]">{t('hours6')}</option>
-                <option value="8" className="bg-[#131620]">{t('hours8')}</option>
-                <option value="10" className="bg-[#131620]">{t('hours10')}</option>
-                <option value="12" className="bg-[#131620]">{t('hours12')}</option>
-                <option value="14" className="bg-[#131620]">14 годин</option>
-                <option value="16" className="bg-[#131620]">16 годин</option>
+                <option value="4" className="bg-[#131620]">{t('hoursOptions.4')}</option>
+                <option value="6" className="bg-[#131620]">{t('hoursOptions.6')}</option>
+                <option value="8" className="bg-[#131620]">{t('hoursOptions.8')}</option>
+                <option value="10" className="bg-[#131620]">{t('hoursOptions.10')}</option>
+                <option value="12" className="bg-[#131620]">{t('hoursOptions.12')}</option>
+                <option value="14" className="bg-[#131620]">{t('hoursOptions.14')}</option>
+                <option value="16" className="bg-[#131620]">{t('hoursOptions.16')}</option>
               </select>
             </div>
             <div className="flex items-center gap-3">
-              <Label className="text-white/70 flex-1">Або кожні (км):</Label>
+              <Label className="text-white/70 flex-1">{t('orEveryKm')}</Label>
               <Input 
                 type="number" 
                 min={0} 
                 max={2000} 
                 value={customDistance || ""} 
-                placeholder="Без зупинок"
+                placeholder={t('noStops')}
                 onChange={(e) => {
                   const val = Number(e.target.value);
                   setHotelSettings('distance', customTime, val);
@@ -132,12 +133,12 @@ export function HotelPanel() {
           {mode === 'ignore' ? (
             <div className="p-8 text-center text-white/50 bg-white/5 rounded-xl border border-white/10 border-dashed">
               <BedDouble className="w-8 h-8 mx-auto mb-2 text-white/30" />
-              <p>Ви обрали проїхати маршрут без тривалих зупинок.</p>
+              <p>{t('noOvernightNotice')}</p>
             </div>
           ) : stops.length === 0 ? (
             <div className="p-8 text-center text-white/50 bg-white/5 rounded-xl border border-white/10 border-dashed">
               <BedDouble className="w-8 h-8 mx-auto mb-2 text-white/30" />
-              <p>За поточними налаштуваннями додаткова ночівля не потрібна.</p>
+              <p>{t('noExtraOvernightNotice')}</p>
             </div>
           ) : (
             (() => {
@@ -168,19 +169,19 @@ export function HotelPanel() {
                         )}
                       </div>
                       <p className="text-sm text-white/50 mt-1">
-                        Орієнтовне прибуття через {Math.floor(stop.timeFromStart / 60)} год {stop.timeFromStart % 60} хв
+                        {t('approxArrival')} {Math.floor(stop.timeFromStart / 60)} {t('hoursShort')} {stop.timeFromStart % 60} {t('minutesShort')}
                       </p>
                       <p className="text-xs text-white/40 mt-1">
-                        Відстань від старту: {stop.distanceFromStart} км
+                        {t('distanceFromStart')} {stop.distanceFromStart} {t('kmShort')}
                       </p>
                     </div>
                     <div className="flex flex-col gap-2 items-end">
                       <div className="text-right bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
                         <span className="text-xs text-white/50 block">
-                          {isSkipped ? t('ignore') : (override?.priceEur !== undefined ? t('exactPrice') : t('averagePrice'))}
+                          {isSkipped ? t('notIncluded') : (override?.priceEur !== undefined ? t('exactPrice') : t('averagePrice'))}
                         </span>
                         <span className={`text-sm font-bold ${isSkipped ? 'text-white/40' : 'text-amber-400'}`}>
-                          {override?.priceEur !== undefined ? "" : "від "}{priceLocal} {currency} / ніч
+                          {override?.priceEur !== undefined ? "" : t('from') + " "}{priceLocal} {currency} {t('perNight')}
                         </span>
                       </div>
                       <button
@@ -191,7 +192,7 @@ export function HotelPanel() {
                             : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90'
                         }`}
                       >
-                        {isSkipped ? t('activateOvernight') : t('ignore')}
+                        {isSkipped ? t('activateOvernight') : t('ignoreOvernight')}
                       </button>
                     </div>
                   </div>

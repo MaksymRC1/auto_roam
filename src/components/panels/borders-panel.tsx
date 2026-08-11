@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 
 export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }) {
   const { waypoints } = useTripStore();
-  const t = useTranslations('BordersPanel');
+  const t = useTranslations('Borders');
   let borderCrossings = waypoints.filter(wp => wp.type === 'border');
   
   if (selectedBorderId) {
@@ -20,7 +20,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
     return (
       <div className="flex-1 flex flex-col p-8 text-center text-white/50 border border-white/10 rounded-xl bg-white/5">
         <Info className="w-8 h-8 mx-auto mb-2 text-white/30" />
-        <p>Ваш маршрут не перетинає державних кордонів з контролем.</p>
+        <p>{t('noBorders')}</p>
       </div>
     );
   }
@@ -44,7 +44,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
                     {border.name}
                   </div>
                   <p className="text-sm text-white/50 mt-1">
-                    Приблизне прибуття через {Math.floor(border.timeFromStart / 60)} год {border.timeFromStart % 60} хв
+                    {t('approxArrival')} {Math.floor(border.timeFromStart / 60)} {t('hoursShort')} {border.timeFromStart % 60} {t('minutesShort')}
                   </p>
                 </div>
               </div>
@@ -53,22 +53,22 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
                 {border.fromCountry && border.toCountry && isSchengenPair(border.fromCountry, border.toCountry) ? (
                   <p className="flex gap-2 text-blue-300">
                     <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" /> 
-                    {t('schengenInfo')}
+                    {t('schengenNotice')}
                   </p>
                 ) : (
                   <>
                     <p className="flex gap-2">
                       <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                      Перевірте наявність біометричних закордонних паспортів та дійсних віз (якщо потрібно).
+                      {t('passportsNotice')}
                     </p>
                     <p className="flex gap-2">
                       <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                      Техпаспорт на авто та посвідчення водія міжнародного зразка є обов'язковими.
+                      {t('documentsNotice')}
                     </p>
                     {border.name.includes('UA') && (
                       <p className="flex gap-2">
                         <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" /> 
-                        Заборонено ввозити м'ясні та молочні продукти до країн ЄС.
+                        {t('customsNotice')}
                       </p>
                     )}
                   </>
@@ -78,7 +78,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
               {border.name.includes('UA') && (
                 <div className="pt-4 flex gap-2">
                   <Button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white shadow-sm" onClick={() => window.open("https://dpsu.gov.ua/ua/map/", "_blank")}>
-                    {t('checkQueues')} <ExternalLink className="w-4 h-4 ml-2" />
+                    {t('checkQueuesButton')} <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               )}

@@ -1,8 +1,8 @@
 "use client";
 
 import { useScrollLock } from "@/hooks/use-scroll-lock";
-
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface SupportModalProps {
   isOpen: boolean;
@@ -10,6 +10,8 @@ interface SupportModalProps {
 }
 
 export function SupportModal({ isOpen, onClose }: SupportModalProps) {
+  const t = useTranslations('Modals.Support');
+  const tCommon = useTranslations('Common');
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -77,10 +79,10 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
               className="text-xl text-white mb-1 font-bold"
               style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
             >
-              Задати питання
+              {t('title')}
             </h2>
             <p className="text-xs text-white/70">
-              Напишіть нам, і ми відповімо якнайшвидше
+              {t('subtitle')}
             </p>
           </div>
           <button
@@ -102,13 +104,13 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
             {/* Name */}
             <div className="flex flex-col gap-1">
               <label className="text-xs text-white/60 font-medium ml-1">
-                Ваше ім&#39;я
+                {t('yourName')}
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Іван"
+                placeholder={t('namePlaceholder')}
                 required
                 className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all"
                 style={{
@@ -121,7 +123,7 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
             {/* Email */}
             <div className="flex flex-col gap-1">
               <label className="text-xs text-white/60 font-medium ml-1">
-                Електронна пошта
+                {t('email')}
               </label>
               <input
                 type="email"
@@ -140,12 +142,12 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
             {/* Message */}
             <div className="flex flex-col gap-1">
               <label className="text-xs text-white/60 font-medium ml-1">
-                Повідомлення
+                {t('message')}
               </label>
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Опишіть ваше питання..."
+                placeholder={t('messagePlaceholder')}
                 required
                 rows={4}
                 className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all resize-none"
@@ -165,10 +167,10 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
               {isSending ? (
                 <>
                   <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></span>
-                  Надсилання...
+                  {t('sending')}
                 </>
               ) : (
-                "Надіслати"
+                t('send')
               )}
             </button>
           </form>
@@ -183,16 +185,15 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
                 check_circle
               </span>
             </div>
-            <h3 className="text-white font-bold text-lg">Дякуємо!</h3>
+            <h3 className="text-white font-bold text-lg">{t('thanksTitle')}</h3>
             <p className="text-white/60 text-sm text-center">
-              Ваше повідомлення надіслано. Ми відповімо на вашу пошту
-              якнайшвидше.
+              {t('thanksMessage')}
             </p>
             <button
               onClick={onClose}
               className="mt-2 px-6 py-2.5 rounded-xl bg-white/10 border border-white/10 text-white text-sm font-medium hover:bg-white/20 transition-all"
             >
-              Закрити
+              {tCommon('close')}
             </button>
           </div>
         )}
@@ -200,7 +201,7 @@ export function SupportModal({ isOpen, onClose }: SupportModalProps) {
         {/* Alternative contact hint */}
         {!isSubmitted && (
           <div className="flex items-center gap-2 justify-center pt-1">
-            <span className="text-white/30 text-[11px]">або напишіть в</span>
+            <span className="text-white/30 text-[11px]">{t('orWriteTo')}</span>
             <a
               href="tg://user?id=8746006264"
               target="_blank"

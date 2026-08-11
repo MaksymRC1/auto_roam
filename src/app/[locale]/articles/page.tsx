@@ -16,7 +16,10 @@ const ARTICLES = articlesData.map((article) => ({
   date: article.date,
 }));
 
+import { useTranslations } from "next-intl";
+
 export default function ArticlesPage() {
+  const t = useTranslations('Articles');
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -57,11 +60,11 @@ export default function ArticlesPage() {
         
         {/* Header Section */}
         <header className="mb-12 text-center px-4 md:px-8 max-w-[1280px] mx-auto w-full">
-          <h1 className="text-3xl md:text-5xl lg:text-[48px] font-extrabold mb-4 drop-shadow-md text-white tracking-tight">
-            Поради для мандрівників
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-xl mb-4">
+            {t('tipsTitle')}
           </h1>
-          <p className="text-base md:text-lg text-white/90 drop-shadow-sm max-w-2xl mx-auto">
-            Експертні поради, маршрути та лайфхаки для вашої ідеальної автомобільної подорожі.
+          <p className="text-white/70 text-lg md:text-xl">
+            {t('tipsDesc')}
           </p>
         </header>
 
@@ -81,7 +84,7 @@ export default function ArticlesPage() {
                 onClick={() => setVisibleCount(prev => prev + 3)}
                 className="bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/10 text-white font-medium text-sm py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2"
               >
-                Завантажити ще
+                {t('loadMore')}
                 <span className="material-symbols-outlined text-[18px]">refresh</span>
               </button>
             </div>
@@ -134,6 +137,7 @@ export default function ArticlesPage() {
 
 // Mobile Card
 function ArticleCardMobile({ href, image, category, title }: { href: string, image: string, category: string, title: string }) {
+  const t = useTranslations('Articles');
   return (
     <Link href={href} className="contents md:hidden">
       <article className="h-full rounded-[20px] overflow-hidden flex flex-col group hover:scale-[1.02] hover:shadow-2xl hover:border-white/40 hover:shadow-blue-500/20 transition-all duration-500 cursor-pointer shadow-xl relative" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(12px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
@@ -146,7 +150,7 @@ function ArticleCardMobile({ href, image, category, title }: { href: string, ima
         <div className="p-6 flex flex-col flex-grow">
           <h2 className="text-xl font-bold text-white mb-6 line-clamp-2 leading-tight">{title}</h2>
           <div className="flex items-center text-white text-sm font-medium mt-auto group-hover:text-blue-300 transition-colors">
-            Читати далі
+            {t('readMore')}
             <span className="material-symbols-outlined ml-2 text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </div>
         </div>
@@ -157,6 +161,7 @@ function ArticleCardMobile({ href, image, category, title }: { href: string, ima
 
 // Desktop/Tablet Card
 function ArticleCardDesktop({ href, image, category, title, date }: { href: string, image: string, category: string, title: string, date: string }) {
+  const t = useTranslations('Articles');
   let tagClass = "bg-blue-500/20 text-blue-200 border-blue-500/30";
   if (category === "Кордон") tagClass = "bg-blue-500/20 text-blue-200 border-blue-500/30";
   if (category === "Маршрути") tagClass = "bg-amber-500/20 text-amber-200 border-amber-500/30";
@@ -175,7 +180,7 @@ function ArticleCardDesktop({ href, image, category, title, date }: { href: stri
           <time className="text-xs text-white/50 mb-2 block font-medium">{date}</time>
           <h2 className="text-2xl font-bold text-white mb-8 line-clamp-3 leading-tight">{title}</h2>
           <div className="inline-flex justify-center items-center px-6 py-3 rounded-xl border border-white/30 text-white font-medium hover:bg-white hover:text-slate-900 transition-all duration-300 w-auto self-start mt-auto">
-            Читати далі
+            {t('readMore')}
             <span className="material-symbols-outlined ml-2 text-[18px] opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-2 group-hover:translate-x-1 transition-all duration-300">arrow_forward</span>
           </div>
         </div>

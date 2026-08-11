@@ -4,14 +4,14 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export function LeftPlaceholder() {
-  const t = useTranslations('LeftPlaceholder');
+  const t = useTranslations('Placeholder');
   const FEATURES = [
-    { icon: "route", title: t('smartPlanning'), desc: t('smartPlanningDesc'), faqId: "build-route" },
-    { icon: "hotel", title: t('hotels'), desc: t('hotelsDesc'), faqId: "hotels" },
-    { icon: "verified_user", title: t('borders'), desc: t('bordersDesc'), faqId: "borders" },
-    { icon: "account_balance_wallet", title: t('fuel'), desc: t('fuelDesc'), faqId: "fuel" },
-    { icon: "confirmation_number", title: t('vignettes'), desc: t('vignettesDesc'), faqId: "vignettes" },
-    { icon: "wifi_off", title: t('offline'), desc: t('offlineDesc'), faqId: "offline" },
+    { icon: "route", title: t('routeOptimizationTitle'), desc: t('routeOptimizationDesc'), faqId: "build-route" },
+    { icon: "hotel", title: t('smartStopsTitle'), desc: t('smartStopsDesc'), faqId: "hotels" },
+    { icon: "verified_user", title: t('borderManagerTitle'), desc: t('borderManagerDesc'), faqId: "borders" },
+    { icon: "account_balance_wallet", title: t('costCalculatorTitle'), desc: t('costCalculatorDesc'), faqId: "fuel" },
+    { icon: "confirmation_number", title: t('intermediateStopsTitle'), desc: t('intermediateStopsDesc'), faqId: "vignettes" },
+    { icon: "wifi_off", title: t('exportNavTitle'), desc: t('exportNavDesc'), faqId: "offline" },
   ];
   const [startIndex, setStartIndex] = useState(0);
 
@@ -52,6 +52,7 @@ export function LeftPlaceholder() {
 }
 
 function AnimatedFeatureCard({ feature, delay, features }: { feature: any, delay: number, features: any[] }) {
+  const t = useTranslations('Placeholder');
   return (
     <Link 
       href={`/faq#${feature.faqId}`}
@@ -63,8 +64,8 @@ function AnimatedFeatureCard({ feature, delay, features }: { feature: any, delay
         <div className="w-full invisible flex items-start gap-4 pointer-events-none">
           <div className="w-12 h-12 shrink-0" />
           <div className="flex-1">
-            <h3 className="text-[20px] leading-[28px] font-bold">Placeholder Title</h3>
-            <p className="text-base mt-1">Доступ до транспортних засобів вищого класу, що ідеально підходять для довгих поїздок та складних рельєфів.</p>
+            <h3 className="text-[20px] leading-[28px] font-bold">{t('routeOptimizationTitle')}</h3>
+            <p className="text-base mt-1">{t('premiumCarDesc')}</p>
           </div>
         </div>
 

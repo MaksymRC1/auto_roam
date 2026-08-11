@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTripStore } from "@/store/useTripStore";
 import { ChevronLeft, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TourStep {
   title: string;
@@ -10,34 +11,35 @@ interface TourStep {
   targetId: string;
 }
 
-const steps: TourStep[] = [
-  {
-    title: "Параметри маршруту",
-    description: "Додавайте або редагуйте зупинки, заправки та місця для відпочинку.",
-    targetId: "tour-step-stops"
-  },
-  {
-    title: "Страхування та віньєтки",
-    description: "Додайте вартість зеленої карти та дорожніх зборів для точного кошторису.",
-    targetId: "tour-step-insurance"
-  },
-  {
-    title: "Розрахунок палива",
-    description: "Вкажіть витрату палива та налаштуйте його тип для подорожі.",
-    targetId: "tour-step-fuel"
-  },
-  {
-    title: "Загальний кошторис",
-    description: "Контролюйте всі витрати: паливо, готелі та додаткові збори в одному місці.",
-    targetId: "tour-step-budget"
-  }
-];
-
 export function OnboardingTour() {
+  const t = useTranslations("Onboarding");
   const { isCalculated, hasSeenOnboarding, setHasSeenOnboarding } = useTripStore();
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+
+  const steps: TourStep[] = [
+    {
+      title: t("routeParamsTitle"),
+      description: t("routeParamsDescMobile"),
+      targetId: "tour-step-stops"
+    },
+    {
+      title: t("insuranceVignettesTitle"),
+      description: t("insuranceVignettesDesc"),
+      targetId: "tour-step-insurance"
+    },
+    {
+      title: t("fuelCalcTitle"),
+      description: t("fuelCalcDesc"),
+      targetId: "tour-step-fuel"
+    },
+    {
+      title: t("totalBudgetTitle"),
+      description: t("totalBudgetDesc"),
+      targetId: "tour-step-budget"
+    }
+  ];
   
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -189,10 +191,10 @@ export function OnboardingTour() {
               onClick={finishTour}
               className="text-white/40 hover:text-white/80 text-xs font-medium transition-colors"
             >
-              Пропустити
+              {t('skip')}
             </button>
             <div className="flex items-center gap-2">
-              <div className="text-white/40 text-[10px] font-medium tracking-widest mr-1">
+              <div className="text-white/40 text-[10px] font-medium tracking-widest mr-2">
                 {currentStep + 1} / {steps.length}
               </div>
               <button 
@@ -206,7 +208,7 @@ export function OnboardingTour() {
                 onClick={handleNext}
                 className="px-4 h-8 rounded-full bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs shadow-lg transition-transform active:scale-[0.98] focus:outline-none flex items-center justify-center"
               >
-                {currentStep === steps.length - 1 ? "Готово" : "Далі"}
+                {currentStep === steps.length - 1 ? t('done') : t('next')}
               </button>
             </div>
           </div>

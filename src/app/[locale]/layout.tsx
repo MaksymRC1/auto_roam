@@ -46,6 +46,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#09090b",
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default async function RootLayout({
@@ -65,12 +67,12 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${montserrat.variable} ${geologica.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${geologica.variable} h-full antialiased overscroll-none`}
     >
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-slate-900 text-slate-300 overflow-x-hidden w-full">
+      <body className="min-h-[100dvh] flex flex-col font-sans bg-slate-900 text-slate-300 overflow-x-hidden w-full overscroll-none">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

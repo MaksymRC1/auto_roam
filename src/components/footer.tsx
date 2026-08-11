@@ -44,7 +44,7 @@ export function Footer({ onOpenRating }: FooterProps) {
     <>
       <footer className="hidden md:flex w-full h-10 items-center justify-between px-8 text-xs text-white/50 bg-black/30 backdrop-blur-md border-t border-white/10 z-[100] relative mt-auto">
         <div className="flex items-center gap-3">
-          <span>© {new Date().getFullYear()} AutoRoam. Всі права захищені.</span>
+          <span>© {new Date().getFullYear()} AutoRoam. {t('allRightsReserved')}</span>
           <div className="relative group cursor-default">
             <span className="bg-white/10 px-2 py-0.5 rounded text-white/70 hover:bg-white/20 transition-colors">v1.0.2</span>
             
@@ -69,7 +69,7 @@ export function Footer({ onOpenRating }: FooterProps) {
                 <li>{t('offlineMode')}</li>
                 <li>{t('interactiveTimeline')}</li>
                 <li>{t('fuelCalculator')}</li>
-                <li>Анімації та сучасний UI/UX</li>
+                <li>{t('animationsUIUX')}</li>
               </ul>
             </div>
           </div>
@@ -78,25 +78,25 @@ export function Footer({ onOpenRating }: FooterProps) {
           <button 
             onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }}
             className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
-            aria-label="Умови використання"
+            aria-label={t('termsOfUse')}
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               description
             </span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
-              Умови використання
+              {t('termsOfUse')}
             </span>
           </button>
           <button 
             onClick={(e) => { e.preventDefault(); setIsPrivacyOpen(true); }}
             className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
-            aria-label="Політика конфіденційності"
+            aria-label={t('privacyPolicy')}
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               shield
             </span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
-              Політика конфіденційності
+              {t('privacyPolicy')}
             </span>
           </button>
           <button
@@ -125,20 +125,20 @@ export function Footer({ onOpenRating }: FooterProps) {
               }, 100);
             }}
             className="hidden lg:flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
-            aria-label="Як користуватися"
+            aria-label={t('howToUse')}
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               help
             </span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
-              Як користуватися
+              {t('howToUse')}
             </span>
           </button>
           {onOpenRating && (
             <button
               onClick={onOpenRating}
               className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
-              aria-label="Оцінити продукт"
+              aria-label={t('rateProduct')}
             >
               <span
                 className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]"
@@ -146,7 +146,7 @@ export function Footer({ onOpenRating }: FooterProps) {
                 favorite
               </span>
               <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
-                Оцінити продукт
+                {t('rateProduct')}
               </span>
             </button>
           )}
@@ -171,7 +171,7 @@ export function Footer({ onOpenRating }: FooterProps) {
               >
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-white/90 font-medium text-sm">
-                    Звʼязатися з нами
+                    {t('contactUs')}
                   </span>
                   <button
                     onClick={() => setIsContactOpen(false)}

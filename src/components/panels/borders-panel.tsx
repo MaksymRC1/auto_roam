@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { useTripStore } from "@/store/useTripStore";
 import { ExternalLink, AlertTriangle, Info, Clock, ShieldCheck } from "lucide-react";
 import { isSchengenPair } from "@/lib/borders";
+import { useTranslations } from 'next-intl';
 
 
 export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }) {
   const { waypoints } = useTripStore();
+  const t = useTranslations('BordersPanel');
   let borderCrossings = waypoints.filter(wp => wp.type === 'border');
   
   if (selectedBorderId) {
@@ -31,7 +33,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
         <div className="space-y-4">
           {!selectedBorderId && (
             <h3 className="font-semibold text-white/90 flex items-center gap-2">
-              Обрані пункти пропуску
+              {t('selectedCrossings')}
             </h3>
           )}
           {borderCrossings.map(border => (
@@ -51,7 +53,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
                 {border.fromCountry && border.toCountry && isSchengenPair(border.fromCountry, border.toCountry) ? (
                   <p className="flex gap-2 text-blue-300">
                     <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" /> 
-                    Це внутрішній кордон Шенгенської зони. Перетин здійснюється без паспортного контролю.
+                    {t('schengenInfo')}
                   </p>
                 ) : (
                   <>
@@ -76,7 +78,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
               {border.name.includes('UA') && (
                 <div className="pt-4 flex gap-2">
                   <Button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white shadow-sm" onClick={() => window.open("https://dpsu.gov.ua/ua/map/", "_blank")}>
-                    Перевірити черги на сайті ДПСУ <ExternalLink className="w-4 h-4 ml-2" />
+                    {t('checkQueues')} <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               )}

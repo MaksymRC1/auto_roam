@@ -21,28 +21,33 @@ const geologica = Geologica({
   weight: ["400", "500", "600"],
 });
 
-export const metadata: Metadata = {
-  title: "AutoRoam — Розумний планувальник автоподорожей",
-  description: "Інструмент для планування подорожей автомобілем. Враховує кордони, паливо та готелі.",
-  keywords: ["автоподорож", "маршрут", "кордон", "паливо", "калькулятор пального", "подорож Європою", "Зелена картка", "страхування авто"],
-  authors: [{ name: "AutoRoam Team" }],
-  openGraph: {
-    type: "website",
-    locale: "uk_UA",
-    title: "AutoRoam — Планувальник автоподорожей",
-    description: "Інструмент для планування подорожей автомобілем. Враховує кордони, паливо та готелі.",
-    siteName: "AutoRoam",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "AutoRoam — Розумний планувальник автоподорожей",
-    description: "Плануйте автомобільні подорожі Україною та Європою з AutoRoam.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords').split(', '),
+    authors: [{ name: "AutoRoam Team" }],
+    openGraph: {
+      type: "website",
+      locale: locale === 'uk' ? 'uk_UA' : 'en_US',
+      title: t('ogTitle'),
+      description: t('description'),
+      siteName: "AutoRoam",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t('twitterTitle'),
+      description: t('twitterDescription'),
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#09090b",

@@ -1,17 +1,18 @@
 "use client"
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const FEATURES = [
-  { icon: "route", title: "Оптимізація маршрутів", desc: "Розумні алгоритми створюють найефективніші шляхи для вашої подорожі.", faqId: "build-route" },
-  { icon: "hotel", title: "Розумні ночівлі", desc: "Автоматичний пошук оптимальних місць для відпочинку під час довгих поїздок.", faqId: "hotels" },
-  { icon: "verified_user", title: "Менеджер кордонів", desc: "Автоматичне визначення прикордонних пунктів та правила перетину.", faqId: "borders" },
-  { icon: "account_balance_wallet", title: "Калькулятор витрат", desc: "Точна оцінка витрат на пальне, мита та проживання.", faqId: "fuel" },
-  { icon: "add_location_alt", title: "Проміжні зупинки", desc: "Легко додавайте та сортуйте точки маршруту до вашої подорожі.", faqId: "build-route" },
-  { icon: "import_export", title: "Експорт до навігаторів", desc: "Інтеграція маршруту з Google Maps та Waze в один клік.", faqId: "export" },
-];
+import { useTranslations } from "next-intl";
 
 export function LeftPlaceholder() {
+  const t = useTranslations('LeftPlaceholder');
+  const FEATURES = [
+    { icon: "route", title: t('smartPlanning'), desc: t('smartPlanningDesc'), faqId: "build-route" },
+    { icon: "hotel", title: t('hotels'), desc: t('hotelsDesc'), faqId: "hotels" },
+    { icon: "verified_user", title: t('borders'), desc: t('bordersDesc'), faqId: "borders" },
+    { icon: "account_balance_wallet", title: t('fuel'), desc: t('fuelDesc'), faqId: "fuel" },
+    { icon: "confirmation_number", title: t('vignettes'), desc: t('vignettesDesc'), faqId: "vignettes" },
+    { icon: "wifi_off", title: t('offline'), desc: t('offlineDesc'), faqId: "offline" },
+  ];
   const [startIndex, setStartIndex] = useState(0);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export function LeftPlaceholder() {
       setStartIndex((prev) => (prev + 1) % FEATURES.length);
     }, 8000);
     return () => clearInterval(timer);
-  }, []);
+  }, [FEATURES.length]);
 
   const feature1 = FEATURES[startIndex];
   const feature2 = FEATURES[(startIndex + 1) % FEATURES.length];
@@ -31,7 +32,7 @@ export function LeftPlaceholder() {
         {FEATURES.map((feature, i) => (
           <Link 
             href={`/faq#${feature.faqId}`}
-            key={feature.title}
+            key={i}
             className="animate-pulse-scale w-full aspect-square rounded-[16px] bg-black/45 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg hover:bg-white/10 transition-colors"
             style={{ animationDelay: `${i * 0.15}s` }}
             title={feature.title}
@@ -43,14 +44,14 @@ export function LeftPlaceholder() {
 
       {/* Tablet/Desktop view: 2 rotating cards */}
       <div className="hidden md:flex w-full h-full flex-col gap-4">
-        <AnimatedFeatureCard feature={feature1} delay={0} />
-        <AnimatedFeatureCard feature={feature2} delay={1.4} />
+        <AnimatedFeatureCard feature={feature1} delay={0} features={FEATURES} />
+        <AnimatedFeatureCard feature={feature2} delay={1.4} features={FEATURES} />
       </div>
     </>
   );
 }
 
-function AnimatedFeatureCard({ feature, delay }: { feature: any, delay: number }) {
+function AnimatedFeatureCard({ feature, delay, features }: { feature: any, delay: number, features: any[] }) {
   return (
     <Link 
       href={`/faq#${feature.faqId}`}
@@ -67,11 +68,11 @@ function AnimatedFeatureCard({ feature, delay }: { feature: any, delay: number }
           </div>
         </div>
 
-        {FEATURES.map((f) => {
+        {features.map((f, i) => {
           const isActive = feature.title === f.title;
           return (
             <div 
-              key={f.title} 
+              key={i} 
               className={`absolute inset-0 flex items-center gap-4 w-full transition-all duration-[2000ms] ease-in-out ${
                 isActive ? "opacity-100 translate-y-0 z-10" : "opacity-0 translate-y-2 z-0 pointer-events-none"
               }`}

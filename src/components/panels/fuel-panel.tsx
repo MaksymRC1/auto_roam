@@ -11,12 +11,14 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 import { useTripStore, FuelType, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { FUEL_BUFFER_RATIO, getCurrencySymbol } from "@/lib/constants";
+import { useTranslations } from 'next-intl';
 
 export function FuelPanel() {
   const { 
     totalDistance, fuelPrices, customFuelPrices, setCustomFuelPrice, fetchFuelPrices, selectedFuelType, setFuelType, crossedCountries,
     consumption, setConsumption, isDefaultConsumption, fuelAmounts, setFuelAmounts, currency, setCurrency, exchangeRates, setExchangeRates
   } = useTripStore();
+  const t = useTranslations('FuelPanel');
   
   const [isFocused, setIsFocused] = useState(false);
   const [isAnyAmountFocused, setIsAnyAmountFocused] = useState(false);
@@ -160,10 +162,10 @@ export function FuelPanel() {
   return (
     <div className="flex-1 flex flex-col space-y-4">
       <div className="flex items-center justify-between pb-4 border-b border-white/10">
-        <span className="text-sm font-medium text-white/80">Валюта розрахунків</span>
+        <span className="text-sm font-medium text-white/80">{t('currency')}</span>
         <Select value={currency} onValueChange={(v) => { if (v) setCurrency(v); }}>
           <SelectTrigger className="w-24 h-10 text-xs bg-white/5 border-white/10">
-            <SelectValue placeholder="Валюта" />
+            <SelectValue placeholder={t('currency')} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="EUR">EUR (€)</SelectItem>
@@ -176,7 +178,7 @@ export function FuelPanel() {
         
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
-            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">Тип палива</Label>
+            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">{t('fuelType')}</Label>
             <Select value={selectedFuelType} onValueChange={(v) => { 
               if (v) {
                 setFuelType(v as FuelType); 
@@ -187,21 +189,21 @@ export function FuelPanel() {
               }
             }}>
               <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-sm">
-                <SelectValue placeholder="Виберіть паливо">
-                  {selectedFuelType === 'gasoline' ? 'Бензин 95' : selectedFuelType === 'gasoline_premium' ? 'Бензин 98/100 (Преміум)' : selectedFuelType === 'diesel' ? 'Дизель' : selectedFuelType === 'diesel_premium' ? 'Дизель (Преміум)' : 'Газ (LPG)'}
+                <SelectValue placeholder={t('fuelType')}>
+                  {selectedFuelType === 'gasoline' ? t('petrol95') : selectedFuelType === 'gasoline_premium' ? t('petrol98') : selectedFuelType === 'diesel' ? t('diesel') : selectedFuelType === 'diesel_premium' ? t('dieselPremium') : t('lpg')}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="gasoline">Бензин 95</SelectItem>
-                <SelectItem value="gasoline_premium">Бензин 98/100 (Преміум)</SelectItem>
-                <SelectItem value="diesel">Дизель</SelectItem>
-                <SelectItem value="diesel_premium">Дизель (Преміум)</SelectItem>
-                <SelectItem value="lpg">Газ (LPG)</SelectItem>
+                <SelectItem value="gasoline">{t('petrol95')}</SelectItem>
+                <SelectItem value="gasoline_premium">{t('petrol98')}</SelectItem>
+                <SelectItem value="diesel">{t('diesel')}</SelectItem>
+                <SelectItem value="diesel_premium">{t('dieselPremium')}</SelectItem>
+                <SelectItem value="lpg">{t('lpg')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="flex flex-col gap-2">
-            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">Витрата (л/100 км)</Label>
+            <Label className="text-sm font-medium text-white/80 whitespace-nowrap">{t('consumption')}</Label>
             <div className="relative w-full">
               <Input 
                 type="text"
@@ -333,7 +335,7 @@ export function FuelPanel() {
         <div className="rounded-xl bg-white/5 p-4 space-y-3 border border-white/10">
           <div className="flex justify-between text-sm">
             <span className="text-white/60 flex items-center gap-1">
-              Кількість палива:
+              {t('fuelAmount')}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger 
@@ -367,13 +369,13 @@ export function FuelPanel() {
 
           {isWarning && (
             <div className="flex justify-between text-sm text-red-400 bg-red-400/10 p-2 rounded-lg border border-red-400/20">
-              <span>Залишилось розподілити:</span>
+              <span>{t('leftToDistribute')}</span>
               <span className="font-semibold">{Math.round(remainingFuel)} л</span>
             </div>
           )}
 
           <div className="flex justify-between text-lg font-bold pt-3 border-t border-white/10 mt-2">
-            <span className="text-white/80">Орієнтовна вартість:</span>
+            <span className="text-white/80">{t('estimatedCost')}</span>
             <span className="text-white">{currencySymbol} {totalCostLocal}</span>
           </div>
         </div>

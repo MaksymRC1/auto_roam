@@ -20,40 +20,40 @@ export function InsurancePanel() {
     .map(code => VIGNETTE_DB[code])
     .filter(Boolean);
 
-  const insuranceDocs = locale === 'uk' ? [
+  const insuranceDocs = [
     {
       id: "green-card",
-      title: "Зелена картка (Міжнародне автострахування)",
+      title: t('greenCardTitle'),
       icon: <ShieldCheck className="w-8 h-8" />,
-      desc: "Обов'язковий сертифікат для виїзду за кордон на авто, що покриває збитки третім особам у разі ДТП. Без нього перетин кордону неможливий. Ви можете швидко оформити поліс онлайн перед поїздкою.",
+      desc: t('greenCardDesc'),
       link: "https://hotline.finance/ua/green-card?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=e55516d5",
       linkText: "Оформити поліс онлайн"
     },
     {
       id: "travel",
-      title: "Туристичне страхування (Медичне)",
+      title: t('travelInsuranceTitle'),
       icon: <Plane className="w-8 h-8" />,
-      desc: "Медичний захист за кордоном, який покриває витрати на лікування та невідкладну допомогу. Наполегливо рекомендується всім пасажирам.",
+      desc: t('travelInsuranceDesc'),
       link: "https://hotline.finance/ua/insurance-travel?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0",
       linkText: "Зробити туристичну страховку"
     },
     {
       id: "osago",
-      title: "Автоцивілка (ОСЦПВ)",
+      title: t('osagoTitle'),
       icon: <Car className="w-8 h-8" />,
-      desc: "Обов'язкове страхування відповідальності на території України. Якщо ви плануєте пересуватися Україною, переконайтеся, що ваш поліс дійсний, або ж оновіть його онлайн.",
+      desc: t('osagoDesc'),
       link: "https://hotline.finance/ua/osago?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=562129",
       linkText: "Оновити онлайн"
     },
     {
       id: "accident",
-      title: "Страхування від нещасних випадків",
+      title: t('accidentTitle'),
       icon: <HeartPulse className="w-8 h-8" />,
-      desc: "Забезпечує додатковий захист у разі непередбачуваних ситуацій під час активного відпочинку.",
+      desc: t('accidentDesc'),
       link: "https://hotline.finance/ua/accidents?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0",
       linkText: "Оформити страхування"
     }
-  ] : [];
+  ];
 
   return (
     <div className="flex-1 flex flex-col space-y-4">

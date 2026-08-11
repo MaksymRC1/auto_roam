@@ -7,6 +7,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useState, useEffect, useRef } from 'react';
 import { MapPin, X, Loader2, LocateFixed, ArrowUpDown, PlusCircle, ArrowRight } from "lucide-react";
 import { useTripStore } from "@/store/useTripStore";
+import { useTranslations } from 'next-intl';
 import { MapPickerModal } from "./MapPickerModal";
 import { useDebounce } from "@/hooks/use-debounce";
 
@@ -23,6 +24,7 @@ interface SortableItemProps {
 }
 
 function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop, removeStop, onSwap }: SortableItemProps) {
+  const t = useTranslations('StopsInput');
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -80,10 +82,10 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           {!value && (
             <div className="absolute inset-0 flex items-center pointer-events-none text-white/40 text-sm font-medium z-0">
               <div className="w-full truncate group-focus-within:hidden">
-                {index === 0 ? "Звідки" : isLast ? "Куди" : "Проміжна зупинка"}
+                {index === 0 ? t('from') : isLast ? t('to') : t('waypoint')}
               </div>
               <div className="w-full hidden group-focus-within:block truncate">
-                {index === 0 ? "Звідки" : isLast ? "Куди" : "Проміжна зупинка"}
+                {index === 0 ? t('from') : isLast ? t('to') : t('waypoint')}
               </div>
             </div>
           )}
@@ -115,18 +117,18 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
                       const address = data.results[0].formatted_address;
                       updateStop(realId, `${address} | ${latitude}, ${longitude}`);
                     } else {
-                      updateStop(realId, `Поточне місцезнаходження | ${latitude}, ${longitude}`);
+                      updateStop(realId, `${t('myLocation')} | ${latitude}, ${longitude}`);
                     }
                   } catch (e) {
-                    updateStop(realId, `Поточне місцезнаходження | ${latitude}, ${longitude}`);
+                    updateStop(realId, `${t('myLocation')} | ${latitude}, ${longitude}`);
                   }
                 }, (error) => {
                   console.warn("Geolocation error:", error.message || error.code);
-                  alert("Не вдалося отримати доступ до вашої геопозиції");
+                  alert(t('geolocationAccessDenied'));
                 });
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-white/50 hover:text-blue-400 transition-colors z-20 p-1"
-              title="Моє місцезнаходження"
+              title={t('myLocation')}
             >
               <LocateFixed className="w-4 h-4" />
             </button>
@@ -135,7 +137,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
             <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto custom-scrollbar">
               {isSearching ? (
                 <div className="p-3 text-sm text-white/50 flex items-center gap-2 justify-center">
-                  <Loader2 className="w-4 h-4 animate-spin" /> Пошук...
+                  <Loader2 className="w-4 h-4 animate-spin" /> {t('searchPlaceholder')}
                 </div>
               ) : (
                 suggestions.map((s) => (
@@ -166,7 +168,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           )}
         </div>
         {index !== 0 && !isLast && (
-          <button onClick={() => removeStop(realId)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title="Видалити зупинку">
+          <button onClick={() => removeStop(realId)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title={t('removeStop')}>
             <X className="w-4 h-4" />
           </button>
         )}
@@ -180,7 +182,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           onClick={onSwap} 
           className="absolute top-full -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-transparent flex items-center justify-center z-20 hover:bg-white/10 text-white/50 hover:text-white transition-colors cursor-pointer"
           style={{ left: '26px', marginTop: '16px' }}
-          title="Поміняти місцями"
+          title={t('swapStops')}
         >
           <ArrowUpDown className="w-4 h-4" />
         </button>
@@ -190,8 +192,9 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
 }
 
 const LoadingText = () => {
+  const t = useTranslations('StopsInput');
   const [step, setStep] = useState(0);
-  const steps = ["Аналізуємо зупинки", "Будуємо маршрут", "Перевіряємо кордони", "Рахуємо пальне"];
+  const steps = [t('analyzingStops'), t('buildingRoute'), t('checkingBorders'), t('calculatingFuel')];
   
   useEffect(() => {
     const int = setInterval(() => {
@@ -216,6 +219,7 @@ const LoadingText = () => {
 };
 
 export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
+  const t = useTranslations('StopsInput');
   const { stops, setStops, addStop, updateStop, removeStop, calculateRoute, isLoading, error, isCalculated, resetTrip } = useTripStore();
   const [activePickerStopId, setActivePickerStopId] = useState<string | null>(null);
   
@@ -303,7 +307,7 @@ export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
         <div className="w-5 h-5 flex items-center justify-center shrink-0">
           <PlusCircle className="w-5 h-5 text-white/50" />
         </div>
-        Додати зупинку
+        {t('addStop')}
       </button>
 
       <div className="pt-6">
@@ -311,18 +315,18 @@ export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
         {!isCalculated ? (
           <button onClick={calculateRoute} disabled={isLoading} className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none overflow-hidden">
             {isLoading ? <LoadingText /> : (
-              <>Побудувати маршрут</>
+              <>{t('buildRoute')}</>
             )}
           </button>
         ) : (
           <div className="flex gap-4">
             <button onClick={calculateRoute} disabled={isLoading} className="flex-1 bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none overflow-hidden">
               {isLoading ? <Loader2 className="w-6 h-6 animate-spin text-slate-900" /> : (
-                <>Оновити</>
+                <>{t('update')}</>
               )}
             </button>
             <button onClick={resetTrip} className="px-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-full py-4 font-bold text-base transition-colors outline-none">
-              Скинути
+              {t('reset')}
             </button>
           </div>
         )}

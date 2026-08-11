@@ -69,7 +69,7 @@ export function Navbar() {
               className="md:hidden text-white p-2" 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
-              aria-label={isMenuOpen ? "Закрити меню" : "Відкрити меню"}
+              aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
             >
               <span className="material-symbols-outlined">{isMenuOpen ? "close" : "menu"}</span>
             </button>

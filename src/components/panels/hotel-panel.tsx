@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTripStore, getHotelPrice, isHotelActive } from "@/store/useTripStore";
 import { BedDouble, ExternalLink, MapPin, Settings2, Map as MapIcon } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView = false }: { lat?: number; lon?: number; address: string; defaultOpen?: boolean; isModalView?: boolean }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -70,6 +71,7 @@ export function HotelPanel() {
     hotelOverrides,
     setHotelOverride
   } = useTripStore();
+  const t = useTranslations('HotelPanel');
   
   // Read hotel stops directly from global waypoints
   const stops = waypoints.filter(wp => wp.type === 'stop' && wp.id.startsWith('hotel-'));
@@ -82,12 +84,12 @@ export function HotelPanel() {
         <div className="bg-white/5 p-4 rounded-xl border border-white/10 space-y-4">
           <div className="flex items-center gap-2 mb-2">
             <Settings2 className="w-4 h-4 text-white/50" />
-            <span className="font-medium text-sm text-white/80">Налаштування зупинок</span>
+            <span className="font-medium text-sm text-white/80">{t('stopSettings')}</span>
           </div>
           
           <div className="flex flex-col gap-3 pt-2">
             <div className="flex items-center gap-3">
-              <Label className="text-white/70 flex-1">Зупинятися кожні (годин):</Label>
+              <Label className="text-white/70 flex-1">{t('stopEvery')}</Label>
               <select 
                 value={customTime ? String(customTime / 60) : "0"} 
                 onChange={(e) => {
@@ -97,12 +99,12 @@ export function HotelPanel() {
                 className="w-32 bg-[#131620] border border-white/10 text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-white/30 appearance-none"
                 style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(255, 255, 255, 0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9' /%3E%3C/svg%3E")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em', paddingRight: '2.5rem' }}
               >
-                <option value="0" className="bg-[#131620]">Без зупинок</option>
-                <option value="4" className="bg-[#131620]">4 години</option>
-                <option value="6" className="bg-[#131620]">6 годин</option>
-                <option value="8" className="bg-[#131620]">8 годин</option>
-                <option value="10" className="bg-[#131620]">10 годин</option>
-                <option value="12" className="bg-[#131620]">12 годин</option>
+                <option value="0" className="bg-[#131620]">{t('noStops')}</option>
+                <option value="4" className="bg-[#131620]">{t('hours4')}</option>
+                <option value="6" className="bg-[#131620]">{t('hours6')}</option>
+                <option value="8" className="bg-[#131620]">{t('hours8')}</option>
+                <option value="10" className="bg-[#131620]">{t('hours10')}</option>
+                <option value="12" className="bg-[#131620]">{t('hours12')}</option>
                 <option value="14" className="bg-[#131620]">14 годин</option>
                 <option value="16" className="bg-[#131620]">16 годин</option>
               </select>
@@ -175,7 +177,7 @@ export function HotelPanel() {
                     <div className="flex flex-col gap-2 items-end">
                       <div className="text-right bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
                         <span className="text-xs text-white/50 block">
-                          {isSkipped ? "Не враховується" : (override?.priceEur !== undefined ? "Точна ціна" : "Середня ціна")}
+                          {isSkipped ? t('ignore') : (override?.priceEur !== undefined ? t('exactPrice') : t('averagePrice'))}
                         </span>
                         <span className={`text-sm font-bold ${isSkipped ? 'text-white/40' : 'text-amber-400'}`}>
                           {override?.priceEur !== undefined ? "" : "від "}{priceLocal} {currency} / ніч
@@ -189,7 +191,7 @@ export function HotelPanel() {
                             : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90'
                         }`}
                       >
-                        {isSkipped ? 'Активувати ночівлю' : 'Не враховувати'}
+                        {isSkipped ? t('activateOvernight') : t('ignore')}
                       </button>
                     </div>
                   </div>

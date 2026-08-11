@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useTranslations } from 'next-intl';
 import { Card } from "@/components/ui/card";
 import { MapPin, Navigation, Navigation2, CheckCircle2, Map as MapIcon, List, Trash2, Fuel, Bed, ShieldCheck, Flag, Wallet, AlertCircle, Plus, Clock, Settings, Bookmark, Share2, Copy, Send, MessageCircle, Check, ArrowLeft, CarFront } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
@@ -37,6 +38,7 @@ const formatTime = (mins: number) => {
 };
 
 export function TripPlanner() {
+  const t = useTranslations('TripPlanner');
   const [mounted, setMounted] = useState(false);
   const [leftView, setLeftView] = useState<'timeline' | 'map'>('timeline');
   const [heroIndex, setHeroIndex] = useState(0);
@@ -197,11 +199,11 @@ export function TripPlanner() {
           <div className="text-white w-full text-center max-w-[500px] md:max-w-none px-2 mb-8 md:mb-[44px]">
             <div className="relative h-[90px] md:h-[60px] lg:h-[70px] w-full mb-2 md:mb-0">
               {[
-                "Подорожі без кордонів",
-                "Світ чекає на тебе",
-                "Відкривай нові горизонти",
-                "Назустріч пригодам",
-                "Твій шлях, твої правила"
+                t('heroTitle'),
+                t('heroTitle2'),
+                t('heroTitle3'),
+                t('heroTitle4'),
+                t('heroTitle5')
               ].map((heading, i) => (
                 <h1 
                   key={heading}
@@ -228,7 +230,7 @@ export function TripPlanner() {
                 <div className="absolute inset-0 rounded-[20px] overflow-hidden pointer-events-none">
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 </div>
-                <h2 className="hidden md:block font-display text-2xl md:text-3xl font-extrabold text-white mb-8 relative z-10">Побудувати маршрут</h2>
+                <h2 className="hidden md:block font-display text-2xl md:text-3xl font-extrabold text-white mb-8 relative z-10">{t('buildRoute')}</h2>
                 <div className="relative z-10">
                   <StopsInput />
                 </div>
@@ -247,18 +249,18 @@ export function TripPlanner() {
               
               {/* Route (Stops) Sheet */}
               <Sheet key="mobile-stops-sheet">
-                <SheetTrigger render={<button id="tour-step-stops" onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Параметри маршруту" />}>
+                <SheetTrigger render={<button id="tour-step-stops" onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('routeParams')} />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenStops && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">Параметри маршруту</SheetTitle>
+                    <SheetTitle className="text-white text-base">{t('routeParams')}</SheetTitle>
                     <SheetClose render={
                       <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
                         <ArrowLeft className="w-3 h-3" />
-                        Назад
+                        {t('back')}
                       </button>
                     } />
                   </SheetHeader>
@@ -275,7 +277,7 @@ export function TripPlanner() {
                 id="tour-step-fuel"
                 onClick={() => { setIsMobileFuelOpen(true); setHasSeenFuel(true); }}
                 className="relative flex items-center justify-center w-10 h-10 outline-none group"
-                title="Розрахунок палива"
+                title={t('fuelCalculation')}
               >
                 <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                 <Fuel className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
@@ -284,18 +286,18 @@ export function TripPlanner() {
 
               {/* Insurance & Vignettes Sheet */}
               <Sheet key="mobile-insurance-sheet" open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
-                <SheetTrigger render={<button id="tour-step-insurance" onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Страхування та віньєтки" />}>
+                <SheetTrigger render={<button id="tour-step-insurance" onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('insuranceAndVignettes')} />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenInsurance && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">Страхування та віньєтки</SheetTitle>
+                    <SheetTitle className="text-white text-base">{t('insuranceAndVignettes')}</SheetTitle>
                     <SheetClose render={
                       <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
                         <ArrowLeft className="w-3 h-3" />
-                        Назад
+                        {t('back')}
                       </button>
                     } />
                   </SheetHeader>
@@ -309,18 +311,18 @@ export function TripPlanner() {
 
               {/* General Cost/Budget Sheet */}
               <Sheet key="mobile-budget-sheet">
-                <SheetTrigger render={<button id="tour-step-budget" onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title="Загальний кошторис" />}>
+                <SheetTrigger render={<button id="tour-step-budget" onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('totalEstimate')} />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenBudget && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">Загальний кошторис</SheetTitle>
+                    <SheetTitle className="text-white text-base">{t('totalEstimate')}</SheetTitle>
                     <SheetClose render={
                       <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
                         <ArrowLeft className="w-3 h-3" />
-                        Назад
+                        {t('back')}
                       </button>
                     } />
                   </SheetHeader>
@@ -340,10 +342,10 @@ export function TripPlanner() {
               <Tabs value={leftView} onValueChange={(v) => setLeftView(v as 'timeline' | 'map')} className="hidden md:block w-full shrink-0">
                 <TabsList className="grid w-full grid-cols-2 bg-black/40 border border-white/10 text-white rounded-xl">
                   <TabsTrigger value="timeline" className="flex items-center gap-2 data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 rounded-lg">
-                    <List className="w-4 h-4" /> Таймлайн
+                    <List className="w-4 h-4" /> {t('timeline')}
                   </TabsTrigger>
                   <TabsTrigger value="map" className="flex items-center gap-2 data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 rounded-lg">
-                    <MapIcon className="w-4 h-4" /> Карта
+                    <MapIcon className="w-4 h-4" /> {t('map')}
                   </TabsTrigger>
                 </TabsList>
               </Tabs>
@@ -369,7 +371,7 @@ export function TripPlanner() {
                   }`}>
                   <div className="p-5 border-b border-white/10 bg-black/20 shrink-0 flex items-start justify-between">
                     <div>
-                      <h2 className="font-bold text-lg text-white">Хронологія подорожі</h2>
+                      <h2 className="font-bold text-lg text-white">{t('routeTimeline')}</h2>
                       <p className="text-sm font-medium text-white/60 mt-1">
                         {totalDistance} км • ~{formatTime(totalDuration)}
                       </p>
@@ -462,7 +464,7 @@ export function TripPlanner() {
                                             setSelectedBorderInfoId(wp.id);
                                           }}
                                           className="shrink-0 bg-white/5 text-white/90 border border-white/10 hover:bg-white/10 transition-colors py-2 px-3 rounded-lg flex items-center justify-center active:scale-[0.98] ml-auto"
-                                          title="Інформація про пункт пропуску"
+                                          title={t('borderInfo')}
                                         >
                                           {wp.fromCountry && wp.toCountry && isSchengenPair(wp.fromCountry, wp.toCountry) ? (
                                             <Flag className="w-4 h-4" />
@@ -506,14 +508,14 @@ export function TripPlanner() {
                         <button 
                           onClick={handleSaveRoute}
                           className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
-                          title="Зберегти маршрут"
+                          title={t('saveAndShare')}
                         >
                           <Navigation className="w-6 h-6" />
                         </button>
                         <button 
                           onClick={handleShare}
                           className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
-                          title="Поділитися маршрутом"
+                          title={t('saveAndShare')}
                         >
                           <Share2 className="w-6 h-6" />
                         </button>
@@ -530,7 +532,7 @@ export function TripPlanner() {
               
               {/* Desktop Input */}
               <Card id="desktop-tour-search" className="relative z-10 flex flex-col p-5 shrink-0 bg-black/40 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl text-white">
-                <h3 className="font-semibold text-white mb-4">Параметри маршруту</h3>
+                <h3 className="font-semibold text-white mb-4">{t('routeParams')}</h3>
                 <StopsInput idPrefix="desktop-stops" />
               </Card>
 
@@ -547,7 +549,7 @@ export function TripPlanner() {
       <Dialog open={shareOpen} onOpenChange={setShareOpen}>
         <DialogContent className="border-white/10 text-white sm:max-w-md" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
-            <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
+            <DialogTitle className="text-xl">{t('saveAndShare')}</DialogTitle>
             <DialogDescription className="text-white/60">
               Ваш маршрут збережено в базі даних. Надішліть це коротке посилання друзям, щоб вони могли переглянути вашу поїздку.
             </DialogDescription>
@@ -597,10 +599,10 @@ export function TripPlanner() {
       <Dialog open={isMobileFuelOpen} onOpenChange={setIsMobileFuelOpen}>
         <DialogContent className="border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar" showCloseButton={false} style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader className="flex flex-row items-center justify-between pb-2 border-b border-white/10 space-y-0">
-            <DialogTitle className="text-xl m-0 text-white">Розрахунок палива</DialogTitle>
+            <DialogTitle className="text-xl m-0 text-white">{t('fuelCalculation')}</DialogTitle>
             <button onClick={() => setIsMobileFuelOpen(false)} className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
               <ArrowLeft className="w-3 h-3" />
-              Назад
+              {t('back')}
             </button>
           </DialogHeader>
           <div className="mt-4">
@@ -613,7 +615,7 @@ export function TripPlanner() {
       <Dialog open={selectedBorderInfoId !== null} onOpenChange={(open) => !open && setSelectedBorderInfoId(null)}>
         <DialogContent className="border-white/10 text-white sm:max-w-xl max-h-[90vh] overflow-y-auto custom-scrollbar" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
-            <DialogTitle className="text-xl">Інформація про пункт пропуску</DialogTitle>
+            <DialogTitle className="text-xl">{t('borderInfo')}</DialogTitle>
           </DialogHeader>
           <div className="mt-4">
             <BordersPanel selectedBorderId={selectedBorderInfoId || undefined} />

@@ -1,0 +1,30 @@
+{
+  "Navbar": {
+    "articles": "Статті",
+    "faq": "FAQ",
+    "support": "Підтримка",
+    "supportProject": "Підтримати проект",
+    "contactUs": "Зв'язатися з нами"
+  },
+  "Footer": {
+    "version": "Версія",
+    "supportPwa": "Підтримка PWA",
+    "installAsApp": "встановлення як додаток",
+    "offlineMode": "Офлайн-режим",
+    "interactiveTimeline": "Інтерактивний таймлайн маршруту",
+    "fuelCalculator": "Калькулятор пального та кошторис",
+    "developedBy": "Розроблено",
+    "withLoveFrom": "з любов'ю з Києва",
+    "supportProject": "Підтримати проект",
+    "contactAuthor": "Зв'язатися з автором"
+  },
+  "Insurance": {
+    "necessaryDocs": "Необхідні документи",
+    "clickForDetails": "Натисніть на іконку для деталей",
+    "tollsAndVignettes": "Дорожні збори та віньєтки",
+    "nationalRoads": "Національні дороги",
+    "tollType": "Тип збору",
+    "estimatedCost": "Орієнтовна вартість",
+    "buyOfficially": "Купити офіційно"
+  }
+}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { TermsModal } from "./terms-modal";
 import { PrivacyModal } from "./privacy-modal";
 import { useTripStore } from "@/store/useTripStore";
+import { useTranslations } from "next-intl";
 
 interface FooterProps {
   /** Optional: callback to open the rating modal from the parent page */
@@ -14,6 +15,7 @@ export function Footer({ onOpenRating }: FooterProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const t = useTranslations('Footer');
 
   useEffect(() => {
     if (isContactOpen) {
@@ -50,23 +52,23 @@ export function Footer({ onOpenRating }: FooterProps) {
             <div className="absolute bottom-full left-0 mb-2 w-[250px] p-3 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 translate-y-1 group-hover:translate-y-0 z-[120] bg-black/50 backdrop-blur-md border border-white/10">
               <h4 className="text-white/90 font-medium text-[13px] mb-2 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[14px] text-blue-400">new_releases</span>
-                Версія 1.0.2
+                {t('version')} 1.0.2
               </h4>
               <ul className="text-white/60 text-[11px] flex flex-col gap-1.5 list-disc pl-4 mt-1">
                 <li>
                   <span className="inline-flex items-center gap-1">
-                    <span>Підтримка PWA</span>
+                    <span>{t('supportPwa')}</span>
                     <span className="relative group/info flex items-center translate-y-[0.5px]">
                       <span className="material-symbols-outlined text-[11px] leading-none text-white/40 hover:text-white/80 cursor-help transition-colors">info</span>
                       <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 bg-black/90 border border-white/10 rounded text-[10px] leading-tight text-white/90 whitespace-nowrap opacity-0 group-hover/info:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
-                        встановлення як додаток
+                        {t('installAsApp')}
                       </span>
                     </span>
                   </span>
                 </li>
-                <li>Офлайн-режим</li>
-                <li>Інтерактивний таймлайн маршруту</li>
-                <li>Калькулятор пального та кошторис</li>
+                <li>{t('offlineMode')}</li>
+                <li>{t('interactiveTimeline')}</li>
+                <li>{t('fuelCalculator')}</li>
                 <li>Анімації та сучасний UI/UX</li>
               </ul>
             </div>
@@ -104,13 +106,13 @@ export function Footer({ onOpenRating }: FooterProps) {
               setIsContactOpen(!isContactOpen);
             }}
             className="flex items-center justify-center rounded-full bg-transparent text-white/50 hover:text-white transition-all group relative focus:outline-none"
-            aria-label="Зв'язатися з нами"
+            aria-label={t('contactAuthor')}
           >
             <span className="material-symbols-outlined text-[16px] transition-all duration-300 [font-variation-settings:'FILL'_0] group-hover:[font-variation-settings:'FILL'_1]">
               chat
             </span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1.5 text-[10px] font-medium text-white/90 bg-slate-900 border border-white/10 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-[120]">
-              Зв'язатися з нами
+              {t('contactAuthor')}
             </span>
           </button>
           <button

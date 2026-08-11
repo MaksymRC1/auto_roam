@@ -3,7 +3,11 @@ import { Montserrat, Geologica } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./globals.css";
+import "../globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -44,21 +48,32 @@ export const viewport: Viewport = {
   themeColor: "#09090b",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{locale: string}>;
 }>) {
+  const { locale } = await params;
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+  
+  const messages = await getMessages();
+
   return (
     <html
-      lang="uk"
+      lang={locale}
       className={`${montserrat.variable} ${geologica.variable} h-full antialiased`}
     >
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet" />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-slate-900 text-slate-300 overflow-x-hidden w-full">
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
         <Script id="stay22-lma" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `

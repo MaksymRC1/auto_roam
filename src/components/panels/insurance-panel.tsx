@@ -7,17 +7,20 @@ import { ExternalLink, Route, ShieldCheck, Plane, Car, HeartPulse, X } from "luc
 import { VIGNETTE_DB } from "@/lib/borders";
 import { CURRENCY_SYMBOLS } from "@/lib/constants";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useTranslations, useLocale } from "next-intl";
 
 export function InsurancePanel() {
   const { crossedCountries, currency, exchangeRates } = useTripStore();
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const t = useTranslations('Insurance');
+  const locale = useLocale();
   
   // Find which countries from our trip need vignettes
   const activeVignettes = crossedCountries
     .map(code => VIGNETTE_DB[code])
     .filter(Boolean);
 
-  const insuranceDocs = [
+  const insuranceDocs = locale === 'uk' ? [
     {
       id: "green-card",
       title: "Зелена картка (Міжнародне автострахування)",
@@ -50,42 +53,44 @@ export function InsurancePanel() {
       link: "https://hotline.finance/ua/accidents?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0",
       linkText: "Оформити страхування"
     }
-  ];
+  ] : [];
 
   return (
     <div className="flex-1 flex flex-col space-y-4">
       <div className="pt-2 space-y-6">
         
         {/* Insurance Section */}
-        <div className="space-y-4">
-          <div className="flex flex-col">
-            <h3 className="font-semibold text-white/90 flex items-center gap-2">
-              Необхідні документи
-            </h3>
-            <p className="text-sm text-white/50 mt-1">
-              Натисніть на іконку для деталей
-            </p>
+        {insuranceDocs.length > 0 && (
+          <div className="space-y-4">
+            <div className="flex flex-col">
+              <h3 className="font-semibold text-white/90 flex items-center gap-2">
+                {t('necessaryDocs')}
+              </h3>
+              <p className="text-sm text-white/50 mt-1">
+                {t('clickForDetails')}
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-4">
+              {insuranceDocs.map((doc) => (
+                <button 
+                  key={doc.id} 
+                  onClick={() => setSelectedItem({ isVignette: false, ...doc })} 
+                  className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all text-white/80 hover:text-white hover:scale-105 active:scale-95"
+                  title={doc.title}
+                >
+                  {doc.icon}
+                </button>
+              ))}
+            </div>
           </div>
-          
-          <div className="flex flex-wrap gap-4">
-            {insuranceDocs.map((doc) => (
-              <button 
-                key={doc.id} 
-                onClick={() => setSelectedItem({ isVignette: false, ...doc })} 
-                className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all text-white/80 hover:text-white hover:scale-105 active:scale-95"
-                title={doc.title}
-              >
-                {doc.icon}
-              </button>
-            ))}
-          </div>
-        </div>
+        )}
 
         {/* Tolls & Vignettes Section */}
         {activeVignettes.length > 0 && (
           <div className="space-y-4 pt-4 border-t border-white/10">
             <h3 className="font-semibold text-white/90 flex items-center gap-2">
-              Дорожні збори та віньєтки
+              {t('tollsAndVignettes')}
             </h3>
             
             <div className="flex flex-wrap gap-4">
@@ -127,19 +132,19 @@ export function InsurancePanel() {
             <div className="space-y-4 py-2 mt-2">
               <p className="text-white/80 flex items-center gap-2">
                 <Route className="w-4 h-4 text-white/50" />
-                {selectedItem.notes || 'Національні дороги'}
+                {selectedItem.notes || t('nationalRoads')}
               </p>
               
               <div className="flex flex-col gap-4 bg-white/5 p-4 rounded-xl border border-white/10">
                  <div className="flex justify-between items-center">
-                   <span className="text-white/60 text-sm">Тип збору</span>
+                   <span className="text-white/60 text-sm">{t('tollType')}</span>
                    <span className="text-sm font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                       {selectedItem.type}
                    </span>
                  </div>
                  {selectedItem.priceEur > 0 && (
                    <div className="flex justify-between items-center">
-                     <span className="text-white/60 text-sm">Орієнтовна вартість</span>
+                     <span className="text-white/60 text-sm">{t('estimatedCost')}</span>
                      <span className="font-bold text-white/90">
                        ~{Math.round(selectedItem.priceEur * (exchangeRates[currency] || 1))} {CURRENCY_SYMBOLS[currency] || currency}
                      </span>
@@ -147,7 +152,7 @@ export function InsurancePanel() {
                  )}
               </div>
               <button className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-3.5 font-bold text-[15px] shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center outline-none mt-4" onClick={() => window.open(selectedItem.link, "_blank")}>
-                Купити офіційно <ExternalLink className="w-4 h-4 ml-2 text-slate-700" />
+                {t('buyOfficially')} <ExternalLink className="w-4 h-4 ml-2 text-slate-700" />
               </button>
             </div>
           ) : (

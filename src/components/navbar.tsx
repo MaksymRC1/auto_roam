@@ -4,12 +4,16 @@ import { Heart } from 'lucide-react'
 import { ContactModal } from './contact-modal'
 import { RatingModal } from './rating-modal'
 import { SupportModal } from './support-modal'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/routing'
+import { LocaleSwitcher } from './locale-switcher'
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isContactOpen, setIsContactOpen] = useState(false)
   const [isRatingOpen, setIsRatingOpen] = useState(false)
   const [isSupportOpen, setIsSupportOpen] = useState(false)
+  const t = useTranslations('Navbar')
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -35,29 +39,30 @@ export function Navbar() {
     <>
       <nav className="fixed top-0 left-0 w-full z-50 text-white shadow-2xl transition-all duration-300" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
         <div className="flex justify-between items-center h-14 w-full px-4 md:px-8">
-          <a className="font-display font-bold text-2xl text-white flex items-center gap-2" href="/">
+          <Link className="font-display font-bold text-2xl text-white flex items-center gap-2" href="/">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
             AutoRoam
-          </a>
+          </Link>
           <div className="hidden md:flex items-center gap-6">
-            <a className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="/articles">Статті</a>
-            <a className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="/faq">FAQ</a>
+            <Link className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="/articles">{t('articles')}</Link>
+            <Link className="text-white/80 hover:text-white font-medium transition-colors text-sm" href="/faq">{t('faq')}</Link>
             <button 
               className="text-white/80 hover:text-white font-medium transition-colors text-sm focus:outline-none" 
               onClick={() => setIsSupportOpen(true)}
             >
-              Підтримка
+              {t('support')}
             </button>
           </div>
           <div className="flex items-center gap-4">
+            <LocaleSwitcher />
             <button 
               onClick={() => setIsRatingOpen(true)}
               className="p-1.5 flex items-center justify-center rounded-full bg-transparent text-white transition-all text-xs font-bold group relative focus:outline-none"
-              aria-label="Підтримати проект"
+              aria-label={t('supportProject')}
             >
               <Heart className="w-5 h-5 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
               <span className="absolute right-0 top-10 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-1.5 rounded-lg text-xs text-white/90 shadow-xl whitespace-nowrap pointer-events-none">
-                Підтримати проект
+                {t('supportProject')}
               </span>
             </button>
             <button 
@@ -79,10 +84,10 @@ export function Navbar() {
           style={{ background: "rgba(0, 0, 0, 0.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
           aria-hidden={!isMenuOpen}
         >
-          <a className="text-white/90 hover:text-white font-medium text-lg" href="/articles" onClick={() => setIsMenuOpen(false)}>Статті</a>
-          <a className="text-white/90 hover:text-white font-medium text-lg" href="/faq" onClick={() => setIsMenuOpen(false)}>FAQ</a>
+          <Link className="text-white/90 hover:text-white font-medium text-lg" href="/articles" onClick={() => setIsMenuOpen(false)}>{t('articles')}</Link>
+          <Link className="text-white/90 hover:text-white font-medium text-lg" href="/faq" onClick={() => setIsMenuOpen(false)}>{t('faq')}</Link>
 
-          <a className="text-white/90 hover:text-white font-medium text-lg" href="#" onClick={openContact}>Зв&#39;язатися з нами</a>
+          <a className="text-white/90 hover:text-white font-medium text-lg" href="#" onClick={openContact}>{t('contactUs')}</a>
 
         </div>
       </nav>

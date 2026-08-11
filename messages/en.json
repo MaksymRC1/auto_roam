@@ -1,0 +1,30 @@
+{
+  "Navbar": {
+    "articles": "Articles",
+    "faq": "FAQ",
+    "support": "Support",
+    "supportProject": "Support Project",
+    "contactUs": "Contact Us"
+  },
+  "Footer": {
+    "version": "Version",
+    "supportPwa": "PWA Support",
+    "installAsApp": "install as app",
+    "offlineMode": "Offline mode",
+    "interactiveTimeline": "Interactive route timeline",
+    "fuelCalculator": "Fuel calculator and estimate",
+    "developedBy": "Developed by",
+    "withLoveFrom": "with love from Kyiv",
+    "supportProject": "Support the Project",
+    "contactAuthor": "Contact author"
+  },
+  "Insurance": {
+    "necessaryDocs": "Necessary Documents",
+    "clickForDetails": "Click on the icon for details",
+    "tollsAndVignettes": "Tolls and Vignettes",
+    "nationalRoads": "National roads",
+    "tollType": "Toll type",
+    "estimatedCost": "Estimated cost",
+    "buyOfficially": "Buy officially"
+  }
+}

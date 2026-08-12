@@ -862,6 +862,7 @@ function HotelOverrideInputs({
   setOverride: (id: string, data: Partial<HotelOverride>) => void 
 }) {
   const { exchangeRates, currency: globalCurrency } = useTripStore();
+  const t = useTranslations('TripPlanner');
   const [url, setUrl] = useState(initialUrl);
   const [price, setPrice] = useState(initialPrice);
   const [currency, setCurrency] = useState(initialCurrency || globalCurrency);

@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { Navbar } from "@/components/navbar"
 import { BackgroundSlideshow } from "@/components/background-slideshow"
 import { Footer } from "@/components/footer"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 
 import articlesData from "@/data/articles.json";
 

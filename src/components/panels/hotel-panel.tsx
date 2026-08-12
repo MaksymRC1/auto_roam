@@ -53,7 +53,7 @@ export function Stay22Map({ lat, lon, address, defaultOpen = false, isModalView 
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
-          title="Stay22 Interactive Map"
+          title={t('hotelMapTitle')}
         ></iframe>
       </div>
     </div>
@@ -199,7 +199,7 @@ export function HotelPanel() {
                 </div>
                 
                 <div className="pt-2">
-                  <Stay22Map lat={stop.lat} lon={stop.lon} address={stop.name.replace(/^Ночівля[:\s]+(?:у м\.\s*)?/, '')} />
+                  <Stay22Map lat={stop.lat} lon={stop.lon} address={stop.name.replace(/^(Ночівля|Overnight stay)[:\s]+(?:у м\.\s*)?/i, '')} />
                 </div>
               </div>
             );

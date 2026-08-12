@@ -2,7 +2,7 @@
 
 import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 interface TermsModalProps {
   isOpen: boolean;
@@ -11,6 +11,7 @@ interface TermsModalProps {
 
 export function TermsModal({ isOpen, onClose }: TermsModalProps) {
   const t = useTranslations('Modals.Terms');
+  const locale = useLocale();
   const tPrivacy = useTranslations('Modals.Privacy'); // For lastUpdated
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -91,7 +92,7 @@ export function TermsModal({ isOpen, onClose }: TermsModalProps) {
           </section>
 
           <div className="pt-4 text-xs text-white/50 pb-2">
-            {tPrivacy('lastUpdated')} {new Date().toLocaleDateString('uk-UA')}
+            {tPrivacy('lastUpdated')} {new Date().toLocaleDateString(locale === 'en' ? 'en-US' : 'uk-UA')}
           </div>
         </div>
       </div>

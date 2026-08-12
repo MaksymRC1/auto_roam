@@ -11,7 +11,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 import { useTripStore, FuelType, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { FUEL_BUFFER_RATIO, getCurrencySymbol } from "@/lib/constants";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export function FuelPanel() {
   const { 
@@ -19,6 +19,7 @@ export function FuelPanel() {
     consumption, setConsumption, isDefaultConsumption, fuelAmounts, setFuelAmounts, currency, setCurrency, exchangeRates, setExchangeRates
   } = useTripStore();
   const t = useTranslations('Fuel');
+  const locale = useLocale();
   
   const [isFocused, setIsFocused] = useState(false);
   const [isAnyAmountFocused, setIsAnyAmountFocused] = useState(false);
@@ -47,7 +48,7 @@ export function FuelPanel() {
     fetchFuelPrices();
   }, [fetchFuelPrices]);
 
-  const regionNames = useMemo(() => new Intl.DisplayNames(['uk'], { type: 'region' }), []);
+  const regionNames = useMemo(() => new Intl.DisplayNames([locale], { type: 'region' }), [locale]);
 
   const balanceFuel = (nextAmounts: Record<string, string>, activeCode: string) => {
     const selectedCountries = Object.keys(nextAmounts);

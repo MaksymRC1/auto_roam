@@ -112,7 +112,8 @@
       "12": "12 hours",
       "14": "14 hours",
       "16": "16 hours"
-    }
+    },
+    "hotelMapTitle": "Interactive hotel map"
   },
   "Budget": {
     "fuel": "Fuel",
@@ -408,5 +409,23 @@
     "errorDesc": "An unexpected error occurred. We already know about it and are working on a fix.",
     "tryAgain": "Try again",
     "loading": "Routing your way..."
+  },
+  "RoutePage": {
+    "routeNotFound": "Route not found",
+    "routeNotFoundDescription": "Sorry, this route was not found.",
+    "routeTitle": "Route {from} ➔ {to}",
+    "routeSubtitle": "Plan your car trip to {to} ({country}) quickly and easily.",
+    "quickFacts": "Quick facts about the route",
+    "estimatedDistance": "Estimated distance",
+    "km": "km",
+    "travelTimeNoBorders": "Travel time (excluding borders)",
+    "hours": "hours",
+    "tollRoadsAndTransit": "Toll roads and transit",
+    "tollDescription1": "Traveling from {from} to {to} by car, you will need to cross the border and pass through transit countries. The transit countries for this route are usually: {transit}.",
+    "tollDescription2": "Remember that most European countries charge tolls for using highways. You will need to purchase electronic vignettes or pay at toll booths. Fines for driving without a vignette are very high, so we recommend buying them in advance on official government portals.",
+    "whyAutoRoam": "Why plan with AutoRoam?",
+    "whyAutoRoamDescription": "AutoRoam is your free personal assistant for traveling across Europe. We will help you calculate the exact trip budget, fuel costs, prices for all necessary vignettes, and suggest optimal places to stop.",
+    "planRoute": "Plan route with AutoRoam",
+    "freeNoRegistration": "It's free and no registration required"
   }
 }

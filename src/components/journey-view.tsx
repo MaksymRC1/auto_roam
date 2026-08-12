@@ -10,7 +10,7 @@ import { VIGNETTE_DB } from "@/lib/borders";
 import { RatingModal } from "@/components/rating-modal";
 import { JourneyOnboardingTour } from './journey-onboarding-tour';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }) {
   const t = useTranslations('JourneyView');
@@ -116,7 +116,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           Auto<span className="text-blue-500">Roam</span>
         </h2>
         <p className="mt-2 text-white/50 text-sm animate-pulse">
-          {t('loading')}
+          {t('loadingRoute')}
         </p>
       </div>
     );
@@ -161,11 +161,11 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
       <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none bg-black/60 md:bg-transparent">
         {/* Повернутися на сайт */}
         <div className="relative group flex items-center">
-          <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title={t('returnToSite')}>
+          <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title={t('backToSite')}>
             <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
           </Link>
           <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
-            {t('returnToSite')}
+            {t('backToSite')}
           </span>
         </div>
 
@@ -387,7 +387,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                       {!isStart && (
                         <span className="text-sm md:text-base text-white/60 print:text-slate-600 mt-2 flex items-center gap-1.5">
                           <Navigation2 className="w-4 h-4" /> 
-                          {wp.distanceFromStart} км від старту • {formatTime(wp.timeFromStart)}
+                          {wp.distanceFromStart} {t('kmFromStart')} {formatTime(wp.timeFromStart)}
                         </span>
                       )}
                     </div>

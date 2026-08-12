@@ -3,7 +3,7 @@ import { BackgroundSlideshow } from "@/components/background-slideshow";
 import { ArticleRating } from "@/components/article-rating";
 import { Footer } from "@/components/footer";
 import { notFound } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import articlesData from "@/data/articles.json";
 
@@ -12,7 +12,7 @@ async function getArticle(slug: string) {
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const t = useTranslations('Articles');
+  const t = await getTranslations('Articles');
   const resolvedParams = await params;
   const article = await getArticle(resolvedParams.slug);
 

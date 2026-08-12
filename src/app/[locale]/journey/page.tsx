@@ -1,5 +1,14 @@
-import { JourneyView } from "@/components/journey-view"
+import dynamic from 'next/dynamic';
 import { BackgroundSlideshow } from "@/components/background-slideshow"
+import { Loader2 } from "lucide-react";
+
+const JourneyView = dynamic(() => import('@/components/journey-view').then(mod => mod.JourneyView), {
+  loading: () => (
+    <div className="flex h-[50vh] w-full items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+    </div>
+  ),
+});
 
 export default function JourneyPage() {
   return (

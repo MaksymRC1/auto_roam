@@ -3,11 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 
 const IMAGES = [
-  "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=80&w=2000", // Paris
-  "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&q=80&w=2000", // Venice
-  "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&q=80&w=2000", // Swiss Alps
-  "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=2000", // Cinque Terre
-  "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&q=80&w=2000", // Greece Santorini
+  "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=50&w=400", // Paris
+  "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&q=50&w=400", // Venice
+  "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&q=50&w=400", // Swiss Alps
+  "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=50&w=400", // Cinque Terre
+  "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&q=50&w=400", // Greece Santorini
 ];
 
 export function BackgroundSlideshow() {

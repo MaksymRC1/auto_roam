@@ -250,18 +250,18 @@ export function TripPlanner() {
               
               {/* Route (Stops) Sheet */}
               <Sheet key="mobile-stops-sheet">
-                <SheetTrigger render={<button id="tour-step-stops" onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('routeParams')} />}>
+                <SheetTrigger render={<button id="tour-step-stops" onClick={() => setHasSeenStops(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('routeParamsTitle')} />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Plus className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenStops && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">{t('routeParams')}</SheetTitle>
+                    <SheetTitle className="text-white text-base">{t('routeParamsTitle')}</SheetTitle>
                     <SheetClose render={
                       <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
                         <ArrowLeft className="w-3 h-3" />
-                        {t('back')}
+                        {tCommon('back')}
                       </button>
                     } />
                   </SheetHeader>
@@ -278,7 +278,7 @@ export function TripPlanner() {
                 id="tour-step-fuel"
                 onClick={() => { setIsMobileFuelOpen(true); setHasSeenFuel(true); }}
                 className="relative flex items-center justify-center w-10 h-10 outline-none group"
-                title={t('fuelCalculation')}
+                title={t('fuelCalcTitle')}
               >
                 <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                 <Fuel className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
@@ -287,18 +287,18 @@ export function TripPlanner() {
 
               {/* Insurance & Vignettes Sheet */}
               <Sheet key="mobile-insurance-sheet" open={isMobileInsuranceOpen} onOpenChange={setIsMobileInsuranceOpen}>
-                <SheetTrigger render={<button id="tour-step-insurance" onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('insuranceAndVignettes')} />}>
+                <SheetTrigger render={<button id="tour-step-insurance" onClick={() => { setIsMobileInsuranceOpen(true); setHasSeenInsurance(true); }} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('insuranceTitle')} />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <ShieldCheck className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenInsurance && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">{t('insuranceAndVignettes')}</SheetTitle>
+                    <SheetTitle className="text-white text-base">{t('insuranceTitle')}</SheetTitle>
                     <SheetClose render={
                       <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
                         <ArrowLeft className="w-3 h-3" />
-                        {t('back')}
+                        {tCommon('back')}
                       </button>
                     } />
                   </SheetHeader>
@@ -312,18 +312,18 @@ export function TripPlanner() {
 
               {/* General Cost/Budget Sheet */}
               <Sheet key="mobile-budget-sheet">
-                <SheetTrigger render={<button id="tour-step-budget" onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('totalEstimate')} />}>
+                <SheetTrigger render={<button id="tour-step-budget" onClick={() => setHasSeenBudget(true)} className="relative flex items-center justify-center w-10 h-10 outline-none group" title={t('totalBudgetTitle')} />}>
                   <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 rounded-full transition-colors" />
                   <Wallet className="w-5 h-5 relative z-10 text-white/50 group-hover:text-white/80 transition-colors" />
                   {!hasSeenBudget && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-[#0F111A] z-20"></span>}
                 </SheetTrigger>
                 <SheetContent side="bottom" className="border-white/10 p-0 h-[85dvh] max-h-[85dvh] rounded-t-3xl overflow-hidden flex flex-col" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
                   <SheetHeader className="p-5 border-b border-white/10 flex flex-row items-center justify-between shrink-0">
-                    <SheetTitle className="text-white text-base">{t('totalEstimate')}</SheetTitle>
+                    <SheetTitle className="text-white text-base">{t('totalBudgetTitle')}</SheetTitle>
                     <SheetClose render={
                       <button className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
                         <ArrowLeft className="w-3 h-3" />
-                        {t('back')}
+                        {tCommon('back')}
                       </button>
                     } />
                   </SheetHeader>
@@ -372,7 +372,7 @@ export function TripPlanner() {
                   }`}>
                   <div className="p-5 border-b border-white/10 bg-black/20 shrink-0 flex items-start justify-between">
                     <div>
-                      <h2 className="font-bold text-lg text-white">{t('routeTimeline')}</h2>
+                      <h2 className="font-bold text-lg text-white">{t('tripChronology')}</h2>
                       <p className="text-sm font-medium text-white/60 mt-1">
                         {totalDistance} {t('km')} • ~{formatTime(totalDuration, t)}
                       </p>
@@ -533,7 +533,7 @@ export function TripPlanner() {
               
               {/* Desktop Input */}
               <Card id="desktop-tour-search" className="relative z-10 flex flex-col p-5 shrink-0 bg-black/40 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl text-white">
-                <h3 className="font-semibold text-white mb-4">{t('routeParams')}</h3>
+                <h3 className="font-semibold text-white mb-4">{t('routeParamsTitle')}</h3>
                 <StopsInput idPrefix="desktop-stops" />
               </Card>
 
@@ -600,10 +600,10 @@ export function TripPlanner() {
       <Dialog open={isMobileFuelOpen} onOpenChange={setIsMobileFuelOpen}>
         <DialogContent className="border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto custom-scrollbar" showCloseButton={false} style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader className="flex flex-row items-center justify-between pb-2 border-b border-white/10 space-y-0">
-            <DialogTitle className="text-xl m-0 text-white">{t('fuelCalculation')}</DialogTitle>
+            <DialogTitle className="text-xl m-0 text-white">{t('fuelCalcTitle')}</DialogTitle>
             <button onClick={() => setIsMobileFuelOpen(false)} className="text-xs text-white/50 hover:text-white transition-colors bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1 focus:outline-none shrink-0">
               <ArrowLeft className="w-3 h-3" />
-              {t('back')}
+              {tCommon('back')}
             </button>
           </DialogHeader>
           <div className="mt-4">
@@ -863,6 +863,7 @@ function HotelOverrideInputs({
 }) {
   const { exchangeRates, currency: globalCurrency } = useTripStore();
   const t = useTranslations('TripPlanner');
+  const tCommon = useTranslations('Common');
   const [url, setUrl] = useState(initialUrl);
   const [price, setPrice] = useState(initialPrice);
   const [currency, setCurrency] = useState(initialCurrency || globalCurrency);

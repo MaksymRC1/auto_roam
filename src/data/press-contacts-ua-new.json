@@ -10,8 +10,9 @@
     "name": "Редакція",
     "email": "news@korrespondent.net",
     "outlet": "Корреспондент",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -24,8 +25,9 @@
     "name": "Редакція",
     "email": "info@the-village.com.ua",
     "outlet": "The Village Україна",
-    "active": true,
-    "templateType": "tech"
+    "active": false,
+    "templateType": "tech",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -38,8 +40,9 @@
     "name": "Редакція",
     "email": "info@hromadske.ua",
     "outlet": "Громадське",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -87,8 +90,9 @@
     "name": "Редакція",
     "email": "info@uamotors.com.ua",
     "outlet": "UAMotors",
-    "active": true,
-    "templateType": "auto"
+    "active": false,
+    "templateType": "auto",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -115,8 +119,9 @@
     "name": "Редакція",
     "email": "info@vgorode.ua",
     "outlet": "Vgorode",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -129,15 +134,17 @@
     "name": "Редакція",
     "email": "info@rubryka.com",
     "outlet": "Рубрика",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
     "email": "info@svidomi.in.ua",
     "outlet": "Свідомі",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -150,8 +157,9 @@
     "name": "Редакція",
     "email": "news@censor.net",
     "outlet": "Цензор.НЕТ",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",
@@ -178,8 +186,9 @@
     "name": "Редакція",
     "email": "info@ukrinform.ua",
     "outlet": "Укрінформ",
-    "active": true,
-    "templateType": "business"
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
   },
   {
     "name": "Редакція",

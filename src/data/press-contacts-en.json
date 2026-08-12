@@ -1,52 +1,361 @@
 [
-  { "name": "Sifted Team", "email": "hello@sifted.eu", "outlet": "Sifted", "active": true, "templateType": "english" },
-  { "name": "EU-Startups Team", "email": "thomas@eu-startups.com", "outlet": "EU-Startups", "active": true, "templateType": "english" },
-  { "name": "Tech.eu Editorial", "email": "editorial@tech.eu", "outlet": "Tech.eu", "active": true, "templateType": "english" },
-  { "name": "Silicon Republic", "email": "editor@siliconrepublic.com", "outlet": "Silicon Republic", "active": true, "templateType": "english" },
-  { "name": "TNW Tips", "email": "tips@thenextweb.com", "outlet": "The Next Web", "active": true, "templateType": "english" },
-  { "name": "Wired UK News", "email": "news@wired.co.uk", "outlet": "Wired UK", "active": true, "templateType": "english" },
-  { "name": "TechCrunch Europe", "email": "tips@techcrunch.com", "outlet": "TechCrunch", "active": true, "templateType": "english", "note": "For European desk" },
-  { "name": "Maddyness Contact", "email": "contact@maddyness.com", "outlet": "Maddyness", "active": true, "templateType": "english" },
-  { "name": "Anna Wood", "email": "anna.wood@startupsmagazine.co.uk", "outlet": "Startups Magazine", "active": true, "templateType": "english" },
-  { "name": "Business Insider UK", "email": "uktips@businessinsider.com", "outlet": "Business Insider", "active": true, "templateType": "english" },
-  { "name": "AIN.Capital Editor", "email": "editor@ain.capital", "outlet": "AIN.Capital", "active": true, "templateType": "english" },
-  { "name": "The Recursive Newsroom", "email": "newsroom@therecursive.com", "outlet": "The Recursive", "active": true, "templateType": "english" },
-  { "name": "Trending Topics News", "email": "news@trendingtopics.eu", "outlet": "Trending Topics", "active": true, "templateType": "english" },
-  { "name": "Netokracija Info", "email": "info@netokracija.com", "outlet": "Netokracija", "active": true, "templateType": "english" },
-  { "name": "MamStartup Redakcja", "email": "redakcja@mamstartup.pl", "outlet": "MamStartup", "active": true, "templateType": "english" },
-  { "name": "Spider's Web Redakcja", "email": "redakcja@spidersweb.pl", "outlet": "Spider's Web", "active": true, "templateType": "english" },
-  { "name": "Antyweb Redakcja", "email": "redakcja@antyweb.pl", "outlet": "Antyweb", "active": true, "templateType": "english" },
-  { "name": "Startit.rs Kontakt", "email": "kontakt@startit.rs", "outlet": "Startit.rs", "active": true, "templateType": "english" },
-  { "name": "Inventures Contact", "email": "contact@inventures.eu", "outlet": "Inventures.eu", "active": true, "templateType": "english" },
-  { "name": "Prague Morning Info", "email": "info@praguemorning.cz", "outlet": "Prague Morning", "active": true, "templateType": "english" },
-  { "name": "PhocusWire News", "email": "news@phocuswire.com", "outlet": "PhocusWire", "active": true, "templateType": "english" },
-  { "name": "Skift Tips", "email": "tips@skift.com", "outlet": "Skift", "active": true, "templateType": "english" },
-  { "name": "Travel Daily Editorial", "email": "editorial@traveldailymedia.com", "outlet": "Travel Daily Media", "active": true, "templateType": "english" },
-  { "name": "Tnooz Editor", "email": "editor@tnooz.com", "outlet": "Tnooz", "active": true, "templateType": "english" },
-  { "name": "Auto Express News", "email": "news@autoexpress.co.uk", "outlet": "Auto Express", "active": true, "templateType": "english" },
-  { "name": "Car Magazine", "email": "carmagazine@bauermedia.co.uk", "outlet": "Car Magazine", "active": true, "templateType": "english" },
-  { "name": "Travel Weekly News", "email": "news@travelweekly.co.uk", "outlet": "Travel Weekly", "active": true, "templateType": "english" },
-  { "name": "Travolution News", "email": "news@travolution.com", "outlet": "Travolution", "active": true, "templateType": "english" },
-  { "name": "Breaking Travel Editor", "email": "editor@breakingtravelnews.com", "outlet": "Breaking Travel News", "active": true, "templateType": "english" },
-  { "name": "Mobilityways Info", "email": "info@mobilityways.com", "outlet": "Mobilityways", "active": true, "templateType": "english" },
-  { "name": "Gründerszene Redaktion", "email": "redaktion@gruenderszene.de", "outlet": "Gründerszene", "active": true, "templateType": "english" },
-  { "name": "Deutsche Startups Tipps", "email": "tipps@deutsche-startups.de", "outlet": "Deutsche Startups", "active": true, "templateType": "english" },
-  { "name": "T3n Redaktion", "email": "redaktion@t3n.de", "outlet": "T3n", "active": true, "templateType": "english" },
-  { "name": "Der Brutkasten Redaktion", "email": "redaktion@derbrutkasten.com", "outlet": "Der Brutkasten", "active": true, "templateType": "english" },
-  { "name": "Startupticker.ch News", "email": "news@startupticker.ch", "outlet": "Startupticker.ch", "active": true, "templateType": "english" },
-  { "name": "Horizont Redaktion", "email": "redaktion@horizont.net", "outlet": "Horizont", "active": true, "templateType": "english" },
-  { "name": "IT-Business Redaktion", "email": "redaktion@it-business.de", "outlet": "IT-Business", "active": true, "templateType": "english" },
-  { "name": "Heise Online Redaktion", "email": "redaktion@heise.de", "outlet": "Heise Online", "active": true, "templateType": "english" },
-  { "name": "Golem.de Info", "email": "info@golem.de", "outlet": "Golem.de", "active": true, "templateType": "english" },
-  { "name": "TrendingTopics.at Feedback", "email": "feedback@trendingtopics.at", "outlet": "TrendingTopics.at", "active": true, "templateType": "english" },
-  { "name": "UKTN Editorial", "email": "editorial@uktech.news", "outlet": "UKTN", "active": true, "templateType": "english" },
-  { "name": "TechSpark Editor", "email": "editor@techspark.co", "outlet": "TechSpark", "active": true, "templateType": "english" },
-  { "name": "Maija (Sifted Nordics)", "email": "maija@sifted.eu", "outlet": "Sifted Nordics", "active": true, "templateType": "english" },
-  { "name": "TechBBQ Info", "email": "info@techbbq.org", "outlet": "TechBBQ", "active": true, "templateType": "english" },
-  { "name": "ArcticStartup Editor", "email": "editor@arcticstartup.com", "outlet": "ArcticStartup", "active": true, "templateType": "english" },
-  { "name": "Shifter Redaksjonen", "email": "redaksjonen@shifter.no", "outlet": "Shifter", "active": true, "templateType": "english" },
-  { "name": "Breakit Tips", "email": "tips@breakit.se", "outlet": "Breakit", "active": true, "templateType": "english" },
-  { "name": "Silicon Canals Editors", "email": "editors@siliconcanals.com", "outlet": "Silicon Canals", "active": true, "templateType": "english" },
-  { "name": "Dan (Tech.eu)", "email": "dan@tech.eu", "outlet": "Tech.eu UK", "active": true, "templateType": "english" },
-  { "name": "CityAM Tech News", "email": "news@cityam.com", "outlet": "CityAM", "active": true, "templateType": "english" }
+  {
+    "name": "Sifted Team",
+    "email": "news@sifted.eu",
+    "outlet": "Sifted",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "EU-Startups Team",
+    "email": "thomas@eu-startups.com",
+    "outlet": "EU-Startups",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tech.eu Editorial",
+    "email": "editorial@tech.eu",
+    "outlet": "Tech.eu",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Republic",
+    "email": "editor@siliconrepublic.com",
+    "outlet": "Silicon Republic",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TNW Tips",
+    "email": "tips@thenextweb.com",
+    "outlet": "The Next Web",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Wired UK News",
+    "email": "news@wired.co.uk",
+    "outlet": "Wired UK",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TechCrunch Europe",
+    "email": "tips@techcrunch.com",
+    "outlet": "TechCrunch",
+    "active": true,
+    "templateType": "english",
+    "note": "For European desk"
+  },
+  {
+    "name": "Maddyness Contact",
+    "email": "contact@maddyness.com",
+    "outlet": "Maddyness",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Anna Wood",
+    "email": "anna.wood@startupsmagazine.co.uk",
+    "outlet": "Startups Magazine",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Business Insider UK",
+    "email": "uktips@businessinsider.com",
+    "outlet": "Business Insider",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "AIN.Capital Editor",
+    "email": "editor@ain.capital",
+    "outlet": "AIN.Capital",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Recursive Newsroom",
+    "email": "newsroom@therecursive.com",
+    "outlet": "The Recursive",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Trending Topics News",
+    "email": "news@trendingtopics.eu",
+    "outlet": "Trending Topics",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Netokracija Info",
+    "email": "info@netokracija.com",
+    "outlet": "Netokracija",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "MamStartup Redakcja",
+    "email": "redakcja@mamstartup.pl",
+    "outlet": "MamStartup",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Spider's Web Redakcja",
+    "email": "redakcja@spidersweb.pl",
+    "outlet": "Spider's Web",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Antyweb Redakcja",
+    "email": "redakcja@antyweb.pl",
+    "outlet": "Antyweb",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Startit.rs Kontakt",
+    "email": "kontakt@startit.rs",
+    "outlet": "Startit.rs",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Inventures Contact",
+    "email": "contact@inventures.eu",
+    "outlet": "Inventures.eu",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Prague Morning Info",
+    "email": "info@praguemorning.cz",
+    "outlet": "Prague Morning",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "PhocusWire News",
+    "email": "news@phocuswire.com",
+    "outlet": "PhocusWire",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Skift Tips",
+    "email": "tips@skift.com",
+    "outlet": "Skift",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Daily Editorial",
+    "email": "editorial@traveldailymedia.com",
+    "outlet": "Travel Daily Media",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tnooz Editor",
+    "email": "editor@tnooz.com",
+    "outlet": "Tnooz",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Auto Express News",
+    "email": "news@autoexpress.co.uk",
+    "outlet": "Auto Express",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Car Magazine",
+    "email": "carmagazine@bauermedia.co.uk",
+    "outlet": "Car Magazine",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Travel Weekly News",
+    "email": "news@travelweekly.co.uk",
+    "outlet": "Travel Weekly",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Travolution News",
+    "email": "news@travolution.com",
+    "outlet": "Travolution",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Breaking Travel Editor",
+    "email": "editor@breakingtravelnews.com",
+    "outlet": "Breaking Travel News",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Mobilityways Info",
+    "email": "info@mobilityways.com",
+    "outlet": "Mobilityways",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Gründerszene Redaktion",
+    "email": "redaktion@gruenderszene.de",
+    "outlet": "Gründerszene",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Deutsche Startups Tipps",
+    "email": "tipps@deutsche-startups.de",
+    "outlet": "Deutsche Startups",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "T3n Redaktion",
+    "email": "redaktion@t3n.de",
+    "outlet": "T3n",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Der Brutkasten Redaktion",
+    "email": "redaktion@derbrutkasten.com",
+    "outlet": "Der Brutkasten",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Startupticker.ch News",
+    "email": "news@startupticker.ch",
+    "outlet": "Startupticker.ch",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Horizont Redaktion",
+    "email": "redaktion@horizont.net",
+    "outlet": "Horizont",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "IT-Business Redaktion",
+    "email": "redaktion@it-business.de",
+    "outlet": "IT-Business",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Heise Online Redaktion",
+    "email": "redaktion@heise.de",
+    "outlet": "Heise Online",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Golem.de Info",
+    "email": "info@golem.de",
+    "outlet": "Golem.de",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TrendingTopics.at Feedback",
+    "email": "feedback@trendingtopics.at",
+    "outlet": "TrendingTopics.at",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "UKTN Editorial",
+    "email": "editorial@uktech.news",
+    "outlet": "UKTN",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "TechSpark Editor",
+    "email": "editor@techspark.co",
+    "outlet": "TechSpark",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Maija (Sifted Nordics)",
+    "email": "maija@sifted.eu",
+    "outlet": "Sifted Nordics",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "TechBBQ Info",
+    "email": "info@techbbq.org",
+    "outlet": "TechBBQ",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "ArcticStartup Editor",
+    "email": "editor@arcticstartup.com",
+    "outlet": "ArcticStartup",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Shifter Redaksjonen",
+    "email": "redaksjonen@shifter.no",
+    "outlet": "Shifter",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Breakit Tips",
+    "email": "tips@breakit.se",
+    "outlet": "Breakit",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Canals Editors",
+    "email": "editors@siliconcanals.com",
+    "outlet": "Silicon Canals",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Dan (Tech.eu)",
+    "email": "dan@tech.eu",
+    "outlet": "Tech.eu UK",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "CityAM Tech News",
+    "email": "news@cityam.com",
+    "outlet": "CityAM",
+    "active": true,
+    "templateType": "english"
+  }
 ]

@@ -1,310 +1,199 @@
 {
   "summary": {
-    "total": 50,
-    "success": 50,
+    "total": 27,
+    "success": 27,
     "failed": 0,
-    "isDryRun": true
+    "isDryRun": false
   },
   "details": [
-    {
-      "email": "news@nv.ua",
-      "outlet": "NV.ua",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "news@liga.net",
-      "outlet": "LIGA.net",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "news@rbc.ua",
-      "outlet": "РБК-Україна",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
     {
       "email": "news@24tv.ua",
       "outlet": "24 Канал",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@tsn.ua",
-      "outlet": "ТСН",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@obozrevatel.com",
-      "outlet": "Обозреватель",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:24.226Z"
     },
     {
       "email": "news@korrespondent.net",
       "outlet": "Корреспондент",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:28.637Z"
     },
     {
       "email": "info@unian.net",
       "outlet": "УНІАН",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:33.045Z"
     },
     {
       "email": "info@the-village.com.ua",
       "outlet": "The Village Україна",
       "template": "tech",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:37.446Z"
     },
     {
       "email": "news@nashkiev.ua",
       "outlet": "Наш Київ",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:41.904Z"
     },
     {
       "email": "info@hromadske.ua",
       "outlet": "Громадське",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:46.304Z"
     },
     {
       "email": "info@suspilne.media",
       "outlet": "Суспільне",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@babel.ua",
-      "outlet": "Бабель",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:50.799Z"
     },
     {
       "email": "info@zn.ua",
       "outlet": "Дзеркало Тижня",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@glavcom.ua",
-      "outlet": "Главком",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "editor@gordonua.com",
-      "outlet": "Гордон",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@focus.ua",
-      "outlet": "Фокус",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@telegraf.com.ua",
-      "outlet": "Телеграф",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:55.250Z"
     },
     {
       "email": "info@apostrophe.ua",
       "outlet": "Апостроф",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@delo.ua",
-      "outlet": "Delo.ua",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:59.685Z"
     },
     {
       "email": "info@mind.ua",
       "outlet": "Mind.ua",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:04.125Z"
     },
     {
       "email": "ep@epravda.com.ua",
       "outlet": "Економічна Правда",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@finance.ua",
-      "outlet": "Finance.ua",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@minfin.com.ua",
-      "outlet": "Minfin.com.ua",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@autocentre.ua",
-      "outlet": "Автоцентр",
-      "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "news@auto.ria.com",
-      "outlet": "Auto.RIA News",
-      "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:08.574Z"
     },
     {
       "email": "news@infocar.ua",
       "outlet": "InfoCar",
       "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@mmr.net.ua",
-      "outlet": "Motor Media Review",
-      "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:13.018Z"
     },
     {
       "email": "info@uamotors.com.ua",
       "outlet": "UAMotors",
       "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "auto@24tv.ua",
-      "outlet": "Auto24",
-      "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@lowcost.ua",
-      "outlet": "Lowcost.ua",
-      "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:17.629Z"
     },
     {
       "email": "info@veterdoit.com",
       "outlet": "Veter doit",
       "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:22.069Z"
     },
     {
       "email": "info@tripmydream.com",
       "outlet": "TripMyDream",
       "template": "auto",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "news@zaxid.net",
-      "outlet": "Zaxid.net",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@tvoemisto.tv",
-      "outlet": "Твоє Місто (Львів)",
-      "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:26.528Z"
     },
     {
       "email": "info@dumskaya.net",
       "outlet": "Думская (Одеса)",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:30.976Z"
     },
     {
       "email": "info@vgorode.ua",
       "outlet": "Vgorode",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:35.391Z"
     },
     {
       "email": "info@depo.ua",
       "outlet": "Depo.ua",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:39.888Z"
     },
     {
       "email": "info@rubryka.com",
       "outlet": "Рубрика",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@shotam.info",
-      "outlet": "ШоТам",
-      "template": "tech",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:44.337Z"
     },
     {
       "email": "info@svidomi.in.ua",
       "outlet": "Свідомі",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@nachasi.com",
-      "outlet": "Na chasi",
-      "template": "tech",
-      "status": "DRY_RUN_SUCCESS"
-    },
-    {
-      "email": "info@tokar.ua",
-      "outlet": "Tokar.ua",
-      "template": "tech",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:48.793Z"
     },
     {
       "email": "info@itc.ua",
       "outlet": "ITC.ua (додатковий контакт)",
       "template": "tech",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:53.193Z"
     },
     {
       "email": "news@censor.net",
       "outlet": "Цензор.НЕТ",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:57.593Z"
     },
     {
       "email": "info@espreso.tv",
       "outlet": "Еспресо TV",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:02.085Z"
     },
     {
       "email": "info@prm.ua",
       "outlet": "Прямий",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:06.574Z"
     },
     {
       "email": "info@5.ua",
       "outlet": "5 Канал",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:11.066Z"
     },
     {
       "email": "info@ukrinform.ua",
       "outlet": "Укрінформ",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:15.558Z"
     },
     {
       "email": "info@interfax.com.ua",
       "outlet": "Інтерфакс-Україна",
       "template": "business",
-      "status": "DRY_RUN_SUCCESS"
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:20.009Z"
     }
   ]
 }

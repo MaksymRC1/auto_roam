@@ -729,6 +729,7 @@ export function TripPlanner() {
 
 // Extracted Accordion to avoid code duplication between mobile and desktop panels
 function AccordionPanels() {
+  const t = useTranslations('TripPlanner');
   const { 
     activePanel, 
     setActivePanel,

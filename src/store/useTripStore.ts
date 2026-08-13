@@ -157,9 +157,9 @@ interface TripState {
   toggleReserve: () => void;
   toggleWaypointCompletion: (id: string) => void;
   getShareUrl: () => string;
-  getRawShareData: () => any;
+  getRawShareData: () => unknown;
   loadFromShareData: (data: string) => void;
-  loadFromRawData: (data: any) => void;
+  loadFromRawData: (data: unknown) => void;
 
   hasSeenOnboarding: boolean;
   setHasSeenOnboarding: (val: boolean) => void;
@@ -597,13 +597,13 @@ export const useTripStore = create<TripState>()(
     const totalFuel = (state.totalDistance / 100) * numericConsumption;
     const conservativeFuel = Math.round(totalFuel * FUEL_BUFFER_RATIO);
     
-    let nextAmounts = { ...state.fuelAmounts };
+    const nextAmounts = { ...state.fuelAmounts };
     Object.keys(nextAmounts).forEach(key => {
       if (!state.crossedCountries.includes(key)) {
         delete nextAmounts[key];
       }
     });
-    let selectedKeys = Object.keys(nextAmounts);
+    const selectedKeys = Object.keys(nextAmounts);
     
     if (selectedKeys.length === 0) {
       // Pick global cheapest if nothing is selected

@@ -46,7 +46,7 @@ initDb().catch(console.error);
 
 export interface Journey {
   id: string;
-  route_data: any;
+  route_data: unknown;
   anonymous_user_id: string | null;
   user_id: string | null;
   created_at?: string;
@@ -68,7 +68,7 @@ export async function saveJourney(journey: Journey): Promise<void> {
         user_id = EXCLUDED.user_id;
     `;
   } else {
-    let data: Record<string, any> = {};
+    let data: Record<string, Journey> = {};
     if (fs.existsSync(localDbPath)) {
       try {
         data = JSON.parse(fs.readFileSync(localDbPath, 'utf8'));

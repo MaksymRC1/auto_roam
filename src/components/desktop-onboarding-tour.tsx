@@ -77,12 +77,31 @@ export function DesktopOnboardingTour() {
   }, [hasSeenDesktopOnboarding]);
 
 
+  const handleClose = () => {
+    setHasSeenDesktopOnboarding(true);
+    setIsActive(false);
+  };
+
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(s => s + 1);
+    } else {
+      handleClose();
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(s => s - 1);
+    }
+  };
+
   useEffect(() => {
     if (!isActive) return;
     
     const updatePosition = () => {
-      let targetId = steps[currentStep].targetId;
-      let element = document.getElementById(targetId);
+      const targetId = steps[currentStep].targetId;
+      const element = document.getElementById(targetId);
       
       // Fallback: If element is missing, skip to next step
       if (!element && currentStep < steps.length - 1) {
@@ -118,25 +137,7 @@ export function DesktopOnboardingTour() {
 
   if (!isActive) return null;
 
-  const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(s => s + 1);
-    } else {
-      handleClose();
-    }
-  };
 
-  const handlePrev = () => {
-    if (currentStep > 0) {
-      setCurrentStep(s => s - 1);
-    }
-  };
-
-  const handleClose = () => {
-    setHasSeenDesktopOnboarding(true);
-    setIsActive(false);
-  };
-  
   const step = steps[currentStep];
   
   // Calculate window dimensions to avoid SSR errors

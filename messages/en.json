@@ -427,5 +427,8 @@
     "whyAutoRoamDescription": "AutoRoam is your free personal assistant for traveling across Europe. We will help you calculate the exact trip budget, fuel costs, prices for all necessary vignettes, and suggest optimal places to stop.",
     "planRoute": "Plan route with AutoRoam",
     "freeNoRegistration": "It's free and no registration required"
+  },
+  "Manifest": {
+    "description": "Auto travel planner across Europe"
   }
 }

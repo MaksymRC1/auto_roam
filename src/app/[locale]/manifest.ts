@@ -1,11 +1,21 @@
 import type { MetadataRoute } from 'next';
+import { getTranslations } from 'next-intl/server';
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest({
+  params
+}: {
+  params: { locale: string }
+}): Promise<MetadataRoute.Manifest> {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: 'Manifest'
+  });
+
   return {
     name: 'AutoRoam',
     short_name: 'AutoRoam',
-    description: 'Планувальник подорожей на авто по Європі',
-    start_url: '/',
+    description: t('description'),
+    start_url: `/${params.locale}`,
     display: 'standalone',
     background_color: '#09090b',
     theme_color: '#09090b',

@@ -1,0 +1,250 @@
+{
+  "summary": {
+    "total": 40,
+    "success": 40,
+    "failed": 0,
+    "isDryRun": false
+  },
+  "details": [
+    {
+      "email": "editorial@thenextweb.com",
+      "outlet": "The Next Web (TNW)",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:43:50.337Z"
+    },
+    {
+      "email": "tips@venturebeat.com",
+      "outlet": "VentureBeat",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:43:54.872Z"
+    },
+    {
+      "email": "tips@theverge.com",
+      "outlet": "The Verge",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:43:59.274Z"
+    },
+    {
+      "email": "tips@engadget.com",
+      "outlet": "Engadget",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:03.683Z"
+    },
+    {
+      "email": "tips@gizmodo.com",
+      "outlet": "Gizmodo",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:08.468Z"
+    },
+    {
+      "email": "tips@mashable.com",
+      "outlet": "Mashable",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:13.004Z"
+    },
+    {
+      "email": "tips@fastcompany.com",
+      "outlet": "Fast Company",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:17.455Z"
+    },
+    {
+      "email": "submit@wired.com",
+      "outlet": "Wired US",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:21.877Z"
+    },
+    {
+      "email": "ideas@forbes.com",
+      "outlet": "Forbes",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:26.285Z"
+    },
+    {
+      "email": "tips@geekwire.com",
+      "outlet": "GeekWire",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:30.747Z"
+    },
+    {
+      "email": "news@zdnet.com",
+      "outlet": "ZDNet",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:35.169Z"
+    },
+    {
+      "email": "news@cnet.com",
+      "outlet": "CNET",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:39.587Z"
+    },
+    {
+      "email": "news@digitaltrends.com",
+      "outlet": "Digital Trends",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:44.025Z"
+    },
+    {
+      "email": "tips@arstechnica.com",
+      "outlet": "Ars Technica",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:48.459Z"
+    },
+    {
+      "email": "news@techradar.com",
+      "outlet": "TechRadar",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:52.896Z"
+    },
+    {
+      "email": "tips@makeuseof.com",
+      "outlet": "MakeUseOf",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:44:57.297Z"
+    },
+    {
+      "email": "tips@lifehacker.com",
+      "outlet": "Lifehacker",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:01.729Z"
+    },
+    {
+      "email": "news@techinasia.com",
+      "outlet": "Tech in Asia",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:06.159Z"
+    },
+    {
+      "email": "writers@e27.co",
+      "outlet": "e27",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:10.584Z"
+    },
+    {
+      "email": "editorial@lonelyplanet.com",
+      "outlet": "Lonely Planet",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:15.018Z"
+    },
+    {
+      "email": "tips@travelandleisure.com",
+      "outlet": "Travel + Leisure",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:19.432Z"
+    },
+    {
+      "email": "tips@cntraveler.com",
+      "outlet": "Condé Nast Traveler",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:23.869Z"
+    },
+    {
+      "email": "editorial@matadornetwork.com",
+      "outlet": "Matador Network",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:28.294Z"
+    },
+    {
+      "email": "tips@thepointsguy.com",
+      "outlet": "The Points Guy",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:32.718Z"
+    },
+    {
+      "email": "news@travelpulse.com",
+      "outlet": "TravelPulse",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:37.162Z"
+    },
+    {
+      "email": "info@skift.com",
+      "outlet": "Skift (Info)",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:41.598Z"
+    },
+    {
+      "email": "news@webintravel.com",
+      "outlet": "Web in Travel",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:46.005Z"
+    },
+    {
+      "email": "editor@topgear.com",
+      "outlet": "Top Gear",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:50.406Z"
+    },
+    {
+      "email": "autocar@haymarket.com",
+      "outlet": "Autocar",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:54.820Z"
+    },
+    {
+      "email": "motor.trend@motortrend.com",
+      "outlet": "Motor Trend",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:45:59.244Z"
+    },
+    {
+      "email": "editors@caranddriver.com",
+      "outlet": "Car and Driver",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:03.660Z"
+    },
+    {
+      "email": "tips@businessinsider.com",
+      "outlet": "Business Insider",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:08.082Z"
+    },
+    {
+      "email": "matt@nomadicmatt.com",
+      "outlet": "Nomadic Matt",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:12.516Z"
+    },
+    {
+      "email": "matt@expertvagabond.com",
+      "outlet": "Expert Vagabond",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:16.939Z"
+    },
+    {
+      "email": "kiersten@theblondeabroad.com",
+      "outlet": "The Blonde Abroad",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:21.377Z"
+    },
+    {
+      "email": "pitch@startupbeat.com",
+      "outlet": "StartupBeat",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:25.805Z"
+    },
+    {
+      "email": "contact@tech.co",
+      "outlet": "Tech.co",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:30.233Z"
+    },
+    {
+      "email": "news@siliconrepublic.com",
+      "outlet": "Silicon Republic",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:34.646Z"
+    },
+    {
+      "email": "hello@smashingmagazine.com",
+      "outlet": "Smashing Magazine",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:39.092Z"
+    },
+    {
+      "email": "news@techrepublic.com",
+      "outlet": "TechRepublic",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-12T17:46:43.496Z"
+    }
+  ]
+}

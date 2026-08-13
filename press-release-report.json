@@ -1,150 +1,199 @@
 {
   "summary": {
-    "total": 20,
-    "success": 20,
+    "total": 27,
+    "success": 27,
     "failed": 0,
     "isDryRun": false
   },
   "details": [
     {
-      "email": "info@autocentre.ua",
-      "outlet": "Автоцентр",
-      "template": "auto",
+      "email": "news@24tv.ua",
+      "outlet": "24 Канал",
+      "template": "business",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:03.628Z"
+      "timestamp": "2026-08-11T13:37:24.226Z"
     },
     {
-      "email": "news@auto.ria.com",
-      "outlet": "AUTO.RIA",
-      "template": "auto",
+      "email": "news@korrespondent.net",
+      "outlet": "Корреспондент",
+      "template": "business",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:08.052Z"
+      "timestamp": "2026-08-11T13:37:28.637Z"
     },
     {
-      "email": "news@rst.ua",
-      "outlet": "RST.ua",
-      "template": "auto",
+      "email": "info@unian.net",
+      "outlet": "УНІАН",
+      "template": "business",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:12.477Z"
+      "timestamp": "2026-08-11T13:37:33.045Z"
     },
     {
-      "email": "editor@infocar.ua",
+      "email": "info@the-village.com.ua",
+      "outlet": "The Village Україна",
+      "template": "tech",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:37.446Z"
+    },
+    {
+      "email": "news@nashkiev.ua",
+      "outlet": "Наш Київ",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:41.904Z"
+    },
+    {
+      "email": "info@hromadske.ua",
+      "outlet": "Громадське",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:46.304Z"
+    },
+    {
+      "email": "info@suspilne.media",
+      "outlet": "Суспільне",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:50.799Z"
+    },
+    {
+      "email": "info@zn.ua",
+      "outlet": "Дзеркало Тижня",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:55.250Z"
+    },
+    {
+      "email": "info@apostrophe.ua",
+      "outlet": "Апостроф",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:37:59.685Z"
+    },
+    {
+      "email": "info@mind.ua",
+      "outlet": "Mind.ua",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:04.125Z"
+    },
+    {
+      "email": "ep@epravda.com.ua",
+      "outlet": "Економічна Правда",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:08.574Z"
+    },
+    {
+      "email": "news@infocar.ua",
       "outlet": "InfoCar",
       "template": "auto",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:16.894Z"
+      "timestamp": "2026-08-11T13:38:13.018Z"
     },
     {
-      "email": "info@mmr.net.ua",
-      "outlet": "MMR",
+      "email": "info@uamotors.com.ua",
+      "outlet": "UAMotors",
       "template": "auto",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:21.347Z"
+      "timestamp": "2026-08-11T13:38:17.629Z"
     },
     {
-      "email": "info@finance.ua",
-      "outlet": "Finance.ua",
-      "template": "business",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:25.778Z"
-    },
-    {
-      "email": "info@minfin.com.ua",
-      "outlet": "Minfin",
-      "template": "business",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:30.206Z"
-    },
-    {
-      "email": "info@nv.ua",
-      "outlet": "NV (New Voice)",
-      "template": "business",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:34.646Z"
-    },
-    {
-      "email": "news@liga.net",
-      "outlet": "LIGA.net",
-      "template": "tech",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:39.059Z"
-    },
-    {
-      "email": "info@delo.ua",
-      "outlet": "Delo.ua",
-      "template": "business",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:43.499Z"
-    },
-    {
-      "email": "info@glavcom.ua",
-      "outlet": "Главком",
+      "email": "info@veterdoit.com",
+      "outlet": "Veter doit",
       "template": "auto",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:47.931Z"
+      "timestamp": "2026-08-11T13:38:22.069Z"
     },
     {
-      "email": "lb.ua@gmail.com",
-      "outlet": "LB.ua",
-      "template": "business",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:52.341Z"
-    },
-    {
-      "email": "info@obozrevatel.com",
-      "outlet": "Obozrevatel",
+      "email": "info@tripmydream.com",
+      "outlet": "TripMyDream",
       "template": "auto",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:16:56.878Z"
+      "timestamp": "2026-08-11T13:38:26.528Z"
     },
     {
-      "email": "info@focus.ua",
-      "outlet": "Фокус",
-      "template": "auto",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:01.312Z"
-    },
-    {
-      "email": "news@rbc.ua",
-      "outlet": "РБК-Україна",
+      "email": "info@dumskaya.net",
+      "outlet": "Думская (Одеса)",
       "template": "business",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:05.721Z"
+      "timestamp": "2026-08-11T13:38:30.976Z"
     },
     {
-      "email": "info@zaborona.com",
-      "outlet": "Заборона",
-      "template": "tech",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:10.141Z"
-    },
-    {
-      "email": "info@babel.ua",
-      "outlet": "Бабель",
-      "template": "tech",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:14.562Z"
-    },
-    {
-      "email": "info@techukraine.org",
-      "outlet": "TechUkraine",
-      "template": "tech",
-      "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:18.965Z"
-    },
-    {
-      "email": "info@inventure.ua",
-      "outlet": "InVenture",
+      "email": "info@vgorode.ua",
+      "outlet": "Vgorode",
       "template": "business",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:23.406Z"
+      "timestamp": "2026-08-11T13:38:35.391Z"
     },
     {
-      "email": "info@itukraine.org.ua",
-      "outlet": "IT Ukraine Association",
+      "email": "info@depo.ua",
+      "outlet": "Depo.ua",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:39.888Z"
+    },
+    {
+      "email": "info@rubryka.com",
+      "outlet": "Рубрика",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:44.337Z"
+    },
+    {
+      "email": "info@svidomi.in.ua",
+      "outlet": "Свідомі",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:48.793Z"
+    },
+    {
+      "email": "info@itc.ua",
+      "outlet": "ITC.ua (додатковий контакт)",
       "template": "tech",
       "status": "SUCCESS",
-      "timestamp": "2026-07-30T18:17:27.845Z"
+      "timestamp": "2026-08-11T13:38:53.193Z"
+    },
+    {
+      "email": "news@censor.net",
+      "outlet": "Цензор.НЕТ",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:38:57.593Z"
+    },
+    {
+      "email": "info@espreso.tv",
+      "outlet": "Еспресо TV",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:02.085Z"
+    },
+    {
+      "email": "info@prm.ua",
+      "outlet": "Прямий",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:06.574Z"
+    },
+    {
+      "email": "info@5.ua",
+      "outlet": "5 Канал",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:11.066Z"
+    },
+    {
+      "email": "info@ukrinform.ua",
+      "outlet": "Укрінформ",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:15.558Z"
+    },
+    {
+      "email": "info@interfax.com.ua",
+      "outlet": "Інтерфакс-Україна",
+      "template": "business",
+      "status": "SUCCESS",
+      "timestamp": "2026-08-11T13:39:20.009Z"
     }
   ]
 }

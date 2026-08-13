@@ -2,6 +2,7 @@
 
 import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useEffect, useRef } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 interface TermsModalProps {
   isOpen: boolean;
@@ -9,6 +10,9 @@ interface TermsModalProps {
 }
 
 export function TermsModal({ isOpen, onClose }: TermsModalProps) {
+  const t = useTranslations('Modals.Terms');
+  const locale = useLocale();
+  const tPrivacy = useTranslations('Modals.Privacy'); // For lastUpdated
   const contentRef = useRef<HTMLDivElement>(null);
 
   useScrollLock(isOpen);
@@ -36,7 +40,7 @@ export function TermsModal({ isOpen, onClose }: TermsModalProps) {
         {/* Header (sticky) */}
         <div className="flex justify-between items-center p-5 border-b border-white/10 shrink-0">
           <h1 className="text-xl text-white font-bold" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
-            Умови використання
+            {t('title')}
           </h1>
           <button 
             onClick={onClose}
@@ -53,43 +57,42 @@ export function TermsModal({ isOpen, onClose }: TermsModalProps) {
           className="p-5 overflow-y-auto text-slate-300 space-y-6 text-sm flex-1 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
         >
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">1. Загальні положення</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section1Title')}</h2>
             <p>
-              Ці Умови використання регулюють доступ до та використання сервісу AutoRoam. 
-              Використовуючи наш сервіс, ви погоджуєтеся з цими умовами.
+              {t('section1Body')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">2. Відмова від відповідальності (Disclaimer)</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section2Title')}</h2>
             <p>
-              Сервіс AutoRoam надається &quot;як є&quot;. Маршрути, час у дорозі, ціни на пальне, наявність віньєток та інші дані є орієнтовними і генеруються на основі відкритих джерел (OSRM, Open-Meteo тощо). 
+              {t('section2Body')}
             </p>
-            <p>Автор не несе відповідальності за:</p>
+            <p>{t('section2ListTitle')}</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Реальні затори, ремонти доріг або закриті кордони;</li>
-              <li>Точність розрахунку витрат на пальне;</li>
-              <li>Будь-які збитки або незручності, що виникли під час поїздки за запропонованим маршрутом.</li>
+              <li>{t('section2ListItem1')}</li>
+              <li>{t('section2ListItem2')}</li>
+              <li>{t('section2ListItem3')}</li>
             </ul>
-            <p>Завжди звіряйтеся з офіційними джерелами та ПДР відповідних країн перед початком подорожі.</p>
+            <p>{t('section2Footer')}</p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">3. Партнерські посилання (Affiliate Links)</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section3Title')}</h2>
             <p>
-              Наш сервіс підтримується користувачами та є безкоштовним. Однак, на сайті можуть бути розміщені партнерські посилання (наприклад, бронювання готелів або купівля страхування). Якщо ви здійснюєте покупку через такі посилання, ми можемо отримати невелику комісію без жодних додаткових витрат для вас. Це допомагає нам підтримувати роботу серверів та розвивати проект.
+              {t('section3Body')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-white">4. Зміни умов</h2>
+            <h2 className="text-lg font-semibold text-white">{t('section4Title')}</h2>
             <p>
-              Ми залишаємо за собою право змінювати ці Умови в будь-який час. Продовжуючи користуватися сервісом після внесення змін, ви погоджуєтеся з новими Умовами.
+              {t('section4Body')}
             </p>
           </section>
 
           <div className="pt-4 text-xs text-white/50 pb-2">
-            Останнє оновлення: {new Date().toLocaleDateString('uk-UA')}
+            {tPrivacy('lastUpdated')} {new Date().toLocaleDateString(locale === 'en' ? 'en-US' : 'uk-UA')}
           </div>
         </div>
       </div>

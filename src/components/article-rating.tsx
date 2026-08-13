@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function ArticleRating({ articleId }: { articleId: string }) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const t = useTranslations('ArticleRating');
 
   const handleRating = async (ratingIndex: number) => {
     if (selectedRating !== null) return; // Prevent multiple ratings
@@ -31,11 +33,11 @@ export function ArticleRating({ articleId }: { articleId: string }) {
   };
 
   const reactions = [
-    { icon: "sentiment_dissatisfied", label: "Скучно", color: "text-slate-400", hoverColor: "group-hover:text-slate-400", activeColor: "bg-slate-500/20 shadow-slate-500/50 text-slate-300" },
-    { icon: "sentiment_neutral", label: "Нормально", color: "text-amber-400", hoverColor: "group-hover:text-amber-400", activeColor: "bg-amber-500/20 shadow-amber-500/50 text-amber-300" },
-    { icon: "local_fire_department", label: "Вогонь!", color: "text-orange-500", hoverColor: "group-hover:text-orange-500", activeColor: "bg-orange-500/20 shadow-orange-500/50 text-orange-400" },
-    { icon: "favorite", label: "В саме серце", color: "text-pink-500", hoverColor: "group-hover:text-pink-500", activeColor: "bg-pink-500/20 shadow-pink-500/50 text-pink-400" },
-    { icon: "rocket_launch", label: "Вже пакую валізи!", color: "text-blue-400", hoverColor: "group-hover:text-blue-400", activeColor: "bg-blue-500/20 shadow-blue-500/50 text-blue-300" },
+    { icon: "sentiment_dissatisfied", label: t('boring'), color: "text-slate-400", hoverColor: "group-hover:text-slate-400", activeColor: "bg-slate-500/20 shadow-slate-500/50 text-slate-300" },
+    { icon: "sentiment_neutral", label: t('normal'), color: "text-amber-400", hoverColor: "group-hover:text-amber-400", activeColor: "bg-amber-500/20 shadow-amber-500/50 text-amber-300" },
+    { icon: "local_fire_department", label: t('fire'), color: "text-orange-500", hoverColor: "group-hover:text-orange-500", activeColor: "bg-orange-500/20 shadow-orange-500/50 text-orange-400" },
+    { icon: "favorite", label: t('love'), color: "text-pink-500", hoverColor: "group-hover:text-pink-500", activeColor: "bg-pink-500/20 shadow-pink-500/50 text-pink-400" },
+    { icon: "rocket_launch", label: t('packing'), color: "text-blue-400", hoverColor: "group-hover:text-blue-400", activeColor: "bg-blue-500/20 shadow-blue-500/50 text-blue-300" },
   ];
 
   return (
@@ -45,17 +47,16 @@ export function ArticleRating({ articleId }: { articleId: string }) {
       
       <div className="relative flex flex-col md:flex-row items-center justify-between gap-6 bg-black/60 backdrop-blur-2xl border border-white/10 p-6 md:p-8 rounded-[22px] shadow-2xl">
         <div className="flex flex-col items-center md:items-start gap-1">
-          <span className="text-white font-bold text-2xl text-center md:text-left drop-shadow-md">
-            Оцініть статтю
-          </span>
           {selectedRating !== null ? (
-            <span className="text-emerald-400 text-sm font-medium flex items-center gap-1">
-              <span className="material-symbols-outlined text-[16px]">check_circle</span>
-              Дякуємо за ваш відгук!
-            </span>
+            <h3 className="text-emerald-400 font-bold text-lg mb-1 animate-fade-in-up">
+              {t('thanksFeedback')}
+            </h3>
           ) : (
-            <span className="text-white/50 text-sm font-medium">Ваша думка важлива для нас</span>
+            <h3 className="text-white font-bold text-lg mb-1">
+              {t('rateArticle')}
+            </h3>
           )}
+          <span className="text-white/50 text-sm font-medium">{t('opinionMatters')}</span>
         </div>
         
         <div className="flex items-center gap-2 sm:gap-3">

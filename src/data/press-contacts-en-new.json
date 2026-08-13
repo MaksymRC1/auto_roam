@@ -1,0 +1,282 @@
+[
+  {
+    "name": "The Next Web Editorial",
+    "email": "editorial@thenextweb.com",
+    "outlet": "The Next Web (TNW)",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "VentureBeat Tips",
+    "email": "tips@venturebeat.com",
+    "outlet": "VentureBeat",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Verge Tips",
+    "email": "tips@theverge.com",
+    "outlet": "The Verge",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Engadget Tips",
+    "email": "tips@engadget.com",
+    "outlet": "Engadget",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Gizmodo Tips",
+    "email": "tips@gizmodo.com",
+    "outlet": "Gizmodo",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Mashable Tips",
+    "email": "tips@mashable.com",
+    "outlet": "Mashable",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Fast Company Tips",
+    "email": "tips@fastcompany.com",
+    "outlet": "Fast Company",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Wired US Submissions",
+    "email": "submit@wired.com",
+    "outlet": "Wired US",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Forbes Tech Ideas",
+    "email": "ideas@forbes.com",
+    "outlet": "Forbes",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "GeekWire Tips",
+    "email": "tips@geekwire.com",
+    "outlet": "GeekWire",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "ZDNet News",
+    "email": "news@zdnet.com",
+    "outlet": "ZDNet",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "CNET News",
+    "email": "news@cnet.com",
+    "outlet": "CNET",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Digital Trends News",
+    "email": "news@digitaltrends.com",
+    "outlet": "Digital Trends",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Ars Technica Tips",
+    "email": "tips@arstechnica.com",
+    "outlet": "Ars Technica",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TechRadar News",
+    "email": "news@techradar.com",
+    "outlet": "TechRadar",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "MakeUseOf Tips",
+    "email": "tips@makeuseof.com",
+    "outlet": "MakeUseOf",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Lifehacker Tips",
+    "email": "tips@lifehacker.com",
+    "outlet": "Lifehacker",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tech in Asia News",
+    "email": "news@techinasia.com",
+    "outlet": "Tech in Asia",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "e27 Writers",
+    "email": "writers@e27.co",
+    "outlet": "e27",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Lonely Planet Editorial",
+    "email": "editorial@lonelyplanet.com",
+    "outlet": "Lonely Planet",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Travel + Leisure Tips",
+    "email": "tips@travelandleisure.com",
+    "outlet": "Travel + Leisure",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Condé Nast Traveler",
+    "email": "tips@cntraveler.com",
+    "outlet": "Condé Nast Traveler",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Matador Network Editorial",
+    "email": "editorial@matadornetwork.com",
+    "outlet": "Matador Network",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Points Guy Tips",
+    "email": "tips@thepointsguy.com",
+    "outlet": "The Points Guy",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TravelPulse News",
+    "email": "news@travelpulse.com",
+    "outlet": "TravelPulse",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Skift Info",
+    "email": "info@skift.com",
+    "outlet": "Skift (Info)",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Web in Travel News",
+    "email": "news@webintravel.com",
+    "outlet": "Web in Travel",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Top Gear Editor",
+    "email": "editor@topgear.com",
+    "outlet": "Top Gear",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Autocar",
+    "email": "autocar@haymarket.com",
+    "outlet": "Autocar",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Motor Trend",
+    "email": "motor.trend@motortrend.com",
+    "outlet": "Motor Trend",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Car and Driver Editors",
+    "email": "editors@caranddriver.com",
+    "outlet": "Car and Driver",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Business Insider US Tips",
+    "email": "tips@businessinsider.com",
+    "outlet": "Business Insider",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Nomadic Matt",
+    "email": "matt@nomadicmatt.com",
+    "outlet": "Nomadic Matt",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Expert Vagabond",
+    "email": "matt@expertvagabond.com",
+    "outlet": "Expert Vagabond",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Blonde Abroad",
+    "email": "kiersten@theblondeabroad.com",
+    "outlet": "The Blonde Abroad",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "StartupBeat",
+    "email": "pitch@startupbeat.com",
+    "outlet": "StartupBeat",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tech.co",
+    "email": "contact@tech.co",
+    "outlet": "Tech.co",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Republic",
+    "email": "news@siliconrepublic.com",
+    "outlet": "Silicon Republic",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Smashing Magazine",
+    "email": "hello@smashingmagazine.com",
+    "outlet": "Smashing Magazine",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TechRepublic",
+    "email": "news@techrepublic.com",
+    "outlet": "TechRepublic",
+    "active": true,
+    "templateType": "english"
+  }
+]

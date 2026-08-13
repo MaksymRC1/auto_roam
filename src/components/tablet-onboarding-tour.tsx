@@ -10,29 +10,32 @@ interface TourStep {
   targetId: string;
 }
 
-const steps: TourStep[] = [
-  {
-    title: "Параметри маршруту",
-    description: "Налаштовуйте початкову та кінцеву точку подорожі, додавайте проміжні зупинки та змінюйте порядок для оптимального проїзду.",
-    targetId: "desktop-tour-search"
-  },
-  {
-    title: "Смарт-панелі",
-    description: "Розгортайте панелі, щоб налаштувати параметри автомобіля, перевірити вартість пального, віньєток та страхування.",
-    targetId: "desktop-tour-panels"
-  },
-  {
-    title: "Карта і таймлайн",
-    description: "Переглядайте побудований маршрут на карті та слідкуйте за розкладом поїздки. Натискайте 'Режим водіння' для навігації.",
-    targetId: "desktop-tour-map"
-  }
-];
+import { useTranslations } from "next-intl";
 
 export function TabletOnboardingTour() {
+  const t = useTranslations('Onboarding');
   const { isCalculated, hasSeenTabletOnboarding, setHasSeenTabletOnboarding } = useTripStore();
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+
+  const steps: TourStep[] = [
+    {
+      title: t('routeParamsTitle'),
+      description: t('routeParamsDesc'),
+      targetId: "desktop-tour-search"
+    },
+    {
+      title: t('smartPanelsTitle'),
+      description: t('smartPanelsDesc'),
+      targetId: "desktop-tour-panels"
+    },
+    {
+      title: t('mapTimelineTitle'),
+      description: t('mapTimelineDesc'),
+      targetId: "desktop-tour-map"
+    }
+  ];
   
   useEffect(() => {
     // Determine if it's a tablet/desktop screen (>768px)
@@ -200,7 +203,7 @@ export function TabletOnboardingTour() {
               onClick={finishTour}
               className="text-white/40 hover:text-white/80 text-xs font-medium transition-colors"
             >
-              Пропустити
+              {t('skip')}
             </button>
             <div className="flex items-center gap-2">
               <div className="text-white/40 text-[10px] font-medium tracking-widest mr-2">
@@ -217,7 +220,7 @@ export function TabletOnboardingTour() {
                 onClick={handleNext}
                 className="px-4 h-8 rounded-full bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs shadow-lg transition-transform active:scale-[0.98] focus:outline-none flex items-center justify-center"
               >
-                {currentStep === steps.length - 1 ? "Готово" : "Далі"}
+                {currentStep === steps.length - 1 ? t('done') : t('next')}
               </button>
             </div>
           </div>

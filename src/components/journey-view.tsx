@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from 'next-intl';
 import { useTripStore, getHotelPrice, isHotelActive, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
@@ -9,15 +10,30 @@ import { VIGNETTE_DB } from "@/lib/borders";
 import { RatingModal } from "@/components/rating-modal";
 import { JourneyOnboardingTour } from './journey-onboarding-tour';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import Link from "next/link";
-
-const formatTime = (mins: number) => {
-  const h = Math.floor(mins / 60);
-  const m = mins % 60;
-  return `${h} год ${m > 0 ? m + ' хв' : ''}`;
-};
+import { Link } from "@/i18n/routing";
 
 export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }) {
+  const t = useTranslations('JourneyView');
+  const tTP = useTranslations('TripPlanner');
+  
+  const getTranslatedName = (name: string) => {
+    if (!name) return name;
+    if (name.startsWith("Ночівля: ")) {
+      return name.replace("Ночівля:", t('overnightStay') + ":");
+    }
+    if (name === "Зупинка") {
+      return t('stop');
+    }
+    return name;
+  };
+  
+  const formatTime = (minutes: number) => {
+    const h = Math.floor(minutes / 60);
+    const m = Math.floor(minutes % 60);
+    if (h === 0) return `${m} ${tTP('minutesShort')}`;
+    return `${h} ${tTP('hoursShort')} ${m > 0 ? m + ' ' + tTP('minutesShort') : ''}`;
+  };
+
   const [mounted, setMounted] = useState(false);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
@@ -100,7 +116,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           Auto<span className="text-blue-500">Roam</span>
         </h2>
         <p className="mt-2 text-white/50 text-sm animate-pulse">
-          Завантажуємо маршрут...
+          {t('loadingRoute')}
         </p>
       </div>
     );
@@ -145,11 +161,11 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
       <div className="fixed bottom-6 md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-8 z-50 print:hidden flex flex-row md:flex-col gap-3 md:gap-3 md:bg-transparent px-4 py-3 md:p-0 border border-white/10 md:border-none rounded-full md:rounded-none shadow-2xl md:shadow-none backdrop-blur-xl md:backdrop-blur-none bg-black/60 md:bg-transparent">
         {/* Повернутися на сайт */}
         <div className="relative group flex items-center">
-          <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title="Повернутися на сайт">
+          <Link href="/" className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg" title={t('backToSite')}>
             <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>route</span>
           </Link>
           <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
-            Повернутися на головну
+            {t('backToSite')}
           </span>
         </div>
 
@@ -159,12 +175,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
             id="journey-tour-share"
             onClick={handleShareClick}
             className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg cursor-pointer"
-            title="Поділитися"
+            title={t('share')}
           >
             <Share2 className="w-5 h-5 text-white/90" />
           </button>
           <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
-            Поділитися
+            {t('share')}
           </span>
         </div>
 
@@ -174,12 +190,12 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
             id="journey-tour-support"
             onClick={() => setIsRatingOpen(true)}
             className="w-12 h-12 rounded-full bg-white/10 md:bg-black/40 backdrop-blur-md border border-white/5 md:border-transparent hover:border-white/20 focus-visible:border-white/20 outline-none flex items-center justify-center text-white hover:bg-white/20 transition-all md:shadow-lg group focus:outline-none" 
-            title="Підтримати проект"
+            title={t('supportProject')}
           >
             <Heart className="w-6 h-6 text-white/90 transform-gpu will-change-transform transition-colors duration-300 fill-transparent group-hover:fill-white group-focus:fill-white" />
           </button>
           <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-0 md:left-full md:top-1/2 md:-translate-y-1/2 md:-translate-x-0 md:bottom-auto md:ml-4 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 bg-slate-900 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-white/90 shadow-xl whitespace-nowrap pointer-events-none z-50">
-            Підтримати проект
+            {t('supportProject')}
           </span>
         </div>
       </div>
@@ -188,9 +204,9 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
       <Dialog open={shareOpen} onOpenChange={setShareOpen}>
         <DialogContent className="border-white/10 text-white sm:max-w-md" style={{ background: "rgba(0, 0, 0, 0.45)", backdropFilter: "blur(16px)" }}>
           <DialogHeader>
-            <DialogTitle className="text-xl">Зберегти та поділитися</DialogTitle>
+            <DialogTitle className="text-xl">{t('saveAndShare')}</DialogTitle>
             <DialogDescription className="text-white/60">
-              Поділіться цим посиланням з друзями, щоб вони могли переглянути вашу поїздку.
+              {t('shareDescription')}
             </DialogDescription>
           </DialogHeader>
           <div className="flex items-center space-x-2 mt-4">
@@ -210,16 +226,16 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
           </div>
           
           <div className="mt-6 flex justify-center gap-4">
-            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\nПодивіться мій маршрут на AutoRoam!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(t('checkMyRouteTelegram'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <Send className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>
-            <a href={`viber://forward?text=${encodeURIComponent('Подивіться мій маршрут на AutoRoam! ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`viber://forward?text=${encodeURIComponent(t('checkMyRouteViber') + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <MessageCircle className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
             </a>
             <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#1877f2] hover:border-[#1877f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#1877f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
               <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">f</span>
             </a>
-            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('Мій маршрут!')}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(t('myRouteTwitter'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
               <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">𝕏</span>
             </a>
           </div>
@@ -234,7 +250,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
         {/* Header */}
         <div className="flex flex-col xl:flex-row items-start xl:items-center xl:flex-wrap justify-between mb-8 md:mb-12 gap-6 border-b border-white/10 pb-6 md:pb-8">
           <div className="w-full xl:w-auto overflow-hidden xl:overflow-visible shrink-0">
-            <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 xl:mb-0 whitespace-nowrap overflow-hidden text-ellipsis xl:whitespace-normal xl:overflow-visible xl:text-clip">Деталі маршруту</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 xl:mb-0 whitespace-nowrap overflow-hidden text-ellipsis xl:whitespace-normal xl:overflow-visible xl:text-clip">{t('routeDetails')}</h1>
           </div>
           
           <div className="w-full xl:w-auto xl:flex-shrink-0">
@@ -244,8 +260,8 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   <Navigation2 className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Відстань</span>
-                  <span className="font-bold text-white leading-tight text-sm md:text-base">{totalDistance} км</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">{t('distance')}</span>
+                  <span className="font-bold text-white leading-tight text-sm md:text-base">{totalDistance} {t('kmShort')}</span>
                 </div>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
@@ -253,7 +269,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   <Clock className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Час у дорозі</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">{t('travelTime')}</span>
                   <span className="font-bold text-white leading-tight text-sm md:text-base">{formatTime(totalDuration)}</span>
                 </div>
               </div>
@@ -262,8 +278,8 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   <Fuel className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Паливо</span>
-                  <span className="font-bold text-white leading-tight text-sm md:text-base">~{totalFuelLiters.toFixed(0)} л</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">{t('fuel')}</span>
+                  <span className="font-bold text-white leading-tight text-sm md:text-base">~{totalFuelLiters.toFixed(0)} {t('litersShort')}</span>
                 </div>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 bg-white/5 p-2.5 md:px-4 md:py-2.5 rounded-xl border border-white/10">
@@ -271,7 +287,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   <Wallet className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col items-center md:items-start">
-                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">Кошторис</span>
+                  <span className="hidden md:block text-[10px] md:text-xs uppercase font-bold text-white/50 tracking-wider">{t('budget')}</span>
                   <span className="font-bold text-white leading-tight text-sm md:text-base">{formatCost(totalEur)}</span>
                 </div>
               </div>
@@ -296,7 +312,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                 : wp.name;
               
               const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destName || '')}&travelmode=driving`;
-              const wazeUrl = wp.lat && wp.lon ? `https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes` : `https://waze.com/ul?q=${encodeURIComponent(wp.name)}&navigate=yes`;
+              const wazeUrl = wp.lat && wp.lon ? `https://waze.com/ul?ll=${wp.lat},${wp.lon}&navigate=yes` : `https://waze.com/ul?q=${encodeURIComponent(getTranslatedName(wp.name))}&navigate=yes`;
 
               return (
                 <div key={wp.id} className="relative flex items-start gap-5 md:gap-8 group print:break-inside-avoid">
@@ -333,7 +349,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                   }`}>
                     <div className="flex flex-col text-left md:pr-16">
                       <span className={`text-xl ${isStart || isFinish ? 'font-bold text-white print:text-black' : 'font-semibold text-white/90 print:text-black'} ${isCompleted || isHotelSkipped ? 'text-white/50 print:text-slate-500 line-through decoration-white/30' : ''}`}>
-                        {wp.name}
+                        {getTranslatedName(wp.name)}
                       </span>
                       <div className="mt-4 mb-2 flex flex-row items-center gap-2 md:gap-3 w-full">
                         <a 
@@ -371,7 +387,7 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
                       {!isStart && (
                         <span className="text-sm md:text-base text-white/60 print:text-slate-600 mt-2 flex items-center gap-1.5">
                           <Navigation2 className="w-4 h-4" /> 
-                          {wp.distanceFromStart} км від старту • {formatTime(wp.timeFromStart)}
+                          {wp.distanceFromStart} {t('kmFromStart')} {formatTime(wp.timeFromStart)}
                         </span>
                       )}
                     </div>

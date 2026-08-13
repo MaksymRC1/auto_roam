@@ -31,7 +31,7 @@ const CONFIG = {
   },
   senderName: process.env.SMTP_SENDER_NAME || 'Максим Отрошко (AutoRoam)',
   senderEmail: process.env.SMTP_USER || 'maksymotroshko@ukr.net',
-  contactsPath: path.join(process.cwd(), 'src/data/press-contacts.json'),
+  contactsPath: process.env.TEST_CONTACTS_PATH || path.join(process.cwd(), 'src/data/press-contacts.json'),
   attachmentPath: path.join(process.cwd(), 'public/press-release.pdf'),
   delayBetweenEmailsMs: 4000, // 4 секунди
 };

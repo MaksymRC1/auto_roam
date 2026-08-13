@@ -2,6 +2,7 @@
 
 import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const t = useTranslations('Modals.Contact');
   useScrollLock(isOpen);
 
   if (!isOpen) return null;
@@ -35,10 +37,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-xl text-white mb-1.5 font-bold" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
-              Звʼязатися з нами
+              {t('title')}
             </h1>
             <p className="text-xs text-white/80 font-normal">
-              Оберіть зручний для вас спосіб звʼязку.
+              {t('desc')}
             </p>
           </div>
           <button 

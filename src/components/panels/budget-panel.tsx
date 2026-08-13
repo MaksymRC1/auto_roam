@@ -5,6 +5,7 @@ import { ShieldAlert, AlertTriangle, Fuel, Bed, Flag, ShieldCheck } from "lucide
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VIGNETTE_DB, DISTANCE_TOLL_RATES } from "@/lib/borders";
 import { getCurrencySymbol, EMERGENCY_RESERVE_RATIO } from "@/lib/constants";
+import { useTranslations } from 'next-intl';
 
 export function BudgetPanel() {
   const { 
@@ -25,6 +26,7 @@ export function BudgetPanel() {
     includeReserve,
     toggleReserve
   } = useTripStore();
+  const t = useTranslations('Budget');
 
   // 1. Fuel Cost (Dynamic)
   let totalFuelCostEur = 0;
@@ -126,14 +128,14 @@ export function BudgetPanel() {
                 <Fuel className="w-4 h-4" />
               </div>
               <div className="min-w-0 flex-1 pr-2">
-                <p className="font-semibold text-white/90">Паливо</p>
+                <p className="font-semibold text-white/90">{t('fuel')}</p>
                 {totalFuelLiters === 0 ? (
                   <p className="text-xs text-amber-500 mt-0.5 flex items-center gap-1 font-medium">
                     <AlertTriangle className="w-3 h-3" />
-                    Необхідно розподілити паливо
+                    {t('needDistributeFuel')}
                   </p>
                 ) : (
-                  <p className="text-xs text-white/50">~{totalFuelLiters.toFixed(0)} л за поточним розподілом</p>
+                  <p className="text-xs text-white/50">~{totalFuelLiters.toFixed(0)} {t('litersCurrentDistribution')}</p>
                 )}
               </div>
             </div>
@@ -146,10 +148,10 @@ export function BudgetPanel() {
                 <Bed className="w-4 h-4" />
               </div>
               <div className="min-w-0 flex-1 pr-2">
-                <p className="font-semibold text-white/90">Ночівля</p>
+                <p className="font-semibold text-white/90">{t('overnight')}</p>
                 <p className="text-xs text-white/50">{stopsCount} {
-                  stopsCount % 10 === 1 && stopsCount % 100 !== 11 ? 'зупинка' :
-                  stopsCount % 10 >= 2 && stopsCount % 10 <= 4 && (stopsCount % 100 < 10 || stopsCount % 100 >= 20) ? 'зупинки' : 'зупинок'
+                  stopsCount % 10 === 1 && stopsCount % 100 !== 11 ? t('stop') :
+                  stopsCount % 10 >= 2 && stopsCount % 10 <= 4 && (stopsCount % 100 < 10 || stopsCount % 100 >= 20) ? t('stops') : t('stopsPlural')
                 }</p>
               </div>
             </div>
@@ -162,8 +164,8 @@ export function BudgetPanel() {
                 <Flag className="w-4 h-4" />
               </div>
               <div className="min-w-0 flex-1 pr-2">
-                <p className="font-semibold text-white/90">Віньєтки та збори</p>
-                <p className="text-xs text-white/50">Оплата платних доріг та магістралей</p>
+                <p className="font-semibold text-white/90">{t('vignettesAndTolls')}</p>
+                <p className="text-xs text-white/50">{t('tollRoadsPayment')}</p>
               </div>
             </div>
             <span className="font-bold text-white/90 shrink-0 whitespace-nowrap">{formatCost(vignetteCostEur + tollBoothCostEur)}</span>
@@ -175,8 +177,8 @@ export function BudgetPanel() {
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <div className="min-w-0 flex-1 pr-2">
-                <p className="font-semibold text-white/90">Страхування</p>
-                <p className="text-xs text-white/50">Сума у {currency}</p>
+                <p className="font-semibold text-white/90">{t('insurance')}</p>
+                <p className="text-xs text-white/50">{t('amountInCurrency')} {currency}</p>
               </div>
             </div>
             <div className="flex items-center">
@@ -199,8 +201,8 @@ export function BudgetPanel() {
                 <ShieldAlert className="w-4 h-4" />
               </div>
               <div className="flex-1">
-                <p className={`font-semibold ${includeReserve ? 'text-white/90' : 'text-white/60'}`}>Резерв на непередбачувані витрати</p>
-                <p className={`text-xs mt-0.5 ${includeReserve ? 'text-white/70' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}% від загальної суми</p>
+                <p className={`font-semibold ${includeReserve ? 'text-white/90' : 'text-white/60'}`}>{t('emergencyReserve')}</p>
+                <p className={`text-xs mt-0.5 ${includeReserve ? 'text-white/70' : 'text-white/40'}`}>+{Math.round(EMERGENCY_RESERVE_RATIO * 100)}{t('reservePercentage')}</p>
               </div>
             </div>
             <div className="flex items-center justify-between sm:justify-end gap-4 pl-11">
@@ -217,7 +219,7 @@ export function BudgetPanel() {
           <p className="text-5xl font-bold tracking-tight text-center">{formatCost(totalEur)}</p>
         </div>
         <p className="text-center text-xs text-white/40 mt-3 px-4">
-          * Загальна сума є орієнтовною та може відрізнятися від фактичних витрат
+          {t('disclaimer')}
         </p>
       </div>
     </div>

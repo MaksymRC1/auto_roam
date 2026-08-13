@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useTripStore } from "@/store/useTripStore";
 import { ChevronLeft, X } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 interface TourStep {
   title: string;
   description: string;
@@ -12,27 +14,28 @@ interface TourStep {
 
 export function DesktopOnboardingTour() {
   const { hasSeenDesktopOnboarding, setHasSeenDesktopOnboarding, isCalculated } = useTripStore();
+  const t = useTranslations('Onboarding');
   
   const steps: TourStep[] = isCalculated ? [
     {
-      title: "Параметри маршруту",
-      description: "Налаштовуйте початкову та кінцеву точку подорожі, додавайте проміжні зупинки та змінюйте порядок для оптимального проїзду.",
+      title: t('routeParamsTitle'),
+      description: t('routeParamsDesc'),
       targetId: "desktop-tour-search"
     },
     {
-      title: "Смарт-панелі",
-      description: "Розгортайте панелі, щоб налаштувати параметри автомобіля, перевірити вартість пального, віньєток та страхування.",
+      title: t('smartPanelsTitle'),
+      description: t('smartPanelsDesc'),
       targetId: "desktop-tour-panels"
     },
     {
-      title: "Карта і таймлайн",
-      description: "Переглядайте побудований маршрут на карті та слідкуйте за розкладом поїздки. Натискайте 'Зберегти маршрут' щоб не втратити його.",
+      title: t('mapTimelineTitle'),
+      description: t('mapTimelineDesc'),
       targetId: "desktop-tour-map"
     }
   ] : [
     {
-      title: "Побудова маршруту",
-      description: "Введіть початкову та кінцеву точки подорожі, щоб почати. Ми автоматично розрахуємо оптимальний шлях, вартість пального та інші витрати.",
+      title: t('routeBuildingTitle'),
+      description: t('routeBuildingDesc'),
       targetId: "desktop-tour-initial-search"
     }
   ];
@@ -209,7 +212,7 @@ export function DesktopOnboardingTour() {
               onClick={handleClose}
               className="text-white/40 hover:text-white/80 text-xs font-medium transition-colors"
             >
-              Пропустити
+              {t('skip')}
             </button>
             <div className="flex items-center gap-2">
               <div className="text-white/40 text-[10px] font-medium tracking-widest mr-2">
@@ -222,11 +225,11 @@ export function DesktopOnboardingTour() {
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <button 
+              <button
                 onClick={handleNext}
                 className="px-4 h-8 rounded-full bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs shadow-lg transition-transform active:scale-[0.98] focus:outline-none flex items-center justify-center"
               >
-                {currentStep === steps.length - 1 ? "Готово" : "Далі"}
+                {currentStep === steps.length - 1 ? t('done') : t('next')}
               </button>
             </div>
           </div>

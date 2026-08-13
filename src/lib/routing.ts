@@ -72,7 +72,7 @@ export interface RouteResult {
 
 // 1. Geocoding using Google Maps API
 export async function geocodeCity(city: string): Promise<GeocodeResult | null> {
-  let query = city.trim();
+  const query = city.trim();
 
   // If map picker was used: "Name | lat,lon"
   if (query.includes('|')) {

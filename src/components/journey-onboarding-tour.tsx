@@ -66,14 +66,35 @@ export function JourneyOnboardingTour() {
     }
   }, [isCalculated, hasSeenJourneyOnboarding]);
 
+
+
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(s => s + 1);
+    } else {
+      finishTour();
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(s => s - 1);
+    }
+  };
+
+  const finishTour = () => {
+    setIsActive(false);
+    setHasSeenJourneyOnboarding(true);
+  };
+
   useEffect(() => {
     if (!isActive) return;
     
     const updatePosition = () => {
       // Find the first valid step that exists in the DOM. 
       // Useful if e.g. there is no waypoint index 1.
-      let targetId = steps[currentStep].targetId;
-      let element = document.getElementById(targetId);
+      const targetId = steps[currentStep].targetId;
+      const element = document.getElementById(targetId);
       
       // Fallback: If waypoint is missing, skip to next step
       if (!element && currentStep === 0) {
@@ -114,25 +135,6 @@ export function JourneyOnboardingTour() {
   }, [isActive, currentStep]);
 
   if (!isActive) return null;
-
-  const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(s => s + 1);
-    } else {
-      finishTour();
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentStep > 0) {
-      setCurrentStep(s => s - 1);
-    }
-  };
-
-  const finishTour = () => {
-    setIsActive(false);
-    setHasSeenJourneyOnboarding(true);
-  };
 
   const step = steps[currentStep];
   

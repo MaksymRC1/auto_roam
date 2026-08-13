@@ -1,0 +1,45 @@
+name: Autonomous AI PR Outreach
+
+on:
+  schedule:
+    # Запуск щодня о 03:00 ночі (UTC)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Дозволяє запускати вручну з інтерфейсу GitHub
+
+permissions:
+  contents: write # Необхідно для git commit / push
+
+jobs:
+  run-ai-agent:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install Dependencies
+        run: npm install nodemailer dotenv
+        
+      - name: Run Autonomous PR Agent
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_SENDER_NAME: ${{ secrets.SMTP_SENDER_NAME }}
+        run: npx tsx scripts/autonomous-pr.ts
+
+      - name: Commit Updated History
+        run: |
+          git config --global user.name "AutoRoam AI Agent"
+          git config --global user.email "actions@github.com"
+          git add src/data/pr-contacted-history.json
+          # Якщо файл змінився, комітимо його
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(pr): update contacted history" && git push)

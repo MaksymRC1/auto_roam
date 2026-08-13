@@ -1,0 +1,36 @@
+
+import * as path from 'path';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
+
+type TemplateType = 'english';
+
+interface PressContact {
+  name: string;
+  email: string;
+  outlet: string;
+  templateType?: TemplateType;
+  note?: string;
+  active: boolean;
+}
+
+const CONFIG = {
+  smtp: {
+    host: process.env.SMTP_HOST || 'smtp.ukr.net',
+    port: parseInt(process.env.SMTP_PORT || '465', 10),
+    secure: process.env.SMTP_SECURE === 'true' || true,
+    auth: {
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASS || '',
+    },
+  },
+  senderName: process.env.SMTP_SENDER_NAME || 'Maksym Otroshko',
+  senderEmail: process.env.SMTP_USER || 'maksymotroshko@ukr.net',
+  contactsPath: process.env.TEST_CONTACTS_PATH || path.join(process.cwd(), 'src/data/press-contacts-en.json'),
+  attachmentPath: path.join(process.cwd(), 'public/press-release-en.pdf'), // optional
+  delayBetweenEmailsMs: 4000,
+};
+
+const getEnglishTemplate = (contact: PressContact) => {
+  const subject = `New Tool: AutoRoam – Eliminating the headache of European toll roads & vignettes

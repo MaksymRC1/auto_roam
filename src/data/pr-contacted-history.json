@@ -1,0 +1,1823 @@
+[
+  {
+    "name": "Максиме",
+    "email": "maksymotroshko@ukr.net",
+    "outlet": "DOU / AIN / Speka (Тест TECH)",
+    "templateType": "tech",
+    "note": "Знаю, що ваша аудиторія цінує круті кейси українського бутстрепінгу та інді-розробки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@ain.ua",
+    "outlet": "AIN.UA",
+    "templateType": "tech",
+    "note": "Ділюся з вами кейсом створення сучасного українського авто-асистента на Next.js 16",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@dou.ua",
+    "outlet": "DOU.ua",
+    "templateType": "tech",
+    "note": "Знаю, що ваша спільнота цінує якісні інженерні кейси українського бутстрепінгу та інді-розробки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "contact@speka.media",
+    "outlet": "SPEKA.media",
+    "templateType": "tech",
+    "note": "Новий український ШІ-проєкт для планування автоподорожей за трендами інді-хакінг",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@dev.ua",
+    "outlet": "dev.ua",
+    "templateType": "tech",
+    "note": "Кейс українського розробника: як соло-фаундер створив конкурента корпоративним навігаторам",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "mezha.cdt@gmail.com",
+    "outlet": "Mezha.Media",
+    "templateType": "tech",
+    "note": "Проєкт українського розробника з фокусом на UX, швидкість та сучасні веб-технології",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@highload.today",
+    "outlet": "Highload.today",
+    "templateType": "tech",
+    "note": "Технічний кейс створення архітектури з Next.js 16, React 19 та Vercel Postgres",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@root-nation.com",
+    "outlet": "Root Nation",
+    "templateType": "tech",
+    "note": "Український технологічний стартап у сфері автоподорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@itc.ua",
+    "outlet": "ITC.ua",
+    "templateType": "tech",
+    "note": "Новий безкоштовний український PWA-застосунок для водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mc.today",
+    "outlet": "MC.today",
+    "templateType": "business",
+    "note": "Історія про те, як український підприємець створив зручний інструмент, що замінює 10 вкладок при плануванні поїздки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@forbes.ua",
+    "outlet": "Forbes Україна",
+    "templateType": "business",
+    "note": "Новий український інструмент для автоматизації дальніх поїздок Європою та Україною",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@vctr.media",
+    "outlet": "Vector Media",
+    "templateType": "business",
+    "note": "Продукт українського фаундера, який розв'язує реальну проблему водіїв і мандрівників",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "tech@liga.net",
+    "outlet": "LIGA.Tech",
+    "templateType": "business",
+    "note": "Український веб-сервіс, який допомагає розраховувати бюджет на пальне та ночівлі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "epravda@pravda.ua",
+    "outlet": "Економічна правда",
+    "templateType": "business",
+    "note": "Як новий український сервіс автоматизує розрахунок пального та віньєток за кордоном",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@thepage.ua",
+    "outlet": "The Page Україна",
+    "templateType": "business",
+    "note": "Інноваційний український помічник для автоподорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@shotam.info",
+    "outlet": "ШоТам",
+    "templateType": "business",
+    "note": "Позитивна новина: український розробник безкоштовно запустив корисний сервіс для водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@24tv.ua",
+    "outlet": "24 Канал",
+    "templateType": "business",
+    "note": "Українці створили розумний додаток для планування дальніх автопоїздок",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@nashkiev.ua",
+    "outlet": "Наш Київ",
+    "templateType": "business",
+    "note": "Корисний український сервіс для тих, хто планує подорож на автомобілі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "focus@focus.ua",
+    "outlet": "Фокус",
+    "templateType": "business",
+    "note": "Новий український авто-асистент, який економить час та кошти водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autocentre.ua",
+    "outlet": "Автоцентр (Autocentre.ua)",
+    "templateType": "auto",
+    "note": "Ваші читачі знають все про автомобілі, тому цей безкоштовний калькулятор пального та ночівель стане для них знахідкою",
+    "active": false
+  },
+  {
+    "name": "Василю",
+    "email": "vshpyra@ads.in.ua",
+    "outlet": "MMR.net.ua (Motor Media Review)",
+    "templateType": "auto",
+    "note": "Корисний український інструмент для розрахунку витрат на пальне та віньєтки у далеких поїздках",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autoconsulting.ua",
+    "outlet": "AutoConsulting",
+    "templateType": "auto",
+    "note": "Новий український авто-асистент для планування маршрутів без штрафів і перевтоми",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editorial@auto.ria.com",
+    "outlet": "AUTO.RIA Журнал",
+    "templateType": "auto",
+    "note": "Безкоштовний український PWA-помічник для водіїв, який замінює звичні навігатори у довгих поїздках",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "auto@rbc.ua",
+    "outlet": "РБК-Україна Авто",
+    "templateType": "auto",
+    "note": "Як автоматично порахувати ціну пального в різних країнах та знайти платні дороги",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "unian.headquoters@unian.net",
+    "outlet": "УНІАН Авто / Туризм",
+    "templateType": "auto",
+    "note": "Новий український додаток для тих, хто подорожує Європою та Україною на авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@obozrevatel.com",
+    "outlet": "OBOZ.UA Авто",
+    "templateType": "auto",
+    "note": "Розумний український сервіс, який підкаже де зупинитися на ніч і як купити віньєтку в 1 клік",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@tvoemisto.tv",
+    "outlet": "Твоє Місто",
+    "templateType": "auto",
+    "note": "Корисна розробка для українських водіїв та мандрівників",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@lowcostavia.com.ua",
+    "outlet": "Lowcost Avia",
+    "templateType": "auto",
+    "note": "Незамінний інструмент для тих, хто планує самостійні подорожі Європою на машині",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@autoportal.ua",
+    "outlet": "ТопЖир (TopGir.com.ua)",
+    "templateType": "auto",
+    "note": "Культовий український авто-портал та тисячі водіїв точно оцінять цей корисний додаток",
+    "active": false
+  },
+  {
+    "name": "Тарасе",
+    "email": "tk@hmarochos.kiev.ua",
+    "outlet": "Хмарочос (Hmarochos)",
+    "templateType": "auto",
+    "note": "Як новий український сервіс покращує міську мобільність та автоматизує автоподорожі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@telegraf.com.ua",
+    "outlet": "Телеграф (Telegraf.com.ua)",
+    "templateType": "auto",
+    "note": "Корисний український додаток для водіїв, що планують далекі поїздки та транзит",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@nv.ua",
+    "outlet": "NV.ua (New Voice Україна)",
+    "templateType": "tech",
+    "note": "Створено український PWA-додаток, який замінює 15 вкладок у браузері при плануванні подорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mind.ua",
+    "outlet": "Mind.ua",
+    "templateType": "business",
+    "note": "Як українська інноваційна розробка автоматизує підрахунок пального та віньєток у Європі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@delo.ua",
+    "outlet": "Delo.ua",
+    "templateType": "business",
+    "note": "Нове українське ІТ-рішення для автоматизації логістики та розрахунку дорожніх зборів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pr@inventure.ua",
+    "outlet": "InVenture",
+    "templateType": "business",
+    "note": "Перспективний український стартап у сфері TravelTech та транспортної автоматизації",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@marketer.ua",
+    "outlet": "Marketer.ua",
+    "templateType": "tech",
+    "note": "Кейс розробки та просування українського PWA-застосунку для автомобілістів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "korr-pressrelease@korrespondent.net",
+    "outlet": "Кореспондент.net",
+    "templateType": "tech",
+    "note": "Новий безкоштовний український сервіс для водіїв, який рахує витрати на пальне та віньєтки",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "office@ukrinform.com",
+    "outlet": "Укрінформ",
+    "templateType": "auto",
+    "note": "Корисний сервіс для українців за кордоном, який допомагає планувати перетин кордонів та транзит",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@hromadske.ua",
+    "outlet": "Громадське (Hromadske.ua)",
+    "templateType": "auto",
+    "note": "Український розробник створив безкоштовний додаток для зручних та безпечних поїздок Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "apostrophe@apostrophe.ua",
+    "outlet": "Апостроф",
+    "templateType": "auto",
+    "note": "Розумний український помічник для тих, хто подорожує на власному авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@autogeek.com.ua",
+    "outlet": "Autogeek",
+    "templateType": "auto",
+    "note": "ТОП №1 в Україні про еко-транспорт, електромобілі та смарт-технології в авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@cfts.org.ua",
+    "outlet": "ЦТС (Центр транспортних стратегій)",
+    "templateType": "business",
+    "note": "Головний транспортний та інфраструктурний портал України: цифровізація перевезень",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@ukrautoprom.com.ua",
+    "outlet": "УкрАвтопром",
+    "templateType": "auto",
+    "note": "Офіційна аналітика та новини авторинку України: новий корисний український додаток",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "contact@autoexpert.in.ua",
+    "outlet": "AutoExpert",
+    "templateType": "auto",
+    "note": "Профільний портал для автоекспертів, інженерів та професійних водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "support@electrocars.ua",
+    "outlet": "Electrocars",
+    "templateType": "auto",
+    "note": "Спільнота власників електромобілів в Україні: розрахунок платних доріг та віньєток Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "kontakt@yavp.pl",
+    "outlet": "Yavp.pl (Я в Польщі)",
+    "templateType": "auto",
+    "note": "Головний портал для українців у Польщі: сотні тисяч водіїв, що їздять трасами Польща–Україна",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@ukrainians.cz",
+    "outlet": "Ukrainians.cz",
+    "templateType": "auto",
+    "note": "Головний ресурс для українців у Чехії та транзитних мандрівників Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "telegraf.design@gmail.com",
+    "outlet": "Telegraf.Design",
+    "templateType": "tech",
+    "note": "Головне українське видання про UX/UI та продуктовий дизайн: кейс створення зручного PWA",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "marketing@playua.net",
+    "outlet": "PlayUA",
+    "templateType": "tech",
+    "note": "Культова українська гік- та інді-спільнота: підтримка нових українських софт-проектів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "press@ecoact.org.ua",
+    "outlet": "Екодія (Ecoaction)",
+    "templateType": "tech",
+    "note": "Висвітлення інновацій у сфері сталої міської мобільності та смарт-транспорту",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "adv@igotoworld.com",
+    "outlet": "IGotoWorld",
+    "templateType": "auto",
+    "note": "Великий профільний туристичний портал про подорожі, транзит та авто-маршрути",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@nachasi.com",
+    "outlet": "Na chasi",
+    "templateType": "tech",
+    "note": "Трендове медіа про нові українські стартапи, інновації, смарт-сервіси та цифрову економіку",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editors@gagadget.com",
+    "outlet": "Gagadget Україна",
+    "templateType": "tech",
+    "note": "Один із найпопулярніших в Україні порталів оглядів нових додатків, софту та гаджетів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@techtoday.in.ua",
+    "outlet": "TechToday",
+    "templateType": "tech",
+    "note": "Спеціалізоване технологічне та мобільне видання для ентузіастів інновацій",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@the-village.com.ua",
+    "outlet": "The Village Україна",
+    "templateType": "tech",
+    "note": "Як новий український PWA-додаток спрощує життя водіям та мандрівникам",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "team@bzh.life",
+    "outlet": "БЖ (BZH.life)",
+    "templateType": "auto",
+    "note": "Розумний український сервіс для тих, хто планує автоподорожі Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "com@espreso.tv",
+    "outlet": "Еспресо.TV",
+    "templateType": "tech",
+    "note": "Український розробник представив безкоштовний помічник для розрахунку європейських дорожніх зборів",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@finance.ua",
+    "outlet": "Finance.ua",
+    "templateType": "business",
+    "note": "Фінансовий портал: як українцям зекономити на дорожніх зборах та пальному в Європі (Travel Tech)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@minfin.com.ua",
+    "outlet": "Minfin",
+    "templateType": "business",
+    "note": "Потужний портал про особисті фінанси: оптимізація витрат у закордонних поїздках",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@psm7.com",
+    "outlet": "PaySpace Magazine",
+    "templateType": "tech",
+    "note": "Видання про фінтех і платежі: PWA-додаток для оплати віньєток на офіційних урядових порталах",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@pingvin.pro",
+    "outlet": "Pingvin.Pro",
+    "templateType": "tech",
+    "note": "Популярний IT-портал, ідеальна аудиторія для софту, стартапів та PWA додатків",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@tokar.ua",
+    "outlet": "Tokar.ua",
+    "templateType": "tech",
+    "note": "Блог про технології та український інтернет: корисний веб-додаток для водіїв",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pr@tripmydream.com",
+    "outlet": "Tripmydream",
+    "templateType": "tech",
+    "note": "Найбільший український travel-ком'юніті: планування самостійних автоподорожей Європою",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@lowcost.ua",
+    "outlet": "Lowcost.ua",
+    "templateType": "tech",
+    "note": "Портал бюджетних подорожей: новий сервіс, що допомагає подорожувати автомобілем дешевше",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@zaxid.net",
+    "outlet": "ZAXID.NET",
+    "templateType": "auto",
+    "note": "Головне медіа Західної України. Їхні читачі найчастіше перетинають кордон на авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@mukachevo.net",
+    "outlet": "Mukachevo.net",
+    "templateType": "auto",
+    "note": "Топ медіа Закарпаття — ключового транзитного регіону для поїздок в Угорщину/Словаччину",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "portal@lviv.ua",
+    "outlet": "Львівський портал",
+    "templateType": "auto",
+    "note": "Популярний львівський ресурс, аудиторія активно подорожує Європою на власних авто",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@babel.ua",
+    "outlet": "Бабель",
+    "templateType": "tech",
+    "note": "Сучасне медіа з великою лояльною аудиторією міських жителів та мандрівників",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "team@rubryka.com",
+    "outlet": "Рубрика",
+    "templateType": "tech",
+    "note": "Журналістика рішень. Створення українцем безкоштовного PWA, що полегшує життя — ідеально під їхній формат",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@lb.ua",
+    "outlet": "Лівий берег (LB.ua)",
+    "templateType": "tech",
+    "note": "Одне з найавторитетніших суспільно-політичних видань, люблять підтримувати українські ініціативи",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@glavcom.ua",
+    "outlet": "Главком",
+    "templateType": "tech",
+    "note": "Величезний трафік, загальнонаціональні новини. Новий український стартап",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "lifepravda@gmail.com",
+    "outlet": "УП.Життя",
+    "templateType": "tech",
+    "note": "Лайфстайл-розділ Української Правди. Аудиторія: туристи, біженці, експати",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "tsn@1plus1.tv",
+    "outlet": "ТСН (Техно / Туризм)",
+    "templateType": "tech",
+    "note": "Найбільший портал країни. У них є розділи «Туризм» та «Технології»",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@gordonua.com",
+    "outlet": "Gordon.ua",
+    "templateType": "tech",
+    "note": "Масове медіа з багатомільйонним охопленням українців у ЄС та в Україні",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@hvylya.net",
+    "outlet": "Хвиля",
+    "templateType": "business",
+    "note": "Популярний портал, що часто пише про ціни на бензин, інфраструктуру та життя українців за кордоном",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "styler@rbc.ua",
+    "outlet": "RBC Styler",
+    "templateType": "tech",
+    "note": "Лайфстайл-розділ РБК-Україна, що спеціалізується на корисних порадах, додатках та туризмі",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@zaborona.com",
+    "outlet": "Заборона",
+    "templateType": "tech",
+    "note": "Прогресивне медіа, аудиторія якого високо оцінить сучасний інді-додаток (PWA) для подорожей",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "lifepravda@pravda.ua",
+    "outlet": "УП.Життя",
+    "templateType": "tech",
+    "note": "Лайфстайл-розділ Української Правди. Аудиторія: туристи, біженці, експати (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@tsn.ua",
+    "outlet": "ТСН (Техно / Туризм)",
+    "templateType": "tech",
+    "note": "Найбільший портал країни. У них є розділи «Туризм» та «Технології» (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@portal.lviv.ua",
+    "outlet": "Львівський портал",
+    "templateType": "auto",
+    "note": "Популярний львівський ресурс, аудиторія активно подорожує Європою на власних авто (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mukachevo.net",
+    "outlet": "Mukachevo.net",
+    "templateType": "auto",
+    "note": "Топ медіа Закарпаття — ключового транзитного регіону для поїздок в Угорщину/Словаччину (Альтернативна адреса)",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@dip.org.ua",
+    "outlet": "DIP",
+    "templateType": "auto",
+    "note": "Дипломатія та Подорожі (dip.org.ua) — спеціалізований ресурс для туристів та експатів.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakcja@ukrayina.pl",
+    "outlet": "Ukrayina.pl",
+    "templateType": "auto",
+    "note": "Найбільший портал для українців у Польщі. Їхня аудиторія постійно подорожує на авто між Україною та ЄС.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@uaways.com",
+    "outlet": "UaWays",
+    "templateType": "auto",
+    "note": "Спеціалізований тревел-блог та спільнота українських мандрівників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pr@opendatabot.ua",
+    "outlet": "Опендатабот (Блог)",
+    "templateType": "tech",
+    "note": "Опендатабот часто публікує корисні інструменти (зокрема для водіїв, ПДР, штрафи), їхня аудиторія — підприємці.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "auto@24tv.ua",
+    "outlet": "Auto24",
+    "templateType": "auto",
+    "note": "Автомобільна редакція 24 Каналу. Вузька авто-аудиторія.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "vikna@stb.ua",
+    "outlet": "Вікна-Новини",
+    "templateType": "tech",
+    "note": "Проєкт СТБ. Останнім часом пишуть багато інструкцій (як виїхати, правила в ЄС, корисні додатки для біженців).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@theukrainians.org",
+    "outlet": "The Ukrainians",
+    "templateType": "tech",
+    "note": "Якісне медіа. Люблять історії створення корисних інді-проєктів від українців.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@platfor.ma",
+    "outlet": "Platfor.ma",
+    "templateType": "tech",
+    "note": "Креативний портал. Пишуть про нестандартні, сучасні технологічні рішення та подорожі.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@ukrainer.net",
+    "outlet": "Ukraїner",
+    "templateType": "auto",
+    "note": "Проєкт, який багато подорожує сам і розповідає про життя українців в інших країнах.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@glavred.info",
+    "outlet": "Главред (Авто / Туризм)",
+    "templateType": "auto",
+    "note": "Великий портал, що має активні розділи для водіїв та мандрівників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@nachasi.com",
+    "outlet": "Na chasi",
+    "templateType": "tech",
+    "note": "Креативне медіа про технології та сучасну культуру.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@mezha.media",
+    "outlet": "Mezha.Media",
+    "templateType": "tech",
+    "note": "Потужний технологічний портал, де часто підтримують українських розробників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@gagadget.com",
+    "outlet": "Gagadget",
+    "templateType": "tech",
+    "note": "Медіа про технології, гаджети та софт.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@playua.net",
+    "outlet": "PlayUA",
+    "templateType": "tech",
+    "note": "Гік-портал, аудиторія часто позитивно реагує на корисні інді-проєкти.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@varosh.com.ua",
+    "outlet": "Varosh",
+    "templateType": "auto",
+    "note": "Топове медіа Закарпаття (регіон, де найбільше перетинають кордон на авто).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@zakarpattya.net.ua",
+    "outlet": "Закарпаття Онлайн",
+    "templateType": "auto",
+    "note": "Ще одне популярне прикордонне медіа Закарпаття.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "volnov@gmail.com",
+    "outlet": "Волинські Новини",
+    "templateType": "auto",
+    "note": "Головне медіа Волині (поруч пункт пропуску Ягодин, високий автотрафік до Польщі).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "shpalta.media@gmail.com",
+    "outlet": "Шпальта (Чернівці)",
+    "templateType": "auto",
+    "note": "Регіональне медіа Буковини (поруч кордон з Румунією).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "kurs.if.ua@gmail.com",
+    "outlet": "Курс (Івано-Франківськ)",
+    "templateType": "auto",
+    "note": "Новини Івано-Франківщини, чиї жителі часто мандрують до Європи.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "hello@cases.media",
+    "outlet": "Cases.media",
+    "templateType": "tech",
+    "note": "Платформа для креативних індустрій та IT.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@gwaramedia.com",
+    "outlet": "Gwara Media",
+    "templateType": "tech",
+    "note": "Незалежне медіа, яке пише про соціальні ініціативи та технології.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "svidomi.media@gmail.com",
+    "outlet": "Свідомі",
+    "templateType": "tech",
+    "note": "Незалежне онлайн-медіа з молодою та прогресивною аудиторією.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "pragmatika.media@gmail.com",
+    "outlet": "Pragmatika",
+    "templateType": "tech",
+    "note": "Видання про архітектуру, урбаністику та транспорт.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "veterdoit@gmail.com",
+    "outlet": "Veter doit",
+    "templateType": "auto",
+    "note": "Відомий тревел-блог та медіа про мандри.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@mandry.club",
+    "outlet": "Mandry.club",
+    "templateType": "auto",
+    "note": "Портал для мандрівників.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakcja@vpolshi.pl",
+    "outlet": "VPolshi.pl",
+    "templateType": "auto",
+    "note": "Інформаційний портал для українців, які перебувають у Польщі.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakcja@naszwybir.pl",
+    "outlet": "Наш Вибір (Польща)",
+    "templateType": "auto",
+    "note": "Газета та портал для українців у Польщі.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "redakce@proukrainu.cz",
+    "outlet": "ProUkrainu (Чехія)",
+    "templateType": "auto",
+    "note": "Головний інформаційний ресурс для українців у Чехії.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@investory.news",
+    "outlet": "Investory News",
+    "templateType": "business",
+    "note": "Бізнес-портал про інвестиції та стартапи.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@auto.ria.com",
+    "outlet": "AUTO.RIA",
+    "templateType": "auto",
+    "note": "Новинний розділ найбільшого маркетплейсу авто.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@rst.ua",
+    "outlet": "RST.ua",
+    "templateType": "auto",
+    "note": "Популярний автопортал та новини.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "editor@infocar.ua",
+    "outlet": "InfoCar",
+    "templateType": "auto",
+    "note": "Портал тест-драйвів та автомобільних новин.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@mmr.net.ua",
+    "outlet": "MMR",
+    "templateType": "auto",
+    "note": "Motor Media Review - автоновини.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@finance.ua",
+    "outlet": "Finance.ua",
+    "templateType": "business",
+    "note": "Фінансовий портал (часто пишуть про страховки, витрати на авто, туризм).",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@nv.ua",
+    "outlet": "NV (New Voice)",
+    "templateType": "business",
+    "note": "Одне з найбільших загальнонаціональних медіа.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@liga.net",
+    "outlet": "LIGA.net",
+    "templateType": "tech",
+    "note": "Велике медіа з потужними розділами Бізнес та Тех.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "lb.ua@gmail.com",
+    "outlet": "LB.ua",
+    "templateType": "business",
+    "note": "Лівий Берег - загальнонаціональне медіа.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@focus.ua",
+    "outlet": "Фокус",
+    "templateType": "auto",
+    "note": "Загальнонаціональний новинний портал.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "news@rbc.ua",
+    "outlet": "РБК-Україна",
+    "templateType": "business",
+    "note": "Велике новинне медіа, багато пишуть про кордони та авто.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@techukraine.org",
+    "outlet": "TechUkraine",
+    "templateType": "tech",
+    "note": "Портал про українське IT та стартапи.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@inventure.ua",
+    "outlet": "InVenture",
+    "templateType": "business",
+    "note": "Портал про інвестиції та венчурний капітал.",
+    "active": false
+  },
+  {
+    "name": "колеги",
+    "email": "info@itukraine.org.ua",
+    "outlet": "IT Ukraine Association",
+    "templateType": "tech",
+    "note": "Асоціація IT України.",
+    "active": false
+  },
+  {
+    "name": "Редакція",
+    "email": "news@24tv.ua",
+    "outlet": "24 Канал",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@korrespondent.net",
+    "outlet": "Корреспондент",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@unian.net",
+    "outlet": "УНІАН",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@the-village.com.ua",
+    "outlet": "The Village Україна",
+    "active": false,
+    "templateType": "tech",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@nashkiev.ua",
+    "outlet": "Наш Київ",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@hromadske.ua",
+    "outlet": "Громадське",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@suspilne.media",
+    "outlet": "Суспільне",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@zn.ua",
+    "outlet": "Дзеркало Тижня",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@apostrophe.ua",
+    "outlet": "Апостроф",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@mind.ua",
+    "outlet": "Mind.ua",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "ep@epravda.com.ua",
+    "outlet": "Економічна Правда",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@infocar.ua",
+    "outlet": "InfoCar",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@uamotors.com.ua",
+    "outlet": "UAMotors",
+    "active": false,
+    "templateType": "auto",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@veterdoit.com",
+    "outlet": "Veter doit",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@tripmydream.com",
+    "outlet": "TripMyDream",
+    "active": true,
+    "templateType": "auto"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@dumskaya.net",
+    "outlet": "Думская (Одеса)",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@vgorode.ua",
+    "outlet": "Vgorode",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@depo.ua",
+    "outlet": "Depo.ua",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@rubryka.com",
+    "outlet": "Рубрика",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@svidomi.in.ua",
+    "outlet": "Свідомі",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@itc.ua",
+    "outlet": "ITC.ua (додатковий контакт)",
+    "active": true,
+    "templateType": "tech"
+  },
+  {
+    "name": "Редакція",
+    "email": "news@censor.net",
+    "outlet": "Цензор.НЕТ",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@espreso.tv",
+    "outlet": "Еспресо TV",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@prm.ua",
+    "outlet": "Прямий",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@5.ua",
+    "outlet": "5 Канал",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@ukrinform.ua",
+    "outlet": "Укрінформ",
+    "active": false,
+    "templateType": "business",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Редакція",
+    "email": "info@interfax.com.ua",
+    "outlet": "Інтерфакс-Україна",
+    "active": true,
+    "templateType": "business"
+  },
+  {
+    "name": "Sifted Team",
+    "email": "news@sifted.eu",
+    "outlet": "Sifted",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "EU-Startups Team",
+    "email": "thomas@eu-startups.com",
+    "outlet": "EU-Startups",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tech.eu Editorial",
+    "email": "editorial@tech.eu",
+    "outlet": "Tech.eu",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Republic",
+    "email": "editor@siliconrepublic.com",
+    "outlet": "Silicon Republic",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TNW Tips",
+    "email": "tips@thenextweb.com",
+    "outlet": "The Next Web",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Wired UK News",
+    "email": "news@wired.co.uk",
+    "outlet": "Wired UK",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TechCrunch Europe",
+    "email": "tips@techcrunch.com",
+    "outlet": "TechCrunch",
+    "active": true,
+    "templateType": "english",
+    "note": "For European desk"
+  },
+  {
+    "name": "Maddyness Contact",
+    "email": "contact@maddyness.com",
+    "outlet": "Maddyness",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Anna Wood",
+    "email": "anna.wood@startupsmagazine.co.uk",
+    "outlet": "Startups Magazine",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Business Insider UK",
+    "email": "uktips@businessinsider.com",
+    "outlet": "Business Insider",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "AIN.Capital Editor",
+    "email": "editor@ain.capital",
+    "outlet": "AIN.Capital",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Recursive Newsroom",
+    "email": "newsroom@therecursive.com",
+    "outlet": "The Recursive",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Trending Topics News",
+    "email": "news@trendingtopics.eu",
+    "outlet": "Trending Topics",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Netokracija Info",
+    "email": "info@netokracija.com",
+    "outlet": "Netokracija",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "MamStartup Redakcja",
+    "email": "redakcja@mamstartup.pl",
+    "outlet": "MamStartup",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Spider's Web Redakcja",
+    "email": "redakcja@spidersweb.pl",
+    "outlet": "Spider's Web",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Antyweb Redakcja",
+    "email": "redakcja@antyweb.pl",
+    "outlet": "Antyweb",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Startit.rs Kontakt",
+    "email": "kontakt@startit.rs",
+    "outlet": "Startit.rs",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Inventures Contact",
+    "email": "contact@inventures.eu",
+    "outlet": "Inventures.eu",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Prague Morning Info",
+    "email": "info@praguemorning.cz",
+    "outlet": "Prague Morning",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "PhocusWire News",
+    "email": "news@phocuswire.com",
+    "outlet": "PhocusWire",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Skift Tips",
+    "email": "tips@skift.com",
+    "outlet": "Skift",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Daily Editorial",
+    "email": "editorial@traveldailymedia.com",
+    "outlet": "Travel Daily Media",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tnooz Editor",
+    "email": "editor@tnooz.com",
+    "outlet": "Tnooz",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Auto Express News",
+    "email": "news@autoexpress.co.uk",
+    "outlet": "Auto Express",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Car Magazine",
+    "email": "carmagazine@bauermedia.co.uk",
+    "outlet": "Car Magazine",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Travel Weekly News",
+    "email": "news@travelweekly.co.uk",
+    "outlet": "Travel Weekly",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Travolution News",
+    "email": "news@travolution.com",
+    "outlet": "Travolution",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "Breaking Travel Editor",
+    "email": "editor@breakingtravelnews.com",
+    "outlet": "Breaking Travel News",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Mobilityways Info",
+    "email": "info@mobilityways.com",
+    "outlet": "Mobilityways",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Gründerszene Redaktion",
+    "email": "redaktion@gruenderszene.de",
+    "outlet": "Gründerszene",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Deutsche Startups Tipps",
+    "email": "tipps@deutsche-startups.de",
+    "outlet": "Deutsche Startups",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "T3n Redaktion",
+    "email": "redaktion@t3n.de",
+    "outlet": "T3n",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Der Brutkasten Redaktion",
+    "email": "redaktion@derbrutkasten.com",
+    "outlet": "Der Brutkasten",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Startupticker.ch News",
+    "email": "news@startupticker.ch",
+    "outlet": "Startupticker.ch",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Horizont Redaktion",
+    "email": "redaktion@horizont.net",
+    "outlet": "Horizont",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "IT-Business Redaktion",
+    "email": "redaktion@it-business.de",
+    "outlet": "IT-Business",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Heise Online Redaktion",
+    "email": "redaktion@heise.de",
+    "outlet": "Heise Online",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Golem.de Info",
+    "email": "info@golem.de",
+    "outlet": "Golem.de",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TrendingTopics.at Feedback",
+    "email": "feedback@trendingtopics.at",
+    "outlet": "TrendingTopics.at",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "UKTN Editorial",
+    "email": "editorial@uktech.news",
+    "outlet": "UKTN",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "TechSpark Editor",
+    "email": "editor@techspark.co",
+    "outlet": "TechSpark",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Maija (Sifted Nordics)",
+    "email": "maija@sifted.eu",
+    "outlet": "Sifted Nordics",
+    "active": false,
+    "templateType": "english",
+    "note": "BOUNCED_AUGUST_2026"
+  },
+  {
+    "name": "TechBBQ Info",
+    "email": "info@techbbq.org",
+    "outlet": "TechBBQ",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "ArcticStartup Editor",
+    "email": "editor@arcticstartup.com",
+    "outlet": "ArcticStartup",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Shifter Redaksjonen",
+    "email": "redaksjonen@shifter.no",
+    "outlet": "Shifter",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Breakit Tips",
+    "email": "tips@breakit.se",
+    "outlet": "Breakit",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Canals Editors",
+    "email": "editors@siliconcanals.com",
+    "outlet": "Silicon Canals",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Dan (Tech.eu)",
+    "email": "dan@tech.eu",
+    "outlet": "Tech.eu UK",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "CityAM Tech News",
+    "email": "news@cityam.com",
+    "outlet": "CityAM",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Next Web Editorial",
+    "email": "editorial@thenextweb.com",
+    "outlet": "The Next Web (TNW)",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "VentureBeat Tips",
+    "email": "tips@venturebeat.com",
+    "outlet": "VentureBeat",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Verge Tips",
+    "email": "tips@theverge.com",
+    "outlet": "The Verge",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Engadget Tips",
+    "email": "tips@engadget.com",
+    "outlet": "Engadget",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Gizmodo Tips",
+    "email": "tips@gizmodo.com",
+    "outlet": "Gizmodo",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Mashable Tips",
+    "email": "tips@mashable.com",
+    "outlet": "Mashable",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Fast Company Tips",
+    "email": "tips@fastcompany.com",
+    "outlet": "Fast Company",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Wired US Submissions",
+    "email": "submit@wired.com",
+    "outlet": "Wired US",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Forbes Tech Ideas",
+    "email": "ideas@forbes.com",
+    "outlet": "Forbes",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "GeekWire Tips",
+    "email": "tips@geekwire.com",
+    "outlet": "GeekWire",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "ZDNet News",
+    "email": "news@zdnet.com",
+    "outlet": "ZDNet",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "CNET News",
+    "email": "news@cnet.com",
+    "outlet": "CNET",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Digital Trends News",
+    "email": "news@digitaltrends.com",
+    "outlet": "Digital Trends",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Ars Technica Tips",
+    "email": "tips@arstechnica.com",
+    "outlet": "Ars Technica",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TechRadar News",
+    "email": "news@techradar.com",
+    "outlet": "TechRadar",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "MakeUseOf Tips",
+    "email": "tips@makeuseof.com",
+    "outlet": "MakeUseOf",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Lifehacker Tips",
+    "email": "tips@lifehacker.com",
+    "outlet": "Lifehacker",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tech in Asia News",
+    "email": "news@techinasia.com",
+    "outlet": "Tech in Asia",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "e27 Writers",
+    "email": "writers@e27.co",
+    "outlet": "e27",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Lonely Planet Editorial",
+    "email": "editorial@lonelyplanet.com",
+    "outlet": "Lonely Planet",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Travel + Leisure Tips",
+    "email": "tips@travelandleisure.com",
+    "outlet": "Travel + Leisure",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Condé Nast Traveler",
+    "email": "tips@cntraveler.com",
+    "outlet": "Condé Nast Traveler",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Matador Network Editorial",
+    "email": "editorial@matadornetwork.com",
+    "outlet": "Matador Network",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Points Guy Tips",
+    "email": "tips@thepointsguy.com",
+    "outlet": "The Points Guy",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TravelPulse News",
+    "email": "news@travelpulse.com",
+    "outlet": "TravelPulse",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Skift Info",
+    "email": "info@skift.com",
+    "outlet": "Skift (Info)",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Web in Travel News",
+    "email": "news@webintravel.com",
+    "outlet": "Web in Travel",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Top Gear Editor",
+    "email": "editor@topgear.com",
+    "outlet": "Top Gear",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Autocar",
+    "email": "autocar@haymarket.com",
+    "outlet": "Autocar",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Motor Trend",
+    "email": "motor.trend@motortrend.com",
+    "outlet": "Motor Trend",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Car and Driver Editors",
+    "email": "editors@caranddriver.com",
+    "outlet": "Car and Driver",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Business Insider US Tips",
+    "email": "tips@businessinsider.com",
+    "outlet": "Business Insider",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Nomadic Matt",
+    "email": "matt@nomadicmatt.com",
+    "outlet": "Nomadic Matt",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Expert Vagabond",
+    "email": "matt@expertvagabond.com",
+    "outlet": "Expert Vagabond",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "The Blonde Abroad",
+    "email": "kiersten@theblondeabroad.com",
+    "outlet": "The Blonde Abroad",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "StartupBeat",
+    "email": "pitch@startupbeat.com",
+    "outlet": "StartupBeat",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Tech.co",
+    "email": "contact@tech.co",
+    "outlet": "Tech.co",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Republic",
+    "email": "news@siliconrepublic.com",
+    "outlet": "Silicon Republic",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "Smashing Magazine",
+    "email": "hello@smashingmagazine.com",
+    "outlet": "Smashing Magazine",
+    "active": true,
+    "templateType": "english"
+  },
+  {
+    "name": "TechRepublic",
+    "email": "news@techrepublic.com",
+    "outlet": "TechRepublic",
+    "active": true,
+    "templateType": "english"
+  }
+]

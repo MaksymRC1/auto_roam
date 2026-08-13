@@ -200,11 +200,11 @@ export function TripPlanner() {
           <div className="text-white w-full text-center max-w-[500px] md:max-w-none px-2 mb-8 md:mb-[44px]">
             <div className="relative h-[90px] md:h-[60px] lg:h-[70px] w-full mb-2 md:mb-0">
               {[
-                t('heroTitle'),
-                t('heroTitle2'),
-                t('heroTitle3'),
-                t('heroTitle4'),
-                t('heroTitle5')
+                t('quotes.q1'),
+                t('quotes.q2'),
+                t('quotes.q3'),
+                t('quotes.q4'),
+                t('quotes.q5')
               ].map((heading, i) => (
                 <h1 
                   key={heading}
@@ -231,7 +231,7 @@ export function TripPlanner() {
                 <div className="absolute inset-0 rounded-[20px] overflow-hidden pointer-events-none">
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 </div>
-                <h2 className="hidden md:block font-display text-2xl md:text-3xl font-extrabold text-white mb-8 relative z-10">{t('buildRoute')}</h2>
+                <h2 className="hidden md:block font-display text-2xl md:text-3xl font-extrabold text-white mb-8 relative z-10">{t('buildRouteTitle')}</h2>
                 <div className="relative z-10">
                   <StopsInput />
                 </div>

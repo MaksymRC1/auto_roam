@@ -316,7 +316,7 @@ export function StopsInput({ idPrefix = "stops" }: { idPrefix?: string }) {
         {!isCalculated ? (
           <button onClick={calculateRoute} disabled={isLoading} className="w-full bg-white text-slate-900 hover:bg-slate-100 rounded-full py-4 font-bold text-base shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2 outline-none overflow-hidden">
             {isLoading ? <LoadingText /> : (
-              <>{t('buildRoute')}</>
+              <>{t('buildRouteTitle')}</>
             )}
           </button>
         ) : (

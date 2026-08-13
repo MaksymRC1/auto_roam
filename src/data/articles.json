@@ -105,7 +105,8 @@
         "desc": "Перевали в Альпах чи Карпатах потребують більше потужності та збільшують розхід пального."
       }
     ],
-    "contentImage": "/images/blog/fuel-calculator.jpg"
+    "contentImage": "/images/blog/fuel-calculator.jpg",
+    "image": "/images/blog/fuel-calculator.jpg"
   },
   {
     "id": "pwa-autoroam-guide",

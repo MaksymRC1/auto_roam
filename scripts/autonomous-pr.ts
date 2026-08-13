@@ -22,19 +22,19 @@ const transporter = createTransport({
 });
 
 // Допоміжні функції для шаблонів
-const getSubject = (templateType) => {
+const getSubject = (templateType: string) => {
   return templateType === 'ukrainian' 
     ? 'Новий інструмент: AutoRoam – вирішення головного болю з європейськими платними дорогами'
     : 'New Tool: AutoRoam – Eliminating the headache of European toll roads & vignettes';
 };
 
-const getHtmlTemplate = (templateType) => {
+const getHtmlTemplate = (templateType: string) => {
   return templateType === 'ukrainian' 
     ? fs.readFileSync(path.join(process.cwd(), 'scripts', 'template.html'), 'utf-8')
     : fs.readFileSync(path.join(process.cwd(), 'scripts', 'template-en.html'), 'utf-8');
 };
 
-const getTextTemplate = (templateType, outletName) => {
+const getTextTemplate = (templateType: string, outletName: string) => {
   if (templateType === 'ukrainian') {
     return `Вітаю, редакція ${outletName}!
 Я — Максим, соло-розробник з України. Нещодавно я запустив AutoRoam (https://autoroam.com.ua)... (повний текст у HTML)`;
@@ -45,7 +45,7 @@ I’m Maksym, a solo developer from Ukraine. I recently launched AutoRoam (https
 };
 
 // 3. Пошук через DuckDuckGo (Без API ключів)
-async function searchWeb(query) {
+async function searchWeb(query: string) {
   try {
     console.log(`🔍 Шукаю в інтернеті: "${query}"`);
     const res = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
@@ -56,14 +56,21 @@ async function searchWeb(query) {
     // Дуже простий парсинг результатів (витягуємо текст сніпетів та лінки)
     const snippets = [...html.matchAll(/<a class="result__snippet[^>]*>(.*?)<\/a>/gi)].map(m => m[1].replace(/<\/?[^>]+(>|$)/g, ""));
     return snippets.join('\n');
-  } catch (err) {
+  } catch (err: any) {
     console.error('Помилка пошуку:', err.message);
     return '';
   }
 }
 
+interface Contact {
+  name: string;
+  email: string;
+  outlet: string;
+  templateType: string;
+}
+
 // 4. Аналіз через Gemini (ШІ сам витягує пошти з тексту)
-async function extractContactsWithGemini(searchData) {
+async function extractContactsWithGemini(searchData: string): Promise<Contact[]> {
   console.log('🤖 ШІ (Gemini) аналізує результати пошуку...');
   const prompt = `
 You are a PR assistant. I am giving you text snippets from a web search about media outlets (tech, travel, auto).
@@ -92,19 +99,19 @@ ${searchData}
     }
     const text = data.candidates[0].content.parts[0].text;
     return JSON.parse(text);
-  } catch (err) {
+  } catch (err: any) {
     console.error('Gemini Fetch Error:', err.message);
     return [];
   }
 }
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
   console.log('🚀 Запуск Autonomous AI PR Agent...');
 
   // Крок 1: Завантажуємо історію
-  let history = [];
+  let history: Contact[] = [];
   if (fs.existsSync(HISTORY_PATH)) {
     history = JSON.parse(fs.readFileSync(HISTORY_PATH, 'utf-8'));
   }
@@ -125,7 +132,7 @@ async function main() {
   console.log(`🤖 ШІ знайшов ${foundContacts.length} потенційних контактів.`);
 
   // Крок 3: Фільтрація (видаляємо тих, кому вже писали, або якщо email не валідний)
-  const newContacts = foundContacts.filter(c => {
+  const newContacts = foundContacts.filter((c: Contact) => {
     if (!c.email || !c.email.includes('@')) return false;
     return !contactedEmails.has(c.email.toLowerCase());
   }).slice(0, TARGET_EMAILS_PER_RUN); // Беремо тільки ліміт на день
@@ -137,7 +144,7 @@ async function main() {
 
   console.log(`📧 Готую відправку для ${newContacts.length} НОВИХ медіа...`);
 
-  const successfullySent = [];
+  const successfullySent: Contact[] = [];
 
   // Крок 4: Розсилка
   for (const contact of newContacts) {
@@ -156,7 +163,7 @@ async function main() {
       });
       successfullySent.push(contact);
       console.log(`✅ Успіх!`);
-    } catch (error) {
+    } catch (error: any) {
       console.error(`❌ Помилка відправки ${contact.email}:`, error.message);
     }
 

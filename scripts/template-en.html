@@ -1,36 +1,27 @@
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; color: #1a1a1a; line-height: 1.6;">
+      <p>Hi!</p>
+      
+      <p>Anyone who has ever planned a long road trip across Europe knows the pain: navigation apps are not enough. You have to manually calculate mileage, check fuel prices in different countries, look for overnight stays, and figure out toll roads.</p>
+      
+      <p>We built <strong>AutoRoam</strong> (autoroam.com.ua) — a free web app that automates all of this in seconds.</p>
 
-import * as path from 'path';
-import * as dotenv from 'dotenv';
+      <p style="font-weight: bold; margin-top: 20px;">🚗 What makes AutoRoam special:</p>
+      <ul>
+        <li><strong>Smart Fuel Calculator:</strong> Enter your car's consumption and get the exact cost in your currency based on real-time prices;</li>
+        <li><strong>Smart Stops:</strong> Suggests the best cities for overnight stops after long hours of driving to prevent driver fatigue;</li>
+        <li><strong>Vignettes in 1 Click:</strong> Identifies where toll roads begin and provides direct official links for payment, avoiding fines and reseller fees;</li>
+        <li><strong>No App Downloads:</strong> Works directly in the browser as a PWA on smartphones, tablets, or laptops.</li>
+      </ul>
 
-dotenv.config({ path: '.env.local' });
+      <p><strong>🔗 Resources:</strong></p>
+      <ul>
+        <li>Try the service: <a href="https://autoroam.com.ua">autoroam.com.ua</a></li>
+        <li>Press Kit: <a href="https://drive.google.com/drive/folders/1onuQQhDvfrJCHMBhIM3FJd2JKS70wLnI">Google Drive</a></li>
+        <li>Full Press Release: <a href="https://docs.google.com/document/d/1hDKIvcHn04wfz4OIyZzePCmX0w4dFzFDz5XKc69Kh_k/edit">Google Doc</a></li>
+      </ul>
 
-type TemplateType = 'english';
-
-interface PressContact {
-  name: string;
-  email: string;
-  outlet: string;
-  templateType?: TemplateType;
-  note?: string;
-  active: boolean;
-}
-
-const CONFIG = {
-  smtp: {
-    host: process.env.SMTP_HOST || 'smtp.ukr.net',
-    port: parseInt(process.env.SMTP_PORT || '465', 10),
-    secure: process.env.SMTP_SECURE === 'true' || true,
-    auth: {
-      user: process.env.SMTP_USER || '',
-      pass: process.env.SMTP_PASS || '',
-    },
-  },
-  senderName: process.env.SMTP_SENDER_NAME || 'Maksym Otroshko',
-  senderEmail: process.env.SMTP_USER || 'maksymotroshko@ukr.net',
-  contactsPath: process.env.TEST_CONTACTS_PATH || path.join(process.cwd(), 'src/data/press-contacts-en.json'),
-  attachmentPath: path.join(process.cwd(), 'public/press-release-en.pdf'), // optional
-  delayBetweenEmailsMs: 4000,
-};
-
-const getEnglishTemplate = (contact: PressContact) => {
-  const subject = `New Tool: AutoRoam – Eliminating the headache of European toll roads & vignettes
+      <p>I would be very grateful if you could share our free product, test it, or provide any feedback!</p>
+      
+      <hr style="border: none; border-top: 1px solid #eaeaea; margin: 24px 0;" />
+      <p style="font-size: 14px; color: #666;">Best regards,<br/><strong>Maksym Otroshko</strong><br/>Founder of AutoRoam | <a href="https://www.linkedin.com/in/maxotroshko">LinkedIn</a></p>
+    </div>

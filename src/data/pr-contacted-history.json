@@ -1819,5 +1819,35 @@
     "outlet": "TechRepublic",
     "active": true,
     "templateType": "english"
+  },
+  {
+    "name": "Autonews.net.ua",
+    "email": "editor@autonews.net.ua",
+    "outlet": "Autonews.net.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Motorcar",
+    "email": "editorial@motorcar.com.ua",
+    "outlet": "Motorcar",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Автопілот",
+    "email": "editorial@autopilot.ua",
+    "outlet": "Автопілот",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Авторадіо Україна",
+    "email": "info@avtoradio.ua",
+    "outlet": "Авторадіо Україна",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Auto24",
+    "email": "info@auto24tv.ua",
+    "outlet": "Auto24",
+    "templateType": "ukrainian"
   }
 ]

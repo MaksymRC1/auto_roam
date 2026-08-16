@@ -83,26 +83,42 @@ Snippets:
 ${searchData}
   `;
 
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseMimeType: "application/json" }
-      })
-    });
-    const data = await res.json();
-    if (data.error) {
-      console.error('Gemini API Error:', data.error.message);
+  let retries = 3;
+  let delayMs = 5000;
+
+  while (retries > 0) {
+    try {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: "application/json" }
+        })
+      });
+      const data = await res.json();
+      
+      if (data.error) {
+        console.error('Gemini API Error:', data.error.message);
+        if (data.error.message.includes('high demand') || data.error.code === 503 || data.error.code === 429) {
+          console.log(`⏳ Перевантаження API. Чекаємо ${delayMs / 1000}с... (Спроб: ${retries - 1})`);
+          await new Promise(r => setTimeout(r, delayMs));
+          delayMs *= 2;
+          retries--;
+          continue;
+        }
+        return [];
+      }
+      const text = data.candidates[0].content.parts[0].text;
+      return JSON.parse(text);
+    } catch (err: any) {
+      console.error('Gemini Fetch Error:', err.message);
       return [];
     }
-    const text = data.candidates[0].content.parts[0].text;
-    return JSON.parse(text);
-  } catch (err: any) {
-    console.error('Gemini Fetch Error:', err.message);
-    return [];
   }
+  
+  console.log("🛑 Не вдалося отримати відповідь від Gemini після кількох спроб.");
+  return [];
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

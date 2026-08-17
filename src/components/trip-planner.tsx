@@ -372,7 +372,7 @@ export function TripPlanner() {
                   }`}>
                   <div className="p-5 border-b border-white/10 bg-black/20 shrink-0 flex items-start justify-between">
                     <div>
-                      <h2 className="font-bold text-lg text-white">{t('tripChronology')}</h2>
+                      <h1 className="font-bold text-lg text-white">{t('tripChronology')}</h1>
                       <p className="text-sm font-medium text-white/60 mt-1">
                         {totalDistance} {t('km')} • ~{formatTime(totalDuration, t)}
                       </p>
@@ -510,6 +510,7 @@ export function TripPlanner() {
                           onClick={handleSaveRoute}
                           className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
                           title={t('saveAndShare')}
+                          aria-label={t('saveAndShare')}
                         >
                           <Navigation className="w-6 h-6" />
                         </button>
@@ -517,6 +518,7 @@ export function TripPlanner() {
                           onClick={handleShare}
                           className="w-14 h-14 bg-white/10 text-white hover:bg-white/20 border border-transparent hover:border-white/30 rounded-full transition-all flex justify-center items-center outline-none focus-visible:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#131620]"
                           title={t('saveAndShare')}
+                          aria-label={t('saveAndShare')}
                         >
                           <Share2 className="w-6 h-6" />
                         </button>
@@ -533,7 +535,7 @@ export function TripPlanner() {
               
               {/* Desktop Input */}
               <Card id="desktop-tour-search" className="relative z-10 flex flex-col p-5 shrink-0 bg-black/40 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl text-white">
-                <h3 className="font-semibold text-white mb-4">{t('routeParamsTitle')}</h3>
+                <h2 className="font-semibold text-white mb-4">{t('routeParamsTitle')}</h2>
                 <StopsInput idPrefix="desktop-stops" />
               </Card>
 
@@ -580,16 +582,16 @@ export function TripPlanner() {
           </div>
           
           <div className={`mt-6 flex justify-center gap-4 transition-opacity duration-300 ${isGeneratingLink ? "opacity-45 pointer-events-none" : ""}`}>
-            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\n' + t('telegramShareText'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent('\n' + t('telegramShareText'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#0088cc] hover:border-[#0088cc] transition-all group focus:outline-none focus:ring-2 focus:ring-[#0088cc] focus:ring-offset-2 focus:ring-offset-[#131620]" aria-label="Share on Telegram">
               <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.96 1.25-5.54 3.67-.52.36-.99.53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.29-.48.79-.74 3.08-1.34 5.15-2.23 6.19-2.66 2.95-1.23 3.56-1.44 3.96-1.45.09 0 .28.02.41.1.11.08.14.19.16.27-.01.04.01.12 0 .18z"/></svg>
             </a>
-            <a href={`viber://forward?text=${encodeURIComponent(t('viberShareText') + ' ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`viber://forward?text=${encodeURIComponent(t('viberShareText') + ' ' + shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#7360f2] hover:border-[#7360f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#7360f2] focus:ring-offset-2 focus:ring-offset-[#131620]" aria-label="Share on Viber">
               <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M18.88 5.12A10 10 0 0 0 4.29 17.5L2 22l4.63-2.19A10 10 0 0 0 18.88 5.12zm-3.34 11.23c-.41.52-1.14.73-1.68.32-.48-.36-1.02-.85-1.59-1.43-1.08-1.09-2.05-2.43-2.68-3.79-.34-.73-.24-1.58.26-2.09.28-.29.58-.55.89-.8.3-.25.59-.44.81-.3.12.08.26.17.41.34.46.54.91 1.07 1.34 1.62.13.16.24.32.33.5.08.16.14.35.08.57-.1.35-.38.65-.63.93-.16.17-.3.34-.35.53-.08.28.06.66.4.99.71.69 1.48 1.25 2.15 1.45.2.06.4-.04.57-.22.25-.26.54-.56.84-.71.18-.09.36-.14.54-.15.22-.01.44.05.65.17.5.28.98.59 1.46.88.22.14.45.28.69.45.16.11.27.24.35.41.09.18.15.39.11.64-.1.67-.48 1.4-1.12 1.64z"/></svg>
             </a>
-            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#1877f2] hover:border-[#1877f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#1877f2] focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#1877f2] hover:border-[#1877f2] transition-all group focus:outline-none focus:ring-2 focus:ring-[#1877f2] focus:ring-offset-2 focus:ring-offset-[#131620]" aria-label="Share on Facebook">
               <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">f</span>
             </a>
-            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(t('twitterShareText'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]">
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(t('twitterShareText'))}`} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#000000] hover:border-[#333333] transition-all group focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#131620]" aria-label="Share on X">
               <span className="font-bold text-white/70 text-lg group-hover:text-white transition-colors">𝕏</span>
             </a>
           </div>

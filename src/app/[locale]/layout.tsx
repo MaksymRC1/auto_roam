@@ -51,8 +51,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export const viewport: Viewport = {
   themeColor: "#09090b",
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export default async function RootLayout({

@@ -15,14 +15,14 @@ interface VignetteInfo {
 
 export const VIGNETTE_DB: Record<string, VignetteInfo> = {
   'PL': { country: 'Польща', emoji: '🇵🇱', type: 'Оплата на воротах / e-TOLL', link: 'https://etoll.gov.pl/ua/', priceEur: 10, notes: 'Автомагістралі A2, A4' },
-  'RO': { country: 'Румунія', emoji: '🇷🇴', type: 'Електронна ровіньєтка', link: 'https://www.roviniete.ro/uk/', priceEur: 7, notes: "Обов'язкова на всіх національних дорогах" },
-  'BG': { country: 'Болгарія', emoji: '🇧🇬', type: 'Електронна віньєтка (BG TOLL)', link: 'https://www.bgtoll.bg/en/e-vignette', priceEur: 8, notes: "Обов'язкова на всіх національних дорогах" },
-  'SK': { country: 'Словаччина', emoji: '🇸🇰', type: 'Електронна віньєтка', link: 'https://eznamka.sk/en', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
-  'CZ': { country: 'Чехія', emoji: '🇨🇿', type: 'Електронна віньєтка', link: 'https://edalnice.gov.cz/en', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
-  'HU': { country: 'Угорщина', emoji: '🇭🇺', type: 'Електронна віньєтка (e-matrica)', link: 'https://ematrica.nemzetiutdij.hu/', priceEur: 15, notes: "Обов'язкова для автомагістралей" },
-  'AT': { country: 'Австрія', emoji: '🇦🇹', type: 'Віньєтка (ASFINAG)', link: 'https://shop.asfinag.at/en/', priceEur: 10, notes: "Обов'язкова для автомагістралей. Є цифрова версія." },
-  'CH': { country: 'Швейцарія', emoji: '🇨🇭', type: 'Електронна віньєтка (e-vignette)', link: 'https://via.admin.ch/shop/dashboard', priceEur: 42, notes: "Обов'язкова для автомагістралей (лише річна)" },
-  'MD': { country: 'Молдова', emoji: '🇲🇩', type: 'Електронна віньєтка (e-Vinieta)', link: 'https://evinieta.gov.md/', priceEur: 4, notes: "Обов'язкова для іноземних авто" },
+  'RO': { country: 'Румунія', emoji: '🇷🇴', type: 'Електронна ровіньєтка', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 7, notes: "Обов'язкова на всіх національних дорогах" },
+  'BG': { country: 'Болгарія', emoji: '🇧🇬', type: 'Електронна віньєтка (BG TOLL)', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 8, notes: "Обов'язкова на всіх національних дорогах" },
+  'SK': { country: 'Словаччина', emoji: '🇸🇰', type: 'Електронна віньєтка', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
+  'CZ': { country: 'Чехія', emoji: '🇨🇿', type: 'Електронна віньєтка', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 12, notes: "Обов'язкова для автомагістралей" },
+  'HU': { country: 'Угорщина', emoji: '🇭🇺', type: 'Електронна віньєтка (e-matrica)', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 15, notes: "Обов'язкова для автомагістралей" },
+  'AT': { country: 'Австрія', emoji: '🇦🇹', type: 'Віньєтка (ASFINAG)', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 10, notes: "Обов'язкова для автомагістралей. Є цифрова версія." },
+  'CH': { country: 'Швейцарія', emoji: '🇨🇭', type: 'Електронна віньєтка (e-vignette)', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 42, notes: "Обов'язкова для автомагістралей (лише річна)" },
+  'MD': { country: 'Молдова', emoji: '🇲🇩', type: 'Електронна віньєтка (e-Vinieta)', link: 'https://hotline.finance/ua/vinietky?utm_source=postaffiliatepro&utm_medium=cpa&utm_campaign=628r4tmflyrm0&a_aid=628r4tmflyrm0&a_bid=b789e41f', priceEur: 4, notes: "Обов'язкова для іноземних авто" },
   'RS': { country: 'Сербія', emoji: '🇷🇸', type: 'Оплата за ділянки / електронний TAG', link: 'https://www.putevi-srbije.rs/index.php/en/', priceEur: 15, notes: 'Оплата на воротах або через електронний пристрій TAG' },
 };
 

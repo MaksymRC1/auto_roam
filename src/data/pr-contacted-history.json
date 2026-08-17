@@ -2008,5 +2008,131 @@
     "outlet": "EU-Startups",
     "templateType": "english",
     "active": true
+  },
+  {
+    "name": "Auto.Ria",
+    "email": "support@auto.ria.com",
+    "outlet": "Auto.Ria",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Autocentre",
+    "email": "news@autocentre.ua",
+    "outlet": "Autocentre.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Motorcar",
+    "email": "info@motorcar.com.ua",
+    "outlet": "Motorcar",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "TSN Auto",
+    "email": "feedback@tsn.ua",
+    "outlet": "TSN.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Ukrautoprom",
+    "email": "ukrautoprom@gmail.com",
+    "outlet": "Ukrautoprom",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Avtoblog",
+    "email": "info@avtoblog.ua",
+    "outlet": "Avtoblog",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Gogetnews",
+    "email": "news@gogetnews.info",
+    "outlet": "Gogetnews",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Auto Moto",
+    "email": "support@automoto.ua",
+    "outlet": "Automoto.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Tech.eu",
+    "email": "tips@tech.eu",
+    "outlet": "Tech.eu",
+    "templateType": "english"
+  },
+  {
+    "name": "Motor1 UK",
+    "email": "uk.editorial@motor1.com",
+    "outlet": "Motor1",
+    "templateType": "english"
+  },
+  {
+    "name": "Lonely Planet",
+    "email": "press@lonelyplanet.com",
+    "outlet": "Lonely Planet",
+    "templateType": "english"
+  },
+  {
+    "name": "CN Traveler",
+    "email": "cnt_letters@condenast.com",
+    "outlet": "Conde Nast Traveler",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel + Leisure",
+    "email": "editor@travelandleisure.com",
+    "outlet": "Travel + Leisure",
+    "templateType": "english"
+  },
+  {
+    "name": "Auto Bild",
+    "email": "redaktion@autobild.de",
+    "outlet": "Auto Bild",
+    "templateType": "english"
+  },
+  {
+    "name": "Auto Motor und Sport",
+    "email": "redaktion@auto-motor-und-sport.de",
+    "outlet": "Auto Motor und Sport",
+    "templateType": "english"
+  },
+  {
+    "name": "CNET",
+    "email": "cnettips@cnet.com",
+    "outlet": "CNET",
+    "templateType": "english"
+  },
+  {
+    "name": "SlashGear",
+    "email": "tips@slashgear.com",
+    "outlet": "SlashGear",
+    "templateType": "english"
+  },
+  {
+    "name": "Pocket-lint",
+    "email": "news@pocket-lint.com",
+    "outlet": "Pocket-lint",
+    "templateType": "english"
+  },
+  {
+    "name": "Evo",
+    "email": "eds@evo.co.uk",
+    "outlet": "Evo",
+    "templateType": "english"
+  },
+  {
+    "name": "What Car",
+    "email": "whatcar@haymarket.com",
+    "outlet": "What Car",
+    "templateType": "english"
+  },
+  {
+    "name": "Auto Trader",
+    "email": "press@autotrader.co.uk",
+    "outlet": "Auto Trader",
+    "templateType": "english"
   }
 ]

@@ -11,7 +11,8 @@
     "generate-article": "tsx scripts/seo-agent.ts",
     "send-pr": "tsx scripts/send-press-release.ts",
     "send-pr:test": "tsx scripts/send-press-release.ts --dry-run",
-    "test:phase2": "tsx scripts/verify-phase2.ts"
+    "test:phase2": "tsx scripts/verify-phase2.ts",
+    "pr:mass": "tsx scripts/autonomous-pr.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -56,7 +57,7 @@
     "dotenv": "^17.4.2",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.2.10",
-    "nodemailer": "^9.0.3",
+    "nodemailer": "^9.0.5",
     "puppeteer": "^25.3.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",

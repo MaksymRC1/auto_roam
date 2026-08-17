@@ -132,7 +132,7 @@ ${searchData}
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
-  console.log('🚀 Запуск Autonomous AI PR Agent...');
+  console.log('🚀 Запуск Autonomous AI PR Agent (Масова розсилка)...');
 
   // Крок 1: Завантажуємо історію
   let history: Contact[] = [];
@@ -142,27 +142,23 @@ async function main() {
   const contactedEmails = new Set(history.map(c => c.email.toLowerCase()));
   console.log(`📚 В історії знайдено ${contactedEmails.size} контактів.`);
 
-  // Крок 2: Генеруємо запит для пошуку
-  const queries = [
-    "top european tech blogs submit news email",
-    "українські автомобільні новини контакти редакція email",
-    "travel tech startups news sites contact us email"
-  ];
-  const randomQuery = queries[Math.floor(Math.random() * queries.length)];
+  // Крок 2: Завантажуємо загальну базу контактів
+  const DB_PATH = path.join(process.cwd(), 'src/data/pr-contacts-database.json');
+  if (!fs.existsSync(DB_PATH)) {
+    console.error(`❌ Базу контактів не знайдено за шляхом: ${DB_PATH}`);
+    return;
+  }
   
-  const searchResults = await searchWeb(randomQuery);
-  const foundContacts = await extractContactsWithGemini(searchResults);
-  
-  console.log(`🤖 ШІ знайшов ${foundContacts.length} потенційних контактів.`);
+  const allContacts: Contact[] = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+  console.log(`🗃 Загальна база налічує ${allContacts.length} контактів.`);
 
-  // Крок 3: Фільтрація (видаляємо тих, кому вже писали, або якщо email не валідний)
-  const newContacts = foundContacts.filter((c: Contact) => {
-    if (!c.email || !c.email.includes('@')) return false;
-    return !contactedEmails.has(c.email.toLowerCase());
-  }).slice(0, TARGET_EMAILS_PER_RUN); // Беремо тільки ліміт на день
+  // Крок 3: Вибираємо 50 нових контактів
+  const TARGET_EMAILS_PER_RUN = 50;
+  const newContacts = allContacts.filter(c => !contactedEmails.has(c.email.toLowerCase()))
+                                 .slice(0, TARGET_EMAILS_PER_RUN);
 
   if (newContacts.length === 0) {
-    console.log('🛑 Нових контактів не знайдено. Завершую роботу.');
+    console.log('🛑 Всі контакти з бази вже оброблені. Завершую роботу.');
     return;
   }
 
@@ -191,8 +187,8 @@ async function main() {
       console.error(`❌ Помилка відправки ${contact.email}:`, error.message);
     }
 
-    // Пауза 4 секунди щоб не потрапити в спам
-    await sleep(4000);
+    // Пауза 10 секунд щоб не потрапити в спам Ukr.net
+    await sleep(10000);
   }
 
   // Крок 5: Збереження історії
@@ -202,7 +198,7 @@ async function main() {
     console.log(`💾 Історія оновлена. Додано ${successfullySent.length} записів.`);
 
     // Крок 6: Відправка звіту власнику
-    const reportText = `Привіт!\nВаш ШІ-Агент успішно пропрацював нічну зміну.\n\nЗнайдено та надіслано листів: ${successfullySent.length}\n\nКому відправили:\n` 
+    const reportText = `Привіт!\nВаш ШІ-Агент успішно відправив чергову порцію розсилки.\n\nЗнайдено та надіслано листів: ${successfullySent.length}\n\nКому відправили:\n` 
       + successfullySent.map(c => `- ${c.outlet} (${c.email}) [${c.templateType}]`).join('\n')
       + `\n\nБаза історії збільшилась до ${updatedHistory.length} контактів.`;
 

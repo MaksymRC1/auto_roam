@@ -1819,5 +1819,320 @@
     "outlet": "TechRepublic",
     "active": true,
     "templateType": "english"
+  },
+  {
+    "name": "AIN.UA",
+    "email": "info@ain.ua",
+    "outlet": "AIN.UA",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "SPEKA",
+    "email": "editor@speka.media",
+    "outlet": "SPEKA",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "DOU.ua",
+    "email": "redaktsiya@dou.ua",
+    "outlet": "DOU.ua",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Vector",
+    "email": "hello@vctr.media",
+    "outlet": "Vector",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "dev.ua",
+    "email": "news@dev.ua",
+    "outlet": "dev.ua",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Tokar.ua",
+    "email": "hello@tokar.ua",
+    "outlet": "Tokar.ua",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Na chasi",
+    "email": "editor@nachasi.com",
+    "outlet": "Na chasi",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "HiTech.Expert",
+    "email": "info@expert.com.ua",
+    "outlet": "HiTech.Expert",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Autocentre.ua",
+    "email": "red@autocentre.ua",
+    "outlet": "Autocentre.ua",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Твоя Машина",
+    "email": "news@mashyna.com.ua",
+    "outlet": "Твоя Машина",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "УкрАвтоПром",
+    "email": "office@ukrautoprom.com.ua",
+    "outlet": "УкрАвтоПром",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "AutoMoto.ua",
+    "email": "info@automoto.ua",
+    "outlet": "AutoMoto.ua",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "NextCar",
+    "email": "info@nextcar.ua",
+    "outlet": "NextCar",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Veter do it",
+    "email": "hello@veterdoit.com",
+    "outlet": "Veter do it",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Tripmydream",
+    "email": "media@tripmydream.com",
+    "outlet": "Tripmydream",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Хмарочос",
+    "email": "info@hmarochos.kiev.ua",
+    "outlet": "Хмарочос",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "О, Море",
+    "email": "hello@omore.city",
+    "outlet": "О, Море",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "УкрЗалізниця (Блог)",
+    "email": "press@uz.gov.ua",
+    "outlet": "УкрЗалізниця",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Forbes Ukraine",
+    "email": "editor@forbes.ua",
+    "outlet": "Forbes Ukraine",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Економічна Правда (EP)",
+    "email": "ep@pravda.ua",
+    "outlet": "EP",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Minfin",
+    "email": "editor@minfin.com.ua",
+    "outlet": "Minfin",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "ТСН",
+    "email": "news@tsn.ua",
+    "outlet": "ТСН",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Фокус",
+    "email": "news@focus.ua",
+    "outlet": "Фокус",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "УНІАН",
+    "email": "news@unian.net",
+    "outlet": "УНІАН",
+    "templateType": "ukrainian",
+    "active": true
+  },
+  {
+    "name": "Sifted",
+    "email": "hello@sifted.eu",
+    "outlet": "Sifted",
+    "templateType": "english",
+    "active": true
+  },
+  {
+    "name": "Sifted Travel Tech",
+    "email": "miriam@sifted.eu",
+    "outlet": "Sifted",
+    "templateType": "english",
+    "active": true
+  },
+  {
+    "name": "EU-Startups Info",
+    "email": "info@eu-startups.com",
+    "outlet": "EU-Startups",
+    "templateType": "english",
+    "active": true
+  },
+  {
+    "name": "Auto.Ria",
+    "email": "support@auto.ria.com",
+    "outlet": "Auto.Ria",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Autocentre",
+    "email": "news@autocentre.ua",
+    "outlet": "Autocentre.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Motorcar",
+    "email": "info@motorcar.com.ua",
+    "outlet": "Motorcar",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "TSN Auto",
+    "email": "feedback@tsn.ua",
+    "outlet": "TSN.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Ukrautoprom",
+    "email": "ukrautoprom@gmail.com",
+    "outlet": "Ukrautoprom",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Avtoblog",
+    "email": "info@avtoblog.ua",
+    "outlet": "Avtoblog",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Gogetnews",
+    "email": "news@gogetnews.info",
+    "outlet": "Gogetnews",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Auto Moto",
+    "email": "support@automoto.ua",
+    "outlet": "Automoto.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Tech.eu",
+    "email": "tips@tech.eu",
+    "outlet": "Tech.eu",
+    "templateType": "english"
+  },
+  {
+    "name": "Motor1 UK",
+    "email": "uk.editorial@motor1.com",
+    "outlet": "Motor1",
+    "templateType": "english"
+  },
+  {
+    "name": "Lonely Planet",
+    "email": "press@lonelyplanet.com",
+    "outlet": "Lonely Planet",
+    "templateType": "english"
+  },
+  {
+    "name": "CN Traveler",
+    "email": "cnt_letters@condenast.com",
+    "outlet": "Conde Nast Traveler",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel + Leisure",
+    "email": "editor@travelandleisure.com",
+    "outlet": "Travel + Leisure",
+    "templateType": "english"
+  },
+  {
+    "name": "Auto Bild",
+    "email": "redaktion@autobild.de",
+    "outlet": "Auto Bild",
+    "templateType": "english"
+  },
+  {
+    "name": "Auto Motor und Sport",
+    "email": "redaktion@auto-motor-und-sport.de",
+    "outlet": "Auto Motor und Sport",
+    "templateType": "english"
+  },
+  {
+    "name": "CNET",
+    "email": "cnettips@cnet.com",
+    "outlet": "CNET",
+    "templateType": "english"
+  },
+  {
+    "name": "SlashGear",
+    "email": "tips@slashgear.com",
+    "outlet": "SlashGear",
+    "templateType": "english"
+  },
+  {
+    "name": "Pocket-lint",
+    "email": "news@pocket-lint.com",
+    "outlet": "Pocket-lint",
+    "templateType": "english"
+  },
+  {
+    "name": "Evo",
+    "email": "eds@evo.co.uk",
+    "outlet": "Evo",
+    "templateType": "english"
+  },
+  {
+    "name": "What Car",
+    "email": "whatcar@haymarket.com",
+    "outlet": "What Car",
+    "templateType": "english"
+  },
+  {
+    "name": "Auto Trader",
+    "email": "press@autotrader.co.uk",
+    "outlet": "Auto Trader",
+    "templateType": "english"
   }
 ]

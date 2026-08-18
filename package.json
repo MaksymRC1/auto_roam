@@ -11,7 +11,9 @@
     "generate-article": "tsx scripts/seo-agent.ts",
     "send-pr": "tsx scripts/send-press-release.ts",
     "send-pr:test": "tsx scripts/send-press-release.ts --dry-run",
-    "test:phase2": "tsx scripts/verify-phase2.ts"
+    "test:phase2": "tsx scripts/verify-phase2.ts",
+    "pr": "npx tsx scripts/autonomous-pr.ts",
+    "pr:mass": "npx tsx scripts/autonomous-pr.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

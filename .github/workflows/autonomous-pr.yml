@@ -25,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
         
-      - name: Run Autonomous PR Agent
+      - name: Run Autonomous PR Agent (Search + Mass Mail)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -34,12 +34,14 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           SMTP_SENDER_NAME: ${{ secrets.SMTP_SENDER_NAME }}
-        run: npx tsx scripts/autonomous-pr.ts
+        run: |
+          npm run pr:search
+          npm run pr:mass
 
-      - name: Commit Updated History
+      - name: Commit Updated DB and History
         run: |
           git config --global user.name "AutoRoam AI Agent"
           git config --global user.email "actions@github.com"
-          git add src/data/pr-contacted-history.json
-          # Якщо файл змінився (доданий у staged), комітимо його
-          git diff --staged --quiet || (git commit -m "chore(pr): update contacted history" && git push)
+          git add src/data/pr-contacts-database.json src/data/pr-contacted-history.json
+          # Якщо файли змінились, комітимо їх
+          git diff --staged --quiet || (git commit -m "chore(pr): update contacts DB and history" && git push)

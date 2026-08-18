@@ -13,7 +13,8 @@
     "send-pr:test": "tsx scripts/send-press-release.ts --dry-run",
     "test:phase2": "tsx scripts/verify-phase2.ts",
     "pr": "npx tsx scripts/autonomous-pr.ts",
-    "pr:mass": "npx tsx scripts/autonomous-pr.ts"
+    "pr:mass": "npx tsx scripts/autonomous-pr.ts",
+    "pr:search": "npx tsx scripts/autonomous-search.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

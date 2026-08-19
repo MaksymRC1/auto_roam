@@ -7,7 +7,8 @@ on:
   workflow_dispatch: # Дозволяє запускати вручну з інтерфейсу GitHub
 
 permissions:
-  contents: write # Необхідно для git commit / push
+  contents: write # Необхідно для створення гілки
+  pull-requests: write # Необхідно для створення Pull Request
 
 jobs:
   run-ai-agent:
@@ -38,10 +39,14 @@ jobs:
           npm run pr:search
           npm run pr:mass
 
-      - name: Commit Updated DB and History
-        run: |
-          git config --global user.name "AutoRoam AI Agent"
-          git config --global user.email "actions@github.com"
-          git add src/data/pr-contacts-database.json src/data/pr-contacted-history.json
-          # Якщо файли змінились, комітимо їх
-          git diff --staged --quiet || (git commit -m "chore(pr): update contacts DB and history" && git push)
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(pr): update contacts DB and history"
+          title: "chore(pr): update contacts DB and history"
+          body: "Автоматичне оновлення бази контактів та історії розсилок від AI агента."
+          branch: "chore/update-pr-history"
+          base: "main"
+          author: "AutoRoam AI Agent <actions@github.com>"
+          labels: "automated-pr, data-update"

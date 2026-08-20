@@ -652,5 +652,389 @@
     "email": "office@avtoradio.ua",
     "outlet": "Авторадіо Україна",
     "templateType": "ukrainian"
+  },
+  {
+    "name": "AutoNews.net.ua",
+    "email": "news@autonews.net.ua",
+    "outlet": "AutoNews.net.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Motorcar",
+    "email": "editorial@motorcar.com.ua",
+    "outlet": "Motorcar",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "MMR (Motor Media Review)",
+    "email": "editor@mmr.net.ua",
+    "outlet": "MMR (Motor Media Review)",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Автопілот",
+    "email": "editor@autopilot.ua",
+    "outlet": "Автопілот",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Auto24",
+    "email": "news@auto24.tv",
+    "outlet": "Auto24",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Авторадіо Україна",
+    "email": "info@avtoradio.ua",
+    "outlet": "Авторадіо Україна",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Tech.eu",
+    "email": "news@tech.eu",
+    "outlet": "Tech.eu",
+    "templateType": "english"
+  },
+  {
+    "name": "Sifted",
+    "email": "editorial@sifted.eu",
+    "outlet": "Sifted",
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Canals",
+    "email": "editorial@siliconcanals.com",
+    "outlet": "Silicon Canals",
+    "templateType": "english"
+  },
+  {
+    "name": "Feedspot Tech",
+    "email": "team@feedspot.com",
+    "outlet": "Feedspot",
+    "templateType": "english"
+  },
+  {
+    "name": "Skift",
+    "email": "news@skift.com",
+    "outlet": "Skift",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Tech Association",
+    "email": "info@traveltech.org",
+    "outlet": "Travel Tech Association",
+    "templateType": "english"
+  },
+  {
+    "name": "EU Startup News",
+    "email": "editor@eustartup.news",
+    "outlet": "EU Startup News",
+    "templateType": "english"
+  },
+  {
+    "name": "Voyage Magazine",
+    "email": "office@voyage-magazine.bg",
+    "outlet": "Voyage Magazine",
+    "templateType": "english"
+  },
+  {
+    "name": "Outlook Travel Magazine",
+    "email": "editorial@outlooktravelmag.com",
+    "outlet": "Outlook Travel Magazine",
+    "templateType": "english"
+  },
+  {
+    "name": "hidden europe",
+    "email": "editors@hiddeneurope.eu",
+    "outlet": "hidden europe",
+    "templateType": "english"
+  },
+  {
+    "name": "Wanderlust",
+    "email": "editorial@wanderlust.co.uk",
+    "outlet": "Wanderlust",
+    "templateType": "english"
+  },
+  {
+    "name": "Automotive News",
+    "email": "editorial@autonews.com",
+    "outlet": "Automotive News",
+    "templateType": "english"
+  },
+  {
+    "name": "New AutoMotive",
+    "email": "press@newautomotive.org",
+    "outlet": "New AutoMotive",
+    "templateType": "english"
+  },
+  {
+    "name": "EIN Presswire",
+    "email": "newsdesk@einnews.com",
+    "outlet": "EIN Presswire",
+    "templateType": "english"
+  },
+  {
+    "name": "ACEA (European Automobile Manufacturers’ Association)",
+    "email": "communications@acea.auto",
+    "outlet": "ACEA (European Automobile Manufacturers’ Association)",
+    "templateType": "english"
+  },
+  {
+    "name": "EuropaWire",
+    "email": "news@europawire.eu",
+    "outlet": "EuropaWire",
+    "templateType": "english"
+  },
+  {
+    "name": "Ukrainian News",
+    "email": "editor@ukranews.com",
+    "outlet": "Ukrainian News",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Ukrinform",
+    "email": "office@ukrinform.com",
+    "outlet": "Ukrinform",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "The Kyiv Independent",
+    "email": "news@kyivindependent.com",
+    "outlet": "The Kyiv Independent",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Tech Funding News",
+    "email": "news@techfundingnews.com",
+    "outlet": "Tech Funding News",
+    "templateType": "english"
+  },
+  {
+    "name": "UK Tech News",
+    "email": "editor@uktech.news",
+    "outlet": "UK Tech News",
+    "templateType": "english"
+  },
+  {
+    "name": "UK Tech News",
+    "email": "editor@uktechnews.co.uk",
+    "outlet": "UK Tech News",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Weekly",
+    "email": "editorial@travelweekly.co.uk",
+    "outlet": "Travel Weekly",
+    "templateType": "english"
+  },
+  {
+    "name": "FTAdviser",
+    "email": "ftadviser.newsdesk@ft.com",
+    "outlet": "FTAdviser",
+    "templateType": "english"
+  },
+  {
+    "name": "The Telegraph Travel",
+    "email": "travel@telegraph.co.uk",
+    "outlet": "The Telegraph",
+    "templateType": "english"
+  },
+  {
+    "name": "Business Travel News Europe",
+    "email": "editorial@businesstravelnewseurope.com",
+    "outlet": "Business Travel News Europe",
+    "templateType": "english"
+  },
+  {
+    "name": "Conde Nast Traveller",
+    "email": "editorial@cntraveller.com",
+    "outlet": "Conde Nast Traveller",
+    "templateType": "english"
+  },
+  {
+    "name": "Lonely Planet",
+    "email": "editorial@lonelyplanet.com",
+    "outlet": "Lonely Planet",
+    "templateType": "english"
+  },
+  {
+    "name": "Економічна Правда",
+    "email": "ekonomika@pravda.ua",
+    "outlet": "Epravda",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Mind.ua Tech",
+    "email": "tech@mind.ua",
+    "outlet": "Mind.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Na chasi (Tech)",
+    "email": "tech@nachasi.com",
+    "outlet": "Na chasi",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "TechUkraine (News)",
+    "email": "news@techukraine.org",
+    "outlet": "TechUkraine",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "PlayUA (News)",
+    "email": "news@playua.net",
+    "outlet": "PlayUA",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "HiTech Expert",
+    "email": "news@expert.com.ua",
+    "outlet": "HiTech Expert",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Motor Media Review",
+    "email": "news@mmr.net.ua",
+    "outlet": "MMR",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "InfoCar",
+    "email": "info@infocar.ua",
+    "outlet": "InfoCar",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Tvoya Mashyna",
+    "email": "info@mashyna.com.ua",
+    "outlet": "Tvoya Mashyna",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "AutoMoto UA",
+    "email": "news@automoto.ua",
+    "outlet": "AutoMoto.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "RST UA",
+    "email": "info@rst.ua",
+    "outlet": "RST.ua",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Lowcost UA (Travel)",
+    "email": "news@lowcost.ua",
+    "outlet": "Lowcost UA",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Veter do it",
+    "email": "news@veterdoit.com",
+    "outlet": "Veter do it",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Tripmydream Media",
+    "email": "info@tripmydream.com",
+    "outlet": "Tripmydream",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "TechCrunch Startups",
+    "email": "startups@techcrunch.com",
+    "outlet": "TechCrunch",
+    "templateType": "english"
+  },
+  {
+    "name": "EU-Startups News",
+    "email": "news@eu-startups.com",
+    "outlet": "EU-Startups",
+    "templateType": "english"
+  },
+  {
+    "name": "Silicon Republic News",
+    "email": "news@siliconrepublic.com",
+    "outlet": "Silicon Republic",
+    "templateType": "english"
+  },
+  {
+    "name": "Wired UK Startups",
+    "email": "startups@wired.co.uk",
+    "outlet": "Wired UK",
+    "templateType": "english"
+  },
+  {
+    "name": "VentureBeat News",
+    "email": "news@venturebeat.com",
+    "outlet": "VentureBeat",
+    "templateType": "english"
+  },
+  {
+    "name": "Mashable UK",
+    "email": "news@mashable.com",
+    "outlet": "Mashable",
+    "templateType": "english"
+  },
+  {
+    "name": "Business Insider Startups",
+    "email": "startups@businessinsider.com",
+    "outlet": "Business Insider",
+    "templateType": "english"
+  },
+  {
+    "name": "PhocusWire Startups",
+    "email": "startups@phocuswire.com",
+    "outlet": "PhocusWire",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Daily News",
+    "email": "info@traveldailynews.com",
+    "outlet": "Travel Daily News",
+    "templateType": "english"
+  },
+  {
+    "name": "Travolution News",
+    "email": "info@travolution.com",
+    "outlet": "Travolution",
+    "templateType": "english"
+  },
+  {
+    "name": "Breaking Travel News Edit",
+    "email": "news@breakingtravelnews.com",
+    "outlet": "Breaking Travel News",
+    "templateType": "english"
+  },
+  {
+    "name": "TechSpark News",
+    "email": "news@techspark.co",
+    "outlet": "TechSpark",
+    "templateType": "english"
+  },
+  {
+    "name": "Maddyness News",
+    "email": "news@maddyness.com",
+    "outlet": "Maddyness",
+    "templateType": "english"
+  },
+  {
+    "name": "Startups Mag News",
+    "email": "news@startupsmagazine.co.uk",
+    "outlet": "Startups Magazine",
+    "templateType": "english"
+  },
+  {
+    "name": "UKTN News",
+    "email": "news@uktech.news",
+    "outlet": "UKTN",
+    "templateType": "english"
+  },
+  {
+    "name": "CityAM Tech",
+    "email": "tech@cityam.com",
+    "outlet": "CityAM",
+    "templateType": "english"
   }
 ]

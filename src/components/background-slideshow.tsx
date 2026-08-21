@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 
 const IMAGES = [
   "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=50&w=400", // Paris
@@ -26,7 +27,6 @@ export function BackgroundSlideshow() {
     return () => clearInterval(timer);
   }, []);
 
-
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden bg-slate-900" aria-hidden="true">
       <div ref={containerRef} className="absolute inset-0 w-full h-full will-change-transform">
@@ -48,14 +48,22 @@ export function BackgroundSlideshow() {
           return (
             <div
               key={src}
-              className="absolute -inset-[10%] bg-cover bg-center blur-[6px] transition-opacity duration-[4000ms] ease-in-out"
+              className="absolute -inset-[10%] transition-opacity duration-[4000ms] ease-in-out"
               style={{
-                backgroundImage: `url(${src})`,
                 opacity,
                 zIndex,
                 transform: `scale(1.1)`,
               }}
-            />
+            >
+              <Image
+                src={src}
+                alt={`Background image ${index + 1}`}
+                fill
+                priority={index === 0} // Fix LCP: eagerly load first image
+                sizes="100vw"
+                className="object-cover object-center blur-[6px]"
+              />
+            </div>
           );
         })}
       </div>

@@ -11,14 +11,22 @@ const UKR_REPORT_EMAIL = 'maksymotroshko@ukr.net';
 const TARGET_EMAILS_PER_RUN = 10; // Поставимо 10 для безпеки/тесту
 
 // 2. Ініціалізація пошти (Nodemailer)
+const smtpPort = Number(process.env.SMTP_PORT) || 465;
+const isSecure = process.env.SMTP_SECURE === 'true' || smtpPort === 465;
+
 const transporter = createTransport({
   host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: process.env.SMTP_SECURE === 'true',
+  port: smtpPort,
+  secure: isSecure,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls: {
+    rejectUnauthorized: false
+  },
+  logger: true,
+  debug: true,
 });
 
 // Допоміжні функції для шаблонів

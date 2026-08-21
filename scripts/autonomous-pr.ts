@@ -192,8 +192,8 @@ async function main() {
   }
 
   // Крок 5: Збереження історії
-  if (successfullySent.length > 0) {
-    const updatedHistory = [...history, ...successfullySent];
+  const updatedHistory = [...history, ...successfullySent];
+  try {
     fs.writeFileSync(HISTORY_PATH, JSON.stringify(updatedHistory, null, 2));
     console.log(`💾 Історія оновлена. Додано ${successfullySent.length} записів.`);
 
@@ -209,6 +209,8 @@ async function main() {
       text: reportText,
     });
     console.log('📊 Звіт відправлено власнику!');
+  } catch (err) {
+    console.error('❌ Помилка при збереженнии історії або звіту:', err);
   }
 }
 

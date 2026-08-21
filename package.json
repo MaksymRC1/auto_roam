@@ -12,7 +12,9 @@
     "send-pr": "tsx scripts/send-press-release.ts",
     "send-pr:test": "tsx scripts/send-press-release.ts --dry-run",
     "test:phase2": "tsx scripts/verify-phase2.ts",
-    "pr:mass": "tsx scripts/autonomous-pr.ts"
+    "pr": "npx tsx scripts/autonomous-pr.ts",
+    "pr:mass": "npx tsx scripts/autonomous-pr.ts",
+    "pr:search": "npx tsx scripts/autonomous-search.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -55,7 +57,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
-    "eslint": "^9.39.5",
+    "eslint": "^10.8.1",
     "eslint-config-next": "16.2.10",
     "nodemailer": "^9.0.5",
     "puppeteer": "^25.3.0",

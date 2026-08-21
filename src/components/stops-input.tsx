@@ -93,12 +93,13 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           <input 
             value={value.split(' | ')[0]}
             autoComplete="off"
+            aria-label={index === 0 ? t('originPlaceholder') : isLast ? t('destinationPlaceholder') : t('stopPlaceholder')}
             onChange={(e) => {
               updateStop(realId, e.target.value);
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            className={`peer bg-transparent text-white text-sm font-medium w-full outline-none text-ellipsis relative z-10 ${index === 0 ? 'pr-8' : ''}`}
+            className={`peer bg-transparent text-white text-base md:text-sm font-medium w-full outline-none text-ellipsis relative z-10 ${index === 0 ? 'pr-8' : ''}`}
           />
           {index === 0 && (
             <button 
@@ -130,6 +131,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-white/50 hover:text-blue-400 transition-colors z-20 p-1"
               title={t('myLocation')}
+              aria-label={t('myLocation')}
             >
               <LocateFixed className="w-4 h-4" />
             </button>
@@ -169,7 +171,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           )}
         </div>
         {index !== 0 && !isLast && (
-          <button onClick={() => removeStop(realId)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title={t('removeStop')}>
+          <button onClick={() => removeStop(realId)} className="shrink-0 text-white/30 hover:text-red-400 p-1 transition-colors" title={t('removeStop')} aria-label={t('removeStop')}>
             <X className="w-4 h-4" />
           </button>
         )}
@@ -184,6 +186,7 @@ function SortableItem({ id, realId, value, index, isLast, totalStops, updateStop
           className="absolute top-full -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-transparent flex items-center justify-center z-20 hover:bg-white/10 text-white/50 hover:text-white transition-colors cursor-pointer"
           style={{ left: '26px', marginTop: '16px' }}
           title={t('swapStops')}
+          aria-label={t('swapStops')}
         >
           <ArrowUpDown className="w-4 h-4" />
         </button>

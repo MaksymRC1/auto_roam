@@ -24,7 +24,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@googlemaps/polyline-codec": "^1.0.28",
-    "@sentry/nextjs": "^10.66.0",
+    "@sentry/nextjs": "^10.68.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/postgres": "^0.10.0",
     "@vercel/speed-insights": "^2.0.0",

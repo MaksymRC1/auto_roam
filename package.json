@@ -34,7 +34,7 @@
     "clsx": "^2.1.1",
     "instagram-private-api": "^1.46.1",
     "izitoast": "^1.4.0",
-    "lucide-react": "^1.23.0",
+    "lucide-react": "^1.33.0",
     "lz-string": "^1.5.0",
     "next": "16.2.10",
     "next-intl": "^4.13.6",

@@ -86,7 +86,7 @@ export async function geocodeCity(city: string): Promise<GeocodeResult | null> {
       const rev = await reverseGeocode(lat, lon);
       return {
          lat, lon,
-         name: name !== "Точка на карті" ? name : (rev?.city || name),
+         name: name !== "Точка на карті" && name !== "__MAP_POINT__" ? name : (rev?.city || "__MAP_POINT__"),
          countryCode: rev?.countryCode || 'UNKNOWN'
       };
     }
@@ -187,7 +187,7 @@ export async function reverseGeocode(lat: number, lon: number): Promise<ReverseG
     if (response.ok) {
       const data = await response.json();
       if (data.status === 'OK' && data.results && data.results.length > 0) {
-        let city = "Траса";
+        let city = "__HIGHWAY__";
         let countryCode = "UNKNOWN";
         
         // Find the most specific locality and country
@@ -264,7 +264,7 @@ export async function findBorders(geometry: [number, number][]): Promise<BorderC
       borders.push({
         lat: borderPoint[0],
         lon: borderPoint[1],
-        name: (geo?.city && geo.city !== 'Траса') ? geo.city : `Кордон ${getCountryName(current.country)} → ${getCountryName(next.country)}`,
+        name: (geo?.city && geo.city !== 'Траса' && geo.city !== '__HIGHWAY__') ? geo.city : `__BORDER_SIMPLE__:${current.country}:${next.country}`,
         fromCountry: current.country,
         toCountry: next.country,
         geometryIndex: right

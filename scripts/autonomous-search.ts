@@ -52,12 +52,13 @@ Snippets:
 ${searchData}
   `;
 
-  let retries = 3;
-  let delayMs = 5000;
+  let retries = 5;
+  let delayMs = 10000;
+  let currentModel = 'gemini-3.7-flash';
 
   while (retries > 0) {
     try {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -68,12 +69,18 @@ ${searchData}
       const data = await res.json();
       
       if (data.error) {
-        console.error('Gemini API Error:', data.error.message);
+        console.error(`Gemini API Error (${currentModel}):`, data.error.message);
         if (data.error.message.includes('high demand') || data.error.code === 503 || data.error.code === 429) {
           console.log(`⏳ Перевантаження API. Чекаємо ${delayMs / 1000}с... (Спроб: ${retries - 1})`);
           await new Promise(r => setTimeout(r, delayMs));
-          delayMs *= 2;
+          delayMs *= 1.5; // Збільшуємо час очікування
           retries--;
+          
+          // Якщо все ще перевантаження, пробуємо іншу модель
+          if (retries === 2 && currentModel === 'gemini-3.7-flash') {
+            console.log('🔄 Перемикаємось на gemini-2.0-flash через високе навантаження...');
+            currentModel = 'gemini-2.0-flash';
+          }
           continue;
         }
         return [];

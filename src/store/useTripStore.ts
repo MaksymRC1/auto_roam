@@ -45,6 +45,7 @@ export function getEffectiveFuelPrice(
 }
 
 export interface Waypoint {
+  nameEn?: string;
   id: string;
   name: string;
   type: WaypointType;
@@ -362,7 +363,7 @@ export const useTripStore = create<TripState>()(
          
          waypoints.push({
            id: validStops[i].id,
-           name: validStops[i].isBorderOverride ? `Пункт пропуску ${getCountryName(validStops[i].borderFrom!)} → ${getCountryName(validStops[i].borderTo!)} (${pt.name.split('|')[0].trim()})` : pt.name,
+           name: validStops[i].isBorderOverride ? `__BORDER__:${validStops[i].borderFrom}:${validStops[i].borderTo}:${(pt as any).nameEn ? (pt as any).nameEn.split('|')[0].trim() : pt.name.split('|')[0].trim()}` : pt.name,
            type: validStops[i].isBorderOverride ? 'border' : (i === 0 ? 'start' : i === geocodedPoints.length - 1 ? 'finish' : 'stop'),
            distanceFromStart: accumulatedDistance,
            timeFromStart: accumulatedTime,
@@ -398,7 +399,7 @@ export const useTripStore = create<TripState>()(
         const ratio = geometryIndexToRatio(cumDist, border.geometryIndex);
         waypoints.push({
           id: `border-${border.geometryIndex}`,
-          name: `Пункт пропуску ${getCountryName(border.fromCountry)} → ${getCountryName(border.toCountry)} (${border.name})`,
+          name: `__BORDER__:${border.fromCountry}:${border.toCountry}:${(border as any).nameEn || border.name}`,
           type: 'border',
           distanceFromStart: Math.round(route.distanceKm * ratio),
           timeFromStart: Math.round(route.durationMins * ratio),

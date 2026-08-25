@@ -19,6 +19,14 @@ const ARTICLES = articlesData.map((article) => ({
 import { useTranslations } from "next-intl";
 
 export default function ArticlesPage() {
+
+  const getTranslatedCategory = (cat: string) => {
+    if (cat === "Кордон") return t('tags.border');
+    if (cat === "Маршрути") return t('tags.routes');
+    if (cat === "Підготовка") return t('tags.preparation');
+    return cat;
+  };
+
   const t = useTranslations('Articles');
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

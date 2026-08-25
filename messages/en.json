@@ -351,7 +351,11 @@
     "geocodeFetchError": "Error fetching coordinates.",
     "addAddressPlaceholder": "🏨 Add address...",
     "openLink": "Open link",
-    "price": "Price:"
+    "price": "Price:",
+    "highway": "Highway",
+    "mapPoint": "Point on map",
+    "overnightStay": "Overnight stay",
+    "stop": "Stop"
   },
   "MapPanel": {
     "loadingMap": "Loading map...",
@@ -402,7 +406,12 @@
     "loadMore": "Load more",
     "readMore": "Read more",
     "tipBadge": "Traveler's tip",
-    "routesTitle": "Top routes"
+    "routesTitle": "Top routes",
+    "tags": {
+      "border": "Border",
+      "routes": "Routes",
+      "preparation": "Preparation"
+    }
   },
   "Global": {
     "errorTitle": "Something went wrong!",

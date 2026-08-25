@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { getCountryName } from '@/lib/country-names';
 import { useTripStore, getHotelPrice, isHotelActive, getEffectiveFuelPrice } from "@/store/useTripStore";
 import { MapPin, Navigation2, CheckCircle2, Bed, AlertCircle, Clock, Fuel, ExternalLink, Wallet, Heart, Share2, Copy, Check, Send, MessageCircle } from "lucide-react";
 import { GoogleMapsIcon, WazeIcon } from './ui/brand-icons';
@@ -18,10 +19,10 @@ export function JourneyView({ initialJourneyData }: { initialJourneyData?: any }
   
   const getTranslatedName = (name: string) => {
     if (!name) return name;
-    if (name.startsWith("Ночівля: ")) {
+    if (name.startsWith("Ночівля: ") || name.startsWith("Overnight stay: ")) {
       return name.replace("Ночівля:", t('overnightStay') + ":");
     }
-    if (name === "Зупинка") {
+    if (name === "Зупинка" || name === "Stop") {
       return t('stop');
     }
     return name;

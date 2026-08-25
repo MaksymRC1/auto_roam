@@ -1036,5 +1036,11 @@
     "email": "tech@cityam.com",
     "outlet": "CityAM",
     "templateType": "english"
+  },
+  {
+    "name": "PhocusWire",
+    "email": "editorial@phocuswire.com",
+    "outlet": "PhocusWire",
+    "templateType": "english"
   }
 ]

@@ -351,7 +351,11 @@
     "geocodeFetchError": "Помилка під час пошуку координат.",
     "addAddressPlaceholder": "🏨 Додайте адресу...",
     "openLink": "Відкрити посилання",
-    "price": "Ціна:"
+    "price": "Ціна:",
+    "highway": "Траса",
+    "mapPoint": "Точка на карті",
+    "overnightStay": "Ночівля",
+    "stop": "Зупинка"
   },
   "MapPanel": {
     "loadingMap": "Завантаження карти...",
@@ -402,7 +406,12 @@
     "loadMore": "Завантажити ще",
     "readMore": "Читати далі",
     "tipBadge": "Порада мандрівникам",
-    "routesTitle": "Топ маршрутів"
+    "routesTitle": "Топ маршрутів",
+    "tags": {
+      "border": "Кордон",
+      "routes": "Маршрути",
+      "preparation": "Підготовка"
+    }
   },
   "Global": {
     "errorTitle": "Щось пішло не так!",

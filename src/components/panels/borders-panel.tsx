@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { useTripStore } from "@/store/useTripStore";
 import { ExternalLink, AlertTriangle, Info, Clock, ShieldCheck } from "lucide-react";
 import { isSchengenPair } from "@/lib/borders";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 
 export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }) {
   const { waypoints } = useTripStore();
   const t = useTranslations('Borders');
+  const locale = useLocale();
   let borderCrossings = waypoints.filter(wp => wp.type === 'border');
   
   if (selectedBorderId) {
@@ -41,7 +42,7 @@ export function BordersPanel({ selectedBorderId }: { selectedBorderId?: string }
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 font-bold text-white/90 text-lg">
-                    {border.name}
+                    {locale === 'en' ? (border.nameEn || border.name) : border.name}
                   </div>
                   <p className="text-sm text-white/50 mt-1">
                     {t('approxArrival')} {Math.floor(border.timeFromStart / 60)} {t('hoursShort')} {border.timeFromStart % 60} {t('minutesShort')}

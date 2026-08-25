@@ -1,8 +1,7 @@
-const ukRegionNames = new Intl.DisplayNames(['uk'], { type: 'region' });
-
-export function getCountryName(code: string): string {
+export function getCountryName(code: string, locale: string = 'uk'): string {
   try {
-    return ukRegionNames.of(code) || code;
+    const regionNames = new Intl.DisplayNames([locale], { type: 'region' });
+    return regionNames.of(code) || code;
   } catch {
     return code;
   }

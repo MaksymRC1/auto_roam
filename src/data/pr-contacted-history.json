@@ -2524,5 +2524,95 @@
     "email": "editorial@phocuswire.com",
     "outlet": "PhocusWire",
     "templateType": "english"
+  },
+  {
+    "name": "Wired (Global)",
+    "email": "news@wired.com",
+    "outlet": "Wired",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Weekly",
+    "email": "news@travelweekly.com",
+    "outlet": "Travel Weekly",
+    "templateType": "english"
+  },
+  {
+    "name": "National Geographic Travel",
+    "email": "travel@natgeo.com",
+    "outlet": "National Geographic Travel",
+    "templateType": "english"
+  },
+  {
+    "name": "Afar",
+    "email": "editorial@afar.com",
+    "outlet": "Afar Magazine",
+    "templateType": "english"
+  },
+  {
+    "name": "Business Travel News",
+    "email": "editorial@businesstravelnews.com",
+    "outlet": "BTN",
+    "templateType": "english"
+  },
+  {
+    "name": "Autoblog",
+    "email": "tips@autoblog.com",
+    "outlet": "Autoblog",
+    "templateType": "english"
+  },
+  {
+    "name": "MotorTrend",
+    "email": "motortrend@motortrend.com",
+    "outlet": "MotorTrend",
+    "templateType": "english"
+  },
+  {
+    "name": "Jalopnik",
+    "email": "tips@jalopnik.com",
+    "outlet": "Jalopnik",
+    "templateType": "english"
+  },
+  {
+    "name": "Electrek",
+    "email": "tips@electrek.co",
+    "outlet": "Electrek",
+    "templateType": "english"
+  },
+  {
+    "name": "InsideEVs",
+    "email": "contact@insideevs.com",
+    "outlet": "InsideEVs",
+    "templateType": "english"
+  },
+  {
+    "name": "The Drive",
+    "email": "tips@thedrive.com",
+    "outlet": "The Drive",
+    "templateType": "english"
+  },
+  {
+    "name": "Motor1",
+    "email": "info@motor1.com",
+    "outlet": "Motor1",
+    "templateType": "english"
+  },
+  {
+    "name": "Nomad List",
+    "email": "hey@nomadlist.com",
+    "outlet": "Nomad List",
+    "templateType": "english"
+  },
+  {
+    "name": "Expat.com",
+    "email": "contact@expat.com",
+    "outlet": "Expat.com",
+    "templateType": "english"
+  },
+  {
+    "name": "Internations",
+    "email": "press@internations.org",
+    "outlet": "Internations",
+    "templateType": "english"
   }
 ]

@@ -1042,5 +1042,161 @@
     "email": "editorial@phocuswire.com",
     "outlet": "PhocusWire",
     "templateType": "english"
+  },
+  {
+    "name": "The Verge",
+    "email": "tips@theverge.com",
+    "outlet": "The Verge",
+    "templateType": "english"
+  },
+  {
+    "name": "Engadget",
+    "email": "tips@engadget.com",
+    "outlet": "Engadget",
+    "templateType": "english"
+  },
+  {
+    "name": "Wired (Global)",
+    "email": "news@wired.com",
+    "outlet": "Wired",
+    "templateType": "english"
+  },
+  {
+    "name": "VentureBeat",
+    "email": "tips@venturebeat.com",
+    "outlet": "VentureBeat",
+    "templateType": "english"
+  },
+  {
+    "name": "Gizmodo",
+    "email": "tips@gizmodo.com",
+    "outlet": "Gizmodo",
+    "templateType": "english"
+  },
+  {
+    "name": "Fast Company",
+    "email": "tips@fastcompany.com",
+    "outlet": "Fast Company",
+    "templateType": "english"
+  },
+  {
+    "name": "CNET",
+    "email": "news@cnet.com",
+    "outlet": "CNET",
+    "templateType": "english"
+  },
+  {
+    "name": "Ars Technica",
+    "email": "tips@arstechnica.com",
+    "outlet": "Ars Technica",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel Weekly",
+    "email": "news@travelweekly.com",
+    "outlet": "Travel Weekly",
+    "templateType": "english"
+  },
+  {
+    "name": "Condé Nast Traveler",
+    "email": "tips@cntraveler.com",
+    "outlet": "Condé Nast Traveler",
+    "templateType": "english"
+  },
+  {
+    "name": "Travel + Leisure",
+    "email": "editor@travelandleisure.com",
+    "outlet": "Travel + Leisure",
+    "templateType": "english"
+  },
+  {
+    "name": "National Geographic Travel",
+    "email": "travel@natgeo.com",
+    "outlet": "National Geographic Travel",
+    "templateType": "english"
+  },
+  {
+    "name": "Afar",
+    "email": "editorial@afar.com",
+    "outlet": "Afar Magazine",
+    "templateType": "english"
+  },
+  {
+    "name": "Business Travel News",
+    "email": "editorial@businesstravelnews.com",
+    "outlet": "BTN",
+    "templateType": "english"
+  },
+  {
+    "name": "Autoblog",
+    "email": "tips@autoblog.com",
+    "outlet": "Autoblog",
+    "templateType": "english"
+  },
+  {
+    "name": "MotorTrend",
+    "email": "motortrend@motortrend.com",
+    "outlet": "MotorTrend",
+    "templateType": "english"
+  },
+  {
+    "name": "Car and Driver",
+    "email": "editors@caranddriver.com",
+    "outlet": "Car and Driver",
+    "templateType": "english"
+  },
+  {
+    "name": "Top Gear",
+    "email": "editor@topgear.com",
+    "outlet": "Top Gear",
+    "templateType": "english"
+  },
+  {
+    "name": "Jalopnik",
+    "email": "tips@jalopnik.com",
+    "outlet": "Jalopnik",
+    "templateType": "english"
+  },
+  {
+    "name": "Electrek",
+    "email": "tips@electrek.co",
+    "outlet": "Electrek",
+    "templateType": "english"
+  },
+  {
+    "name": "InsideEVs",
+    "email": "contact@insideevs.com",
+    "outlet": "InsideEVs",
+    "templateType": "english"
+  },
+  {
+    "name": "The Drive",
+    "email": "tips@thedrive.com",
+    "outlet": "The Drive",
+    "templateType": "english"
+  },
+  {
+    "name": "Motor1",
+    "email": "info@motor1.com",
+    "outlet": "Motor1",
+    "templateType": "english"
+  },
+  {
+    "name": "Nomad List",
+    "email": "hey@nomadlist.com",
+    "outlet": "Nomad List",
+    "templateType": "english"
+  },
+  {
+    "name": "Expat.com",
+    "email": "contact@expat.com",
+    "outlet": "Expat.com",
+    "templateType": "english"
+  },
+  {
+    "name": "Internations",
+    "email": "press@internations.org",
+    "outlet": "Internations",
+    "templateType": "english"
   }
 ]

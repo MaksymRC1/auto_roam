@@ -1198,5 +1198,65 @@
     "email": "press@internations.org",
     "outlet": "Internations",
     "templateType": "english"
+  },
+  {
+    "name": "Mezha.Media",
+    "email": "info@mezha.media",
+    "outlet": "Mezha.Media",
+    "templateType": "ukrainian"
+  },
+  {
+    "name": "Product Hunt Press",
+    "email": "press@producthunt.com",
+    "outlet": "Product Hunt",
+    "templateType": "english"
+  },
+  {
+    "name": "HackerNoon",
+    "email": "support@hackernoon.com",
+    "outlet": "HackerNoon",
+    "templateType": "english"
+  },
+  {
+    "name": "ReadWrite",
+    "email": "tips@readwrite.com",
+    "outlet": "ReadWrite",
+    "templateType": "english"
+  },
+  {
+    "name": "TechInAsia",
+    "email": "news@techinasia.com",
+    "outlet": "TechInAsia",
+    "templateType": "english"
+  },
+  {
+    "name": "TechFundingNews",
+    "email": "editor@techfundingnews.com",
+    "outlet": "TechFundingNews",
+    "templateType": "english"
+  },
+  {
+    "name": "StartupBeat",
+    "email": "tips@startupbeat.com",
+    "outlet": "StartupBeat",
+    "templateType": "english"
+  },
+  {
+    "name": "TechCrunch EU Tips",
+    "email": "eu-tips@techcrunch.com",
+    "outlet": "TechCrunch EU",
+    "templateType": "english"
+  },
+  {
+    "name": "Sifted Pitches",
+    "email": "pitches@sifted.eu",
+    "outlet": "Sifted",
+    "templateType": "english"
+  },
+  {
+    "name": "MobiGa News",
+    "email": "news@mobiga.com",
+    "outlet": "MobiGa",
+    "templateType": "english"
   }
 ]

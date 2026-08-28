@@ -14,7 +14,8 @@
     "test:phase2": "tsx scripts/verify-phase2.ts",
     "pr": "npx tsx scripts/autonomous-pr.ts",
     "pr:mass": "npx tsx scripts/autonomous-pr.ts",
-    "pr:search": "npx tsx scripts/autonomous-search.ts"
+    "pr:search": "npx tsx scripts/autonomous-search.ts",
+    "b2b:mass": "npx tsx scripts/autonomous-b2b.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

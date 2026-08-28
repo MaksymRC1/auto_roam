@@ -74,6 +74,39 @@ export default async function RootLayout({
     >
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "AutoRoam",
+              "url": "https://autoroam.com.ua",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://autoroam.com.ua/marshrut/{search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "AutoRoam Toll Calculator",
+              "applicationCategory": "TravelApplication",
+              "operatingSystem": "Any",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "UAH"
+              }
+            })
+          }}
+        />
       </head>
       <body className="min-h-[100dvh] flex flex-col font-sans bg-slate-900 text-slate-300 overflow-x-hidden w-full overscroll-none">
         <NextIntlClientProvider messages={messages}>

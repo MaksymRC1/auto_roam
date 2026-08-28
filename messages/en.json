@@ -439,5 +439,11 @@
   },
   "Manifest": {
     "description": "Auto travel planner across Europe"
+  },
+  "RouteDirectory": {
+    "title": "Popular European Driving Routes | AutoRoam",
+    "description": "Catalog of driving routes from Ukraine to European cities. Calculate distance, fuel and toll roads.",
+    "heroTitle": "Popular Driving Routes",
+    "heroSubtitle": "Choose your destination country and find out all the details for your perfect road trip."
   }
 }

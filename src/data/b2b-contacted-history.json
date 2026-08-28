@@ -124,5 +124,65 @@
     "email": "info@rental.ua",
     "company": "Rental.ua",
     "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "JoinUP Партнери",
+    "email": "partnership@joinup.ua",
+    "company": "Join UP!",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "TUI Ukraine",
+    "email": "info@tui.ua",
+    "company": "TUI Ukraine",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "Coral Travel",
+    "email": "franchising@coraltravel.ua",
+    "company": "Coral Travel",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "Anex Tour",
+    "email": "info@anextour.com.ua",
+    "company": "Anex Tour",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "INGO Страхування",
+    "email": "office@ingo.ua",
+    "company": "INGO",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "Універсальна Страхова",
+    "email": "info@universalna.com",
+    "company": "Universalna",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "Guardian Страхування",
+    "email": "info@grdn.com.ua",
+    "company": "Guardian",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "Vidi Страхування",
+    "email": "insurance@vidi.ua",
+    "company": "Vidi",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "BlaBlaCar Партнерство",
+    "email": "partnerships@blablacar.com",
+    "company": "BlaBlaCar",
+    "templateType": "b2b_ukrainian"
+  },
+  {
+    "name": "Discover.ua",
+    "email": "info@discover.ua",
+    "company": "Discover.ua",
+    "templateType": "b2b_ukrainian"
   }
 ]

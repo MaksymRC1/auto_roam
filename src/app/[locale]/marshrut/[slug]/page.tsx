@@ -63,6 +63,21 @@ export default async function RoutePage(props: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": route.title,
+            "description": route.description,
+            "author": {
+              "@type": "Organization",
+              "name": "AutoRoam"
+            }
+          })
+        }}
+      />
       {/* Hero Section */}
       <div className="bg-blue-600 text-white py-16 px-4 text-center">
         <h1 className="text-4xl font-bold mb-4">

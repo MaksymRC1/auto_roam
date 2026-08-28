@@ -1,0 +1,158 @@
+[
+  {
+    "email": "info@autoclub.com.ua",
+    "name": "AutoClub Ukraine",
+    "category": "Авто-клуби та спільноти",
+    "sentAt": "2026-08-28T20:12:23.664Z"
+  },
+  {
+    "email": "info@uaa.org.ua",
+    "name": "Українська автомобільна асоціація",
+    "category": "Авто-клуби та спільноти",
+    "sentAt": "2026-08-28T20:12:34.111Z"
+  },
+  {
+    "email": "press@autopravda.com",
+    "name": "АвтоПравда",
+    "category": "Авто-клуби та спільноти",
+    "sentAt": "2026-08-28T20:12:44.528Z"
+  },
+  {
+    "email": "hello@mandry.ua",
+    "name": "Мандри.UA",
+    "category": "Тревел-блогери та інфлюенсери",
+    "sentAt": "2026-08-28T20:12:54.990Z"
+  },
+  {
+    "email": "info@doroga.ua",
+    "name": "Дорога.UA",
+    "category": "Тревел-блогери та інфлюенсери",
+    "sentAt": "2026-08-28T20:13:05.427Z"
+  },
+  {
+    "email": "contact@eurotrip.com.ua",
+    "name": "EuroTrip UA",
+    "category": "Тревел-блогери та інфлюенсери",
+    "sentAt": "2026-08-28T20:13:15.850Z"
+  },
+  {
+    "email": "hello@autoblog.com.ua",
+    "name": "Autoblog UA",
+    "category": "Тревел-блогери та інфлюенсери",
+    "sentAt": "2026-08-28T20:13:26.270Z"
+  },
+  {
+    "email": "zvernennya@tourism.gov.ua",
+    "name": "Державне агентство розвитку туризму",
+    "category": "Держструктури та громадські організації",
+    "sentAt": "2026-08-28T20:13:36.708Z"
+  },
+  {
+    "email": "info@ukrainepromo.org",
+    "name": "UkrainePromo",
+    "category": "Держструктури та громадські організації",
+    "sentAt": "2026-08-28T20:13:47.132Z"
+  },
+  {
+    "email": "info@uspp.ua",
+    "name": "Український союз промисловців і підприємців",
+    "category": "Держструктури та громадські організації",
+    "sentAt": "2026-08-28T20:13:57.807Z"
+  },
+  {
+    "email": "hello@startupukraine.com",
+    "name": "Startup Ukraine",
+    "category": "Стартап-акселератори та спільноти",
+    "sentAt": "2026-08-28T20:14:08.421Z"
+  },
+  {
+    "email": "info@diia.city",
+    "name": "Дія.City",
+    "category": "Стартап-акселератори та спільноти",
+    "sentAt": "2026-08-28T20:14:19.305Z"
+  },
+  {
+    "email": "info@1991.vc",
+    "name": "1991 Open Data Incubator",
+    "category": "Стартап-акселератори та спільноти",
+    "sentAt": "2026-08-28T20:14:29.786Z"
+  },
+  {
+    "email": "apply@seedstarsworld.com",
+    "name": "Seedstars",
+    "category": "Стартап-акселератори та спільноти",
+    "sentAt": "2026-08-28T20:14:40.277Z"
+  },
+  {
+    "email": "hello@hackerspace.kiev.ua",
+    "name": "Hackerspace Kyiv",
+    "category": "Стартап-акселератори та спільноти",
+    "sentAt": "2026-08-28T20:14:50.745Z"
+  },
+  {
+    "email": "partnerships@tollguru.com",
+    "name": "TollGuru",
+    "category": "Навігаційні сервіси та карти",
+    "sentAt": "2026-08-28T20:15:01.247Z"
+  },
+  {
+    "email": "info@viamichelin.com",
+    "name": "ViaMichelin",
+    "category": "Навігаційні сервіси та карти",
+    "sentAt": "2026-08-28T20:15:11.733Z"
+  },
+  {
+    "email": "partners@fuelo.net",
+    "name": "Fuelo",
+    "category": "Навігаційні сервіси та карти",
+    "sentAt": "2026-08-28T20:15:22.196Z"
+  },
+  {
+    "email": "news@0542.ua",
+    "name": "0542.ua (Суми)",
+    "category": "Регіональні українські ЗМІ",
+    "sentAt": "2026-08-28T20:15:32.614Z"
+  },
+  {
+    "email": "info@ye.ua",
+    "name": "Є — Новини Івано-Франківська",
+    "category": "Регіональні українські ЗМІ",
+    "sentAt": "2026-08-28T20:15:43.050Z"
+  },
+  {
+    "email": "news@suspilne.media",
+    "name": "Суспільне Новини (регіони)",
+    "category": "Регіональні українські ЗМІ",
+    "sentAt": "2026-08-28T20:15:53.464Z"
+  },
+  {
+    "email": "info@galinfo.com.ua",
+    "name": "ГалІнфо",
+    "category": "Регіональні українські ЗМІ",
+    "sentAt": "2026-08-28T20:16:03.882Z"
+  },
+  {
+    "email": "info@ukrinform.de",
+    "name": "Ukrinform (Німеччина)",
+    "category": "Діаспорні медіа",
+    "sentAt": "2026-08-28T20:16:14.294Z"
+  },
+  {
+    "email": "redakcja@ukraincy.info",
+    "name": "Ukraincy.info (Польща)",
+    "category": "Діаспорні медіа",
+    "sentAt": "2026-08-28T20:16:24.730Z"
+  },
+  {
+    "email": "info@vitanews.de",
+    "name": "Vita News (Німеччина)",
+    "category": "Діаспорні медіа",
+    "sentAt": "2026-08-28T20:16:35.163Z"
+  },
+  {
+    "email": "info@ukrainians.ch",
+    "name": "Ukrainians.ch (Швейцарія)",
+    "category": "Діаспорні медіа",
+    "sentAt": "2026-08-28T20:16:45.588Z"
+  }
+]
